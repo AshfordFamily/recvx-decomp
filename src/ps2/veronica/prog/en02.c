@@ -5,12 +5,41 @@
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/eneset.h"
+#include "../../../ps2/veronica/prog/subpl.h"
 
+typedef void (*bhEne02_Mode0_proc)(BH_PWORK*);
+typedef void (*bhEne02_MoveMode2_proc)(BH_PWORK*);
+typedef void (*bhEne02_DamageMode2_proc)(BH_PWORK*);
+typedef void (*bhEne02_DeadMode2_proc)(BH_PWORK*);
 
-void (*bhEne02_Mode0[6])(BH_PWORK*);
-void (*bhEne02_DeadMode2[2])(BH_PWORK*);
-void (*bhEne02_MoveMode2[6])(BH_PWORK*);
-void (*bhEne02_DamageMode2[2])(BH_PWORK*);
+bhEne02_Mode0_proc bhEne02_Mode0[6] =
+{
+    bhEne02_Init,
+    bhEne02_Move,
+    bhEne02_Nage,
+    bhEne02_Damage,
+    bhEne02_Die,
+    bhEne_Event
+};
+bhEne02_MoveMode2_proc bhEne02_MoveMode2[6] =
+{
+    bhEne02_MV00,
+    bhEne02_MV00,
+    bhEne02_MV02,
+    bhEne02_MV03,
+    bhEne02_MV04,
+    bhEne02_MV05
+};
+bhEne02_DamageMode2_proc bhEne02_DamageMode2[2] =
+{
+    bhEne02_DG00,
+    bhEne02_DG01
+};
+bhEne02_DeadMode2_proc bhEne02_DeadMode2[2] =
+{
+    bhEne02_DD00,
+    bhEne02_DD01
+};
 static EGG_WORK child;
 static CPCL CapColTab[13];
 static COMBWEP_WORK CombWepTbl[21];
