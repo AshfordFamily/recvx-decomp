@@ -1304,8 +1304,8 @@ void bhEne24_Brain(BH_PWORK* epw)
 	// Func End, Address: 0x2078a0, Func Offset: 0x20
 }
 */
-// 
-// Start address: 0x2078a0
+
+// 100% matching!
 void bhEne24_BR00(BH_PWORK* epw)
 {
     EXP0_F(0) = njDistanceP2P((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px);
@@ -1408,15 +1408,15 @@ void bhEne24_Move(BH_PWORK* epw)
 	// Line 408, Address: 0x207cb8, Func Offset: 0x2c8
 	// Func End, Address: 0x207cc8, Func Offset: 0x2d8
 }
+*/
 
-// 
-// Start address: 0x207cd0
-void bhEne24_MV00()
+// 100% matching!
+void bhEne24_MV00(void)
 {
-	// Line 420, Address: 0x207cd0, Func Offset: 0
-	// Func End, Address: 0x207cd8, Func Offset: 0x8
+
 }
 
+/*
 // 
 // Start address: 0x207ce0
 void bhEne24_MV01(BH_PWORK* epw)
@@ -1589,41 +1589,32 @@ void bhEne24_MV05(BH_PWORK* epw)
 	// Line 643, Address: 0x20861c, Func Offset: 0xdc
 	// Func End, Address: 0x208624, Func Offset: 0xe4
 }
-
-// 
-// Start address: 0x208630
-void bhEne24_Nage()
-{
-	// Line 654, Address: 0x208630, Func Offset: 0
-	// Func End, Address: 0x208638, Func Offset: 0x8
-}
-
-// 
-// Start address: 0x208640
-void bhEne24_Damage()
-{
-	// Line 665, Address: 0x208640, Func Offset: 0
-	// Func End, Address: 0x208648, Func Offset: 0x8
-}
-
-// 
-// Start address: 0x208650
-void bhEne24_Die()
-{
-	// Line 676, Address: 0x208650, Func Offset: 0
-	// Func End, Address: 0x208658, Func Offset: 0x8
-}
-
-// 
-// Start address: 0x208660
-void bhEne24_Dummy()
-{
-	// Line 687, Address: 0x208660, Func Offset: 0
-	// Func End, Address: 0x208668, Func Offset: 0x8
-}
-
 */
+// 100% matching!
+void bhEne24_Nage(void)
+{
 
+}
+
+// 100% matching!
+void bhEne24_Damage(void)
+{
+
+}
+
+// 100% matching!
+void bhEne24_Die(void)
+{
+
+}
+
+// 100% matching!
+void bhEne24_Dummy(void)
+{
+
+}
+
+// 100% matching!
 void bhEne24_CollisionWalls(BH_PWORK* epw) {
     epw->py += epw->ar;
     bhEne03_Collision(epw);
