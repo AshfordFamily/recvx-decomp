@@ -1479,25 +1479,33 @@ void bhEne24_MV02(BH_PWORK* epw)
 	// Func End, Address: 0x208148, Func Offset: 0x348
 }
 
-// 
-// Start address: 0x208150
+*/
+// 100% matching!
 void bhEne24_MV03(BH_PWORK* epw)
 {
-	// Line 533, Address: 0x208150, Func Offset: 0
-	// Line 534, Address: 0x208160, Func Offset: 0x10
-	// Line 537, Address: 0x208180, Func Offset: 0x30
-	// Line 538, Address: 0x2081d0, Func Offset: 0x80
-	// Line 539, Address: 0x208214, Func Offset: 0xc4
-	// Line 540, Address: 0x208224, Func Offset: 0xd4
-	// Line 542, Address: 0x208230, Func Offset: 0xe0
-	// Line 544, Address: 0x208240, Func Offset: 0xf0
-	// Line 545, Address: 0x208250, Func Offset: 0x100
-	// Line 546, Address: 0x208258, Func Offset: 0x108
-	// Line 547, Address: 0x208260, Func Offset: 0x110
-	// Line 551, Address: 0x208264, Func Offset: 0x114
-	// Func End, Address: 0x208274, Func Offset: 0x124
-}
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->way = (njRandom() > 0.5f) ? 0x111 : -0x111;
+        
+        epw->ct0 = (int)(45.0f * njRandom()) + 0xF;
+        
+        epw->flg |= 0x80000;
+        
+        epw->mode3++;
 
+    case 1:
+        epw->ay += epw->way;
+        
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+    }
+}
+/*
 // 
 // Start address: 0x208280
 void bhEne24_MV04(BH_PWORK* epw)
