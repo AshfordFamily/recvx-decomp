@@ -1571,36 +1571,34 @@ void bhEne24_MV04(BH_PWORK* epw)
 	// Line 611, Address: 0x208528, Func Offset: 0x2a8
 	// Func End, Address: 0x208538, Func Offset: 0x2b8
 }
-
-// 
-// Start address: 0x208540
+*/
+// 100% matching!
 void bhEne24_MV05(BH_PWORK* epw)
 {
-	// Line 622, Address: 0x208540, Func Offset: 0
-	// Line 624, Address: 0x208560, Func Offset: 0x20
-	// Line 625, Address: 0x208568, Func Offset: 0x28
-	// Line 626, Address: 0x208570, Func Offset: 0x30
-	// Line 624, Address: 0x208574, Func Offset: 0x34
-	// Line 625, Address: 0x20857c, Func Offset: 0x3c
-	// Line 626, Address: 0x208588, Func Offset: 0x48
-	// Line 627, Address: 0x208594, Func Offset: 0x54
-	// Line 629, Address: 0x2085a0, Func Offset: 0x60
-	// Line 630, Address: 0x2085b4, Func Offset: 0x74
-	// Line 633, Address: 0x2085bc, Func Offset: 0x7c
-	// Line 630, Address: 0x2085cc, Func Offset: 0x8c
-	// Line 631, Address: 0x2085d4, Func Offset: 0x94
-	// Line 632, Address: 0x2085e4, Func Offset: 0xa4
-	// Line 633, Address: 0x2085f4, Func Offset: 0xb4
-	// Line 634, Address: 0x2085fc, Func Offset: 0xbc
-	// Line 635, Address: 0x208604, Func Offset: 0xc4
-	// Line 638, Address: 0x20860c, Func Offset: 0xcc
-	// Line 637, Address: 0x208610, Func Offset: 0xd0
-	// Line 638, Address: 0x208614, Func Offset: 0xd4
-	// Line 639, Address: 0x208618, Func Offset: 0xd8
-	// Line 643, Address: 0x20861c, Func Offset: 0xdc
-	// Func End, Address: 0x208624, Func Offset: 0xe4
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg |= 0x100000;
+        epw->flg &= ~0x80000;
+        epw->flg &= ~0x20;
+        epw->mode3++;
+
+    case 1:
+        if (epw->flg & 0x100000)
+        {
+            epw->px += epw->xn;
+            epw->py += epw->yn;
+            epw->pz += epw->zn;
+            epw->yn -= 0.33f;
+            break;
+        }
+        epw->flg |= 0x20;
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+    }
 }
-*/
+
 // 100% matching!
 void bhEne24_Nage(void)
 {
