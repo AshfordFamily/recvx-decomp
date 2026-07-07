@@ -3,6 +3,8 @@
 #include "../../../ps2/veronica/prog/en03.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
+#include "../../../ps2/veronica/prog/hitchk.h"
 
 
 /*typedef struct npobj;
@@ -1437,52 +1439,70 @@ void bhEne24_MV01(BH_PWORK* epw)
 
     }
 }
-/*
-// 
-// Start address: 0x207e00
+
+// 100% matching!
 void bhEne24_MV02(BH_PWORK* epw)
 {
-	_anon22 pos;
-	// Line 459, Address: 0x207e00, Func Offset: 0
-	// Line 462, Address: 0x207e14, Func Offset: 0x14
-	// Line 465, Address: 0x207e34, Func Offset: 0x34
-	// Line 466, Address: 0x207e74, Func Offset: 0x74
-	// Line 467, Address: 0x207ec4, Func Offset: 0xc4
-	// Line 468, Address: 0x207f38, Func Offset: 0x138
-	// Line 469, Address: 0x207f44, Func Offset: 0x144
-	// Line 472, Address: 0x207f50, Func Offset: 0x150
-	// Line 475, Address: 0x207fa4, Func Offset: 0x1a4
-	// Line 477, Address: 0x207fb0, Func Offset: 0x1b0
-	// Line 479, Address: 0x207fbc, Func Offset: 0x1bc
-	// Line 481, Address: 0x207fc8, Func Offset: 0x1c8
-	// Line 482, Address: 0x207fdc, Func Offset: 0x1dc
-	// Line 486, Address: 0x208004, Func Offset: 0x204
-	// Line 487, Address: 0x208024, Func Offset: 0x224
-	// Line 488, Address: 0x20802c, Func Offset: 0x22c
-	// Line 489, Address: 0x208044, Func Offset: 0x244
-	// Line 488, Address: 0x208050, Func Offset: 0x250
-	// Line 489, Address: 0x208054, Func Offset: 0x254
-	// Line 488, Address: 0x208058, Func Offset: 0x258
-	// Line 489, Address: 0x20805c, Func Offset: 0x25c
-	// Line 490, Address: 0x20806c, Func Offset: 0x26c
-	// Line 493, Address: 0x20807c, Func Offset: 0x27c
-	// Line 494, Address: 0x20808c, Func Offset: 0x28c
-	// Line 495, Address: 0x208094, Func Offset: 0x294
-	// Line 496, Address: 0x208098, Func Offset: 0x298
-	// Line 499, Address: 0x20809c, Func Offset: 0x29c
-	// Line 502, Address: 0x2080b8, Func Offset: 0x2b8
-	// Line 501, Address: 0x2080bc, Func Offset: 0x2bc
-	// Line 502, Address: 0x2080c0, Func Offset: 0x2c0
-	// Line 503, Address: 0x2080c4, Func Offset: 0x2c4
-	// Line 509, Address: 0x2080c8, Func Offset: 0x2c8
-	// Line 510, Address: 0x2080d4, Func Offset: 0x2d4
-	// Line 511, Address: 0x2080e0, Func Offset: 0x2e0
-	// Line 512, Address: 0x2080f4, Func Offset: 0x2f4
-	// Line 523, Address: 0x208134, Func Offset: 0x334
-	// Func End, Address: 0x208148, Func Offset: 0x348
+    NJS_POINT3 pos;
+
+    switch (epw->mode3)
+    { 
+    case 0:
+        epw->ct0 = (int)(30.0f * njRandom()) + 60;
+        
+        epw->ct1 = (njRandom() < 0.5f) ? -1 : 1;
+        
+        epw->ct2 = (int)(20.0f + (20.0f * njRandom()) - (20.0f * njRandom()));
+        
+        epw->spd = 0.3f;
+        
+        epw->flg |= 0x80000;
+        
+        epw->way = (njRandom() > 0.5f) ? 273 : -273;
+        
+        epw->flg |= 0x20;
+        epw->mode3++;
+
+    case 1:
+        bhAddSpeed(epw, 0);
+        
+        if (EXP0_UC(0x20) == 1) 
+        {
+            epw->ay += bhEne_DirTarget(epw, plp->px, plp->pz, 455);
+        }
+        
+        pos.x = epw->px - (5.0f * njSin(epw->ay));
+        pos.y = epw->py;
+        pos.z = epw->pz - (5.0f * njCos(epw->ay));
+        
+        if (bhCheckWallType(&pos, 0, 1.0f, 1.0f))
+        {
+            epw->ay += epw->way;
+        }
+
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        }
+        
+        if ((epw->py > bhGetGroundPosition((NJS_POINT3*)&epw->px)))
+        {
+            epw->mode1 = 0;
+            epw->mode2 = 4;
+            epw->mode3 = 0;
+        }
+
+    }
+    epw->ct2--;
+    if (epw->ct2 < 0)
+    {
+        bhEne_CallSE(epw, (NJS_POINT3*) &epw->px, 74496);
+        epw->ct2 = (int)(40.0f + (40.0f * njRandom()));
+    }
 }
 
-*/
 // 100% matching!
 void bhEne24_MV03(BH_PWORK* epw)
 {
