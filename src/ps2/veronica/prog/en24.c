@@ -1416,25 +1416,28 @@ void bhEne24_MV00(void)
 
 }
 
-/*
-// 
-// Start address: 0x207ce0
+// 100% matching!
 void bhEne24_MV01(BH_PWORK* epw)
 {
-	// Line 430, Address: 0x207ce0, Func Offset: 0
-	// Line 431, Address: 0x207cf0, Func Offset: 0x10
-	// Line 433, Address: 0x207d10, Func Offset: 0x30
-	// Line 436, Address: 0x207d24, Func Offset: 0x44
-	// Line 439, Address: 0x207d2c, Func Offset: 0x4c
-	// Line 440, Address: 0x207d70, Func Offset: 0x90
-	// Line 442, Address: 0x207d7c, Func Offset: 0x9c
-	// Line 443, Address: 0x207d8c, Func Offset: 0xac
-	// Line 444, Address: 0x207d90, Func Offset: 0xb0
-	// Line 445, Address: 0x207de4, Func Offset: 0x104
-	// Line 449, Address: 0x207de8, Func Offset: 0x108
-	// Func End, Address: 0x207df8, Func Offset: 0x118
-}
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg &= ~0x80000;
+        epw->flg |= 0x20;
+        epw->ct0 = (int)(20.0f * njRandom()) + 10;
+        epw->mode3++;
 
+    case 1:
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = (njRandom() > 0.5f) ? 2 : 3;
+            epw->mode3 = 0;
+        }
+
+    }
+}
+/*
 // 
 // Start address: 0x207e00
 void bhEne24_MV02(BH_PWORK* epw)
@@ -1486,9 +1489,9 @@ void bhEne24_MV03(BH_PWORK* epw)
     switch (epw->mode3)
     {
     case 0:
-        epw->way = (njRandom() > 0.5f) ? 0x111 : -0x111;
+        epw->way = (njRandom() > 0.5f) ? 273 : -273;
         
-        epw->ct0 = (int)(45.0f * njRandom()) + 0xF;
+        epw->ct0 = (int)(45.0f * njRandom()) + 15;
         
         epw->flg |= 0x80000;
         
