@@ -1,4 +1,9 @@
 #include "../../../ps2/veronica/prog/en24.h"
+#include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/en03.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
+
 
 /*typedef struct npobj;
 typedef struct _anon0;
@@ -1298,31 +1303,50 @@ void bhEne24_Brain(BH_PWORK* epw)
 	// Line 294, Address: 0x207880, Func Offset: 0
 	// Func End, Address: 0x2078a0, Func Offset: 0x20
 }
-
+*/
 // 
 // Start address: 0x2078a0
 void bhEne24_BR00(BH_PWORK* epw)
 {
-	// Line 305, Address: 0x2078a0, Func Offset: 0
-	// Line 307, Address: 0x2078ac, Func Offset: 0xc
-	// Line 308, Address: 0x2078c8, Func Offset: 0x28
-	// Line 309, Address: 0x2078e4, Func Offset: 0x44
-	// Line 310, Address: 0x2078e8, Func Offset: 0x48
-	// Line 311, Address: 0x2078f0, Func Offset: 0x50
-	// Line 316, Address: 0x2078fc, Func Offset: 0x5c
-	// Line 318, Address: 0x207938, Func Offset: 0x98
-	// Line 320, Address: 0x207940, Func Offset: 0xa0
-	// Line 321, Address: 0x207950, Func Offset: 0xb0
-	// Line 322, Address: 0x207958, Func Offset: 0xb8
-	// Line 324, Address: 0x207960, Func Offset: 0xc0
-	// Line 327, Address: 0x20798c, Func Offset: 0xec
-	// Line 326, Address: 0x207990, Func Offset: 0xf0
-	// Line 327, Address: 0x207994, Func Offset: 0xf4
-	// Line 330, Address: 0x207998, Func Offset: 0xf8
-	// Line 333, Address: 0x2079e0, Func Offset: 0x140
-	// Func End, Address: 0x2079f0, Func Offset: 0x150
-}
+    EXP0_F(0) = njDistanceP2P((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px);
+    
+    if (bhSearchPlayer(epw, 10922) == -1)
+    {
+        EXP0_UC(0x20) = 0;
+    } 
+    else
+    {
+        EXP0_UC(0x20) = 1;
+    }
+    
+    if ((plp->stflg & 0x80000000) || (plp->flg & 0x4) || (epw->flg & 0x4))
+    {
+        return;
+    }
 
+    if (EXP0_I(0x24))
+    {
+        EXP0_I(0x24)--;
+        return;
+    }
+
+    if (EXP0_UC(0x20) == 0)
+    {
+        return;
+    }
+
+    if (EXP0_F(0) >= 5.0F)
+    {
+        return;
+    }
+
+    epw->mode1 = 0;
+    epw->mode2 = 4;
+    epw->mode3 = 0;
+
+    EXP0_I(0x24) = (int)(30.0F * njRandom()) + 30;
+}
+/*
 // 
 // Start address: 0x2079f0
 void bhEne24_Move(BH_PWORK* epw)
@@ -1598,18 +1622,15 @@ void bhEne24_Dummy()
 	// Func End, Address: 0x208668, Func Offset: 0x8
 }
 
-// 
-// Start address: 0x208670
-void bhEne24_CollisionWalls(BH_PWORK* epw)
-{
-	// Line 697, Address: 0x208670, Func Offset: 0
-	// Line 698, Address: 0x20867c, Func Offset: 0xc
-	// Line 699, Address: 0x20868c, Func Offset: 0x1c
-	// Line 700, Address: 0x208694, Func Offset: 0x24
-	// Line 701, Address: 0x2086a4, Func Offset: 0x34
-	// Func End, Address: 0x2086b4, Func Offset: 0x44
+*/
+
+void bhEne24_CollisionWalls(BH_PWORK* epw) {
+    epw->py += epw->ar;
+    bhEne03_Collision(epw);
+    epw->py -= epw->ar;
 }
 
+/*
 // 
 // Start address: 0x2086c0
 void bhEne24_CollisionLine(BH_PWORK* epw)
@@ -1683,4 +1704,3 @@ int bhEne24_DeadCheck(BH_PWORK* epw)
 	// Line 788, Address: 0x208914, Func Offset: 0x1c4
 	// Func End, Address: 0x208944, Func Offset: 0x1f4
 }*/
-
