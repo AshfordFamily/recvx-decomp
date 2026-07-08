@@ -8,6 +8,7 @@
 #include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
+#include "../../../ps2/veronica/prog/eneset.h"
 
 /*typedef struct npobj;
 typedef struct _anon0;
@@ -1218,9 +1219,14 @@ struct _anon32
 };
 
 float DeadRate[19];
-_anon13 CapColTab[3];
-*/
 
+*/
+CPCL CapColTab[3] =
+{
+    { 0, 0, 5 },
+    { 0, 2, 0 },
+    { 0, 0, 0 }
+};
 
 typedef void (*Mode0_proc)(BH_PWORK*);
 typedef void (*BrainType_proc)(BH_PWORK*);
@@ -1238,7 +1244,7 @@ Mode0_proc bhEne24_Mode0[7] =
 
 BrainType_proc bhEne24_BrainType[1] =
 {
-    bhEne24_BR00 // Index 0: 0x002078A0
+    bhEne24_BR00
 };
 
 /*
@@ -1284,48 +1290,44 @@ void bhEne24(BH_PWORK* epw)
     }
 }
 
-// Start address: 0x207740
 void bhEne24_Init(BH_PWORK* epw)
 {
-	// Line 247, Address: 0x207740, Func Offset: 0
-	// Line 249, Address: 0x20774c, Func Offset: 0xc
-	// Line 252, Address: 0x207750, Func Offset: 0x10
-	// Line 250, Address: 0x207758, Func Offset: 0x18
-	// Line 256, Address: 0x20775c, Func Offset: 0x1c
-	// Line 249, Address: 0x207760, Func Offset: 0x20
-	// Line 250, Address: 0x207768, Func Offset: 0x28
-	// Line 260, Address: 0x20776c, Func Offset: 0x2c
-	// Line 250, Address: 0x207770, Func Offset: 0x30
-	// Line 251, Address: 0x207778, Func Offset: 0x38
-	// Line 252, Address: 0x207784, Func Offset: 0x44
-	// Line 253, Address: 0x207788, Func Offset: 0x48
-	// Line 254, Address: 0x20778c, Func Offset: 0x4c
-	// Line 255, Address: 0x207790, Func Offset: 0x50
-	// Line 256, Address: 0x207794, Func Offset: 0x54
-	// Line 257, Address: 0x207798, Func Offset: 0x58
-	// Line 260, Address: 0x2077a4, Func Offset: 0x64
-	// Line 263, Address: 0x2077a8, Func Offset: 0x68
-	// Line 264, Address: 0x2077b4, Func Offset: 0x74
-	// Line 266, Address: 0x2077c4, Func Offset: 0x84
-	// Line 267, Address: 0x2077c8, Func Offset: 0x88
-	// Line 279, Address: 0x2077d0, Func Offset: 0x90
-	// Line 275, Address: 0x2077d4, Func Offset: 0x94
-	// Line 266, Address: 0x2077d8, Func Offset: 0x98
-	// Line 267, Address: 0x2077dc, Func Offset: 0x9c
-	// Line 276, Address: 0x2077e0, Func Offset: 0xa0
-	// Line 279, Address: 0x2077e4, Func Offset: 0xa4
-	// Line 267, Address: 0x2077e8, Func Offset: 0xa8
-	// Line 268, Address: 0x2077ec, Func Offset: 0xac
-	// Line 269, Address: 0x2077f4, Func Offset: 0xb4
-	// Line 270, Address: 0x2077fc, Func Offset: 0xbc
-	// Line 271, Address: 0x207804, Func Offset: 0xc4
-	// Line 274, Address: 0x20780c, Func Offset: 0xcc
-	// Line 275, Address: 0x207810, Func Offset: 0xd0
-	// Line 276, Address: 0x207814, Func Offset: 0xd4
-	// Line 282, Address: 0x207820, Func Offset: 0xe0
-	// Line 283, Address: 0x207868, Func Offset: 0x128
-	// Func End, Address: 0x207878, Func Offset: 0x138
-    scePrintf("bhEne24_Init - UNIMPLEMENTED!\n");
+    epw->flg |= 0x8010;
+    epw->flg &= ~0x26;
+    
+    epw->mdflg |= 5;
+    
+    epw->ar = 1.2f;
+    epw->ah = 1.2f;
+    
+    epw->car = 1.2f;
+    epw->cah = 1.2f;
+    
+    epw->hp = 2;
+    
+    epw->flg2 |= 0x10;
+    
+    epw->mode0 = 6;
+    
+    if (epw->exp0 == NULL)
+    {
+        epw->exp0 = bhEne_CallocWork(72, 8);
+    }
+    EXP0_UC(0x20) = 0;
+    EXP0_I(0) = 1148829696;
+    EXP0_I(0x4) = 0;
+    EXP0_I(0x8) = 0;
+    EXP0_I(0xC) = 0;
+    EXP0_I(0x10) = 0;
+    
+    epw->clp_jno[0] = 0;
+    epw->clp_jno[1] = -1;
+    
+    epw->mdflg &= ~0x20;
+    
+    epw->cpcl = CapColTab;
+    
+    EXP0_I(0x24) =(int)(30.0f * njRandom()) + 30;
 }
 
 // 100% matching!
