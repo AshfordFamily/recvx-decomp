@@ -6,7 +6,8 @@
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/hitchkl.h"
-
+#include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/MdlPut.h"
 
 /*typedef struct npobj;
 typedef struct _anon0;
@@ -1218,44 +1219,66 @@ struct _anon32
 
 float DeadRate[19];
 _anon13 CapColTab[3];
-void(*bhEne24_Mode0)(BH_PWORK*)[7];
+*/
+
+
+typedef void (*Mode0_proc)(BH_PWORK*);
+
+Mode0_proc bhEne24_Mode0[7] =
+{
+    bhEne24_Init,
+    bhEne24_Move,
+    bhEne24_Nage,
+    bhEne24_Damage,
+    bhEne24_Die,
+    bhEne_Event,
+    bhEne24_Dummy
+};
+
+/*
 void(*bhEne24_BrainType)(BH_PWORK*)[1];
 void(*bhEne24_MoveMode2)(BH_PWORK*)[6];
 BH_PWORK* plp;
 _anon15* sys;*/
 
-// 
-// Start address: 0x207620
+// 100% matching!
 void bhEne24(BH_PWORK* epw)
 {
-	BH_PWORK* ep;
-	// Line 204, Address: 0x207620, Func Offset: 0
-	// Line 206, Address: 0x20762c, Func Offset: 0xc
-	// Line 210, Address: 0x20763c, Func Offset: 0x1c
-	// Line 213, Address: 0x20765c, Func Offset: 0x3c
-	// Line 214, Address: 0x207664, Func Offset: 0x44
-	// Line 215, Address: 0x207674, Func Offset: 0x54
-	// Line 218, Address: 0x20767c, Func Offset: 0x5c
-	// Line 221, Address: 0x207688, Func Offset: 0x68
-	// Line 226, Address: 0x20768c, Func Offset: 0x6c
-	// Line 227, Address: 0x207694, Func Offset: 0x74
-	// Line 221, Address: 0x207698, Func Offset: 0x78
-	// Line 222, Address: 0x20769c, Func Offset: 0x7c
-	// Line 223, Address: 0x2076a4, Func Offset: 0x84
-	// Line 224, Address: 0x2076ac, Func Offset: 0x8c
-	// Line 225, Address: 0x2076b4, Func Offset: 0x94
-	// Line 226, Address: 0x2076bc, Func Offset: 0x9c
-	// Line 227, Address: 0x2076c8, Func Offset: 0xa8
-	// Line 230, Address: 0x2076cc, Func Offset: 0xac
-	// Line 233, Address: 0x2076ec, Func Offset: 0xcc
-	// Line 234, Address: 0x207700, Func Offset: 0xe0
-	// Line 235, Address: 0x207720, Func Offset: 0x100
-	// Line 237, Address: 0x20772c, Func Offset: 0x10c
-	// Func End, Address: 0x20773c, Func Offset: 0x11c
-	scePrintf("bhEne24 - UNIMPLEMENTED!\n");
+    BH_PWORK* ep;
+    
+    if (epw->mode0 != 6)
+    {
+        bhEne24_Mode0[epw->mode0](epw);
+        bhEne24_CollisionLine(epw);
+        if (epw->flg & 0x10)
+        {
+            bhEne24_CollisionWalls(epw);
+        }
+        bhCalcModel(epw);
+        
+        epw->watr.c1.x = epw->px;
+        epw->watr.c1.y = epw->py;
+        epw->watr.c1.z = epw->pz;
+        
+        epw->watr.c2.x = epw->px;
+        epw->watr.c2.y = epw->py;
+        epw->watr.c2.z = 1.0f + epw->pz;
+        
+        epw->watr.r = 2.0f;
+        
+        ep = (BH_PWORK*)epw->lkwkp;
+        if (ep != NULL && epw->flg & 0x80000)
+        {
+            if (3 < epw->frm_no)
+            {
+                epw->frm_no = 0;
+            }
+            epw->mlwP = &ep->mdl[epw->frm_no + 2];
+            epw->frm_no++;
+        }
+    }
 }
 
-/*// 
 // Start address: 0x207740
 void bhEne24_Init(BH_PWORK* epw)
 {
@@ -1297,6 +1320,7 @@ void bhEne24_Init(BH_PWORK* epw)
 	// Line 282, Address: 0x207820, Func Offset: 0xe0
 	// Line 283, Address: 0x207868, Func Offset: 0x128
 	// Func End, Address: 0x207878, Func Offset: 0x138
+    scePrintf("bhEne24_Init - UNIMPLEMENTED!\n");
 }
 
 // 
@@ -1305,8 +1329,9 @@ void bhEne24_Brain(BH_PWORK* epw)
 {
 	// Line 294, Address: 0x207880, Func Offset: 0
 	// Func End, Address: 0x2078a0, Func Offset: 0x20
+    scePrintf("bhEne24_Brain - UNIMPLEMENTED!\n");
 }
-*/
+
 
 // 100% matching!
 void bhEne24_BR00(BH_PWORK* epw)
@@ -1349,12 +1374,11 @@ void bhEne24_BR00(BH_PWORK* epw)
 
     EXP0_I(0x24) = (int)(30.0F * njRandom()) + 30;
 }
-/*
-// 
+
 // Start address: 0x2079f0
 void bhEne24_Move(BH_PWORK* epw)
 {
-	_anon22 pos;
+	NJS_POINT3 pos;
 	// Line 343, Address: 0x2079f0, Func Offset: 0
 	// Line 345, Address: 0x2079fc, Func Offset: 0xc
 	// Line 346, Address: 0x207a0c, Func Offset: 0x1c
@@ -1410,8 +1434,9 @@ void bhEne24_Move(BH_PWORK* epw)
 	// Line 407, Address: 0x207c98, Func Offset: 0x2a8
 	// Line 408, Address: 0x207cb8, Func Offset: 0x2c8
 	// Func End, Address: 0x207cc8, Func Offset: 0x2d8
+    scePrintf("bhEne24_Move - UNIMPLEMENTED!\n");
 }
-*/
+
 
 // 100% matching!
 void bhEne24_MV00(void)
@@ -1644,7 +1669,8 @@ void bhEne24_Dummy(void)
 }
 
 // 100% matching!
-void bhEne24_CollisionWalls(BH_PWORK* epw) {
+void bhEne24_CollisionWalls(BH_PWORK* epw)
+{
     epw->py += epw->ar;
     bhEne03_Collision(epw);
     epw->py -= epw->ar;
@@ -1656,7 +1682,7 @@ void bhEne24_CollisionLine(BH_PWORK* epw)
     ATR_WORK* hp;
 	NJS_POINT3 n;
     
-    if ((epw->flg & 0x100000) && (hp = bhCollisionCheckLine((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px),hp != NULL))
+    if ((epw->flg & 0x100000) && (hp = bhCollisionCheckLine((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px), hp != NULL))
     {
         bhGetHitCollisionNormal(&n);
         njUnitVector(&n);
