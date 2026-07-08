@@ -1223,6 +1223,7 @@ _anon13 CapColTab[3];
 
 
 typedef void (*Mode0_proc)(BH_PWORK*);
+typedef void (*BrainType_proc)(BH_PWORK*);
 
 Mode0_proc bhEne24_Mode0[7] =
 {
@@ -1235,8 +1236,12 @@ Mode0_proc bhEne24_Mode0[7] =
     bhEne24_Dummy
 };
 
+BrainType_proc bhEne24_BrainType[1] =
+{
+    bhEne24_BR00 // Index 0: 0x002078A0
+};
+
 /*
-void(*bhEne24_BrainType)(BH_PWORK*)[1];
 void(*bhEne24_MoveMode2)(BH_PWORK*)[6];
 BH_PWORK* plp;
 _anon15* sys;*/
@@ -1323,15 +1328,11 @@ void bhEne24_Init(BH_PWORK* epw)
     scePrintf("bhEne24_Init - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x207880
+// 100% matching!
 void bhEne24_Brain(BH_PWORK* epw)
 {
-	// Line 294, Address: 0x207880, Func Offset: 0
-	// Func End, Address: 0x2078a0, Func Offset: 0x20
-    scePrintf("bhEne24_Brain - UNIMPLEMENTED!\n");
+    bhEne24_BrainType[epw->type](epw);
 }
-
 
 // 100% matching!
 void bhEne24_BR00(BH_PWORK* epw)
