@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
+#include "../../../ps2/veronica/prog/hitchkl.h"
 
 
 /*typedef struct npobj;
@@ -1649,25 +1650,24 @@ void bhEne24_CollisionWalls(BH_PWORK* epw) {
     epw->py -= epw->ar;
 }
 
-/*
-// 
-// Start address: 0x2086c0
+// 100% matching!
 void bhEne24_CollisionLine(BH_PWORK* epw)
 {
-	_anon27* hp;
-	_anon22 n;
-	// Line 711, Address: 0x2086c0, Func Offset: 0
-	// Line 715, Address: 0x2086d0, Func Offset: 0x10
-	// Line 716, Address: 0x2086e4, Func Offset: 0x24
-	// Line 717, Address: 0x2086f0, Func Offset: 0x30
-	// Line 718, Address: 0x2086f8, Func Offset: 0x38
-	// Line 719, Address: 0x208700, Func Offset: 0x40
-	// Line 720, Address: 0x208708, Func Offset: 0x48
-	// Line 721, Address: 0x20872c, Func Offset: 0x6c
-	// Line 725, Address: 0x208740, Func Offset: 0x80
-	// Func End, Address: 0x208750, Func Offset: 0x90
+    ATR_WORK* hp;
+	NJS_POINT3 n;
+    
+    if ((epw->flg & 0x100000) && (hp = bhCollisionCheckLine((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px),hp != NULL))
+    {
+        bhGetHitCollisionNormal(&n);
+        njUnitVector(&n);
+        if (n.y > 0.99f)
+        {
+            epw->flg &= 0xFFEFFFFF;
+        }
+    }
 }
 
+/*
 // 
 // Start address: 0x208750
 int bhEne24_DeadCheck(BH_PWORK* epw)
