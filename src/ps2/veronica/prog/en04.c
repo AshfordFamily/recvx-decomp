@@ -4156,67 +4156,108 @@ void bhEne04_MV12(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1aa220
-int bhEne04_Escape(BH_PWORK* epw, int res, int r)
-{
-	int rot;
-	int d_tmp;
-	//_anon12* hp;
-	// Line 4233, Address: 0x1aa220, Func Offset: 0
-	// Line 4238, Address: 0x1aa238, Func Offset: 0x18
-	// Line 4241, Address: 0x1aa28c, Func Offset: 0x6c
-	// Line 4243, Address: 0x1aa2b0, Func Offset: 0x90
-	// Line 4245, Address: 0x1aa2b4, Func Offset: 0x94
-	// Line 4246, Address: 0x1aa2c8, Func Offset: 0xa8
-	// Line 4247, Address: 0x1aa2d0, Func Offset: 0xb0
-	// Line 4250, Address: 0x1aa2e0, Func Offset: 0xc0
-	// Line 4252, Address: 0x1aa2f0, Func Offset: 0xd0
-	// Line 4253, Address: 0x1aa2fc, Func Offset: 0xdc
-	// Line 4255, Address: 0x1aa304, Func Offset: 0xe4
-	// Line 4256, Address: 0x1aa320, Func Offset: 0x100
-	// Line 4259, Address: 0x1aa328, Func Offset: 0x108
-	// Line 4261, Address: 0x1aa338, Func Offset: 0x118
-	// Line 4264, Address: 0x1aa33c, Func Offset: 0x11c
-	// Line 4261, Address: 0x1aa348, Func Offset: 0x128
-	// Line 4262, Address: 0x1aa350, Func Offset: 0x130
-	// Line 4264, Address: 0x1aa354, Func Offset: 0x134
-	// Line 4265, Address: 0x1aa370, Func Offset: 0x150
-	// Line 4267, Address: 0x1aa378, Func Offset: 0x158
-	// Line 4270, Address: 0x1aa384, Func Offset: 0x164
-	// Line 4273, Address: 0x1aa394, Func Offset: 0x174
-	// Line 4274, Address: 0x1aa3b0, Func Offset: 0x190
-	// Line 4277, Address: 0x1aa3b8, Func Offset: 0x198
-	// Line 4278, Address: 0x1aa3cc, Func Offset: 0x1ac
-	// Line 4281, Address: 0x1aa3f8, Func Offset: 0x1d8
-	// Line 4283, Address: 0x1aa400, Func Offset: 0x1e0
-	// Line 4284, Address: 0x1aa404, Func Offset: 0x1e4
-	// Line 4281, Address: 0x1aa408, Func Offset: 0x1e8
-	// Line 4282, Address: 0x1aa40c, Func Offset: 0x1ec
-	// Line 4283, Address: 0x1aa414, Func Offset: 0x1f4
-	// Line 4285, Address: 0x1aa418, Func Offset: 0x1f8
-	// Line 4288, Address: 0x1aa420, Func Offset: 0x200
-	// Line 4289, Address: 0x1aa424, Func Offset: 0x204
-	// Line 4288, Address: 0x1aa428, Func Offset: 0x208
-	// Line 4290, Address: 0x1aa430, Func Offset: 0x210
-	// Line 4293, Address: 0x1aa438, Func Offset: 0x218
-	// Line 4294, Address: 0x1aa44c, Func Offset: 0x22c
-	// Line 4296, Address: 0x1aa45c, Func Offset: 0x23c
-	// Line 4298, Address: 0x1aa46c, Func Offset: 0x24c
-	// Line 4299, Address: 0x1aa474, Func Offset: 0x254
-	// Line 4301, Address: 0x1aa47c, Func Offset: 0x25c
-	// Line 4324, Address: 0x1aa484, Func Offset: 0x264
-	// Line 4325, Address: 0x1aa4a0, Func Offset: 0x280
-	// Line 4328, Address: 0x1aa4d0, Func Offset: 0x2b0
-	// Line 4329, Address: 0x1aa4d4, Func Offset: 0x2b4
-	// Line 4333, Address: 0x1aa4e4, Func Offset: 0x2c4
-	// Line 4335, Address: 0x1aa4fc, Func Offset: 0x2dc
-	// Line 4339, Address: 0x1aa504, Func Offset: 0x2e4
-	// Line 4340, Address: 0x1aa52c, Func Offset: 0x30c
-	// Line 4339, Address: 0x1aa540, Func Offset: 0x320
-	// Line 4340, Address: 0x1aa544, Func Offset: 0x324
-	// Func End, Address: 0x1aa54c, Func Offset: 0x32c
-    scePrintf("bhEne04_Escape - UNIMPLEMENTED!\n");
+// 100% matching!
+int bhEne04_Escape(BH_PWORK* epw, int res, int r) {
+    ATR_WORK* hp;
+    int d_tmp;
+    int rot;
+    // not present in DWARF
+    short temp_v0;
+    int var_v0;
+
+    switch (EXP0_I(0x48))
+    {                              
+    case 0:
+        temp_v0 = ikou3(epw,(NJS_POINT3*)&plp->px, r);
+        epw->wax = temp_v0;
+        if (temp_v0  == 0)
+        {
+            epw->wax = r;
+        }
+        EXP0_I(0x10) &= ~0x4000;
+        EXP0_I(0x4C) = 0;
+        EXP0_I(0x48)++;
+
+    case 1:
+        if (EXP0_I(0x3C) != 0)
+        {
+            EXP0_I(0x48)++;
+            d_tmp = epw->wax;
+        }
+        
+        if (8 < EXP0_I(0x4C))
+        {
+            EXP0_I(0x4C) = 8;
+        }
+        break;
+    case 2:
+        if (!((unsigned short)EXP0_S(0x6) & 0xF))
+        {
+            EXP0_I(0x48)++;
+            EXP0_I(0x50) = 0;
+            temp_v0 = bhEne_CheckSideWall(epw, 3.0f, 1);
+            epw->waz = temp_v0;
+            if (temp_v0 == 0)
+            {
+                epw->waz = -1;
+            }
+            epw->waz = -epw->waz;
+        }
+        epw->ay += epw->wax;
+        d_tmp = epw->wax;
+        if (EXP0_I(0x4C) > 8)
+        {
+            EXP0_I(0x4C) = 8;
+        }
+        break;
+    case 3:
+        if (((bhEne_CheckDirWall(epw, epw->waz << 0xE, 3.0f) == NULL) && (EXP0_I(0x50) == 0)) || (((unsigned short)EXP0_S(0x6) & 1) != 0))
+        {
+            d_tmp = 0;
+            EXP0_I(0x48) = 4;
+            epw->wax = epw->waz;
+            EXP0_I(0x50) = 0x4000;
+        } 
+        else
+        {
+            d_tmp = 0;
+            EXP0_I(0x50) -= ((EXP0_I(0x50) > 0));
+        }
+        break;
+    case 4:
+        epw->ay += epw->wax * r;
+        EXP0_I(0x50) = EXP0_I(0x50) - r;
+        if (EXP0_I(0x50) <= 0)
+        {
+            EXP0_I(0x48) = 3;
+            EXP0_I(0x50) = 4;
+        }
+        d_tmp = epw->wax;
+        break;    
+    }
+    
+    rot = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
+    if ((bhEne_CheckDirWall(epw, rot, 4.0f) == NULL) && (12 < EXP0_I(0x4C)))
+    {
+        epw->waz = 0;
+        EXP0_I(0x10) |= 0x4000;
+    }
+    
+    if (res < ++EXP0_I(0x4C))
+    {
+        EXP0_I(0x48) = 0;
+    }
+    
+    
+    if (d_tmp != 0)
+    {
+        var_v0 = d_tmp > 0 ? 1 : -1;
+    }
+    else
+    {
+        var_v0 = 0;
+    }
+    return var_v0 + 1;
 }
 
 // 100% matching!
