@@ -1671,9 +1671,33 @@ char En04SdwTab[6] =
 {
     0x05, 0x0F, 0x12, 0x08, 0x0B, 0xFF
 };
-/*
-_anon18 En04_WpnDamageTbl[22];
-*/
+
+WPNDAMAGE_WORK En04_WpnDamageTbl[22] =
+{
+    { 0x00, 0, 0, 0, 0 },  //  [0]
+    { 0x00, 0, 0, 0, 0 },  //  [1]
+    { 0x00, 0, 3, 3, 3 },  //  [2]
+    { 0x00, 0, 7, 3, 3 },  //  [3]
+    { 0x00, 0, 7, 3, 3 },  //  [4]
+    { 0x00, 0, 7, 3, 3 },  //  [5]
+    { 0x00, 0, 5, 3, 5 },  //  [6]
+    { 0x00, 0, 7, 3, 3 },  //  [7]
+    { 0x00, 0, 7, 3, 3 },  //  [8]
+    { 0x00, 0, 7, 3, 3 },  //  [9]
+    { 0x00, 0, 7, 3, 3 },  // [10]
+    { 0x01, 0, 5, 3, 5 },  // [11]
+    { 0x00, 0, 7, 3, 3 },  // [12]
+    { 0x00, 0, 3, 3, 3 },  // [13]
+    { 0x02, 0, 5, 3, 5 },  // [14]
+    { 0x18, 0, 1, 3, 3 },  // [15]
+    { 0x0A, 0, 1, 3, 3 },  // [16]
+    { 0x00, 0, 1, 3, 3 },  // [17]
+    { 0x0C, 0, 5, 3, 5 },  // [18]
+    { 0x02, 0, 5, 3, 5 },  // [19]
+    { 0x0C, 0, 5, 3, 5 },  // [20]
+    { 0x00, 0, 1, 3, 3 },  // [21]
+};
+
 static COMBWEP_WORK CombWepTbl[21] =
 {
     {0, {0, 0, 0}, 0, 0}, 
@@ -2062,46 +2086,49 @@ void bhEne04_DmgChk(BH_PWORK* epw)
     }
 }
 
-
-// 
-// Start address: 0x1a5510
+// 98.62% matching
 void bhEne04_ChgDmgMode(BH_PWORK* epw)
 {
-	int act;
-	//_anon18* wp_tbl;
-	// Line 865, Address: 0x1a5510, Func Offset: 0
-	// Line 869, Address: 0x1a551c, Func Offset: 0xc
-	// Line 866, Address: 0x1a5524, Func Offset: 0x14
-	// Line 875, Address: 0x1a552c, Func Offset: 0x1c
-	// Line 869, Address: 0x1a5534, Func Offset: 0x24
-	// Line 875, Address: 0x1a5544, Func Offset: 0x34
-	// Line 878, Address: 0x1a5560, Func Offset: 0x50
-	// Line 879, Address: 0x1a556c, Func Offset: 0x5c
-	// Line 880, Address: 0x1a5570, Func Offset: 0x60
-	// Line 883, Address: 0x1a5574, Func Offset: 0x64
-	// Line 886, Address: 0x1a5584, Func Offset: 0x74
-	// Line 889, Address: 0x1a559c, Func Offset: 0x8c
-	// Line 888, Address: 0x1a55a0, Func Offset: 0x90
-	// Line 889, Address: 0x1a55a4, Func Offset: 0x94
-	// Line 890, Address: 0x1a55a8, Func Offset: 0x98
-	// Line 892, Address: 0x1a55ac, Func Offset: 0x9c
-	// Line 891, Address: 0x1a55b0, Func Offset: 0xa0
-	// Line 893, Address: 0x1a55b4, Func Offset: 0xa4
-	// Line 892, Address: 0x1a55bc, Func Offset: 0xac
-	// Line 893, Address: 0x1a55c0, Func Offset: 0xb0
-	// Line 894, Address: 0x1a55cc, Func Offset: 0xbc
-	// Line 895, Address: 0x1a55e0, Func Offset: 0xd0
-	// Line 899, Address: 0x1a55e8, Func Offset: 0xd8
-	// Line 904, Address: 0x1a55f0, Func Offset: 0xe0
-	// Line 909, Address: 0x1a55fc, Func Offset: 0xec
-	// Line 910, Address: 0x1a5604, Func Offset: 0xf4
-	// Line 911, Address: 0x1a5608, Func Offset: 0xf8
-	// Line 912, Address: 0x1a560c, Func Offset: 0xfc
-	// Line 915, Address: 0x1a5610, Func Offset: 0x100
-	// Line 917, Address: 0x1a5628, Func Offset: 0x118
-	// Line 920, Address: 0x1a5630, Func Offset: 0x120
-	// Func End, Address: 0x1a5640, Func Offset: 0x130
-    scePrintf("bhEne04_ChgDmgMode - UNIMPLEMENTED!\n");
+    WPNDAMAGE_WORK* wp_tbl;
+    int act;
+
+
+    wp_tbl = &En04_WpnDamageTbl[epw->wpnr_no];
+    act = wp_tbl->nm_act;
+    if ((EXP0_I(0x10) & 0x100000) || epw->hp < 0)
+    {
+        epw->comb_flg |= 1;
+        epw->comb_timeout = 0;
+        epw->comb_pnt = 0;
+    }
+
+    if (epw->comb_flg & 1)
+    {
+        if (EXP0_I(0x10) & 0x100000)
+        {
+            EXP0_UC(0x3) = 0;
+            epw->mode0 = 3;
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 2;
+            bhEne04_ChgMtn(epw, 14, 0, 10);
+            EXP0_I(0x10) &= ~0x100000;
+            return;
+        }
+        act = wp_tbl->cb_act;
+    }
+
+    if (act < (unsigned int) 4)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 0;
+        epw->mode3 = 0;
+        if (EXP0_I(0x10) & 0x20000)
+        {
+            epw->mode2 = 1;
+        }
+    }
 }
 
 // 
@@ -2202,6 +2229,7 @@ void bhEne04_CollisionCheck(BH_PWORK* epw) {
     bhEne04_CollCheckWall(epw);
 }
 
+// 100% matching!
 void bhEne04_CollCheckWall(BH_PWORK* epw)
 {
 	ATR_WORK* hp;
