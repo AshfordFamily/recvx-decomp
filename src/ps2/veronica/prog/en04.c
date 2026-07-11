@@ -18,6 +18,7 @@
 #include "../../../ps2/veronica/prog/player.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/Motion.h"
+#include "../../../ps2/veronica/prog/ps2_dummy.h"
 
 /*typedef struct npobj;
 typedef struct BH_PWORK;
@@ -1662,6 +1663,18 @@ _anon32 en04_mtn_tbl[30];
 _anon32 en04_mtn_tbl2[6];
 char en04_tree[8][1];
 */
+const char en04_tree[8][1] = 
+{
+    {0x00},
+    {0x01},
+    {0x02},
+    {0x03},
+    {0x04},
+    {0x05},
+    {0xFF},
+    {0x00}
+};
+
 char En04SdwTab[6] =
 {
     0x05, 0x0F, 0x12, 0x08, 0x0B, 0xFF
@@ -2197,93 +2210,87 @@ void bhEne04_CollisionCheck(BH_PWORK* epw) {
     bhEne04_CollCheckWall(epw);
 }
 
-// 
-// Start address: 0x1a5a70
 void bhEne04_CollCheckWall(BH_PWORK* epw)
 {
-	char ply_tree[7];
-	//_anon4* owk;
-	//_anon36 pd;
-	//_anon36 ops;
-	//_anon36 ps;
-	//_anon12* hp;
-	// Line 1196, Address: 0x1a5a70, Func Offset: 0
-	// Line 1204, Address: 0x1a5a8c, Func Offset: 0x1c
-	// Line 1206, Address: 0x1a5ab0, Func Offset: 0x40
-	// Line 1209, Address: 0x1a5ab8, Func Offset: 0x48
-	// Line 1210, Address: 0x1a5abc, Func Offset: 0x4c
-	// Line 1206, Address: 0x1a5ac0, Func Offset: 0x50
-	// Line 1209, Address: 0x1a5ac8, Func Offset: 0x58
-	// Line 1212, Address: 0x1a5acc, Func Offset: 0x5c
-	// Line 1209, Address: 0x1a5ad4, Func Offset: 0x64
-	// Line 1210, Address: 0x1a5adc, Func Offset: 0x6c
-	// Line 1211, Address: 0x1a5ae4, Func Offset: 0x74
-	// Line 1212, Address: 0x1a5ae8, Func Offset: 0x78
-	// Line 1215, Address: 0x1a5af8, Func Offset: 0x88
-	// Line 1216, Address: 0x1a5b0c, Func Offset: 0x9c
-	// Line 1219, Address: 0x1a5b2c, Func Offset: 0xbc
-	// Line 1223, Address: 0x1a5b3c, Func Offset: 0xcc
-	// Line 1230, Address: 0x1a5b54, Func Offset: 0xe4
-	// Line 1232, Address: 0x1a5b6c, Func Offset: 0xfc
-	// Line 1233, Address: 0x1a5b90, Func Offset: 0x120
-	// Line 1240, Address: 0x1a5b94, Func Offset: 0x124
-	// Line 1233, Address: 0x1a5ba4, Func Offset: 0x134
-	// Line 1235, Address: 0x1a5ba8, Func Offset: 0x138
-	// Line 1240, Address: 0x1a5bac, Func Offset: 0x13c
-	// Line 1235, Address: 0x1a5bb0, Func Offset: 0x140
-	// Line 1236, Address: 0x1a5bb4, Func Offset: 0x144
-	// Line 1237, Address: 0x1a5bbc, Func Offset: 0x14c
-	// Line 1238, Address: 0x1a5bc4, Func Offset: 0x154
-	// Line 1240, Address: 0x1a5bcc, Func Offset: 0x15c
-	// Line 1242, Address: 0x1a5be0, Func Offset: 0x170
-	// Line 1244, Address: 0x1a5be8, Func Offset: 0x178
-	// Line 1245, Address: 0x1a5bf8, Func Offset: 0x188
-	// Line 1246, Address: 0x1a5c08, Func Offset: 0x198
-	// Line 1247, Address: 0x1a5c14, Func Offset: 0x1a4
-	// Line 1248, Address: 0x1a5c1c, Func Offset: 0x1ac
-	// Line 1250, Address: 0x1a5c28, Func Offset: 0x1b8
-	// Line 1256, Address: 0x1a5c40, Func Offset: 0x1d0
-	// Line 1258, Address: 0x1a5c44, Func Offset: 0x1d4
-	// Line 1250, Address: 0x1a5c48, Func Offset: 0x1d8
-	// Line 1256, Address: 0x1a5c54, Func Offset: 0x1e4
-	// Line 1260, Address: 0x1a5c58, Func Offset: 0x1e8
-	// Line 1259, Address: 0x1a5c60, Func Offset: 0x1f0
-	// Line 1256, Address: 0x1a5c64, Func Offset: 0x1f4
-	// Line 1260, Address: 0x1a5c68, Func Offset: 0x1f8
-	// Line 1256, Address: 0x1a5c70, Func Offset: 0x200
-	// Line 1257, Address: 0x1a5c74, Func Offset: 0x204
-	// Line 1258, Address: 0x1a5c7c, Func Offset: 0x20c
-	// Line 1259, Address: 0x1a5c84, Func Offset: 0x214
-	// Line 1260, Address: 0x1a5c88, Func Offset: 0x218
-	// Line 1261, Address: 0x1a5c90, Func Offset: 0x220
-	// Line 1262, Address: 0x1a5c98, Func Offset: 0x228
-	// Line 1261, Address: 0x1a5ca0, Func Offset: 0x230
-	// Line 1262, Address: 0x1a5ca8, Func Offset: 0x238
-	// Line 1263, Address: 0x1a5cb8, Func Offset: 0x248
-	// Line 1271, Address: 0x1a5cc0, Func Offset: 0x250
-	// Line 1264, Address: 0x1a5cc4, Func Offset: 0x254
-	// Line 1267, Address: 0x1a5cc8, Func Offset: 0x258
-	// Line 1271, Address: 0x1a5ccc, Func Offset: 0x25c
-	// Line 1263, Address: 0x1a5cd0, Func Offset: 0x260
-	// Line 1271, Address: 0x1a5cd4, Func Offset: 0x264
-	// Line 1263, Address: 0x1a5cdc, Func Offset: 0x26c
-	// Line 1264, Address: 0x1a5ce0, Func Offset: 0x270
-	// Line 1271, Address: 0x1a5ce8, Func Offset: 0x278
-	// Line 1264, Address: 0x1a5cf0, Func Offset: 0x280
-	// Line 1267, Address: 0x1a5cf8, Func Offset: 0x288
-	// Line 1268, Address: 0x1a5d04, Func Offset: 0x294
-	// Line 1269, Address: 0x1a5d0c, Func Offset: 0x29c
-	// Line 1270, Address: 0x1a5d14, Func Offset: 0x2a4
-	// Line 1271, Address: 0x1a5d18, Func Offset: 0x2a8
-	// Line 1272, Address: 0x1a5d20, Func Offset: 0x2b0
-	// Line 1273, Address: 0x1a5d28, Func Offset: 0x2b8
-	// Line 1272, Address: 0x1a5d30, Func Offset: 0x2c0
-	// Line 1273, Address: 0x1a5d38, Func Offset: 0x2c8
-	// Line 1274, Address: 0x1a5d48, Func Offset: 0x2d8
-	// Line 1275, Address: 0x1a5d58, Func Offset: 0x2e8
-	// Line 1278, Address: 0x1a5d68, Func Offset: 0x2f8
-	// Func End, Address: 0x1a5d88, Func Offset: 0x318
-    scePrintf("bhEne04_CollCheckWall - UNIMPLEMENTED!\n");
+	ATR_WORK* hp;
+	NJS_POINT3 ps;
+	NJS_POINT3 ops;
+	NJS_POINT3 pd;
+	O_WORK* owk;
+    O_WORK* owk2; // not from DWARF
+	//char ply_tree[7];
+
+	if (!(EXP0_I(0x10) & 0x10) && (epw->flg & 0x10))
+	{
+        
+    	epw->stflg &= ~1;
+    
+    	ps.x = plp->px;
+    	ps.y = plp->py;
+    	ps.z = plp->pz;
+    	EXP0_I(0x44) = (int)bhCollisionCheckLine((NJS_POINT3*)&epw->px, &ps);
+    
+    	EXP0_US(0x6) = (EXP0_US(0x6) << 1) & 0xE;
+    
+    	hp = bhCheckWallType((NJS_POINT3*)&epw->px, epw->flg, epw->ar, epw->ah);
+    	EXP0_I(0x3C) = (int)hp;
+    	if (hp != 0)
+    	{
+    		EXP0_US(0x6) |= 1;
+    	}
+    
+    	if ((EXP0_I(0x10) & 0xF) == 1)
+    	{
+    		bhCheckWallEx(epw, (NJS_POINT3*)&epw->px, (NJS_POINT3*)&epw->pxb, epw->ar, epw->ah);
+    		bhEne_CalcPartsPos(epw, lcmat, &ps, en04_tree[0], 6, 1);
+    
+    		ps.y = epw->py;
+    		owk = epw->mlwP->owP;
+    		ops.x = owk[5].mtx[12];
+    		ops.z = owk[5].mtx[14];
+    		ops.y = epw->pyb;
+    
+    		hp = bhEne_CollisionCheckWall2(epw, &ps, &ops, &pd, 2.5f, epw->ah);
+    		if (hp != 0)
+    		{
+    			EXP0_I(0x3C) = (int)hp;
+    		}
+    
+    		epw->px += pd.x;
+    		epw->py += pd.y;
+    		epw->pz += pd.z;
+        }
+        else if ((EXP0_I(0x10) & 0xF) == 2)
+        {
+    		char ply_tree[7] = { 0, 1, 2, 3, 4, 5, 0xFF };
+    		owk = plp->mlwP->owP;
+    		ops.x = owk->mtx[12];
+    		ops.z = owk->mtx[14];
+            ops.y = plp->pyb;
+    		
+    		bhEne_CalcPartsPos(plp, lcmat, &ps, ply_tree, 1, 1);
+    
+    		ps.y = plp->py;
+    		bhEne_CollisionCheckWall2(plp, &ps, &ops, &pd, plp->ar, plp->ah);
+    
+    		epw->px += pd.x;
+    		epw->pz += pd.z;
+    
+    		owk2 = plp->mlwP->owP;
+            
+    		ops.x = owk2[5].mtx[12];
+    		ops.z = owk2[5].mtx[14];
+            ops.y = plp->pyb;
+    		
+    		bhEne_CalcPartsPos(plp, lcmat, &ps, ply_tree, 6, 1);
+    
+    		ps.y = plp->py;
+    		bhEne_CollisionCheckWall2(plp, &ps, &ops, &pd, plp->ar, plp->ah);
+    
+    		epw->px += pd.x;
+    		epw->pz += pd.z;
+        }
+    }
 }
 
 // 99.90% matching
