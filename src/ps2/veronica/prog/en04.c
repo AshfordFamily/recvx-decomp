@@ -1607,6 +1607,11 @@ struct _anon47
 	float r;
 };
 
+typedef struct{
+    NJS_POINT3 c;
+    Float      r;
+} NJS_SPHERE;
+
 struct _anon48
 {
 	_anon36 c1;
@@ -4934,56 +4939,73 @@ void bhEne04_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1aba10
+// 100% matching!
 int bhEne04_PlyDamageCheck(BH_PWORK* epw, int type)
 {
 	int rot;
-	//_anon36 pos;
+	NJS_POINT3 pos;
 	int hit;
-	//_anon47 at;
-	// Line 5191, Address: 0x1aba10, Func Offset: 0
-	// Line 5196, Address: 0x1aba28, Func Offset: 0x18
-	// Line 5200, Address: 0x1aba64, Func Offset: 0x54
-	// Line 5204, Address: 0x1aba70, Func Offset: 0x60
-	// Line 5205, Address: 0x1aba90, Func Offset: 0x80
-	// Line 5210, Address: 0x1aba9c, Func Offset: 0x8c
-	// Line 5212, Address: 0x1abab8, Func Offset: 0xa8
-	// Line 5216, Address: 0x1abac0, Func Offset: 0xb0
-	// Line 5219, Address: 0x1abadc, Func Offset: 0xcc
-	// Line 5222, Address: 0x1abae0, Func Offset: 0xd0
-	// Line 5225, Address: 0x1abb04, Func Offset: 0xf4
-	// Line 5230, Address: 0x1abb0c, Func Offset: 0xfc
-	// Line 5233, Address: 0x1abb20, Func Offset: 0x110
-	// Line 5230, Address: 0x1abb24, Func Offset: 0x114
-	// Line 5233, Address: 0x1abb2c, Func Offset: 0x11c
-	// Line 5234, Address: 0x1abb38, Func Offset: 0x128
-	// Line 5236, Address: 0x1abb44, Func Offset: 0x134
-	// Line 5237, Address: 0x1abb4c, Func Offset: 0x13c
-	// Line 5236, Address: 0x1abb50, Func Offset: 0x140
-	// Line 5238, Address: 0x1abb54, Func Offset: 0x144
-	// Line 5241, Address: 0x1abb5c, Func Offset: 0x14c
-	// Line 5242, Address: 0x1abb64, Func Offset: 0x154
-	// Line 5241, Address: 0x1abb68, Func Offset: 0x158
-	// Line 5242, Address: 0x1abb6c, Func Offset: 0x15c
-	// Line 5241, Address: 0x1abb70, Func Offset: 0x160
-	// Line 5244, Address: 0x1abb78, Func Offset: 0x168
-	// Line 5247, Address: 0x1abb94, Func Offset: 0x184
-	// Line 5249, Address: 0x1abb9c, Func Offset: 0x18c
-	// Line 5250, Address: 0x1abba4, Func Offset: 0x194
-	// Line 5251, Address: 0x1abba8, Func Offset: 0x198
-	// Line 5249, Address: 0x1abbac, Func Offset: 0x19c
-	// Line 5250, Address: 0x1abbb0, Func Offset: 0x1a0
-	// Line 5249, Address: 0x1abbb4, Func Offset: 0x1a4
-	// Line 5250, Address: 0x1abbbc, Func Offset: 0x1ac
-	// Line 5251, Address: 0x1abbc4, Func Offset: 0x1b4
-	// Line 5252, Address: 0x1abbd0, Func Offset: 0x1c0
-	// Line 5253, Address: 0x1abbd8, Func Offset: 0x1c8
-	// Line 5254, Address: 0x1abbf0, Func Offset: 0x1e0
-	// Line 5256, Address: 0x1abbfc, Func Offset: 0x1ec
-	// Line 5257, Address: 0x1abc00, Func Offset: 0x1f0
-	// Func End, Address: 0x1abc18, Func Offset: 0x208
-    scePrintf("bhEne04_PlyDamageCheck - UNIMPLEMENTED!\n");
+	NJS_SPHERE at;
+    static NJS_POINT3 tmp = {0.0f, 0.0f, 0.0f}; // @1196 I am not 100% sure about where this goes
+    
+    hit = 0;
+    
+    if ((plp->flg & 4) || (plp->flg & 2) || (plp->stflg & 0x80000000))
+    {
+        return 0;
+    }
+    
+    bhEne_CalcPartsPos(epw, lcmat, &at.c, *en04_tree, 6, 1);
+    
+    at.r = 1.2f;
+    
+    if (npCollisionCheckSC(&at, &plp->watr) == 0)
+    {
+        return 0;
+    }
+    
+    if (bhCdirCheck(plp->ay, epw->ay) == 0)
+    {
+        hit = 1;
+    }
+    
+    if ((type == 1) && (plp->hp < 12))
+    {
+        return 2;
+    }
+
+    pos = tmp;
+    bhEne_HitCheckParts(plp, &at.c);
+    
+    if (hit == 1)
+    {
+        rot = plp->ay;
+        pos.z = -1.5f;
+    } 
+    else
+    {
+        rot = plp->ay + 32768;
+        pos.z = 1.5f;
+    }
+    
+    bhEne_SetBlood2(plp, 6, &pos, rot);
+    bhEne_SetVibration(1);
+    plp->flg |= 4;
+    
+    plp->mode0 = 2;
+    plp->mode2 = 1;
+    plp->mode3 = 0;
+    
+    if (hit != 0)
+    {
+        plp->mode1 = 0;
+    } 
+    else
+    {
+        plp->mode1 = 1;
+    }
+    
+    return 1;
 }
 
 // 100% matching!
