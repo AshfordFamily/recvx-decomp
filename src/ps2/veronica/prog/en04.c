@@ -1661,18 +1661,10 @@ int En04_PlyMtn_OffsetTbl[4] =
 /*
 _anon32 en04_mtn_tbl[30];
 _anon32 en04_mtn_tbl2[6];
-char en04_tree[8][1];
 */
-const char en04_tree[8][1] = 
+const char en04_tree[1][8] =
 {
-    {0x00},
-    {0x01},
-    {0x02},
-    {0x03},
-    {0x04},
-    {0x05},
-    {0xFF},
-    {0x00}
+    {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF, 0x00}
 };
 
 char En04SdwTab[6] =
