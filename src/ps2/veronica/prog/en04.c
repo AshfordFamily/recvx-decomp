@@ -1663,10 +1663,231 @@ int En04_PlyMtn_OffsetTbl[4] =
     0x64,
     0x69
 };
-/*
-_anon32 en04_mtn_tbl[30];
-_anon32 en04_mtn_tbl2[6];
-*/
+
+EN04_MTBL en04_mtn_tbl[30] =
+{
+    { 0x00, {
+        { 0x12, 0x00012300 },
+        { 0x30, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x01, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x02, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x03, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x22, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x28, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x29, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x04, {
+        { 0x04, 0x00012300 },
+        { 0x0A, 0x01011304 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x06, {
+        { 0x0C, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x07, {
+        { 0x09, 0x01012302 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x08, {
+        { 0x0C, 0x01011306 },
+        { 0x16, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x09, {
+        { 0x08, 0x01011306 },
+        { 0x1D, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x0E, {
+        { 0x00, 0x00011308 },
+        { 0x10, 0x00011308 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x10, {
+        { 0x12, 0x00012301 },
+        { 0x1F, 0x01011304 },
+        { 0x37, 0x01011306 },
+        { 0x5A, 0x01012303 }
+    }},
+    { 0x14, {
+        { 0x0A, 0x00012301 },
+        { 0x12, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x15, {
+        { 0x00, 0x00011308 },
+        { 0x0C, 0x01002309 },
+        { 0x40, 0x00011308 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x19, {
+        { 0x00, 0x0101230E },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x2B, {
+        { 0x00, 0x0101230E },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x21, {
+        { 0x15, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x22, {
+        { 0x00, 0x00012300 },
+        { 0x02, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x23, {
+        { 0x09, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x24, {
+        { 0x00, 0x01011304 },
+        { 0x09, 0x01011306 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x25, {
+        { 0x18, 0x00012301 },
+        { 0x25, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x26, {
+        { 0x18, 0x00012301 },
+        { 0x29, 0x00012301 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x11, {
+        { 0x07, 0x01011304 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x12, {
+        { 0x0C, 0x0101130D },
+        { 0x1A, 0x0101130D },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x13, {
+        { 0x0F, 0x0101130D },
+        { 0x21, 0x01011307 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x2E, {
+        { 0x1B, 0x00012300 },
+        { 0x2A, 0x00012300 },
+        { 0x36, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x30, {
+        { 0x14, 0x00012300 },
+        { 0x1D, 0x00012300 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0xFFFFFFFF, {
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }}
+};
+
+EN04_MTBL en04_mtn_tbl2[6] =
+{
+    { 0x11, {
+        { 0x0C, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x12, {
+        { 0x0B, 0x00 },
+        { 0x19, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x13, {
+        { 0x0A, 0x00 },
+        { 0x24, 0x01 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x10, {
+        { 0x00, 0x01 },
+        { 0x46, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0x19, {
+        { 0x04, 0x00 },
+        { 0x16, 0x00 },
+        { 0x21, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }},
+    { 0xFFFFFFFF, {
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 },
+        { 0xFFFFFFFF, 0x00 }
+    }}
+};
+
 const char en04_tree[1][8] =
 {
     {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF, 0x00}
@@ -5243,40 +5464,45 @@ int bhEne04_SetMtn(BH_PWORK* epw)
     return ret;
 }
 
-// Start address: 0x1ac1c0
+// 100% matching!
 void bhEne04_CheckMtnTbl(BH_PWORK* epw, int frm)
 {
-	int i;
-	//_anon32* mtbl2;
-	//_anon32* mtbl;
-	// Line 5591, Address: 0x1ac1c0, Func Offset: 0
-	// Line 5596, Address: 0x1ac1e0, Func Offset: 0x20
-	// Line 5593, Address: 0x1ac1ec, Func Offset: 0x2c
-	// Line 5596, Address: 0x1ac1f0, Func Offset: 0x30
-	// Line 5592, Address: 0x1ac1f4, Func Offset: 0x34
-	// Line 5596, Address: 0x1ac1fc, Func Offset: 0x3c
-	// Line 5601, Address: 0x1ac21c, Func Offset: 0x5c
-	// Line 5603, Address: 0x1ac228, Func Offset: 0x68
-	// Line 5605, Address: 0x1ac230, Func Offset: 0x70
-	// Line 5607, Address: 0x1ac240, Func Offset: 0x80
-	// Line 5609, Address: 0x1ac248, Func Offset: 0x88
-	// Line 5610, Address: 0x1ac254, Func Offset: 0x94
-	// Line 5611, Address: 0x1ac258, Func Offset: 0x98
-	// Line 5613, Address: 0x1ac268, Func Offset: 0xa8
-	// Line 5614, Address: 0x1ac26c, Func Offset: 0xac
-	// Line 5616, Address: 0x1ac280, Func Offset: 0xc0
-	// Line 5619, Address: 0x1ac290, Func Offset: 0xd0
-	// Line 5621, Address: 0x1ac298, Func Offset: 0xd8
-	// Line 5623, Address: 0x1ac2a4, Func Offset: 0xe4
-	// Line 5625, Address: 0x1ac2b0, Func Offset: 0xf0
-	// Line 5627, Address: 0x1ac2c0, Func Offset: 0x100
-	// Line 5629, Address: 0x1ac2c8, Func Offset: 0x108
-	// Line 5631, Address: 0x1ac2d0, Func Offset: 0x110
-	// Line 5633, Address: 0x1ac2e0, Func Offset: 0x120
-	// Line 5634, Address: 0x1ac2e4, Func Offset: 0x124
-	// Line 5636, Address: 0x1ac2f8, Func Offset: 0x138
-	// Func End, Address: 0x1ac31c, Func Offset: 0x15c
-    scePrintf("bhEne04_CheckMtnTbl - UNIMPLEMENTED!\n");
+    int i;
+    EN04_MTBL* mtbl = en04_mtn_tbl;
+    EN04_MTBL* mtbl2 = en04_mtn_tbl2;
+
+
+    if (sys->rmthp == epw->mnwP) {
+        return;
+    }
+
+    for (; mtbl->no != -1; mtbl++) {
+        if (mtbl->no == epw->mtn_no) {
+            for (i = 0; i < 4; i++) {
+                if (mtbl->atb[i].frm == -1) {
+                    break;
+                }
+                if (mtbl->atb[i].frm == frm) {
+                    bhEne04_SePlay(epw, mtbl->atb[i].act);
+                }
+            }
+        }
+    }
+
+    if (epw->mode0 < 5) {
+        for (; mtbl2->no != -1; mtbl2++) {
+            if (mtbl2->no == epw->mtn_no) {
+                for (i = 0; i < 4; i++) {
+                    if (mtbl2->atb[i].frm == -1) {
+                        break;
+                    }
+                    if (mtbl2->atb[i].frm == frm) {
+                        bhEne_SetVibration(mtbl2->atb[i].act);
+                    }
+                }
+            }
+        }
+    }
 }
 
 // 100% matching!
