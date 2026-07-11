@@ -2003,9 +2003,29 @@ BP_WORK en04_BldTbl =
     {0, 4, 8, 12, 14}                       /* srt_dir */
 };
 
-/*
-_anon8 en04prt_blood_tbl[19];
-*/
+BT_WORK en04prt_blood_tbl[19] =
+ {
+    // lnk_obj,   x,      y,      z,     xlen,   ylen,   size,   len
+    {      0,    0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f }, // [0]
+    {      1,    0.0f,   0.0f,   0.0f,   1.0f,   1.0f,   3.0f,   1.0f }, // [1]
+    {      2,    0.0f,   0.0f,   0.0f,   1.0f,   1.0f,   4.0f,   1.0f }, // [2]
+    {      3,    0.0f,   0.0f,   0.0f,   0.5f,   0.5f,   3.0f,   1.0f }, // [3]
+    {      4,    0.0f,   0.0f,   0.0f,   0.5f,   0.5f,   2.0f,   1.0f }, // [4]
+    {      5,    0.0f,   0.0f,   0.0f,   0.5f,   0.5f,   3.0f,   1.0f }, // [5]
+    {      6,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   4.0f,   1.0f }, // [6]
+    {      7,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   2.0f,   1.0f }, // [7]
+    {      8,    0.0f,   0.0f,   0.0f,   0.2f,   0.2f,   3.0f,   1.0f }, // [8]
+    {      9,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   4.0f,   1.0f }, // [9]
+    {     10,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   2.0f,   1.0f }, // [10] 
+    {     11,    0.0f,   0.0f,   0.0f,   0.2f,   0.2f,   3.0f,   1.0f }, // [11] 
+    {     12,    0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   2.0f,   1.0f }, // [12] 
+    {     13,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   4.0f,   1.0f }, // [13]
+    {     14,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   2.0f,   1.0f }, // [14]
+    {     15,    0.0f,   0.0f,   0.0f,   0.2f,   0.2f,   3.0f,   1.0f }, // [15]
+    {     16,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   4.0f,   1.0f }, // [16]
+    {     17,    0.0f,   0.0f,   0.0f,   0.2f,   0.5f,   2.0f,   1.0f }, // [17]
+    {     18,    0.0f,   0.0f,   0.0f,   0.2f,   0.2f,   3.0f,   1.0f }  // [18]
+};
 
 const int en04_hp_tbl[2][16] =
 {
@@ -2357,63 +2377,90 @@ void bhEne04_ChgDmgMode(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1a5640
+// 100% matching!
 void bhEne04_DamageAdd(BH_PWORK* epw)
 {
-	//_anon4* owk;
-	int i;
-	int* d;
-	//_anon36 ofp;
-	//_anon18* wp_tbl;
-	// Line 938, Address: 0x1a5640, Func Offset: 0
-	// Line 939, Address: 0x1a5658, Func Offset: 0x18
-	// Line 940, Address: 0x1a5660, Func Offset: 0x20
-	// Line 946, Address: 0x1a567c, Func Offset: 0x3c
-	// Line 948, Address: 0x1a5688, Func Offset: 0x48
-	// Line 949, Address: 0x1a5694, Func Offset: 0x54
-	// Line 952, Address: 0x1a5698, Func Offset: 0x58
-	// Line 949, Address: 0x1a569c, Func Offset: 0x5c
-	// Line 952, Address: 0x1a56a8, Func Offset: 0x68
-	// Line 953, Address: 0x1a56b0, Func Offset: 0x70
-	// Line 955, Address: 0x1a56c4, Func Offset: 0x84
-	// Line 957, Address: 0x1a56d0, Func Offset: 0x90
-	// Line 958, Address: 0x1a56d4, Func Offset: 0x94
-	// Line 960, Address: 0x1a56dc, Func Offset: 0x9c
-	// Line 962, Address: 0x1a56e8, Func Offset: 0xa8
-	// Line 964, Address: 0x1a56ec, Func Offset: 0xac
-	// Line 966, Address: 0x1a56fc, Func Offset: 0xbc
-	// Line 969, Address: 0x1a5718, Func Offset: 0xd8
-	// Line 970, Address: 0x1a572c, Func Offset: 0xec
-	// Line 974, Address: 0x1a5734, Func Offset: 0xf4
-	// Line 978, Address: 0x1a5748, Func Offset: 0x108
-	// Line 981, Address: 0x1a5764, Func Offset: 0x124
-	// Line 985, Address: 0x1a5790, Func Offset: 0x150
-	// Line 989, Address: 0x1a5798, Func Offset: 0x158
-	// Line 985, Address: 0x1a57a0, Func Offset: 0x160
-	// Line 986, Address: 0x1a57b0, Func Offset: 0x170
-	// Line 989, Address: 0x1a57b4, Func Offset: 0x174
-	// Line 986, Address: 0x1a57c0, Func Offset: 0x180
-	// Line 987, Address: 0x1a57c4, Func Offset: 0x184
-	// Line 988, Address: 0x1a57cc, Func Offset: 0x18c
-	// Line 989, Address: 0x1a57d0, Func Offset: 0x190
-	// Line 994, Address: 0x1a57d8, Func Offset: 0x198
-	// Line 997, Address: 0x1a57f4, Func Offset: 0x1b4
-	// Line 999, Address: 0x1a5808, Func Offset: 0x1c8
-	// Line 1000, Address: 0x1a5810, Func Offset: 0x1d0
-	// Line 1002, Address: 0x1a5820, Func Offset: 0x1e0
-	// Line 1003, Address: 0x1a5838, Func Offset: 0x1f8
-	// Line 1005, Address: 0x1a5844, Func Offset: 0x204
-	// Line 1006, Address: 0x1a5850, Func Offset: 0x210
-	// Line 1008, Address: 0x1a5864, Func Offset: 0x224
-	// Line 1011, Address: 0x1a586c, Func Offset: 0x22c
-	// Line 1017, Address: 0x1a5884, Func Offset: 0x244
-	// Line 1019, Address: 0x1a5894, Func Offset: 0x254
-	// Line 1021, Address: 0x1a58a8, Func Offset: 0x268
-	// Line 1022, Address: 0x1a58b0, Func Offset: 0x270
-	// Line 1025, Address: 0x1a58c4, Func Offset: 0x284
-	// Func End, Address: 0x1a58e0, Func Offset: 0x2a0
-    scePrintf("bhEne04_DamageAdd - UNIMPLEMENTED!\n");
+    WPNDAMAGE_WORK* wp_tbl = En04_WpnDamageTbl;
+    NJS_POINT3 ofp;
+    int* d;
+    int i;
+    O_WORK* owk;
+    
+    NJS_POINT3 tmp = { 0.0f, 0.0f, 0.0f }; // @136
+    
+    ofp = tmp;
+    if (epw->hp >= 0)
+    {
+        epw->hp -= epw->total_dam;
+        wp_tbl += epw->comb_wep
+            ;
+        if (epw->hp < 0)
+        {
+            bhEne04_SePlay(epw, 16786185);
+        } 
+        else
+        {
+            bhEne04_SePlay(epw, 16847623);
+        }
+        
+        for (d = &epw->dam[1], i = 1; i < (int)epw->mlwP->obj_num; i++, d++)
+        {
+            if (*d > 0)
+            {
+                epw->djnt_no = i;
+                if (!(wp_tbl->flg & 8))
+                {
+                    if ((epw->comb_flg & 1) || (epw->hp < 0))
+                    {
+                        bhEne_SetBlood(epw, wp_tbl->cb_blood, en04prt_blood_tbl);
+                    } 
+                    else
+                    {
+                        bhEne_SetBlood(epw, wp_tbl->nm_blood, en04prt_blood_tbl);
+                    }
+                }
+            }
+        }
+        
+        if ((wp_tbl->flg & 1) && (epw->comb_flg & 0x10) && (epw->hp < 0))
+        {
+            owk = &epw->mlwP->owP[epw->djnt_no];
+            ofp.x = owk->mtx[12];
+            ofp.y = owk->mtx[13];
+            ofp.z = owk->mtx[14];
+            bhEne_SetNikuhenEffect2(epw, 2, &ofp, 4, 4);
+        }
+    }
+
+    if ((wp_tbl->flg & 2) || (wp_tbl->flg & 4))
+    {
+        if (EXP0_I(0x18) <= 0)
+        {
+            EXP0_I(0x18) = 10;
+            if (wp_tbl->flg & 4)
+            {
+                bhEne_SetDFireEffect(epw, epw->djnt_no, en04prt_blood_tbl, 2);
+                if (epw->hp < 0)
+                {
+                    epw->mdflg |= 0x400;
+                    npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, 0xFF000000U);
+                }
+            } 
+            else
+            {
+                bhEne_SetDFireEffect(epw, epw->djnt_no, en04prt_blood_tbl, 1);
+            }
+        }
+    }
+    
+    if (wp_tbl->flg & 0x10)
+    {
+        if (EXP0_I(0x18) <= 0)
+        {
+            EXP0_I(0x18) = 10;
+            bhEne_SetSanEffect(epw, epw->djnt_no, en04prt_blood_tbl);
+        }
+    }
 }
 
 // 100% matching!
