@@ -4,6 +4,16 @@
 #include "types.h"
 #include "macros.h"
 
+typedef struct EN04_ATB {
+    int frm;
+    u_int act;
+} EN04_ATB;
+
+typedef struct EN04_MTBL {
+    int no;
+	EN04_ATB atb[4];
+} EN04_MTBL;
+
 // total size: 0x14
 typedef struct WPNDAMAGE_WORK
 {
