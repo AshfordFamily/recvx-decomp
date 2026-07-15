@@ -1,4 +1,5 @@
 #include "../../../ps2/veronica/prog/en04.h"
+#include "../../../ps2/veronica/prog/en01.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
@@ -397,7 +398,7 @@ const int en04_hp_tbl[2][16] =
     { 30, 30, 30, 45, 45, 45, 45, 45, 60, 60, 60, 60, 60,  75,  75,  75 } 
 };
 
-char en04_flipTree[20] =
+const char en04_flipTree[20] =
 {
     0x00, 0x01, 0x02, 0x03, 0x04,
     0x05, 0x09, 0x0A, 0x0B, 0x06,
@@ -502,21 +503,6 @@ void (*bhEne04_PlyDmgMode[2])(BH_PWORK*, BH_PWORK*) =
     bhEne04_PlyDG00, 
     bhEne04_PlyDG01  
 };
-/*
-_anon11* rom;
-_anon19* sys;
-BH_PWORK* plp;
-_anon22 WpnTab[0];
-float lcmat[16][0];
-BH_PWORK ene[0];
-*/
-
-/* extern */ int kaidan_ang[4]; // this belongs to en01?
-
-/*
-void(*bhEne04Sub_Mode0)(BH_PWORK*)[4];
-*/
-
 
 // 100% matching!
 void bhEne04_DmmyBrain(void)
@@ -745,14 +731,11 @@ void bhEne04_ChgDmgMode(BH_PWORK* epw)
 void bhEne04_DamageAdd(BH_PWORK* epw)
 {
     WPNDAMAGE_WORK* wp_tbl = En04_WpnDamageTbl;
-    NJS_POINT3 ofp;
+    NJS_POINT3 ofp = { 0.0f, 0.0f, 0.0f }; // @136
     int* d;
     int i;
     O_WORK* owk;
-    
-    NJS_POINT3 tmp = { 0.0f, 0.0f, 0.0f }; // @136
-    
-    ofp = tmp;
+
     if (epw->hp >= 0)
     {
         epw->hp -= epw->total_dam;
@@ -3004,7 +2987,6 @@ void bhEne04_NG00(BH_PWORK* epw)
         {
             bhEne04_ChgMtn(epw, 18, 0, 0);
             epw->mode3++;
-            break;
         }
         break;
     case 2:
@@ -3028,7 +3010,6 @@ void bhEne04_NG00(BH_PWORK* epw)
             
             epw->flg |= 0x20;
             
-            break;
         }
         break;
     case 3:
@@ -3053,7 +3034,6 @@ void bhEne04_NG00(BH_PWORK* epw)
             
             epw->mode3++;
             
-            break;
         }
         break;
     case 4:
@@ -3329,8 +3309,8 @@ void bhEne04_DG01(BH_PWORK* epw)
         } 
         else
         {
-            float tmp = njCos(8192); // cant find a way to match it without a variable
-            epw->spd = EXP0_F(0x48) * tmp;
+            dist = njCos(8192);
+            epw->spd = EXP0_F(0x48) * dist;
             if (EXP0_I(0x10) & 0x10000)
             {
                 bhAddSpeed(epw, 32768);
@@ -3357,7 +3337,6 @@ void bhEne04_DG01(BH_PWORK* epw)
             }
             bhEne04_ChgMtn(epw, 14, 0, 0);
             epw->mode3++;
-            break;
         }
         break;
     case 2:
@@ -3416,7 +3395,7 @@ void bhEne04_DD00(BH_PWORK* epw)
 void bhEne04_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
 {
 
-    static NJS_POINT3 ply_ofs_pos[4] = // Should I leave this here?
+    static NJS_POINT3 ply_ofs_pos[4] =
     {
         { -0.937615f,  0.0f,  -9.776372f }, 
         { -0.112207f,  0.0f, -10.525611f }, 
@@ -3455,12 +3434,10 @@ void bhEne04_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
             pl->frm_no = 0;
             pl->hokan_count = 0;
             pl->mtn_no = En04_PlyMtn_OffsetTbl[sys->ply_id] + 1;
-            pl->mode3++;
-            break;
+            pl->mode3++;            
         }
+
     case 2:
-        break;
-    default:
         break;
     case 3:
         pl->frm_no = 0;
@@ -3486,7 +3463,6 @@ void bhEne04_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
             pl->hokan_count = 1;
             pl->mtn_add = 0;
             pl->mode3++;
-            break;
         }
         break;
     case 5:
@@ -3592,10 +3568,8 @@ void bhEne04_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
 int bhEne04_PlyDamageCheck(BH_PWORK* epw, int type)
 {
 	int rot;
-	NJS_POINT3 pos;
 	int hit;
 	NJS_SPHERE at;
-    static NJS_POINT3 tmp = {0.0f, 0.0f, 0.0f}; // @1196 I am not 100% sure about where this goes
     
     hit = 0;
     
@@ -3622,8 +3596,9 @@ int bhEne04_PlyDamageCheck(BH_PWORK* epw, int type)
     {
         return 2;
     }
+    {
+    NJS_POINT3 pos = {0.0f, 0.0f, 0.0f};
 
-    pos = tmp;
     bhEne_HitCheckParts(plp, &at.c);
     
     if (hit == 1)
@@ -3638,6 +3613,7 @@ int bhEne04_PlyDamageCheck(BH_PWORK* epw, int type)
     }
     
     bhEne_SetBlood2(plp, 6, &pos, rot);
+    }
     bhEne_SetVibration(1);
     plp->flg |= 4;
     
@@ -3761,8 +3737,8 @@ int bhEne04_SetMtn(BH_PWORK* epw)
     if (EXP0_I(0x10) & 0x40000000)
     {
         obj = epw->mlwP->objP;
-        obj->pos[2] = 0.0f;
-        obj->pos[0] = 0.0f;
+        
+        obj->pos[0] = obj->pos[2] = 0.0f;
         bhEne_GetTranslateMtn(epw, frm, 0);
     }
     if (ret != 0)
@@ -3818,8 +3794,7 @@ int bhEne04_SetMtn(BH_PWORK* epw)
         else if (epw->mtn_no == 8)
         {
             obj = epw->mlwP->objP;
-            obj->pos[2] = 0.0f;
-            obj->pos[0] = 0.0f;
+            obj->pos[0] = obj->pos[2] = 0.0f;
     
             if (frm < 18)
             {
@@ -3835,8 +3810,7 @@ int bhEne04_SetMtn(BH_PWORK* epw)
         else if (epw->mtn_no == 9)
         {
             obj = epw->mlwP->objP;
-            obj->pos[2] = 0.0f;
-            obj->pos[0] = 0.0f;
+            obj->pos[0] = obj->pos[2] = 0.0f;
     
             if (frm < 25)
             {
@@ -3852,15 +3826,13 @@ int bhEne04_SetMtn(BH_PWORK* epw)
         else if ((epw->mtn_no - 10) < 2)
         {
             obj = epw->mlwP->objP;
-            obj->pos[2] = 0.0f;
-            obj->pos[0] = 0.0f;
+            obj->pos[0] = obj->pos[2] = 0.0f;
     
         } 
         else if (epw->mtn_no == 20)
         {
             obj = epw->mlwP->objP;
-            obj->pos[2] = 0.0f;
-            obj->pos[0] = 0.0f;
+            obj->pos[0] = obj->pos[2] = 0.0f;
     
             if (frm < 17)
             {
@@ -3882,9 +3854,7 @@ int bhEne04_SetMtn(BH_PWORK* epw)
         else if (epw->mtn_no == 39)
         {
             obj = epw->mlwP->objP;
-            obj->pos[2] = 0.0f;
-            obj->pos[1] = 0.0f;
-            obj->pos[0] = 0.0f;
+            obj->pos[0] = obj->pos[1] = obj->pos[2] = 0.0f;
             obj->pos[1] = -3.782267f;
         }
     }
