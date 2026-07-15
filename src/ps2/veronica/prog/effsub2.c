@@ -2299,7 +2299,7 @@ int bhEff_E11_CheckCollisionPlayer(NJS_POINT3* p1, NJS_POINT3* p2)
     {
         for (i = 0; i < num; pObj++, mtn++, i++) 
         {
-            if ((pObj->model != NULL) && (bhCollisionCheckL2MDL(p1, p2, pObj->model, mtn->mtx) != 0))
+            if ((pObj->model != NULL) && (bhCollisionCheckL2MDL(p1, p2, pObj->model, &mtn->mtx) != 0))
             {
                 ret = i;
             }
@@ -2322,7 +2322,7 @@ int bhEff_E11_CheckCollisionPlayer(NJS_POINT3* p1, NJS_POINT3* p2)
             { 
                 for (i = 0; i < num; pObj++, mtn++, i++) 
                 {
-                    if ((pObj->model != NULL) && (bhCollisionCheckL2MDL(p1, p2, pObj->model, mtn->mtx) != 0)) 
+                    if ((pObj->model != NULL) && (bhCollisionCheckL2MDL(p1, p2, pObj->model, &mtn->mtx) != 0)) 
                     {
                         ret = i;
                     }

@@ -4,6 +4,8 @@
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 
+#pragma optimization_level 4
+
 static NJS_PLANE PLANE;
 
 // 100% matching!
@@ -729,54 +731,60 @@ int bhInOutCheck(NJS_POINT3* p, NJS_POINT3* area, NJS_POINT3* normal, int num)
     return 1;
 }
 
-// 
-// Start address: 0x26b200
-int bhCollisionCheckL2MDL(NJS_POINT3* p1, NJS_POINT3* p2, NJS_CNK_MODEL* mdl, NJS_MATRIX mtx)
+// 100% matching!
+int bhCollisionCheckL2MDL(NJS_POINT3* p1, NJS_POINT3* p2, NJS_CNK_MODEL* mdl, NJS_MATRIX* mtx)
 {
-	//_anon37 ln;
-	//_anon2 center;
-	//_anon2 area[4];
-	//_anon2* pd;
-	short pnum;
-	int j;
-	int i;
-	int ret;
-	int* pVtx;
-	short* pPol;
-	// Line 849, Address: 0x26b200, Func Offset: 0
-	// Line 857, Address: 0x26b234, Func Offset: 0x34
-	// Line 858, Address: 0x26b248, Func Offset: 0x48
-	// Line 864, Address: 0x26b24c, Func Offset: 0x4c
-	// Line 858, Address: 0x26b258, Func Offset: 0x58
-	// Line 859, Address: 0x26b25c, Func Offset: 0x5c
-	// Line 860, Address: 0x26b264, Func Offset: 0x64
-	// Line 861, Address: 0x26b26c, Func Offset: 0x6c
-	// Line 862, Address: 0x26b27c, Func Offset: 0x7c
-	// Line 863, Address: 0x26b28c, Func Offset: 0x8c
-	// Line 864, Address: 0x26b298, Func Offset: 0x98
-	// Line 866, Address: 0x26b2bc, Func Offset: 0xbc
-	// Line 876, Address: 0x26b2c0, Func Offset: 0xc0
-	// Line 867, Address: 0x26b2c8, Func Offset: 0xc8
-	// Line 876, Address: 0x26b2cc, Func Offset: 0xcc
-	// Line 877, Address: 0x26b2d0, Func Offset: 0xd0
-	// Line 876, Address: 0x26b2d8, Func Offset: 0xd8
-	// Line 872, Address: 0x26b2e4, Func Offset: 0xe4
-	// Line 877, Address: 0x26b2e8, Func Offset: 0xe8
-	// Line 876, Address: 0x26b2ec, Func Offset: 0xec
-	// Line 872, Address: 0x26b2f0, Func Offset: 0xf0
-	// Line 876, Address: 0x26b2f4, Func Offset: 0xf4
-	// Line 873, Address: 0x26b2f8, Func Offset: 0xf8
-	// Line 877, Address: 0x26b2fc, Func Offset: 0xfc
-	// Line 880, Address: 0x26b310, Func Offset: 0x110
-	// Line 882, Address: 0x26b318, Func Offset: 0x118
-	// Line 883, Address: 0x26b320, Func Offset: 0x120
-	// Line 885, Address: 0x26b360, Func Offset: 0x160
-	// Line 886, Address: 0x26b37c, Func Offset: 0x17c
-	// Line 911, Address: 0x26b380, Func Offset: 0x180
-	// Line 913, Address: 0x26b394, Func Offset: 0x194
-	// Line 914, Address: 0x26b398, Func Offset: 0x198
-	// Func End, Address: 0x26b3c0, Func Offset: 0x1c0
-	scePrintf("bhCollisionCheckL2MDL - UNIMPLEMENTED!\n");
+    short* pPol;       
+    int* pVtx;          
+    int ret;          
+    int i, j;          
+    short pnum;      
+    NJS_POINT3* pd;  
+    NJS_POINT3 area[4], center; 
+    NJS_LINE ln;       
+
+    ret = 0; 
+
+    njCalcPoint(mtx, &mdl->center, &center);
+    
+    ln.px = p1->x;
+    ln.py = p1->y;
+    ln.pz = p1->z;
+    
+    ln.vx = p2->x - p1->x;
+    ln.vy = p2->y - p1->y;
+    ln.vz = p2->z - p1->z;
+
+    if (njDistanceP2L(&center, &ln, NULL) > mdl->r) 
+    {
+        return ret;
+    }
+
+    pVtx = mdl->vlist;
+    pPol = mdl->plist;
+    
+    pnum = ((unsigned char*)pPol)[4];
+
+    pd = (NJS_POINT3*)(((int)sys->memp + 31) & ~0x1F);
+    
+    pPol += 3;
+
+    njCalcPoints(mtx, (NJS_POINT3*)&pVtx[2], pd, ((short*)pVtx)[3]);
+
+    for (i = 0; i < pnum; i++) 
+    { 
+        for (j = 0; j < 3; j++) 
+        {
+            area[j] = pd[*pPol++];
+        } 
+        
+        if (bhCollisionCheckL2PL(p1, p2, area, 3) != 0) 
+        {
+            ret = 1;
+        }
+    }
+    
+    return ret;
 }
 
 // 100% matching!

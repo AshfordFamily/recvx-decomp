@@ -336,18 +336,16 @@ void bhReadWeaponData()
     }
 }
 
-// 94.11% matching
+// 100% matching!
 unsigned char* bhKeepObjWork(ML_WORK* mp, unsigned char* sp)
 {
-    unsigned char* owp; // not from the debugging symbols
-
-    owp = (unsigned char*)(((int)sp + 15) & ~0xF);
+    sp = (unsigned char*)(((int)sp + 15) & ~0xF);
     
-    mp->owP = (O_WORK*)owp;
+    mp->owP = (O_WORK*)sp;
     
-    memset(owp, 0, mp->obj_num * 80);
+    memset(sp, 0, mp->obj_num * 80);
     
-    owp += mp->obj_num * 80;
+    sp += mp->obj_num * 80;
     
-    return owp;
+    return sp;
 }

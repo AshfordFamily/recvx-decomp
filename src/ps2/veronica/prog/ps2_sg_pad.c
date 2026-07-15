@@ -177,12 +177,11 @@ void pdSetMode(Sint32 mode)
 
 }
 
-// 99.87% matching
+// 100% matching!
 void Ps2_pad_read()
 {
 	unsigned int info; 
     PAD_INFO* pad; 
-    int* temp; // not from the debugging symbols
     
     pad = &Ps2_pad;
     
@@ -356,9 +355,7 @@ void Ps2_pad_read()
     
     *(unsigned short*)(Pad_rdata1 + 2) ^= 65535;
     
-    temp = (int*)(Pad_rdata1 + 4);
-    
-    *temp = ~*temp;
+    *(unsigned int*)(Pad_rdata1 + 4) ^= 0xFFFFFFFF;
     
     Pad_set(&pad->pad1, 1);
     

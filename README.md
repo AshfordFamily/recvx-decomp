@@ -2,12 +2,12 @@
 
 [![Build Status]][actions] [![Code Progress]][progress] [![Data Progress]][progress] 
 
-[Build Status]: https://github.com/fmil95/recvx-decomp/actions/workflows/progress.yml/badge.svg
-[actions]: https://github.com/fmil95/recvx-decomp/actions/workflows/progres.yml
+[Build Status]: https://github.com/AshfordFamily/recvx-decomp/actions/workflows/progress.yml/badge.svg
+[actions]: https://github.com/AshfordFamily/recvx-decomp/actions/workflows/progres.yml
 
-[Code Progress]: https://decomp.dev/fmil95/recvx-decomp.svg?mode=shield&label=Code&measure=matched_code_percent
-[Data Progress]: https://decomp.dev/fmil95/recvx-decomp.svg?mode=shield&label=Functions&measure=matched_functions
-[progress]: https://decomp.dev/fmil95/recvx-decomp
+[Code Progress]: https://decomp.dev/AshfordFamily/recvx-decomp.svg?mode=shield&label=Code&measure=matched_code_percent
+[Data Progress]: https://decomp.dev/AshfordFamily/recvx-decomp.svg?mode=shield&label=Functions&measure=matched_functions
+[progress]: https://decomp.dev/AshfordFamily/recvx-decomp
 
 <img src="https://i.imgur.com/3Fl2QNQ.png"/> 
 
@@ -23,7 +23,7 @@ Additionally, this project also consists of reverse-engineering the CRI Middlewa
 
 The very first step should be to clone the repository: 
 ```
-git clone --recursive https://github.com/fmil95/recvx-decomp.git
+git clone --recursive https://github.com/AshfordFamily/recvx-decomp.git
 ```
 
 Next you have to place your copy of the SLUS_201.84 file in the config folder. The setup now depends on whether you want to use a dev container or not.
@@ -77,13 +77,9 @@ python mkiso.py -m insert
 
 If successful, you will now see an ISO called "RECVX_NEW" in the iso folder that you can use to test the results with an emulator (preferrably PCSX2 for its debugging capabilities) or console.  
 
-## Community
-
-The primary way to discuss the project is through the [REDACTED] server on Discord, which has a dedicated channel for the decomp called `resident-evil-code-veronica-x`. See you there!
-
-[REDACTED]
-
 ## Resources
+
+AshfordFamily's fan art provided by [fishiiarts_](https://www.instagram.com/fishiiarts_/).
 
 Associated decomp projects:
 - [Resident Evil - Code: Veronica X (Nintendo GameCube)](https://github.com/fmil95/recvx-gc-decomp)
@@ -95,4 +91,4 @@ Associated decomp projects:
 
 ## Disclaimer
 
-This repository and the code therein, is made public on this site by fmil95 for preservational and educational purposes. I do not claim to hold any affiliation to the Resident Evil franchise, Capcom Co., Ltd or any other related party, nor mean to infringe upon the copyright of Resident Evil: Code: Veronica X.
+This repository and the code therein, is made public on this site by AshfordFamily for preservational and educational purposes. I do not claim to hold any affiliation to the Resident Evil franchise, Capcom Co., Ltd or any other related party, nor mean to infringe upon the copyright of Resident Evil: Code: Veronica X.

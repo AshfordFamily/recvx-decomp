@@ -4,6 +4,15 @@
 #include "types.h"
 #include "macros.h"
 
+typedef struct {
+	// total size: 0x14
+    float adist; // offset 0x0, size 0x4
+    float ndist; // offset 0x4, size 0x4
+    int ang;     // offset 0x8, size 0x4
+    int add_hp;  // offset 0xC, size 0x4
+    int add_atk; // offset 0x10, size 0x4
+} EN01_PERSONAL_TYPE;
+
 void bhEne01_DmgCheckTypeDmmy();
 void bhEne01(BH_PWORK* epw);
 void bhEne01_MainLoop(BH_PWORK* epw);
