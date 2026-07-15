@@ -2606,41 +2606,69 @@ static cnc_wrk_typ* MapCncGet(int map_no, int flr_no)
     return &mwP->cnc_wrkP[map_no];
 }
 
-// 
-// Start address: 0x2b7210
+// 68.79% matching
 static void MapCnc(mp_no dst, mp_no src, int status)
 {
-	int src_flr;
-	int src_map;
-	int dst_flr;
-	int dst_map;
-	cnc_wrk_typ* dstP;
-	cnc_wrk_typ* srcP;
-	int AdjMapA[3];
-	// Line 3605, Address: 0x2b7210, Func Offset: 0
-	// Line 3611, Address: 0x2b7214, Func Offset: 0x4
-	// Line 3612, Address: 0x2b7218, Func Offset: 0x8
-	// Line 3613, Address: 0x2b721c, Func Offset: 0xc
-	// Line 3614, Address: 0x2b7220, Func Offset: 0x10
-	// Line 3605, Address: 0x2b7224, Func Offset: 0x14
-	// Line 3616, Address: 0x2b7228, Func Offset: 0x18
-	// Line 3617, Address: 0x2b7238, Func Offset: 0x28
-	// Line 3626, Address: 0x2b7244, Func Offset: 0x34
-	// Line 3623, Address: 0x2b7248, Func Offset: 0x38
-	// Line 3626, Address: 0x2b724c, Func Offset: 0x3c
-	// Line 3627, Address: 0x2b726c, Func Offset: 0x5c
-	// Line 3629, Address: 0x2b7290, Func Offset: 0x80
-	// Line 3630, Address: 0x2b72a0, Func Offset: 0x90
-	// Line 3634, Address: 0x2b72b0, Func Offset: 0xa0
-	// Line 3636, Address: 0x2b72b8, Func Offset: 0xa8
-	// Line 3638, Address: 0x2b72cc, Func Offset: 0xbc
-	// Line 3640, Address: 0x2b72d8, Func Offset: 0xc8
-	// Line 3642, Address: 0x2b72e0, Func Offset: 0xd0
-	// Line 3643, Address: 0x2b72f4, Func Offset: 0xe4
-	// Line 3646, Address: 0x2b72f8, Func Offset: 0xe8
-	// Line 3647, Address: 0x2b72fc, Func Offset: 0xec
-	// Func End, Address: 0x2b7308, Func Offset: 0xf8
-	scePrintf("MapCnc - UNIMPLEMENTED!\n");
+	// modified order of local variables in regards to DWARF
+    cnc_wrk_typ* srcP, *dstP; 
+    int dst_map;       
+	int src_flr, src_map;     
+	int dst_flr;     
+	static const int AdjMapA[3] = { 64, 128, 832 };
+    
+    dst_flr = dst / 16;
+    dst_map = dst & 0xF;
+
+    src_flr = src / 16;
+    src_map = src & 0xF;
+    
+    dstP = MapCncGet(dst_flr, dst_map);
+    srcP = MapCncGet(src_flr, src_map);
+    
+    dst_flr *= 256;
+    src_flr *= 256;
+    
+    if (src_flr == 2560) 
+	{
+        src_flr = AdjMapA[src_map];
+    }
+
+    if (dst_flr == 2560) 
+	{
+        dst_flr = AdjMapA[dst_map];
+    }
+
+    if (src_flr == 512) 
+	{
+        src_flr = 896;
+    }
+
+    if (dst_flr == 512) 
+	{
+        dst_flr = 896;
+    }
+
+    if (dst_flr == src_flr) 
+	{
+        if (dst_map < src_map) 
+		{
+            srcP->flr_prevP = dstP;
+        } 
+		else if (dst_map > src_map) 
+		{
+            srcP->flr_nextP = dstP;
+        }
+    } 
+	else if (dst_flr < src_flr) 
+	{
+        srcP->map_prevP = dstP;
+    }
+	else 
+	{
+        srcP->map_nextP = dstP;
+    }
+
+    dstP->status = status;
 }
 
 // 81.59% matching (matches on NGC)
