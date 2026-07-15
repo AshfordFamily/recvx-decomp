@@ -10,7 +10,7 @@
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/eneset.h"
 
-float DeadRate[19] = 
+static float DeadRate[19] = 
 {
     0.0f, 
     0.0f, 
@@ -33,7 +33,7 @@ float DeadRate[19] =
     1.0f  
 };
 
-CPCL CapColTab[3] =
+static CPCL CapColTab[3] =
 {
     { 0, 0, 5 },
     { 0, 2, 0 },
@@ -265,9 +265,12 @@ void bhEne24_Move(BH_PWORK* epw)
         epw->mode0 = 4;
         epw->mode2 = 0;
         epw->mode3 = 0;
-        return;
+        
     }
-    bhEne24_MoveMode2[epw->mode2](epw);
+    else
+    {
+        bhEne24_MoveMode2[epw->mode2](epw);
+    }    
 }
 
 // 100% matching!
@@ -514,7 +517,7 @@ void bhEne24_CollisionLine(BH_PWORK* epw)
     ATR_WORK* hp;
 	NJS_POINT3 n;
     
-    if ((epw->flg & 0x100000) && (hp = bhCollisionCheckLine((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px), hp != NULL))
+    if ((epw->flg & 0x100000) && ((hp = bhCollisionCheckLine((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px)) != NULL))
     {
         bhGetHitCollisionNormal(&n);
         njUnitVector(&n);
