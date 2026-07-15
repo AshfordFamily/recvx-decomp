@@ -33,12 +33,14 @@
 #define SET_VEC4_AT(_src, _off, _data) (*((u_long128*)(((unsigned char*)(_src)) + _off)) = *(u_long128*)_data)
 #define SET_DATA_AT(_src, _off, _type, _data) (*((_type*)(((unsigned char*)(_src)) + _off)) = _data)
 
-#define EXP0_UC(o) (*(unsigned char  *)((char *)epw->exp0 + (o)))
 #define EXP0_C(o) (*(char  *)((char *)epw->exp0 + (o)))
+#define EXP0_UC(o) (*(unsigned char  *)((char *)epw->exp0 + (o)))
 #define EXP0_S(o) (*(short *)((char *)epw->exp0 + (o)))
+#define EXP0_US(o) (*(unsigned short *)((char *)epw->exp0 + (o)))
 #define EXP0_I(o) (*(int   *)((char *)epw->exp0 + (o)))
 #define EXP0_F(o) (*(float *)((char *)epw->exp0 + (o)))
 
+#define EXP1_UC(o) (*(unsigned char  *)((unsigned char *)plp->exp1 + (o)))
 #define EXP1_C(o) (*(char  *)((char *)plp->exp1 + (o)))
 #define EXP1_S(o) (*(short *)((char *)plp->exp1 + (o)))
 #define EXP1_I(o) (*(int   *)((char *)plp->exp1 + (o)))
@@ -51,8 +53,36 @@
 #define PEXP0_I(o) (*(int   *)((char *)plp->exp0 + (o)))
 #define PEXP0_F(o) (*(float *)((char *)plp->exp0 + (o)))
 
+#define EPP_EXP0_UC(o) (*(unsigned char *)((char *)epp->exp0 + (o)))
+#define EPP_EXP0_S(o) (*(short *)((char *)epp->exp0 + (o)))
+#define EPP_EXP0_I(o) (*(int   *)((char *)epp->exp0 + (o)))
+#define EPP_EXP0_F(o) (*(float *)((char *)epp->exp0 + (o)))
+
+#define EXP0_P3_X(i) (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x28))
+#define EXP0_P3_Y(i) (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x2C))
+#define EXP0_P3_Z(i) (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x30))
+#define EXP0_ANG(i)  (*(int   *)((char *)epw->exp0 + ((i) * 4)  + 0x40))
+
 #define PREFETCH(_v) asm("pref 0x0,0(%0)": : "r"(_v) : "memory")
 
 #define SCE_GIF_PRIM(prim, iip, tme, fge, abe, aa1, fst, ctxt, fix) SCE_GIF_SET_TAG(0, 0, 0, SCE_GS_SET_PRIM(prim, iip, tme, fge, abe, aa1, fst, ctxt, fix), 0, 0)
+
+#define RAND_MAX 0x7fffffff
+
+#ifndef RAND_MAX
+#define RAND_MAX  32767
+#endif
+
+/*
+ *  ANGLE MACRO
+ */
+#define NJM_RAD_ANG(n)  ((Angle)((n) * (65536.0f / PI_2)))
+#define NJM_ANG_DEG(n)  ((n) * 360.0f / 65536.0f)
+#define NJM_DEG_ANG(n)  ((Angle)(((n) * 65536.0f) / 360.0f))
+#define njRandom()       ((Float)((Float)-rand()/(Float)(RAND_MAX+1)))
+#define bhRandomAngle(deg)      njRandom() * ((Float)(NJM_DEG_ANG(deg)) * 2) - NJM_DEG_ANG(deg)
+
+#define njArcSin(n)      ((Angle)NJM_RAD_ANG(asinf  ((Float)(n)) ))
+#define njArcTan2(y,x)   ((Angle)NJM_RAD_ANG(atan2f ((Float)(y),(Float)(x)) ))
 
 #endif
