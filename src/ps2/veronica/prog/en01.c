@@ -9,7 +9,6 @@
 #include "../../../ps2/veronica/prog/player.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 
-
 // ENEMY: Zombie 
 
 /*typedef struct _anon0;
@@ -1921,7 +1920,10 @@ char En01SdwTabB[3] = {
 /*int en01_walk_mtn[6];
 _anon15 en01prt_blood_tbl[18];
 _anon8 chg_mtn_tbl[28];
-int kaidan_ang[4];*/
+*/
+
+int kaidan_ang[4] = { 0, 49152, 32768, 16384 };
+
 NJS_POINT2_XZ cl_mtn01_xz[60] = {
     { 0.0f, -4.400000034365803e-05f },
     { 0.0f, 0.1556289941072464f },
