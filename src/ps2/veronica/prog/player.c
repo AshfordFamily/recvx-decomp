@@ -742,9 +742,12 @@ void bhSetPlayer()
     
     plp->at_flg = 0;
     
-    plp->sx = plp->sxb = 1.0f;
-    plp->sy = plp->syb = 1.0f;
-    plp->sz = plp->szb = 1.0f;
+    plp->sxb = 1.0f;
+    plp->sx = 1.0f;
+    plp->syb = 1.0f;
+    plp->sy = 1.0f;
+    plp->szb = 1.0f;
+    plp->sz = 1.0f;
     
     plp->kdnp = NULL;
     
