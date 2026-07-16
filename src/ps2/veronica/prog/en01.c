@@ -8,6 +8,7 @@
 #include "../../../ps2/veronica/prog/njplus.h"
 #include "../../../ps2/veronica/prog/player.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/zonzon.h"
 
 // ENEMY: Zombie 
 
@@ -9577,56 +9578,59 @@ void bhEne01_GetWalkMotion(BH_PWORK* epw)
 	// Func End, Address: 0x1893b4, Func Offset: 0xf4
 }
 
-// 
-// Start address: 0x1893c0
+// 100% matching!
 int bhEne01_FastCheck(BH_PWORK* epw)
 {
-	BH_PWORK* ep;
-	int i;
-	scePrintf("bhEne01_FastCheck - UNIMPLEMENTED!\n");
-	// Line 12477, Address: 0x1893c0, Func Offset: 0
-	// Line 12473, Address: 0x1893c8, Func Offset: 0x8
-	// Line 12477, Address: 0x1893d0, Func Offset: 0x10
-	// Line 12479, Address: 0x1893ec, Func Offset: 0x2c
-	// Line 12481, Address: 0x189420, Func Offset: 0x60
-	// Line 12484, Address: 0x189430, Func Offset: 0x70
-	// Line 12486, Address: 0x189448, Func Offset: 0x88
-	// Line 12487, Address: 0x18944c, Func Offset: 0x8c
-	// Func End, Address: 0x189454, Func Offset: 0x94
+    int i;
+    BH_PWORK* ep;
+
+    for (i = 0, ep = ene; i < sys->ewk_n; i++, ep++) 
+    {
+        if ((ep->id == 1) && (ep->flg & 0x1) && (ep->type != 10) && !(ep->flg & 0x80)) 
+        {
+            if (ep == epw) break;
+            return 1;
+        }
+    }
+    
+    return 0;
 }
 
-// 
-// Start address: 0x189460
+// 100% matching!
 int bhEne01_CmnFlgCheck(BH_PWORK* epw)
 {
-	int i;
 	BH_PWORK* ep;
-	scePrintf("bhEne01_CmnFlgCheck - UNIMPLEMENTED!\n");
-	// Line 12509, Address: 0x189460, Func Offset: 0
-	// Line 12511, Address: 0x189488, Func Offset: 0x28
-	// Line 12518, Address: 0x1894d0, Func Offset: 0x70
-	// Line 12520, Address: 0x1894dc, Func Offset: 0x7c
-	// Line 12523, Address: 0x1894e4, Func Offset: 0x84
-	// Line 12524, Address: 0x1894fc, Func Offset: 0x9c
-	// Line 12525, Address: 0x189500, Func Offset: 0xa0
-	// Func End, Address: 0x189508, Func Offset: 0xa8
+	int i;
+
+	for (i = 0, ep = ene; i < sys->ewk_n; i++, ep++)
+	{
+		if ((ep->id == 1) &&
+			((ep->flg & 1) && !(ep->flg & 2) && !(ep->flg & 0x80)) &&
+			((ep->exp0 != NULL) && (ep != epw) && (EP_EXP0_I(0x48) == 1)))
+		{
+			return 0;
+		}
+	}
+
+	return 1;
 }
 
-// 
-// Start address: 0x189510
+// 100% matching!
 int bhEne01_FastWalkCheck(BH_PWORK* epw)
 {
-	int i;
 	BH_PWORK* ep;
-	scePrintf("bhEne01_FastWalkCheck - UNIMPLEMENTED!\n");
-	// Line 12546, Address: 0x189510, Func Offset: 0
-	// Line 12548, Address: 0x18953c, Func Offset: 0x2c
-	// Line 12556, Address: 0x189590, Func Offset: 0x80
-	// Line 12558, Address: 0x1895a0, Func Offset: 0x90
-	// Line 12561, Address: 0x1895a8, Func Offset: 0x98
-	// Line 12562, Address: 0x1895bc, Func Offset: 0xac
-	// Line 12563, Address: 0x1895c0, Func Offset: 0xb0
-	// Func End, Address: 0x1895c8, Func Offset: 0xb8
+	int i;
+
+	for (i = 0, ep = ene; i < sys->ewk_n; i++, ep++)
+	{
+		if (((ep->id == 1) && (ep->type != 5)) &&
+            ((ep->flg & 1) && !(ep->flg & 2) && !(ep->flg & 0x80)) &&
+            (((ep->exp0 != NULL) && (ep != epw) && (EP_EXP0_I(0x44) & 0x80))))
+		{
+            return 1;
+		}
+	}
+	return 0;
 }
 
 /*// 
@@ -9669,47 +9673,53 @@ int bhEne01_ZulzulCheck(BH_PWORK* epw, int ang, float len, _anon11* get_pos, int
 	// Func End, Address: 0x1897a8, Func Offset: 0x1d8
 }*/
 
-// 
-// Start address: 0x1897b0
+// 100% matching!
 int bhEne01_GakeotiCheck(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_GakeotiCheck - UNIMPLEMENTED!\n");
-	// int flg;
-	// int ang;
-	// _anon11 vec;
-	// _anon0* hp;
-	// Line 12632, Address: 0x1897b0, Func Offset: 0
-	// Line 12638, Address: 0x1897c4, Func Offset: 0x14
-	// Line 12639, Address: 0x1897d8, Func Offset: 0x28
-	// Line 12642, Address: 0x1897e8, Func Offset: 0x38
-	// Line 12643, Address: 0x189800, Func Offset: 0x50
-	// Line 12645, Address: 0x189810, Func Offset: 0x60
-	// Line 12646, Address: 0x189824, Func Offset: 0x74
-	// Line 12648, Address: 0x189834, Func Offset: 0x84
-	// Func End, Address: 0x189848, Func Offset: 0x98
+	ATR_WORK* hp;  
+	NJS_VECTOR vec;
+	int ang;    
+	int flg;
+
+    hp = bhEne_EnemyAtariCheck((NJS_POINT3*)&epw->px, epw->flr_no, epw->id, 1);
+    if (hp == NULL)
+    {
+        flg = 0;
+    } 
+    else
+    {
+        ang = kaidan_ang[hp->prm2];
+        vec.x = -njSin(ang);
+        vec.y = 0;
+        vec.z = -njCos(ang);
+        flg = bhEne_AngleCheck(&vec, epw->ay, 6144);
+    }
+    
+    return flg;
 }
 
-// 
-// Start address: 0x189850
+// 100% matching!
 int bhEne01_DansaCheck(BH_PWORK* epw, int ang, float ofs_z)
 {
-	scePrintf("bhEne01_DansaCheck - UNIMPLEMENTED!\n");
-	// int sang;
-	// _anon11 pos;
-	// _anon0* hp;
-	// Line 12667, Address: 0x189850, Func Offset: 0
-	// Line 12672, Address: 0x189868, Func Offset: 0x18
-	// Line 12673, Address: 0x189888, Func Offset: 0x38
-	// Line 12674, Address: 0x189890, Func Offset: 0x40
-	// Line 12677, Address: 0x18989c, Func Offset: 0x4c
-	// Line 12674, Address: 0x1898a0, Func Offset: 0x50
-	// Line 12677, Address: 0x1898ac, Func Offset: 0x5c
-	// Line 12679, Address: 0x1898c4, Func Offset: 0x74
-	// Line 12681, Address: 0x1898ec, Func Offset: 0x9c
-	// Line 12683, Address: 0x189908, Func Offset: 0xb8
-	// Line 12686, Address: 0x189914, Func Offset: 0xc4
-	// Line 12687, Address: 0x189918, Func Offset: 0xc8
-	// Func End, Address: 0x189930, Func Offset: 0xe0
+    ATR_WORK* hp;
+    NJS_POINT3 pos;
+    int sang;
+
+    pos.x = epw->px - (ofs_z * njSin(epw->ay));
+    pos.y = epw->py;
+    pos.z = epw->pz - (ofs_z * njCos(epw->ay));
+    
+    hp = bhEne_EnemyAtariCheck(&pos, epw->flr_no, epw->id, 2);    
+    if (hp != NULL)
+    {
+        sang = ((epw->ay + ang) - kaidan_ang[hp->prm2]) & 0xFFFF;
+        if (sang < 8192 || sang > 57344)
+        {
+            return 1;
+        }
+    }
+    
+    return 0;
 }
 
 // 
