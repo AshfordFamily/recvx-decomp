@@ -975,6 +975,106 @@ Int     njCollisionCheckBC(NJS_BOX *box, NJS_CAPSULE *capsule)
 // Start address: 0x2e4bc0
 int njCheckPlane4AndLine(NJS_POINT3* pP1, NJS_POINT3* pP2, NJS_POINT3* pP3, NJS_POINT3* pP4, NJS_POINT3* pPN, NJS_LINE* pLine)
 {
+	float len2, invlen;
+	float ndx, ndy, ndz;
+	float dot;
+	float t;
+	float ix, iy, iz;
+	float dx, dy, dz;
+	float d1, d2;
+	float ux1, uy1, uz1;
+	float ux2, uy2, uz2;
+	float ux3, uy3, uz3;
+	float ux4, uy4, uz4;
+	float dot1, dot2, dot3, dot4;
+	float sum;
+
+	len2 = pLine->vx * pLine->vx + pLine->vy * pLine->vy + pLine->vz * pLine->vz;
+	invlen = njInvertSqrt(len2);
+	ndx = pLine->vx * invlen;
+	ndy = pLine->vy * invlen;
+	ndz = pLine->vz * invlen;
+
+	dot = pPN->x * ndx + pPN->y * ndy + pPN->z * ndz;
+	if (fabsf(dot) <= 0.025f) return 0;
+
+	t = -(pPN->x * (pLine->px - pP1->x) + pPN->y * (pLine->py - pP1->y) + pPN->z * (pLine->pz - pP1->z)) / dot;
+
+	ix = pLine->px + ndx * t;
+	iy = pLine->py + ndy * t;
+	iz = pLine->pz + ndz * t;
+
+	dx = ix - pLine->px;
+	dy = iy - pLine->py;
+	dz = iz - pLine->pz;
+	if (len2 < dx * dx + dy * dy + dz * dz) return 0;
+
+	dx = ix - (pLine->px + pLine->vx);
+	dy = iy - (pLine->py + pLine->vy);
+	dz = iz - (pLine->pz + pLine->vz);
+	if (len2 < dx * dx + dy * dy + dz * dz) return 0;
+
+	dx = pP1->x - ix;
+	dy = pP1->y - iy;
+	dz = pP1->z - iz;
+	d1 = dx * dx + dy * dy + dz * dz;
+	if (d1 < 0.001f) return 1;
+	invlen = njInvertSqrt(d1);
+	ux1 = dx * invlen;
+	uy1 = dy * invlen;
+	uz1 = dz * invlen;
+
+	dx = pP2->x - ix;
+	dy = pP2->y - iy;
+	dz = pP2->z - iz;
+	d2 = dx * dx + dy * dy + dz * dz;
+	if (d2 < 0.001f) return 1;
+	invlen = njInvertSqrt(d2);
+	ux2 = dx * invlen;
+	uy2 = dy * invlen;
+	uz2 = dz * invlen;
+
+	dx = pP3->x - ix;
+	dy = pP3->y - iy;
+	dz = pP3->z - iz;
+	d1 = dx * dx + dy * dy + dz * dz;
+	if (d1 < 0.001f) return 1;
+	invlen = njInvertSqrt(d1);
+	ux3 = dx * invlen;
+	uy3 = dy * invlen;
+	uz3 = dz * invlen;
+
+	dx = pP4->x - ix;
+	dy = pP4->y - iy;
+	dz = pP4->z - iz;
+	d2 = dx * dx + dy * dy + dz * dz;
+	if (d2 < 0.001f) return 1;
+	invlen = njInvertSqrt(d2);
+	ux4 = dx * invlen;
+	uy4 = dy * invlen;
+	uz4 = dz * invlen;
+
+	dot1 = ux1 * ux2 + uy1 * uy2 + uz1 * uz2;
+	if (dot1 < -1.0f) return 0;
+	if (dot1 > 1.0f) return 0;
+	dot2 = ux2 * ux3 + uy2 * uy3 + uz2 * uz3;
+	if (dot2 < -1.0f) return 0;
+	if (dot2 > 1.0f) return 0;
+	dot3 = ux3 * ux4 + uy3 * uy4 + uz3 * uz4;
+	if (dot3 < -1.0f) return 0;
+	if (dot3 > 1.0f) return 0;
+	dot4 = ux4 * ux1 + uy4 * uy1 + uz4 * uz1;
+	if (dot4 < -1.0f) return 0;
+	if (dot4 > 1.0f) return 0;
+
+	sum = acosf(dot1) + acosf(dot2) + acosf(dot3) + acosf(dot4);
+	if (sum < 6.25f) return 0;
+	return 1;
+}
+
+#if 0
+int njCheckPlane4AndLine_orig(NJS_POINT3* pP1, NJS_POINT3* pP2, NJS_POINT3* pP3, NJS_POINT3* pP4, NJS_POINT3* pPN, NJS_LINE* pLine)
+{
 	float fT4;
 	float fT3;
 	float fT2;
@@ -1091,6 +1191,8 @@ int njCheckPlane4AndLine(NJS_POINT3* pP1, NJS_POINT3* pP2, NJS_POINT3* pP3, NJS_
 	// Func End, Address: 0x2e5084, Func Offset: 0x4c4
     scePrintf("njCheckPlane4AndLine - UNIMPLEMENTED!\n");
 }
+#endif
+
 
 // 100% matching!
 int njCollisionCheckBC2(NJS_BOX* pBox, NJS_CAPSULE* pCapsule) 
