@@ -2088,7 +2088,145 @@ void bhEff_E11_SearchLight(O_WRK* op)
 
 // 
 // Start address: 0x2411a0
+typedef struct {
+	void* p;
+	void* col;
+	void* tex;
+	unsigned int num;
+} P3COL_DESC;
+
 void bhEff_E11_SearchLightDraw(O_WRK* op)
+{
+	float ratetbl[16];
+	int i;
+	float ang;
+	float cx, cy;
+	float dir[4];
+	float* mtxp;
+	unsigned char* ownerp;
+	unsigned char* segp;
+	NJS_POINT3 pts[3];
+	unsigned char attrbuf[12];
+	P3COL_DESC desc;
+	NJS_POINT3 base;
+	float f20, f21;
+	NJS_SYS_ATTR sysattr;
+
+	ownerp = (unsigned char*)((BH_PWORK*)op->lkwkp)->mlwP->owP;
+	segp = ownerp + 0x150;
+	base.x = *(float*)(ownerp + 0x180);
+	base.y = *(float*)(ownerp + 0x184);
+	base.z = *(float*)(ownerp + 0x188);
+	mtxp = (float*)(op->exp0 + 4);
+
+	for (i = 0; i < 0x10; i++) {
+		ang = 182.04445f * (float)(i * 16);
+		f20 = 100.0f * njCos((int)ang);
+		cx = f20 * tanf(0.0000958738f * (float)op->ax);
+		f21 = tanf(0.0000958738f * (float)op->ax);
+		cy = 100.0f * njSin((int)ang) * f21;
+		dir[0] = cx;
+		dir[1] = cy;
+		dir[2] = 0.0f;
+		dir[3] = 0.0f;
+		njUnitVector((NJS_VECTOR*)dir);
+		njCalcVector((NJS_MATRIX*)segp, (NJS_VECTOR*)dir, (NJS_VECTOR*)dir);
+		njCalcVector((NJS_MATRIX*)cam.mtx, (NJS_VECTOR*)dir, (NJS_VECTOR*)dir);
+		if (dir[3] > 0.0f) {
+			ratetbl[i] = dir[3] - 0.3f;
+			if (ratetbl[i] < 0.0f) ratetbl[i] = 0.0f;
+			if (ratetbl[i] > 0.5f) ratetbl[i] = 0.5f;
+		} else {
+			ratetbl[i] = (-dir[3] - 0.3f) * 1.6f;
+			if (ratetbl[i] < 0.0f) ratetbl[i] = 0.0f;
+			if (ratetbl[i] > 1.0f) ratetbl[i] = 1.0f;
+		}
+
+		if (sys->sp_flg & 8) {
+			njCalcPoint((NJS_MATRIX*)segp, (NJS_VECTOR*)&cx, (NJS_POINT3*)mtxp);
+			bhCollisionCheckLine2((NJS_POINT3*)&base, (NJS_POINT3*)mtxp, 0x4400, -1);
+			if (bhEff_E11_CheckCollisionPlayer((NJS_POINT3*)&base, (NJS_POINT3*)mtxp) != -1 && op->mode0 == 2) {
+				op->ct2 = 1;
+			}
+		}
+		mtxp += 3;
+	}
+
+	njGetSystemAttr(&sysattr);
+	njColorBlendingMode(0, 8);
+	njColorBlendingMode(1, 0xA);
+	njFogDisable();
+	njSetMatrix(0, (void*)cam.mtx);
+
+	desc.p = pts;
+	desc.col = attrbuf;
+	desc.tex = 0;
+	desc.num = 3;
+
+	if (op->ct2 != 0) {
+		attrbuf[3] = (unsigned char)(150.0f + (55.0f * op->sx));
+		attrbuf[2] = op->ct0 * 3;
+		attrbuf[1] = 0;
+		attrbuf[0] = 0;
+		attrbuf[6] = op->ct0 * 2;
+		attrbuf[5] = 0;
+		attrbuf[4] = 0;
+	} else {
+		attrbuf[3] = (unsigned char)(150.0f + (55.0f * op->sx));
+		attrbuf[2] = (unsigned char)(0.8f * (float)op->ct0);
+		attrbuf[1] = (unsigned char)(0.8f * (float)op->ct0);
+		attrbuf[0] = op->ct0;
+		attrbuf[6] = (unsigned char)(0.4f * (float)op->ct0);
+		attrbuf[5] = (unsigned char)(0.4f * (float)op->ct0);
+		attrbuf[4] = op->ct0;
+	}
+
+	mtxp = (float*)(op->exp0 + 4);
+	pts[0] = base;
+	for (i = 0; i < 0xF; i++) {
+		pts[1].x = mtxp[0];
+		pts[1].y = mtxp[1];
+		pts[1].z = mtxp[2];
+		pts[2].x = mtxp[3];
+		pts[2].y = mtxp[4];
+		pts[2].z = mtxp[5];
+		attrbuf[7] = (unsigned char)((30.0f + (15.0f * op->sx)) * ratetbl[i]);
+		attrbuf[11] = (unsigned char)((30.0f + (15.0f * op->sx)) * ratetbl[i + 1]);
+		njDrawPolygon3D((NJS_POINT3COL*)&desc, 3, 0x60);
+		mtxp += 3;
+	}
+	pts[1].x = mtxp[0];
+	pts[1].y = mtxp[1];
+	pts[1].z = mtxp[2];
+	pts[2] = pts[0];
+	attrbuf[7] = (unsigned char)((30.0f + (15.0f * op->sx)) * ratetbl[0xF]);
+	attrbuf[11] = (unsigned char)((30.0f + (15.0f * op->sx)) * ratetbl[0]);
+	njDrawPolygon3D((NJS_POINT3COL*)&desc, 3, 0x60);
+
+	desc.p = pts;
+	desc.col = attrbuf;
+	desc.num = 2;
+	pts[0] = base;
+	pts[1] = base;
+	attrbuf[3] = (unsigned char)(64.0f * op->sy);
+	attrbuf[2] = (unsigned char)op->ct2 << 6;
+	attrbuf[1] = (unsigned char)(1 - op->ct2) << 6;
+	attrbuf[0] = 0;
+	attrbuf[7] = (unsigned char)(128.0f * op->sz);
+	attrbuf[6] = (unsigned char)op->ct2 << 6;
+	attrbuf[5] = (unsigned char)(1 - op->ct2) << 6;
+	attrbuf[4] = 0;
+	njDrawLine3DEx((NJS_POINT3COL*)&desc, 1, 0x40);
+	njDrawLine3DEx((NJS_POINT3COL*)&desc, 1, 0x40, ((op->ct1 >> 4) + 8) & 0xF);
+
+	njSetSystemAttr(&sysattr);
+	if (sys->st_flg & 2) {
+		njFogEnable();
+	}
+}
+
+#if 0
+void bhEff_E11_SearchLightDraw_orig(O_WRK* op)
 {
 	float rate;
 	int id2;
@@ -2276,6 +2414,7 @@ void bhEff_E11_SearchLightDraw(O_WRK* op)
 	// Func End, Address: 0x241a04, Func Offset: 0x864
 	scePrintf("bhEff_E11_SearchLightDraw - UNIMPLEMENTED!\n");
 }
+#endif
 
 // 100% matching!
 int bhEff_E11_CheckCollisionPlayer(NJS_POINT3* p1, NJS_POINT3* p2)
@@ -2373,7 +2512,152 @@ void bhEff_E16_LaserSight(O_WRK* op)
 
 // 
 // Start address: 0x241ca0
+extern NJS_POINT3* bhEne16_GetEffPos(BH_PWORK* epw);
+extern void bhEne16_AddEffPos(BH_PWORK* epw, NJS_POINT3* pos);
+
 void bhEff_E16_LaserSightDraw(O_WRK* op)
+{
+	NJS_POINT3 dirtbl[16];
+	float ratetbl[16];
+	BH_PWORK* ep;
+	NJS_POINT3* effp;
+	int num;
+	float* mtxp;
+	unsigned char* ownerp;
+	unsigned char* ent;
+	NJS_POINT3 base;
+	NJS_POINT3 hit;
+	float dir[4];
+	int i;
+	float ang;
+	float ln;
+	NJS_POINT3 pts2[2];
+	unsigned char attr2[8];
+	P3COL_DESC desc2;
+	NJS_POINT3 pts3[3];
+	unsigned char attr3[12];
+	P3COL_DESC desc3;
+	NJS_SYS_ATTR sysattr;
+
+	ownerp = (unsigned char*)((BH_PWORK*)op->lkwkp)->mlwP->owP;
+	ent = ownerp + (op->lkono * 0x50);
+	mtxp = (float*)(ent + 0x10);
+	base.x = *(float*)(ent + 0x40);
+	base.y = *(float*)(ent + 0x44);
+	base.z = *(float*)(ent + 0x48);
+
+	hit.x = 0.0f;
+	hit.y = 0.0f;
+	hit.z = -1500.0f;
+	njCalcPoint((NJS_MATRIX*)mtxp, (NJS_POINT3*)&hit, (NJS_POINT3*)&hit);
+	if (sys->sp_flg & 8) {
+		op->exp0 = (unsigned char*)bhCollisionCheckLine2((NJS_POINT3*)&base, (NJS_POINT3*)&hit, 0x4400, -1);
+		op->lox = hit.x;
+		op->loy = hit.y;
+		op->loz = hit.z;
+		op->ct0 = bhEff_E11_CheckCollisionPlayer((NJS_POINT3*)&base, (NJS_POINT3*)&hit);
+		op->gpx = hit.x;
+		op->gpy = hit.y;
+		op->gpz = hit.z;
+		bhEne16_AddEffPos((BH_PWORK*)op->lkwkp, (NJS_POINT3*)&hit);
+	} else {
+		hit.x = op->gpx;
+		hit.y = op->gpy;
+		hit.z = op->gpz;
+	}
+
+	ln = -njDistanceP2P((NJS_POINT3*)&base, (NJS_POINT3*)&hit);
+	for (i = 0; i < 0x10; i++) {
+		ang = 182.04445f * (float)(i * 16);
+		dirtbl[i].x = 0.07f * njCos((int)ang);
+		dirtbl[i].y = 0.07f * njSin((int)ang);
+		dirtbl[i].z = ln;
+		njCalcPoint4((NJS_MATRIX*)mtxp, (NJS_POINT4*)&dirtbl[i], (NJS_POINT4*)&dirtbl[i]);
+		dir[0] = dirtbl[i].x;
+		dir[1] = dirtbl[i].y;
+		dir[2] = 0.0f;
+		njUnitVector((NJS_VECTOR*)dir);
+		njCalcVector((NJS_MATRIX*)mtxp, (NJS_VECTOR*)dir, (NJS_VECTOR*)dir);
+		njCalcVector((NJS_MATRIX*)cam.mtx, (NJS_VECTOR*)dir, (NJS_VECTOR*)dir);
+		if (dir[2] > 0.0f) {
+			ratetbl[i] = 0.0f;
+		} else {
+			ratetbl[i] = (-dir[2] - 0.3f) * 1.6f;
+			if (ratetbl[i] < 0.0f) ratetbl[i] = 0.0f;
+			if (ratetbl[i] > 1.0f) ratetbl[i] = 1.0f;
+		}
+	}
+
+	njGetSystemAttr(&sysattr);
+	njColorBlendingMode(0, 8);
+	njColorBlendingMode(1, 0xA);
+	njFogDisable();
+	njSetMatrix(0, (void*)cam.mtx);
+
+	desc2.p = pts2;
+	desc2.col = attr2;
+	desc2.tex = 0;
+	desc2.num = 2;
+	pts2[0] = base;
+	pts2[1] = hit;
+	attr2[3] = 0x40;
+	attr2[2] = 0x40;
+	attr2[1] = 0;
+	attr2[0] = 0;
+	attr2[7] = 0x80;
+	attr2[6] = 0x40;
+	attr2[5] = 0;
+	attr2[4] = 0;
+	njDrawLine3DEx((NJS_POINT3COL*)&desc2, 1, 0x40);
+
+	ep = (BH_PWORK*)op->lkwkp;
+	if (ep->type != 0) {
+		num = bhEne16_GetEffNum(ep);
+		effp = (NJS_POINT3*)bhEne16_GetEffPos(ep);
+		for (i = 0; i < num; i++) {
+			pts2[1] = effp[i];
+			attr2[7] = 0x28 - (i * 4);
+			attr2[3] = 0x28 - (i * 4);
+			njDrawLine3DEx((NJS_POINT3COL*)&desc2, 1, 0x40);
+		}
+	}
+
+	desc3.p = pts3;
+	desc3.col = attr3;
+	desc3.tex = 0;
+	desc3.num = 3;
+	pts3[0] = base;
+	attr3[0] = 0;
+	attr3[1] = 0;
+	attr3[2] = 0;
+	attr3[3] = 0;
+	for (i = 0; i < 0xF; i++) {
+		pts3[1] = dirtbl[i];
+		pts3[2] = dirtbl[i + 1];
+		attr3[4] = 0;
+		attr3[5] = 0;
+		attr3[6] = 0x64;
+		attr3[7] = (unsigned char)(255.0f * ratetbl[i]);
+		attr3[8] = 0;
+		attr3[9] = 0;
+		attr3[10] = 0x64;
+		attr3[11] = (unsigned char)(255.0f * ratetbl[i + 1]);
+		njDrawPolygon3D((NJS_POINT3COL*)&desc3, 3, 0x60);
+	}
+	pts3[1] = dirtbl[0xF];
+	pts3[2] = dirtbl[0];
+	attr3[7] = (unsigned char)(255.0f * ratetbl[0xF]);
+	attr3[11] = (unsigned char)(255.0f * ratetbl[0]);
+	njDrawPolygon3D((NJS_POINT3COL*)&desc3, 3, 0x60);
+
+	njSetSystemAttr(&sysattr);
+	if (sys->st_flg & 2) {
+		njFogEnable();
+	}
+}
+
+#if 0
+void bhEff_E16_LaserSightDraw_orig(O_WRK* op)
 {
 	//_anon45 p3c;
 	NJS_POINT3 area[3];
@@ -2587,10 +2871,210 @@ void bhEff_E16_LaserSightDraw(O_WRK* op)
 	// Func End, Address: 0x242318, Func Offset: 0x678
 	scePrintf("bhEff_E16_LaserSightDraw - UNIMPLEMENTED!\n");
 }
+#endif
 
 // 
 // Start address: 0x242320
 void bhEff_E12_Fire(O_WRK* op)
+{
+	static UV_WORK BH_UVTAB0[10] = {
+		{ 0.0f, 0.0f, 0.15625f, 0.1875f },
+		{ 0.1875f, 0.0f, 0.15625f, 0.1875f },
+		{ 0.375f, 0.0f, 0.15625f, 0.1875f },
+		{ 0.5625f, 0.0f, 0.15625f, 0.1875f },
+		{ 0.75f, 0.0f, 0.15625f, 0.1875f },
+		{ 0.0f, 0.1875f, 0.15625f, 0.1875f },
+		{ 0.1875f, 0.1875f, 0.15625f, 0.1875f },
+		{ 0.375f, 0.1875f, 0.15625f, 0.1875f },
+		{ 0.5625f, 0.1875f, 0.15625f, 0.1875f },
+		{ -1.0f, 0.0f, 0.0f, 0.0f },
+	};
+	static UV_WORK BH_UVTAB1[9] = {
+		{ 0.03125f, 0.46875f, 0.15625f, 0.21875f },
+		{ 0.25f, 0.46875f, 0.15625f, 0.21875f },
+		{ 0.46875f, 0.46875f, 0.15625f, 0.21875f },
+		{ 0.6875f, 0.46875f, 0.15625f, 0.21875f },
+		{ 0.03125f, 0.6875f, 0.15625f, 0.21875f },
+		{ 0.25f, 0.6875f, 0.15625f, 0.21875f },
+		{ 0.46875f, 0.6875f, 0.15625f, 0.21875f },
+		{ 0.6875f, 0.6875f, 0.15625f, 0.21875f },
+		{ -1.0f, 0.0f, 0.0f, 0.0f },
+	};
+	static UV_WORK* uvtble[2] = { BH_UVTAB0, BH_UVTAB1 };
+	O_WRK* fireman;
+	BH_PWORK* pl;
+	LGT_WORK* ent;
+	NJS_POINT3 v;
+	float ln;
+	float dz;
+	float dx;
+	UV_WORK* uvp;
+	int retry;
+
+	switch (op->mode0) {
+	case 0:
+		op->tex_id = 0x50;
+		op->ani_ct = 1;
+		bhEff_SetBaseColor(op, 0x80FFFFFF);
+		op->bl_src = 8;
+		op->bl_dst = 3;
+		if (op->type == 0) {
+			bhEff_SetAlign(op, op->flg | 0x4180000);
+			op->frm_no = (int)((-rand() / -2.1474836E9f) * 8.0f);
+		} else {
+			bhEff_SetAlign(op, op->flg | 0x24080000);
+			op->mtn_no = 0;
+			op->mtn_no = (int)((-rand() / -2.1474836E9f) * 2.0f);
+			op->frm_no = (int)((-rand() / -2.1474836E9f) * 8.0f);
+		}
+		op->sxb = op->sx;
+		op->syb = op->sy;
+		if (op->type == 1) {
+			op->ct3 = (int)((-rand() / -2.1474836E9f) * 200.0f) + 200;
+		} else if (op->type == 2) {
+			op->ct3 = 20;
+		}
+		op->ct0 = 0;
+		op->aw = 0.2f;
+		op->ah = 1.0f;
+		if (op->type == 1) {
+			ent = &rom->lgtp[1];
+			retry = ent->flg;
+			if (!(retry & 1)) {
+				ent->ct0 = 0;
+				ent->lkono = 0;
+				ent->vx = 0;
+				ent->vy = 0;
+				ent->vz = 0;
+			}
+			ent->lkono += 1;
+			ent->flg |= 3;
+			ent->type = 0xD;
+			ent->aspd = 2;
+			ent->lkflg = 0;
+			ent->lsrc = 4;
+			ent->nr = 15.0f;
+			ent->fr = ((float)ent->lkono / 10.0f) + 20.0f;
+			ent->vx += op->px;
+			ent->vy += op->py;
+			ent->vz += op->pz;
+			ent->px = ent->vx / (float)ent->lkono;
+			ent->py = ent->vy / (float)ent->lkono;
+			ent->pz = ent->vz / (float)ent->lkono;
+			ent->r = 3;
+			ent->g = 1.3f;
+			ent->b = 0.3f;
+		}
+		/* fallthrough */
+	case 1:
+		op->mode0++;
+		break;
+	case 2:
+		if (op->type != 0) {
+			if (bhEne_CheckPlayEffectSE(0x12303) == 0) {
+				bhEne_CallEffectSE((NJS_POINT3*)&op->px, 0x12303);
+			}
+		}
+		op->ct0 += 0.2f;
+		if (op->ct0 <= 1.0f) {
+			op->mode0++;
+			break;
+		}
+		op->ct0 = 1.0f;
+		op->mode0++;
+		break;
+	case 3:
+		if (op->type != 0) {
+			if (op->ct3 != 0) {
+				op->ct3--;
+				if (op->ct3 == 0) op->mode0++;
+			} else if (op->mode1 == 2) {
+				op->mode0++;
+			}
+		}
+		if (op->type == 0) {
+			pl = plp;
+			dx = pl->px - op->px;
+			dz = pl->pz - op->pz;
+			ln = njSqrt(dx * dx + dz * dz);
+			if (ln < pl->ar + 1.5f) {
+				pl->px += (dx * (pl->ar + 1.5f)) / ln;
+				pl->pz += (dz * (pl->ar + 1.5f)) / ln;
+				if (!(pl->flg & 4) && !(pl->stflg & 0x80000000) && !(sys->cb_flg & 4)) {
+					pl->flg |= 0x10004;
+				}
+				pl->stflg |= 0x10004;
+				pl->ax = (int)ln;
+				pl->ay = 0;
+				pl->az = (int)dz;
+				bhEne_DGDirCheck(pl);
+				pl->mode1 = 0;
+				pl->mode0 = 0;
+			}
+		}
+		if (op->ct3 == 0) break;
+		if (op->type == 0) {
+			sys->ef_flg |= 0x108;
+			bhSetEffectTb(&sys->ef, NULL, NULL, 1);
+			op->ct3 = (int)((-rand() / -2.1474836E9f) * 200.0f) + 200;
+			break;
+		}
+		op->aw -= 0.02f;
+		if (op->aw < 0.01f) {
+			op->aw = 0.01f;
+			op->ah = 0.9f;
+			op->ct3 = 0x80;
+			op->mode0++;
+			break;
+		}
+		break;
+	case 4:
+		op->ct3 -= 8;
+		op->aw -= 0.001f;
+		op->ah -= 0.002f;
+		if (op->ct3 >= 0) break;
+		if (op->type == 0) {
+			op->flg = 0;
+			break;
+		}
+		op->mode0++;
+		break;
+	case 5:
+		if (op->mode1 == 1) op->mode0++;
+		break;
+	case 6:
+		break;
+	}
+
+	uvp = &uvtble[op->mtn_no][op->frm_no];
+	op->frm_no++;
+	if (uvtble[op->mtn_no][op->frm_no].u < 0.0f) op->frm_no = 0;
+	bhEff_SetUVInfo(op, uvp, 0.09375f);
+
+	op->sx = op->sxb * op->aw;
+	op->sy = op->syb * op->aw;
+	if (op->mdlver == 0.0f) {
+		njCalcVector((NJS_MATRIX*)cam.mtx, (NJS_VECTOR*)&op->aox, (NJS_VECTOR*)&v);
+		op->sx *= fabsf(v.z * 0.5f) + 0.5f;
+	}
+	if (op->type != 0) {
+		op->ay = bhArcTan2(*((float*)cam.mtx + 10), *((float*)cam.mtx + 8));
+	}
+	if (op->type == 0) {
+		if (sys->ef_fncn < 0x80) {
+			sys->ef_fnc[sys->ef_fncn++] = op;
+		}
+	} else {
+		fireman = (O_WRK*)op->exp1;
+		if (fireman->ct0 < 300) {
+			((O_WRK**)(fireman->exp0 + 4))[fireman->ct0] = op;
+			fireman->ct0++;
+		}
+	}
+}
+
+#if 0
+void bhEff_E12_Fire_orig(O_WRK* op)
 {
 	O_WRK** ent;
 	O_WRK* fireman;
@@ -2822,6 +3306,7 @@ void bhEff_E12_Fire(O_WRK* op)
 	// Func End, Address: 0x242d38, Func Offset: 0xa18
 	scePrintf("bhEff_E12_Fire - UNIMPLEMENTED!\n");
 }
+#endif
 
 // 100% matching!
 void bhEff_E12_FrameLiquid(O_WRK* op) 
