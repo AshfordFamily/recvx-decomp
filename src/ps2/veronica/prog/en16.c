@@ -1584,38 +1584,38 @@ void bhEne16_MV02(BH_PWORK* epw)
 	// Line 537, Address: 0x1eaa54, Func Offset: 0x9f4
 	// Func End, Address: 0x1eaa78, Func Offset: 0xa18
 }
+*/
 
-// 
-// Start address: 0x1eaa80
 int bhEne16_GetEffNum(BH_PWORK* epw)
 {
-	// Line 548, Address: 0x1eaa80, Func Offset: 0
-	// Line 549, Address: 0x1eaa84, Func Offset: 0x4
-	// Func End, Address: 0x1eaa8c, Func Offset: 0xc
+	return *(int*)(epw->exp0 + 0x64);
 }
 
-// 
-// Start address: 0x1eaa90
-_anon14* bhEne16_GetEffPos(BH_PWORK* epw)
+NJS_POINT3* bhEne16_GetEffPos(BH_PWORK* epw)
 {
-	// Line 560, Address: 0x1eaa90, Func Offset: 0
-	// Line 561, Address: 0x1eaa94, Func Offset: 0x4
-	// Func End, Address: 0x1eaa9c, Func Offset: 0xc
+	return (NJS_POINT3*)(epw->exp0 + 0x4);
 }
 
-// 
-// Start address: 0x1eaaa0
-void bhEne16_AddEffPos(BH_PWORK* epw, _anon14* pos)
+void bhEne16_AddEffPos(BH_PWORK* epw, NJS_POINT3* pos)
 {
+	NJS_POINT3* entries;
+	int count;
 	int i;
-	// Line 574, Address: 0x1eaaa0, Func Offset: 0
-	// Line 575, Address: 0x1eaabc, Func Offset: 0x1c
-	// Line 576, Address: 0x1eaac0, Func Offset: 0x20
-	// Line 575, Address: 0x1eaac4, Func Offset: 0x24
-	// Line 576, Address: 0x1eaae0, Func Offset: 0x40
-	// Line 577, Address: 0x1eaae8, Func Offset: 0x48
-	// Line 578, Address: 0x1eab04, Func Offset: 0x64
-	// Line 579, Address: 0x1eab28, Func Offset: 0x88
-	// Func End, Address: 0x1eab30, Func Offset: 0x90
-}*/
+
+	entries = (NJS_POINT3*)(epw->exp0 + 0x4);
+	count = *(int*)(epw->exp0 + 0x64);
+
+	for (i = count - 1; i > 0; i--)
+	{
+		entries[i] = entries[i - 1];
+	}
+
+	entries[0] = *pos;
+
+	count = *(int*)(epw->exp0 + 0x64);
+	if (count < 7)
+	{
+		*(int*)(epw->exp0 + 0x64) = count + 1;
+	}
+}
 
