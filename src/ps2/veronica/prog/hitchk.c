@@ -4418,6 +4418,97 @@ int bhCheckBox2Box(ATR_WORK* hp, NJS_POINT3* pos, float aw, float ad, float ah)
 // Start address: 0x265e10
 int bhCheckInnerP4(NJS_POINT2* pos, NJS_POINT2* p0, NJS_POINT2* p1, NJS_POINT2* p2, NJS_POINT2* p3)
 {
+	float dx01, dy01, dy02, dy13, dy23;
+	float slopeA, slopeB;
+	float xa, xb, tmp;
+	float slopeC, slopeD;
+
+	if (pos->y >= p0->y) {
+		if (pos->y >= p3->y) return 0;
+
+		dx01 = p1->x - p0->x;
+		dy01 = p1->y - p0->y;
+		dy02 = p2->y - p0->y;
+		dy13 = p3->y - p1->y;
+		dy23 = p3->y - p2->y;
+
+		slopeA = 0.0f;
+		slopeB = 0.0f;
+		if (!(dx01 <= 0.0f)) {
+			if (dy02 != 0.0f) slopeA = (p2->x - p0->x) / dy02;
+			if (dy01 != 0.0f) slopeB = dx01 / dy01;
+		} else {
+			if (dy01 != 0.0f) slopeA = dx01 / dy01;
+			if (dy02 != 0.0f) slopeB = (p2->x - p0->x) / dy02;
+		}
+
+		if (pos->y < p1->y) {
+			xa = p0->x + (slopeA * (pos->y - p0->y));
+			xb = p0->x + (slopeB * (pos->y - p0->y));
+			if (!(xa <= xb)) { tmp = xa; xa = xb; xb = tmp; }
+			if (xa <= pos->x) {
+				if (xb <= pos->x) return 0;
+				return 1;
+			}
+			return 0;
+		}
+
+		if (pos->y < p2->y) {
+			slopeC = 0.0f;
+			if (!(dx01 <= 0.0f)) {
+				if (dy13 != 0.0f) slopeC = (p3->x - p1->x) / dy13;
+				xa = p0->x + (slopeA * (pos->y - p0->y));
+				xb = p1->x + (slopeC * (pos->y - p1->y));
+				if (!(xa <= xb)) { tmp = xa; xa = xb; xb = tmp; }
+				if (xa <= pos->x) {
+					if (xb <= pos->x) return 0;
+					return 1;
+				}
+				return 0;
+			}
+			if (dy13 != 0.0f) slopeC = (p3->x - p1->x) / dy13;
+			xa = p1->x + (slopeC * (pos->y - p1->y));
+			xb = p0->x + (slopeB * (pos->y - p0->y));
+			if (!(xa <= xb)) { tmp = xa; xa = xb; xb = tmp; }
+			if (xa <= pos->x) {
+				if (xb <= pos->x) return 0;
+				return 1;
+			}
+			return 0;
+		}
+
+		slopeC = 0.0f;
+		if (!(dx01 <= 0.0f)) {
+			if (dy13 != 0.0f) slopeC = (p3->x - p1->x) / dy13;
+			slopeD = 0.0f;
+			if (dy23 != 0.0f) slopeD = (p3->x - p2->x) / dy23;
+			xa = p2->x + (slopeD * (pos->y - p2->y));
+			xb = p1->x + (slopeC * (pos->y - p1->y));
+			if (!(xa <= xb)) { tmp = xa; xa = xb; xb = tmp; }
+			if (xa <= pos->x) {
+				if (xb <= pos->x) return 0;
+				return 1;
+			}
+			return 0;
+		}
+		if (dy13 != 0.0f) slopeC = (p3->x - p1->x) / dy13;
+		slopeD = 0.0f;
+		if (dy23 != 0.0f) slopeD = (p3->x - p2->x) / dy23;
+		xa = p1->x + (slopeC * (pos->y - p1->y));
+		xb = p2->x + (slopeD * (pos->y - p2->y));
+		if (!(xa <= xb)) { tmp = xa; xa = xb; xb = tmp; }
+		if (xa <= pos->x) {
+			if (xb <= pos->x) return 0;
+			return 1;
+		}
+		return 0;
+	}
+	return 0;
+}
+
+#if 0
+int bhCheckInnerP4_orig(NJS_POINT2* pos, NJS_POINT2* p0, NJS_POINT2* p1, NJS_POINT2* p2, NJS_POINT2* p3)
+{
 	float y3;
 	float y2;
 	float y1;
@@ -4511,6 +4602,7 @@ int bhCheckInnerP4(NJS_POINT2* pos, NJS_POINT2* p0, NJS_POINT2* p1, NJS_POINT2* 
 	// Func End, Address: 0x266270, Func Offset: 0x460
 	scePrintf("bhCheckInnerP4 - UNIMPLEMENTED!\n");
 }
+#endif
 
 // 100% matching!
 void bhCheckExmAtari(BH_PWORK* pp)
