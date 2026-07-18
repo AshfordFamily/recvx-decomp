@@ -1,5 +1,7 @@
 #include "../../../ps2/veronica/prog/en19.h"
 
+// ENEMY: TYRANT 
+
 /*typedef struct npobj;
 typedef struct BH_PWORK;
 typedef struct _anon0;
