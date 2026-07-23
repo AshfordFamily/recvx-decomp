@@ -9944,14 +9944,9 @@ int bhEne01_CutLeg(BH_PWORK* epw)
 	// Func End, Address: 0x18a34c, Func Offset: 0xac
 }
 
-// 
-// Start address: 0x18a350
 void bhEne01_CutHead(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_CutHead - UNIMPLEMENTED!\n");
-	// Line 13372, Address: 0x18a350, Func Offset: 0
-	// Line 13374, Address: 0x18a358, Func Offset: 0x8
-	// Func End, Address: 0x18a360, Func Offset: 0x10
+    EXP0_I(0x78) = -1;
 }
 
 // 
