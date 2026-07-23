@@ -9507,22 +9507,47 @@ void bhEne01_LinkFireEffect(BH_PWORK* epw, int type)
 	// Func End, Address: 0x189048, Func Offset: 0x338
 }
 
-// 
-// Start address: 0x189050
 int bhEne01_ChgTextID(BH_PWORK* epw, int tex_id)
 {
-	scePrintf("bhEne01_ChgTextID - UNIMPLEMENTED!\n");
-	// Line 12307, Address: 0x189050, Func Offset: 0
-	// Line 12313, Address: 0x1890a4, Func Offset: 0x54
-	// Line 12315, Address: 0x1890b0, Func Offset: 0x60
-	// Line 12319, Address: 0x1890d4, Func Offset: 0x84
-	// Line 12321, Address: 0x1890e0, Func Offset: 0x90
-	// Line 12326, Address: 0x189118, Func Offset: 0xc8
-	// Line 12328, Address: 0x189124, Func Offset: 0xd4
-	// Line 12334, Address: 0x18915c, Func Offset: 0x10c
-	// Line 12339, Address: 0x189168, Func Offset: 0x118
-	// Line 12343, Address: 0x189180, Func Offset: 0x130
-	// Func End, Address: 0x189188, Func Offset: 0x138
+    if (epw->mdlver == 2 ||
+        epw->mdlver == 3 ||
+        1U >= (epw->mdlver - 9) ||
+        1U >= (epw->mdlver - 32) ||
+        epw->mdlver == 39 ||
+        epw->mdlver == 43)
+    {
+        return tex_id;
+    }
+
+    if (epw->mdlver == 4 ||
+        epw->mdlver == 21 ||
+        epw->mdlver == 34)
+    {
+        return tex_id + 1;
+    }
+
+    if (1U >= (epw->mdlver - 7) ||
+        epw->mdlver == 31 ||
+        1U >= (epw->mdlver - 37) ||
+        epw->mdlver == 42)
+    {
+        return tex_id + 2;
+    }
+
+    if (1U >= epw->mdlver ||
+        1U >= (epw->mdlver - 5) ||
+        epw->mdlver == 22 ||
+        1U >= (epw->mdlver - 35))
+    {
+        return tex_id + 3;
+    }
+
+    if (epw->mdlver == 40)
+    {
+        return tex_id + 4;
+    }
+
+    return tex_id + 5;
 }
 
 // 
