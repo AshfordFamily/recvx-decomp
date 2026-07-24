@@ -3787,22 +3787,38 @@ void bhEne01_DmgCheckType00(BH_PWORK* epw)
 	// Func End, Address: 0x178804, Func Offset: 0x864
 }
 
-// 
-// Start address: 0x178810
 int bhEne01_CheckExpHead(BH_PWORK* epw)
 {
-	// Line 2321, Address: 0x178810, Func Offset: 0
-	// Line 2323, Address: 0x178828, Func Offset: 0x18
-	// Line 2327, Address: 0x178864, Func Offset: 0x54
-	// Line 2331, Address: 0x1788ac, Func Offset: 0x9c
-	// Line 2336, Address: 0x1788b4, Func Offset: 0xa4
-	// Line 2340, Address: 0x1788ec, Func Offset: 0xdc
-	// Line 2346, Address: 0x17890c, Func Offset: 0xfc
-	// Line 2352, Address: 0x178918, Func Offset: 0x108
-	// Line 2355, Address: 0x178940, Func Offset: 0x130
-	// Line 2361, Address: 0x17894c, Func Offset: 0x13c
-	// Line 2362, Address: 0x178950, Func Offset: 0x140
-	// Func End, Address: 0x178958, Func Offset: 0x148
+    if (EXP0_I(0x78) > 0)
+    {
+        return 1;
+    }
+
+    switch (epw->wpnr_no)
+    {
+    case 11:
+    case 14:
+        if ((epw->flr_no == plp->flr_no) && (EXP0_F(0x54) < 10.0f) && (plp->at_flg & 4))
+        {
+            return 1;
+        }
+        break;
+        
+    case 6:
+        if (((epw->flr_no == plp->flr_no) && (epw->comb_flg & 0x10)) &&
+           (((plp->at_flg & 6) && ((epw->djnt_no == 1 || (epw->djnt_no - 8U < 4))))))
+        {
+          return 1;
+        }
+        break;
+        
+    case 19:
+        if (((epw->djnt_no >= 8) && (17 >= epw->djnt_no)) || (epw->djnt_no == 1))
+        {
+          return 1;
+        }
+    }
+    return 0;
 }
 
 // 
