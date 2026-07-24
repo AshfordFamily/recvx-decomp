@@ -6050,31 +6050,46 @@ void bhEne01_MV15(BH_PWORK* epw)
 	// Line 6364, Address: 0x17f0e8, Func Offset: 0x448
 	// Func End, Address: 0x17f0fc, Func Offset: 0x45c
 }
+*/
 
-// 
-// Start address: 0x17f100
+// 100% matching!
 void bhEne01_MV16(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 6383, Address: 0x17f100, Func Offset: 0
-	// Line 6388, Address: 0x17f110, Func Offset: 0x10
-	// Line 6384, Address: 0x17f114, Func Offset: 0x14
-	// Line 6388, Address: 0x17f118, Func Offset: 0x18
-	// Line 6392, Address: 0x17f140, Func Offset: 0x40
-	// Line 6393, Address: 0x17f160, Func Offset: 0x60
-	// Line 6392, Address: 0x17f16c, Func Offset: 0x6c
-	// Line 6393, Address: 0x17f170, Func Offset: 0x70
-	// Line 6394, Address: 0x17f1a4, Func Offset: 0xa4
-	// Line 6396, Address: 0x17f1ac, Func Offset: 0xac
-	// Line 6398, Address: 0x17f1ec, Func Offset: 0xec
-	// Line 6402, Address: 0x17f1f8, Func Offset: 0xf8
-	// Line 6404, Address: 0x17f20c, Func Offset: 0x10c
-	// Line 6405, Address: 0x17f234, Func Offset: 0x134
-	// Line 6407, Address: 0x17f23c, Func Offset: 0x13c
-	// Line 6409, Address: 0x17f268, Func Offset: 0x168
-	// Line 6416, Address: 0x17f274, Func Offset: 0x174
-	// Func End, Address: 0x17f288, Func Offset: 0x188
-}*/
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    { 
+    case 0:
+        epw->ay += ikou3(epw, (NJS_POINT3*)&plp->mlwP->owP->mtx[12], 910);
+        bhEne_ChgMtn(epw, 110, 0, 5);
+
+        EXP0_I(0x40) &= ~0x2000000;
+        EXP0_I(0x40) |= 0x1000000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 310, 0, 5);
+            CEPW_EXP0_I(0x40) &= ~0x2000000;
+            CEPW_EXP0_I(0x40) |= 0x1000000;
+        }
+        epw->mode3++;
+
+    case 1:
+        if (epw->flg & 0x2000000)
+        {
+            bhEne_ChgMtn(epw, 111, 0, 0);
+            EXP0_I(0x40) &= ~0x3000000;
+            if (cepw != NULL)
+            {
+                bhEne_ChgMtn(cepw, 311, 0, 0);
+                CEPW_EXP0_I(0x40) &= ~0x3000000;
+            }
+            epw->mode3++;
+        }
+
+    case 2:
+        break;
+    }
+}
 
 // 
 // Start address: 0x17f290
