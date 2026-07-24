@@ -5561,45 +5561,57 @@ void bhEne01_MV05(BH_PWORK* epw)
 	// Line 5475, Address: 0x17d738, Func Offset: 0x438
 	// Func End, Address: 0x17d758, Func Offset: 0x458
 }
-
-// 
-// Start address: 0x17d760
+*/
+// 100% matching!
 void bhEne01_MV06(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 5494, Address: 0x17d760, Func Offset: 0
-	// Line 5497, Address: 0x17d770, Func Offset: 0x10
-	// Line 5495, Address: 0x17d774, Func Offset: 0x14
-	// Line 5497, Address: 0x17d778, Func Offset: 0x18
-	// Line 5500, Address: 0x17d794, Func Offset: 0x34
-	// Line 5501, Address: 0x17d7b8, Func Offset: 0x58
-	// Line 5503, Address: 0x17d7c0, Func Offset: 0x60
-	// Line 5505, Address: 0x17d7ec, Func Offset: 0x8c
-	// Line 5507, Address: 0x17d7f8, Func Offset: 0x98
-	// Line 5508, Address: 0x17d814, Func Offset: 0xb4
-	// Line 5507, Address: 0x17d818, Func Offset: 0xb8
-	// Line 5508, Address: 0x17d820, Func Offset: 0xc0
-	// Line 5509, Address: 0x17d824, Func Offset: 0xc4
-	// Line 5512, Address: 0x17d830, Func Offset: 0xd0
-	// Line 5514, Address: 0x17d84c, Func Offset: 0xec
-	// Line 5512, Address: 0x17d850, Func Offset: 0xf0
-	// Line 5514, Address: 0x17d858, Func Offset: 0xf8
-	// Line 5517, Address: 0x17d86c, Func Offset: 0x10c
-	// Line 5519, Address: 0x17d88c, Func Offset: 0x12c
-	// Line 5520, Address: 0x17d894, Func Offset: 0x134
-	// Line 5521, Address: 0x17d898, Func Offset: 0x138
-	// Line 5523, Address: 0x17d89c, Func Offset: 0x13c
-	// Line 5525, Address: 0x17d8a4, Func Offset: 0x144
-	// Line 5528, Address: 0x17d8ac, Func Offset: 0x14c
-	// Line 5529, Address: 0x17d8c8, Func Offset: 0x168
-	// Line 5530, Address: 0x17d8d4, Func Offset: 0x174
-	// Line 5535, Address: 0x17d8dc, Func Offset: 0x17c
-	// Line 5534, Address: 0x17d8e0, Func Offset: 0x180
-	// Line 5535, Address: 0x17d8e4, Func Offset: 0x184
-	// Line 5536, Address: 0x17d8e8, Func Offset: 0x188
-	// Line 5541, Address: 0x17d8ec, Func Offset: 0x18c
-	// Func End, Address: 0x17d900, Func Offset: 0x1a0
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 49, 0x2D0000, 15);
+        EXP0_I(0x40) &= ~0x3000000;
+        
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 249, 2949120, 15);
+            CEPW_EXP0_I(0x40) &= ~0x3000000; 
+        }
+        
+        epw->flg |= 0x40000;
+        epw->ct0 = (rand() % 15) + 15;
+        epw->mode1 = 1;
+        epw->mode3++;
+
+    case 1:
+        epw->ay += ikou3(epw, (NJS_POINT3*)&plp->px, 910);
+        if (!(plp->flg & 4))
+        {
+            if (bhEne01_EatCheck(epw, 4551, 5.5f, 0))
+            {
+                epw->mode0 = 2;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+                
+                if (cepw != NULL)
+                {
+                    *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+                }
+                
+                plp->flg |= 0x10004;
+                EXP0_I(0x40) |= 0x80;
+                break;
+            }
+            
+            epw->mode1 = 0;
+            epw->mode2 = 5;
+            epw->mode3 = 0;
+        } 
+    }
 }
+/*
 
 // 
 // Start address: 0x17d900
