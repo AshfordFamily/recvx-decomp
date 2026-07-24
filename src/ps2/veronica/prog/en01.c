@@ -5927,29 +5927,46 @@ void bhEne01_MV12(BH_PWORK* epw)
 	// Line 6177, Address: 0x17eb50, Func Offset: 0x140
 	// Func End, Address: 0x17eb64, Func Offset: 0x154
 }
+*/
 
-// 
-// Start address: 0x17eb70
+// 100% matching!
 void bhEne01_MV14(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 6196, Address: 0x17eb70, Func Offset: 0
-	// Line 6199, Address: 0x17eb80, Func Offset: 0x10
-	// Line 6197, Address: 0x17eb84, Func Offset: 0x14
-	// Line 6199, Address: 0x17eb88, Func Offset: 0x18
-	// Line 6202, Address: 0x17eba4, Func Offset: 0x34
-	// Line 6204, Address: 0x17ebc0, Func Offset: 0x50
-	// Line 6206, Address: 0x17ebec, Func Offset: 0x7c
-	// Line 6208, Address: 0x17ebf4, Func Offset: 0x84
-	// Line 6211, Address: 0x17ec20, Func Offset: 0xb0
-	// Line 6214, Address: 0x17ec28, Func Offset: 0xb8
-	// Line 6215, Address: 0x17ec4c, Func Offset: 0xdc
-	// Line 6217, Address: 0x17ec54, Func Offset: 0xe4
-	// Line 6220, Address: 0x17ec80, Func Offset: 0x110
-	// Line 6226, Address: 0x17ec8c, Func Offset: 0x11c
-	// Func End, Address: 0x17eca0, Func Offset: 0x130
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        if ((epw->type == 6) || (epw->type == 7))
+        {            
+            bhEne_ChgMtn(epw, 3, 0, 10);
+            EXP0_I(0x40) &= ~0x3000000;
+            epw->mtn_add = 0;
+            if (cepw != NULL)
+            {
+                bhEne_ChgMtn(cepw, 203, 0, 10);
+                CEPW_EXP0_I(0x40) &= ~0x3000000;
+                cepw->mtn_add = 0;
+            }
+        } 
+        else
+        {
+            bhEne_ChgMtn(epw, 37, 0, 0);
+            EXP0_I(0x40) &= ~0x3000000;
+            if (cepw != NULL)
+            {
+                bhEne_ChgMtn(cepw, 237, 0, 0);
+                CEPW_EXP0_I(0x40) &= ~0x3000000;
+            }
+        }
+        epw->mode3++;
+
+    case 1:
+        break;
+    }
 }
 
+/*
 // 
 // Start address: 0x17eca0
 void bhEne01_MV15(BH_PWORK* epw)
