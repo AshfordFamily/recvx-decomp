@@ -3787,6 +3787,7 @@ void bhEne01_DmgCheckType00(BH_PWORK* epw)
 	// Func End, Address: 0x178804, Func Offset: 0x864
 }
 
+// 100% matching!
 int bhEne01_CheckExpHead(BH_PWORK* epw)
 {
     if (EXP0_I(0x78) > 0)
@@ -3821,27 +3822,30 @@ int bhEne01_CheckExpHead(BH_PWORK* epw)
     return 0;
 }
 
-// 
-// Start address: 0x178960
+// 100% matching!
 void bhEne01_DmgCheckType02(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 2381, Address: 0x178960, Func Offset: 0
-	// Line 2383, Address: 0x17897c, Func Offset: 0x1c
-	// Line 2385, Address: 0x178984, Func Offset: 0x24
-	// Line 2384, Address: 0x178988, Func Offset: 0x28
-	// Line 2385, Address: 0x17898c, Func Offset: 0x2c
-	// Line 2387, Address: 0x178990, Func Offset: 0x30
-	// Line 2390, Address: 0x178998, Func Offset: 0x38
-	// Line 2391, Address: 0x1789a4, Func Offset: 0x44
-	// Line 2390, Address: 0x1789a8, Func Offset: 0x48
-	// Line 2391, Address: 0x1789b0, Func Offset: 0x50
-	// Line 2392, Address: 0x1789b4, Func Offset: 0x54
-	// Line 2393, Address: 0x1789b8, Func Offset: 0x58
-	// Line 2395, Address: 0x1789bc, Func Offset: 0x5c
-	// Line 2397, Address: 0x1789c4, Func Offset: 0x64
-	// Line 2400, Address: 0x1789cc, Func Offset: 0x6c
-	// Func End, Address: 0x1789d4, Func Offset: 0x74
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+
+    if (EXP0_I(0x40) & 0x80000000)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+        return;
+    }
+
+    EXP0_I(0x40) &= ~0x8000;
+    epw->mode0 = 3;
+    epw->mode1 = 0;
+    epw->mode2 = 0;
+    epw->mode3 = 0;
+
+    if (cepw != NULL)
+    {
+        *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+    }
 }
 
 // 
