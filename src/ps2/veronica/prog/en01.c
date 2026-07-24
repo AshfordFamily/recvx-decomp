@@ -12,6 +12,9 @@
 
 // ENEMY: Zombie 
 
+// I will leave this here for now
+#define CEPW_EXP0_I(o) (*(int   *)((char *)cepw->exp0 + (o)))
+
 /*typedef struct _anon0;
 typedef struct BH_PWORK;
 typedef struct _anon1;
@@ -1922,6 +1925,8 @@ char En01SdwTabB[3] = {
 _anon15 en01prt_blood_tbl[18];
 _anon8 chg_mtn_tbl[28];
 */
+
+int en01_walk_mtn[6] = { 0x00, 0xC8, 0x28, 0xF0, 0x29, 0xF1 };
 
 int kaidan_ang[4] = { 0, 49152, 32768, 16384 };
 
@@ -8265,30 +8270,35 @@ void bhEne01_DG14(BH_PWORK* epw)
 	// Func End, Address: 0x185738, Func Offset: 0x5c8
 }
 
-// 
-// Start address: 0x185740
+// 100% matching!
 void bhEne01_DG15(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 10022, Address: 0x185740, Func Offset: 0
-	// Line 10025, Address: 0x185750, Func Offset: 0x10
-	// Line 10023, Address: 0x185754, Func Offset: 0x14
-	// Line 10025, Address: 0x185758, Func Offset: 0x18
-	// Line 10028, Address: 0x185774, Func Offset: 0x34
-	// Line 10029, Address: 0x1857b0, Func Offset: 0x70
-	// Line 10030, Address: 0x1857b8, Func Offset: 0x78
-	// Line 10031, Address: 0x1857fc, Func Offset: 0xbc
-	// Line 10032, Address: 0x185804, Func Offset: 0xc4
-	// Line 10031, Address: 0x185808, Func Offset: 0xc8
-	// Line 10033, Address: 0x185810, Func Offset: 0xd0
-	// Line 10034, Address: 0x185834, Func Offset: 0xf4
-	// Line 10035, Address: 0x185838, Func Offset: 0xf8
-	// Line 10038, Address: 0x185844, Func Offset: 0x104
-	// Line 10040, Address: 0x185850, Func Offset: 0x110
-	// Line 10043, Address: 0x185860, Func Offset: 0x120
-	// Line 10044, Address: 0x185868, Func Offset: 0x128
-	// Line 10048, Address: 0x18586c, Func Offset: 0x12c
-	// Func End, Address: 0x185880, Func Offset: 0x140
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, en01_walk_mtn[EXP0_I(0xA0)], 0, 10);
+        EXP0_I(0x40) &= ~0x3000000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, en01_walk_mtn[EXP0_I(0xA0) + 1], 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        }
+        epw->flg |= 0x40000;
+        epw->way = 256;
+        epw->ct0 = (rand() % 20) + 20;
+        epw->ct1 = 0;
+        epw->mode3++;
+
+    case 1:
+        epw->ct1++;
+        if (--epw->ct0 < 0)
+        {
+            epw->mode2 = 3;
+            epw->mode3 = 0;
+        }        
+    }
 }
 
 // 
@@ -9507,6 +9517,7 @@ void bhEne01_LinkFireEffect(BH_PWORK* epw, int type)
 	// Func End, Address: 0x189048, Func Offset: 0x338
 }
 
+// 100% matching!
 int bhEne01_ChgTextID(BH_PWORK* epw, int tex_id)
 {
     if (epw->mdlver == 2 ||
@@ -9944,6 +9955,7 @@ int bhEne01_CutLeg(BH_PWORK* epw)
 	// Func End, Address: 0x18a34c, Func Offset: 0xac
 }
 
+// 100% matching!
 void bhEne01_CutHead(BH_PWORK* epw)
 {
     EXP0_I(0x78) = -1;
