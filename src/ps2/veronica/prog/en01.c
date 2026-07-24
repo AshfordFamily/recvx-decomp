@@ -5869,30 +5869,42 @@ void bhEne01_MV09(BH_PWORK* epw)
 	// Line 6009, Address: 0x17e614, Func Offset: 0x1e4
 	// Func End, Address: 0x17e628, Func Offset: 0x1f8
 }
-
-// 
-// Start address: 0x17e630
+*/
+// 99.77% matching
 void bhEne01_MV10(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 6033, Address: 0x17e630, Func Offset: 0
-	// Line 6036, Address: 0x17e640, Func Offset: 0x10
-	// Line 6034, Address: 0x17e644, Func Offset: 0x14
-	// Line 6036, Address: 0x17e648, Func Offset: 0x18
-	// Line 6039, Address: 0x17e664, Func Offset: 0x34
-	// Line 6040, Address: 0x17e688, Func Offset: 0x58
-	// Line 6042, Address: 0x17e690, Func Offset: 0x60
-	// Line 6044, Address: 0x17e6bc, Func Offset: 0x8c
-	// Line 6045, Address: 0x17e708, Func Offset: 0xd8
-	// Line 6048, Address: 0x17e714, Func Offset: 0xe4
-	// Line 6049, Address: 0x17e720, Func Offset: 0xf0
-	// Line 6052, Address: 0x17e764, Func Offset: 0x134
-	// Line 6053, Address: 0x17e76c, Func Offset: 0x13c
-	// Line 6054, Address: 0x17e770, Func Offset: 0x140
-	// Line 6058, Address: 0x17e774, Func Offset: 0x144
-	// Func End, Address: 0x17e788, Func Offset: 0x158
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;  
+  
+    int tmp; // not present in DWARF
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 3, 0, 10);
+        EXP0_I(0x40) &= ~0x3000000; 
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 203, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000; 
+        }
+
+        tmp = ((rand() % 10) * 20) + 15;
+        epw->ct0 = (rand() % 128) + tmp;
+        epw->mode3++;
+        
+    case 1:
+        epw->ct0 -= 1;
+        if (((epw->ct0 <= 0) || (EXP0_I(0x40) & 0x400)) && (epw->type != 9) && !(EXP0_I(0x44) & 0x10))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        }
+
+    }
 }
 
+/*
 // 
 // Start address: 0x17e790
 void bhEne01_MV11(BH_PWORK* epw)
