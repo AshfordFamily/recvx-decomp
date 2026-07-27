@@ -6,6 +6,7 @@
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/effsub2.h"
+#include "../../../ps2/veronica/prog/hitchk.h"
 
 /*
 typedef void(*type_12)(BH_PWORK*);
@@ -1330,21 +1331,25 @@ void bhEne16_Brain(BH_PWORK* epw)
     bhEne16_BrainType[0](epw);
 }
 
-// 
-// Start address: 0x1e9f50
+// 100% matching!
 void bhEne16_BR00(BH_PWORK* epw)
 {
-	ATR_WORK* hp;
-	// Line 223, Address: 0x1e9f50, Func Offset: 0
-	// Line 227, Address: 0x1e9f5c, Func Offset: 0xc
-	// Line 228, Address: 0x1e9f78, Func Offset: 0x28
-	// Line 229, Address: 0x1e9f90, Func Offset: 0x40
-	// Line 230, Address: 0x1e9f94, Func Offset: 0x44
-	// Line 232, Address: 0x1e9f98, Func Offset: 0x48
-	// Line 233, Address: 0x1e9fa0, Func Offset: 0x50
-	// Line 236, Address: 0x1e9fa4, Func Offset: 0x54
-	// Func End, Address: 0x1e9fb4, Func Offset: 0x64
-	scePrintf("bhEne16_BR00 - UNIMPLEMENTED!\n");
+    ATR_WORK* hp;
+    
+    hp = bhCheckFloorEnemy(plp->flr_no, plp->px, plp->pz);
+    
+    if ((hp != NULL) && ((hp->prm0 == 16)))
+    {
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+    }
+    else
+    {
+        epw->mode2 = 0;
+        return;
+    }
+
 }
 
 // 100% matching!
