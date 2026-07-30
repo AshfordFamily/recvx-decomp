@@ -1,4 +1,4 @@
-# Resident Evil - Code: Veronica X Decompile
+# recvx-decomp
 
 [![Build Status]][actions] [![Code Progress]][progress] [![Data Progress]][progress] 
 
@@ -9,37 +9,35 @@
 [Data Progress]: https://decomp.dev/AshfordFamily/recvx-decomp.svg?mode=shield&label=Functions&measure=matched_functions
 [progress]: https://decomp.dev/AshfordFamily/recvx-decomp
 
-<img src="https://i.imgur.com/3Fl2QNQ.png"/> 
+<img src="https://i.imgur.com/FreVpxO.png"/> 
 
 ## About
 
-The purpose of this project is to reverse-engineer ***Resident Evil - Code: Veronica X*** in order to rebuild its codebase and allow for multiple different uses of it. More specifically, the PlayStation 2 version of the game released in North America (identifiable by its serial number, **SLUS-20184**) is being decompiled due to the presence of DWARF format debugging data in the PS2 executable, as well as the relative ease of reconstructing MIPS assembly back to the C language as opposed to other, more complex types of architectures. 
+> [!IMPORTANT]
+Issues and pull-requests that are clearly **AI-generated** will be automatically **turned down**. Click [here](https://github.com/AshfordFamily/recvx-decomp/pull/40#issuecomment-4861213243) to read up on our stance in regards to the use of LLMs for contributions.
 
-While function matching with [objdiff](https://github.com/encounter/objdiff) is the preferred method of decompilation, the project does not compile an ELF binary that's identical bit for bit to the one found on the game disk. RE: CVX was developed with the MetroWerks CodeWarrior IDE, and MWCC does not feature an equivalent to GCC's INCLUDE_ASM functionality which renders the process of building a matching binary less flexible. Instead, the current build system produces an executable which only contains the code that has been decompiled so far, and the resulting ELF can be run on a repackaged DVD image of the game that is bootable on the PCSX2 emulator (and technically should also work on an actual PS2 console).
+**recvx-decomp** is a reverse-engineering project for Resident Evil: Code Veronica X which has the goal of reconstructing the source code of the game by decompiling the MIPS in the PS2 ELF back to C. The project currently only works with the US release (**SLUS-20184**), with plans to add support for more regions in the future.
 
-Additionally, this project also consists of reverse-engineering the CRI Middleware library that was employed by the developers to handle different aspects of the game such as audio and the AFS filesystem. There is also an on-going [decompilation of the Nintendo GameCube version](https://github.com/fmil95/recvx-gc-decomp), which does compile a matching binary so if you prefer that setup and have some knowledge of PowerPC and don't mind working with less debug info, feel free to contribute to that one instead. The [Dreamcast version is being decompiled](https://github.com/fmil95/recv-dc-decomp), too, but even though it can build a matching executable, the tools for decompiling games for that platform need to be expanded upon greatly.
+Currently, the engine and gameplay systems are decompiled, as well as the **CRI ADXT (Jan 26th, 2001)** lib employed by the game. Enemy AI and GFX code is still incomplete. Testing is done by repackaging the retail disc with our own compiled ELF using a script, and trying out the results on PCSX2. 
+
+Groundwork has been made for decompiling the Dreamcast and GameCube releases of Code Veronica; see the Resources section on this page for some links. Once the project is completed, there will be many potential uses of the code, including and beyond porting.
 
 ## Building
 
-The very first step should be to clone the repository: 
+First clone the repository: 
 ```
 git clone --recursive https://github.com/AshfordFamily/recvx-decomp.git
 ```
 
-Next you have to place your copy of the SLUS_201.84 file in the config folder. The setup now depends on whether you want to use a dev container or not.
+Next, place your copy of the `SLUS_201.84` file from inside the game disc into the `config` folder. 
 
-### With Dev Container
+For this part of the setup, you can use a dev container (or not):
 
-If you're using an IDE that supports [dev containers](https://containers.dev/), such as Visual Studio Code, you can simply open the repository with as a dev container. 
+### Dev Container route
 
-You will need to have [Docker](https://www.docker.com/) or [Podman](https://podman.io/) installed and running on your machine to open a dev container.
+If you're using an IDE that supports [dev containers](https://containers.dev/) such as Visual Studio Code, you can simply open up the repo as a container (you'll need to have [Docker](https://www.docker.com/) or [Podman](https://podman.io/) installed on your machine to use this feature).
 
-### Without Dev Container
-
-Requisites:
-- Python
-- MIPS Binutils
-- wibo (if using Linux, for running Windows binaries)
+### Manual route
 
 Install splat with the following command: 
 ```
@@ -48,47 +46,47 @@ pip install -r config/requirements.txt
 
 ---
 
-**Follow these instructions after entering the dev container or installing the requisites:**
+**Follow these instructions after performing the step of one of the two routes above:**
 
-Use the following command to setup objdiff:
+Use this command to setup objdiff:
 ```
 python compile.py --setup
 ```
 
-Either command should run without errors and generate an `objdiff.json` project file or a `config/asm` folder respectively.
+Once done, you should see a newly-generated `objdiff.json` project file and a `config/asm` folder.
 
-From now on to build the project you just need to type the following command:
+From now on, to build this project you just need to run the compile script each time:
 ```
 python compile.py
 ```
 
-If you're using Linux, an installation of wibo is needed in order to run the Windows-only MWCC binary, 
-a small prompt with install steps will be shown if the script can't find wibo in your path.
+Note: if you're using Linux, wibo is needed in order to run `mwccps2.exe`. A small prompt with install steps for it will appear if the script can't find wibo in your path.
 
-With the main.elf from compilation, you can repackage RE: CVX's ISO file with it to see the decompiled code in action. You need to put your copy of the game's DVD on the iso folder, and dump its contents with the following command:
+You can repackage CVX's disc image with the compiled ELF to see the decompiled code in action. You need to put your ISO dump of the game's DVD on the `iso` folder, and extract its contents there:
 ```
 python mkiso.py -m extract --iso iso/RE_CVX.iso
 ```
 
-Then rebuild the disk with:
+Then repackage the ISO:
 ```
 python mkiso.py -m insert
 ```
 
-If successful, you will now see an ISO called "RECVX_NEW" in the iso folder that you can use to test the results with an emulator (preferrably PCSX2 for its debugging capabilities) or console.  
+If the process is successful, there should be a new file called `RECVX_NEW.iso` that you'll be able to use to test the project with a PS2 emulator or a modded console.  
 
 ## Resources
 
-AshfordFamily's fan art provided by [fishiiarts_](https://www.instagram.com/fishiiarts_/).
-
-Associated decomp projects:
+Related decomp projects:
 - [Resident Evil - Code: Veronica X (Nintendo GameCube)](https://github.com/fmil95/recvx-gc-decomp)
 - [Resident Evil - Code: Veronica (Dreamcast)](https://github.com/fmil95/recv-dc-decomp)
-- [Legacy of Kain: Soul Reaver](https://github.com/fmil95/soul-re)
+- [Dino Stalker](https://github.com/fmil95/dinostalkRE)
 - [Fahrenheit](https://github.com/fmil95/santamonica)
 - [Fatal Frame](https://github.com/Mikompilation/Himuro)
+- [Legacy of Kain: Soul Reaver](https://github.com/fmil95/soul-re)
 - [Silent Hill](https://github.com/Vatuu/silent-hill-decomp)
+
+AshfordFamily's org avatar fan art was designed by [fishiiarts_](https://www.instagram.com/fishiiarts_/).
 
 ## Disclaimer
 
-This repository and the code therein, is made public on this site by AshfordFamily for preservational and educational purposes. I do not claim to hold any affiliation to the Resident Evil franchise, Capcom Co., Ltd or any other related party, nor mean to infringe upon the copyright of Resident Evil: Code: Veronica X.
+recvx-decomp is licensed under **CC0 1.0 Universal**, which allows for commercial use of the project's code. However, for commercializing ports of the game to modern platforms we still very much recommend contacting Capcom first for a proper publishing deal. 

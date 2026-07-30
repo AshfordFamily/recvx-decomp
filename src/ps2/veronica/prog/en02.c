@@ -1,5 +1,7 @@
 #include "../../../ps2/veronica/prog/en02.h"
 
+// ENEMY: Gulp Worm 
+
 /*typedef struct npobj;
 typedef struct BH_PWORK;
 typedef struct _anon0;

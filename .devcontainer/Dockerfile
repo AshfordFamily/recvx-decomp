@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y binutils-mips-linux-gnu binutils-mipsel-linux-gnu
 
 # Download the wibo decompilation tool, make it executable, and move it to /usr/bin.
-RUN wget https://github.com/decompals/wibo/releases/download/1.0.0/wibo-x86_64 \
+RUN wget https://github.com/AshfordFamily/recvx-decomp/releases/download/dependency/wibo-x86_64 \
     && chmod +x wibo-x86_64 \
     && sudo mv wibo-x86_64 /usr/bin/wibo
 

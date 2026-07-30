@@ -649,10 +649,10 @@ void bhEff143(O_WRK* op)
     int i;                  
     P_WRK* pp; // different order in regards to DWARF                 
     unsigned int col[3] = 
-    { 
-        0xE233200,
-        0xA1E1E00,
-        0x1C415000 
+    {
+        0x0032230E,
+        0x001E1E0A,
+        0x0050411C
     };
     O_WRK* owp; // not from DWARF
 

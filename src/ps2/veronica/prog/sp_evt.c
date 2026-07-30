@@ -380,7 +380,7 @@ void bhInitSpEvtComputer()
     
     ce->scp = comevt_script_tab[sys->com_num];
     
-    bhInitComEvtScript(1);
+    bhInitComEvtScript();
     
     njMemCopy4(&palbuf[3072], palbuf, 1024);
     
@@ -782,7 +782,7 @@ void bhExitSpEvtComputer()
     bhStandPlayerMotion();
 }
 
-// 98.99% matching
+// 99% matching
 void bhEntrySpEvtComputer() 
 {
     QUAD* qt, *tbl;            
@@ -997,18 +997,16 @@ void bhEntrySpEvtComputer()
             
             if (asc != 0) 
             {
-                asc &= 0x1F;
-                
                 qt->x1 = 24.0f       + (32.0f + (j * 16));
                 qt->y1 = cy + (18.0f + (32.0f + (i * 20)));
                 
                 qt->x2 = 16.0f + qt->x1;
                 qt->y2 = 20.0f + qt->y1;
                 
-                qt->u1 =  (asc * 16)        / 512.0f;  
+                qt->u1 =  ((asc & 0x1F) * 16)        / 512.0f;  
                 qt->v1 =  ((asc / 32) * 20) / 512.0f;
                 
-                qt->u2 = ((asc * 16) + 16)        / 512.0f;
+                qt->u2 = (((asc & 0x1F) * 16) + 16)        / 512.0f;
                 qt->v2 = (((asc / 32) * 20) + 20) / 512.0f;
                 
                 asc = (a & 0xFF000000) >> 24;

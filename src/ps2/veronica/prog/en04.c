@@ -21,6 +21,8 @@
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 
+// ENEMY: Cerberus 
+
 int En04_PlyMtn_OffsetTbl[4] =
 {
     0x64,

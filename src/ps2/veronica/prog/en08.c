@@ -10,6 +10,8 @@
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
 
+// ENEMY: FISH 
+
 typedef void (*Mode0_proc)(BH_PWORK*);
 typedef void (*MoveMode2_proc)(BH_PWORK*);
 

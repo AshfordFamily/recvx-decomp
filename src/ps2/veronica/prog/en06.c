@@ -1,5 +1,7 @@
 #include "../../../ps2/veronica/prog/en06.h"
 
+// ENEMY: MOTH
+
 /*typedef struct npobj;
 typedef struct _anon0;
 typedef struct BH_PWORK;
