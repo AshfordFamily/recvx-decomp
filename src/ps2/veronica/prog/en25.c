@@ -1,5 +1,7 @@
 #include "../../../ps2/veronica/prog/en25.h"
 
+// ENEMY: Ceiling Trap 
+
 /*typedef struct npobj;
 typedef struct _anon0;
 typedef struct _anon1;

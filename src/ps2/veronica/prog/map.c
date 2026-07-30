@@ -520,7 +520,7 @@ int bhControlMap()
         mwP->map_mode = MP_MOD_WAIT_ZOOM;
         break;
     case MP_MOD_WAIT_NOMAP:
-        MapDrawMessage(mwP->ply_rom, mwP, 160.0f, 220.0f);
+        MapDrawMessage(mwP->ply_rom, 160.0f, 220.0f);
     case MP_MOD_WAIT_NORMAL:
     case MP_MOD_WAIT_ZOOM:
     {
@@ -2234,7 +2234,7 @@ static void MapDrawLine(NJS_POINT2* srcP, NJS_POINT2* dstP, float pri, int pal)
     pnt[0].y = 0.5f + floorf(srcP->y);
     
     pnt[1].x = 0.5f + floorf(dstP->x);
-    pnt[2].y = 0.5f + floorf(dstP->y);
+    pnt[1].y = 0.5f + floorf(dstP->y);
     
     col[0].color = col[1].color = pal;
 
@@ -2275,7 +2275,7 @@ static void MapDrawPolyFill(NJS_POINT2* pnt, float pri, int pal)
 }
 
 // 100% matching!
-static void MapDrawMessage(int rom, map_wrk* mwP, float x, float y) // parameters not present on DWARF
+static void MapDrawMessage(int rom, float x, float y) // parameters not present on DWARF
 {
 
 }
@@ -2596,7 +2596,7 @@ static int FsubZoomScreen(FS_WRK* fsP)
 // 100% matching!
 static int FsubCompass(FC_WORK* fcP)
 {
-    static NJS_POLYGON_VTX CmpArw[4] = 
+    static const NJS_POLYGON_VTX CmpArw[4] = 
     {
         {   0.0f, -30.0f, 0.0f, 0x6000C000 }, { -12.0f, -22.0f, 0.0f, 0x6000C000 },
         {  12.0f, -22.0f, 0.0f, 0x6000C000 }, {   0.0f,  30.0f, 0.0f, 0x6000C000 }

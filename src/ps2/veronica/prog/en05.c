@@ -5,6 +5,8 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 
+// ENEMY: Sweeper  
+
 /*typedef struct npobj;
 typedef struct BH_PWORK;
 typedef struct _anon0;

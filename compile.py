@@ -401,7 +401,7 @@ def resolve_linux_tools() -> Path:
         print("ERROR: wibo does not appear to be accessible")
         print("To install it, please download it and put it in your PATH:")
         print(
-            "  wget https://github.com/decompals/wibo/releases/download/1.0.0/wibo-x86_64 && chmod +x wibo-x86_64 && sudo mv wibo-x86_64 /usr/bin/wibo"
+            "  wget https://github.com/AshfordFamily/recvx-decomp/releases/download/dependency/wibo-x86_64 && chmod +x wibo-x86_64 && sudo mv wibo-x86_64 /usr/bin/wibo"
         )
         sys.exit(-1)
     

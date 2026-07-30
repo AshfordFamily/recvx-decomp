@@ -427,7 +427,7 @@ static void MapDrawLine2(NJS_POINT2* srcP, NJS_POINT2* dstP, float pri, int pal)
 static void MapDrawLine(NJS_POINT2* srcP, NJS_POINT2* dstP, float pri, int pal);
 static void MapDrawFill(NJS_POINT2* srcP, NJS_POINT2* dstP, float pri, int pal);
 static void MapDrawPolyFill(NJS_POINT2* pnt, float pri, int pal);
-static void MapDrawMessage(int rom, map_wrk* mwP, float x, float y);
+static void MapDrawMessage(int rom, float x, float y);
 static int FsubZoomCursor(FZ_WORK* fzP);
 static int FsubZoomInfomation(FI_WORK* fiP);
 static NJS_COLOR MapCnvArgb2Color(NJS_ARGB* argbP);
