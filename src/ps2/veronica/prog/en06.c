@@ -2,7 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
-
+#include "../../../ps2/veronica/prog/zonzon1.h"
 
 // ENEMY: MOTH
 
@@ -1566,7 +1566,19 @@ _anon18 ene06_child;
 char BrokenParts[12];
 _anon18 ene27;
 _anon18 ene06_leader;
-_anon40 BloodParam;
+*/
+
+static BP_WORK BloodParam =
+{
+    {0.0f, 0.01f, 0.0f},                    /* off_pos */
+    0,                                      /* srd_dir */
+    0.0f,                                   /* srd_pos */
+    0.05f,                                  /* bld_spd */
+    {0.3f, 0.7f, 0.5f, 0.7f, 0.4f},         /* srt_spd */
+    {0, 3, 6, 9, 12}                        /* srt_dir */
+};
+
+/*
 _anon28 CapColTab[8];
 _anon7 DmgReact[21];
 _anon36 BloodTbl[23];
@@ -3026,29 +3038,24 @@ void bhEne06_DD03(BH_PWORK* epw)
 	// Line 2182, Address: 0x1bd7f8, Func Offset: 0x108
 	// Func End, Address: 0x1bd808, Func Offset: 0x118
 }
+*/
 
-// 
-// Start address: 0x1bd810
+// 100% matching!
 void bhEne06_DD04(BH_PWORK* epw)
 {
-	// Line 2192, Address: 0x1bd810, Func Offset: 0
-	// Line 2193, Address: 0x1bd81c, Func Offset: 0xc
-	// Line 2195, Address: 0x1bd830, Func Offset: 0x20
-	// Line 2197, Address: 0x1bd834, Func Offset: 0x24
-	// Line 2196, Address: 0x1bd838, Func Offset: 0x28
-	// Line 2197, Address: 0x1bd83c, Func Offset: 0x2c
-	// Line 2198, Address: 0x1bd840, Func Offset: 0x30
-	// Line 2199, Address: 0x1bd848, Func Offset: 0x38
-	// Line 2202, Address: 0x1bd84c, Func Offset: 0x3c
-	// Line 2200, Address: 0x1bd854, Func Offset: 0x44
-	// Line 2199, Address: 0x1bd858, Func Offset: 0x48
-	// Line 2200, Address: 0x1bd860, Func Offset: 0x50
-	// Line 2202, Address: 0x1bd86c, Func Offset: 0x5c
-	// Line 2204, Address: 0x1bd878, Func Offset: 0x68
-	// Line 2206, Address: 0x1bd884, Func Offset: 0x74
-	// Func End, Address: 0x1bd894, Func Offset: 0x84
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->frm_no = 0;
+        epw->mtn_add = 0;
+        epw->hokan_count = 5;
+        epw->hokan_rate = 32768;
+        epw->flg |= 2;
+        epw->flg &= ~0x28;
+        bhEne_BloodPool(epw, (NJS_POINT3*)&epw->px, epw->ay, &BloodParam);
+        epw->mode3++;
+    }
 }
-*/
 
 // 100% matching!
 void bhEne06_SearchPlayer(BH_PWORK* epw)
