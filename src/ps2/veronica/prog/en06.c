@@ -1,6 +1,7 @@
 #include "../../../ps2/veronica/prog/en06.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
+#include "../../../ps2/veronica/prog/hitchk.h"
 
 
 // ENEMY: MOTH
@@ -3374,81 +3375,75 @@ int bhEne06_AvoidWall(BH_PWORK* epw, int dir)
 	// Line 2597, Address: 0x1be604, Func Offset: 0x734
 	// Func End, Address: 0x1be638, Func Offset: 0x768
 }
+*/
 
-// 
-// Start address: 0x1be640
+#pragma divbyzerocheck on
+
+// 100% matching!
 void bhEne06_PlayerControl(BH_PWORK* epw)
 {
-	// Line 2607, Address: 0x1be640, Func Offset: 0
-	// Line 2610, Address: 0x1be650, Func Offset: 0x10
-	// Line 2613, Address: 0x1be66c, Func Offset: 0x2c
-	// Line 2615, Address: 0x1be68c, Func Offset: 0x4c
-	// Line 2616, Address: 0x1be698, Func Offset: 0x58
-	// Line 2615, Address: 0x1be6a4, Func Offset: 0x64
-	// Line 2616, Address: 0x1be6ac, Func Offset: 0x6c
-	// Line 2620, Address: 0x1be6b0, Func Offset: 0x70
-	// Line 2622, Address: 0x1be6b4, Func Offset: 0x74
-	// Line 2623, Address: 0x1be6b8, Func Offset: 0x78
-	// Line 2616, Address: 0x1be6bc, Func Offset: 0x7c
-	// Line 2619, Address: 0x1be6c0, Func Offset: 0x80
-	// Line 2625, Address: 0x1be6c4, Func Offset: 0x84
-	// Line 2616, Address: 0x1be6c8, Func Offset: 0x88
-	// Line 2619, Address: 0x1be6d0, Func Offset: 0x90
-	// Line 2620, Address: 0x1be6d8, Func Offset: 0x98
-	// Line 2619, Address: 0x1be6dc, Func Offset: 0x9c
-	// Line 2620, Address: 0x1be6e0, Func Offset: 0xa0
-	// Line 2621, Address: 0x1be6e8, Func Offset: 0xa8
-	// Line 2622, Address: 0x1be6f4, Func Offset: 0xb4
-	// Line 2623, Address: 0x1be700, Func Offset: 0xc0
-	// Line 2624, Address: 0x1be70c, Func Offset: 0xcc
-	// Line 2625, Address: 0x1be718, Func Offset: 0xd8
-	// Line 2626, Address: 0x1be724, Func Offset: 0xe4
-	// Line 2627, Address: 0x1be734, Func Offset: 0xf4
-	// Line 2630, Address: 0x1be73c, Func Offset: 0xfc
-	// Line 2631, Address: 0x1be748, Func Offset: 0x108
-	// Line 2632, Address: 0x1be774, Func Offset: 0x134
-	// Line 2631, Address: 0x1be778, Func Offset: 0x138
-	// Line 2632, Address: 0x1be780, Func Offset: 0x140
-	// Line 2635, Address: 0x1be790, Func Offset: 0x150
-	// Line 2637, Address: 0x1be7a4, Func Offset: 0x164
-	// Line 2638, Address: 0x1be7a8, Func Offset: 0x168
-	// Line 2641, Address: 0x1be7b4, Func Offset: 0x174
-	// Line 2642, Address: 0x1be7b8, Func Offset: 0x178
-	// Line 2637, Address: 0x1be7bc, Func Offset: 0x17c
-	// Line 2638, Address: 0x1be7c0, Func Offset: 0x180
-	// Line 2645, Address: 0x1be7c4, Func Offset: 0x184
-	// Line 2638, Address: 0x1be7c8, Func Offset: 0x188
-	// Line 2639, Address: 0x1be7cc, Func Offset: 0x18c
-	// Line 2638, Address: 0x1be7d0, Func Offset: 0x190
-	// Line 2639, Address: 0x1be7d8, Func Offset: 0x198
-	// Line 2640, Address: 0x1be7e0, Func Offset: 0x1a0
-	// Line 2639, Address: 0x1be7e4, Func Offset: 0x1a4
-	// Line 2640, Address: 0x1be7ec, Func Offset: 0x1ac
-	// Line 2641, Address: 0x1be7f4, Func Offset: 0x1b4
-	// Line 2642, Address: 0x1be800, Func Offset: 0x1c0
-	// Line 2641, Address: 0x1be804, Func Offset: 0x1c4
-	// Line 2642, Address: 0x1be80c, Func Offset: 0x1cc
-	// Line 2645, Address: 0x1be814, Func Offset: 0x1d4
-	// Line 2649, Address: 0x1be824, Func Offset: 0x1e4
-	// Line 2650, Address: 0x1be834, Func Offset: 0x1f4
-	// Line 2652, Address: 0x1be838, Func Offset: 0x1f8
-	// Line 2649, Address: 0x1be83c, Func Offset: 0x1fc
-	// Line 2650, Address: 0x1be844, Func Offset: 0x204
-	// Line 2649, Address: 0x1be848, Func Offset: 0x208
-	// Line 2650, Address: 0x1be84c, Func Offset: 0x20c
-	// Line 2651, Address: 0x1be850, Func Offset: 0x210
-	// Line 2652, Address: 0x1be858, Func Offset: 0x218
-	// Line 2653, Address: 0x1be860, Func Offset: 0x220
-	// Line 2652, Address: 0x1be864, Func Offset: 0x224
-	// Line 2653, Address: 0x1be86c, Func Offset: 0x22c
-	// Line 2654, Address: 0x1be874, Func Offset: 0x234
-	// Line 2655, Address: 0x1be880, Func Offset: 0x240
-	// Line 2654, Address: 0x1be884, Func Offset: 0x244
-	// Line 2655, Address: 0x1be88c, Func Offset: 0x24c
-	// Line 2659, Address: 0x1be89c, Func Offset: 0x25c
-	// Func End, Address: 0x1be8b0, Func Offset: 0x270
+    // Not present in DWARF
+    float dx, dz;
+
+    switch (plp->mode2)
+    {
+    case 0:
+        break;
+    default:
+        return;
+    }
+
+    switch (plp->mode3)
+    {        
+    case 0:
+        plp->flg &= ~0x40000;
+        plp->flg |= 0x10004;
+        plp->mnwP = epw->mnwP;
+        plp->mtn_no = 20;
+        plp->frm_no = 0;
+        plp->hokan_count = 5;
+        plp->hokan_rate = 52428;
+        plp->mtn_add = 65536;
+        plp->ct1 = 8;
+        plp->mode3++;
+        break;
+        
+    case 1:
+
+        if (plp->ct1 > 0)
+        {
+            plp->ay += (short)(plp->ayp - plp->ay) / plp->ct1;
+            plp->ct1--;
+        }
+        if (plp->frm_no == 0)
+        {
+            plp->mnwP = plp->mnwPb;
+            
+            plp->flg &= ~0x10004;
+            plp->flg |= 8;
+            plp->at_flg = 0;
+            plp->stflg &= ~0x10000;
+            
+            *(int*)&plp->mode0 = 1;
+            *(int*)epw->exp1 &= ~1;
+        }
+        
+        dx = plp->mlwP->owP[5].mtx[12] - plp->px;
+        dz = plp->mlwP->owP[5].mtx[14] - plp->pz;
+        
+        plp->px += dx;
+        plp->pz += dz;
+        
+        bhCheckWall(plp);
+        
+        plp->px -= dx;
+        plp->pz -= dz;
+    }
 }
 
+#pragma divbyzerocheck off
+
+/*
 // 
 // Start address: 0x1be8b0
 void bhEne06_SetRinpunEffect(BH_PWORK* epw, int num, int flg)
