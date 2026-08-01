@@ -1,4 +1,7 @@
 #include "../../../ps2/veronica/prog/en06.h"
+#include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/ps2_NaMath.h"
+
 
 // ENEMY: MOTH
 
@@ -3044,31 +3047,22 @@ void bhEne06_DD04(BH_PWORK* epw)
 	// Line 2206, Address: 0x1bd884, Func Offset: 0x74
 	// Func End, Address: 0x1bd894, Func Offset: 0x84
 }
+*/
 
-// 
-// Start address: 0x1bd8a0
+// 100% matching!
 void bhEne06_SearchPlayer(BH_PWORK* epw)
 {
-	float dz;
-	float dx;
-	// Line 2216, Address: 0x1bd8a0, Func Offset: 0
-	// Line 2219, Address: 0x1bd8ac, Func Offset: 0xc
-	// Line 2222, Address: 0x1bd8b0, Func Offset: 0x10
-	// Line 2219, Address: 0x1bd8b8, Func Offset: 0x18
-	// Line 2222, Address: 0x1bd8bc, Func Offset: 0x1c
-	// Line 2223, Address: 0x1bd8c4, Func Offset: 0x24
-	// Line 2222, Address: 0x1bd8c8, Func Offset: 0x28
-	// Line 2223, Address: 0x1bd8cc, Func Offset: 0x2c
-	// Line 2222, Address: 0x1bd8d0, Func Offset: 0x30
-	// Line 2223, Address: 0x1bd8d4, Func Offset: 0x34
-	// Line 2224, Address: 0x1bd8d8, Func Offset: 0x38
-	// Line 2227, Address: 0x1bd8e8, Func Offset: 0x48
-	// Line 2224, Address: 0x1bd8ec, Func Offset: 0x4c
-	// Line 2227, Address: 0x1bd8f0, Func Offset: 0x50
-	// Line 2228, Address: 0x1bd8f8, Func Offset: 0x58
-	// Func End, Address: 0x1bd908, Func Offset: 0x68
+    float dx;
+    float dz;
+    
+    EXP0_C(0x16) = 0;
+    dx = epw->px - plp->px;
+    dz = epw->pz - plp->pz;
+    EXP0_F(0) = njSqrt(dx * dx + dz * dz);
+    EXP0_C(0x16) = 1;
 }
 
+/*
 // 
 // Start address: 0x1bd910
 void bhEne06_CollisionWalls(BH_PWORK* epw)
@@ -3625,4 +3619,3 @@ int bhEne06_DeadCheck(BH_PWORK* epw)
 	// Line 2829, Address: 0x1bf274, Func Offset: 0x1c4
 	// Func End, Address: 0x1bf2a4, Func Offset: 0x1f4
 }*/
-
