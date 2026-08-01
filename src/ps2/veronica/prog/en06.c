@@ -2028,66 +2028,82 @@ void bhEne06_MV04()
 	// Line 1016, Address: 0x1bb1a0, Func Offset: 0
 	// Func End, Address: 0x1bb1a8, Func Offset: 0x8
 }
+*/
 
-// 
-// Start address: 0x1bb1b0
+#pragma divbyzerocheck on
+
+// 100% matching!
 void bhEne06_MV05(BH_PWORK* epw)
 {
-	// Line 1026, Address: 0x1bb1b0, Func Offset: 0
-	// Line 1027, Address: 0x1bb1c0, Func Offset: 0x10
-	// Line 1030, Address: 0x1bb1e0, Func Offset: 0x30
-	// Line 1032, Address: 0x1bb1e4, Func Offset: 0x34
-	// Line 1031, Address: 0x1bb1e8, Func Offset: 0x38
-	// Line 1032, Address: 0x1bb1ec, Func Offset: 0x3c
-	// Line 1033, Address: 0x1bb1f0, Func Offset: 0x40
-	// Line 1035, Address: 0x1bb1f8, Func Offset: 0x48
-	// Line 1036, Address: 0x1bb200, Func Offset: 0x50
-	// Line 1038, Address: 0x1bb244, Func Offset: 0x94
-	// Line 1043, Address: 0x1bb248, Func Offset: 0x98
-	// Line 1039, Address: 0x1bb250, Func Offset: 0xa0
-	// Line 1044, Address: 0x1bb254, Func Offset: 0xa4
-	// Line 1046, Address: 0x1bb258, Func Offset: 0xa8
-	// Line 1038, Address: 0x1bb25c, Func Offset: 0xac
-	// Line 1039, Address: 0x1bb268, Func Offset: 0xb8
-	// Line 1042, Address: 0x1bb26c, Func Offset: 0xbc
-	// Line 1043, Address: 0x1bb278, Func Offset: 0xc8
-	// Line 1044, Address: 0x1bb27c, Func Offset: 0xcc
-	// Line 1045, Address: 0x1bb284, Func Offset: 0xd4
-	// Line 1046, Address: 0x1bb288, Func Offset: 0xd8
-	// Line 1049, Address: 0x1bb28c, Func Offset: 0xdc
-	// Line 1050, Address: 0x1bb2e0, Func Offset: 0x130
-	// Line 1054, Address: 0x1bb2e8, Func Offset: 0x138
-	// Line 1055, Address: 0x1bb300, Func Offset: 0x150
-	// Line 1054, Address: 0x1bb304, Func Offset: 0x154
-	// Line 1055, Address: 0x1bb308, Func Offset: 0x158
-	// Line 1054, Address: 0x1bb30c, Func Offset: 0x15c
-	// Line 1055, Address: 0x1bb314, Func Offset: 0x164
-	// Line 1054, Address: 0x1bb31c, Func Offset: 0x16c
-	// Line 1055, Address: 0x1bb324, Func Offset: 0x174
-	// Line 1056, Address: 0x1bb340, Func Offset: 0x190
-	// Line 1057, Address: 0x1bb368, Func Offset: 0x1b8
-	// Line 1059, Address: 0x1bb370, Func Offset: 0x1c0
-	// Line 1057, Address: 0x1bb374, Func Offset: 0x1c4
-	// Line 1059, Address: 0x1bb380, Func Offset: 0x1d0
-	// Line 1060, Address: 0x1bb398, Func Offset: 0x1e8
-	// Line 1061, Address: 0x1bb3b0, Func Offset: 0x200
-	// Line 1062, Address: 0x1bb3b8, Func Offset: 0x208
-	// Line 1065, Address: 0x1bb3d8, Func Offset: 0x228
-	// Line 1067, Address: 0x1bb3e4, Func Offset: 0x234
-	// Line 1068, Address: 0x1bb414, Func Offset: 0x264
-	// Line 1069, Address: 0x1bb430, Func Offset: 0x280
-	// Line 1070, Address: 0x1bb44c, Func Offset: 0x29c
-	// Line 1071, Address: 0x1bb454, Func Offset: 0x2a4
-	// Line 1072, Address: 0x1bb45c, Func Offset: 0x2ac
-	// Line 1074, Address: 0x1bb464, Func Offset: 0x2b4
-	// Line 1073, Address: 0x1bb468, Func Offset: 0x2b8
-	// Line 1074, Address: 0x1bb46c, Func Offset: 0x2bc
-	// Line 1075, Address: 0x1bb470, Func Offset: 0x2c0
-	// Line 1076, Address: 0x1bb474, Func Offset: 0x2c4
-	// Line 1079, Address: 0x1bb478, Func Offset: 0x2c8
-	// Func End, Address: 0x1bb488, Func Offset: 0x2d8
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->mtn_no = 0;
+        epw->frm_no = 0;
+        
+        epw->hokan_count = 10;
+        epw->hokan_rate = 32768;
+        epw->mode3++;
+        
+        epw->ct0 = (int)(8.0f * njRandom()) + 14;
+        epw->ayp = epw->ay + 32768;
+        epw->spd = 1.0f;
+        epw->flg |= 0x50;
+        epw->car = 0.1f;
+        
+        EXP0_F(0x70) = 3.0f;
+        epw->ar = 0.1f;
+        EXP0_F(0x6C) = 5.0f;
+        epw->yn = 15.0f + plp->py + (20.0f * njRandom());
+        EXP0_F(0x20) = 0.0f;
+        
+    case 1:
+        EXP0_F(0x20) += (0.1f * (epw->yn - epw->py));
+
+        if (EXP0_F(0x20) > 0.4f)
+        {
+            EXP0_F(0x20) = 0.4f;
+        }
+
+        if (EXP0_F(0x20) < -0.4f)
+        {
+            EXP0_F(0x20) = -0.4f;
+        }
+        
+        epw->py += EXP0_F(0x20);
+        
+        if (EXP0_F(0x20) > 0.0f)
+        {
+            epw->ax += (short)(-epw->ax) / 8;
+        } 
+        else
+        {
+            epw->ax += (short)(-3640 - epw->ax) / 8;
+        }
+
+        if (epw->ct0 != 0)
+        {
+            epw->ay += (short)(epw->ayp - epw->ay) / epw->ct0;
+            epw->px -= epw->spd * njSin(epw->ayp);
+            epw->pz -= epw->spd * njCos(epw->ayp);
+            epw->ct0--;
+            break;
+        }
+        
+        epw->car = 3.0f;
+        
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+        
+        epw->ax = 0;
+
+    }
 }
 
+#pragma divbyzerocheck off
+
+/*
 // 
 // Start address: 0x1bb490
 void bhEne06_MV06()
