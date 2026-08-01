@@ -2,6 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
+#include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 
 // ENEMY: MOTH
@@ -3179,57 +3180,62 @@ void bhEne06_FloorCollision(BH_PWORK* epw)
 	// Line 2346, Address: 0x1bdcdc, Func Offset: 0x16c
 	// Func End, Address: 0x1bdcf0, Func Offset: 0x180
 }
+*/
 
-// 
-// Start address: 0x1bdcf0
+// 100% matching!
 int bhEne06_CheckLeaningWall(BH_PWORK* epw)
 {
-	int i;
-	float dist;
+	NJS_VECTOR vec;
+	NJS_POINT3 pos;
+	ATR_WORK* hp;
+	NJS_VECTOR n; 
 	BH_PWORK* ep;
-	_anon35 n;
-	_anon22* hp;
-	_anon35 pos;
-	_anon35 vec;
-	// Line 2356, Address: 0x1bdcf0, Func Offset: 0
-	// Line 2365, Address: 0x1bdd10, Func Offset: 0x20
-	// Line 2367, Address: 0x1bdd18, Func Offset: 0x28
-	// Line 2366, Address: 0x1bdd1c, Func Offset: 0x2c
-	// Line 2367, Address: 0x1bdd20, Func Offset: 0x30
-	// Line 2369, Address: 0x1bdd28, Func Offset: 0x38
-	// Line 2370, Address: 0x1bdd30, Func Offset: 0x40
-	// Line 2371, Address: 0x1bdd3c, Func Offset: 0x4c
-	// Line 2372, Address: 0x1bdd4c, Func Offset: 0x5c
-	// Line 2377, Address: 0x1bdd54, Func Offset: 0x64
-	// Line 2373, Address: 0x1bdd58, Func Offset: 0x68
-	// Line 2374, Address: 0x1bdd5c, Func Offset: 0x6c
-	// Line 2372, Address: 0x1bdd60, Func Offset: 0x70
-	// Line 2377, Address: 0x1bdd64, Func Offset: 0x74
-	// Line 2372, Address: 0x1bdd6c, Func Offset: 0x7c
-	// Line 2373, Address: 0x1bdd70, Func Offset: 0x80
-	// Line 2374, Address: 0x1bdd78, Func Offset: 0x88
-	// Line 2377, Address: 0x1bdd84, Func Offset: 0x94
-	// Line 2378, Address: 0x1bdd8c, Func Offset: 0x9c
-	// Line 2379, Address: 0x1bddb4, Func Offset: 0xc4
-	// Line 2380, Address: 0x1bddc0, Func Offset: 0xd0
-	// Line 2381, Address: 0x1bdddc, Func Offset: 0xec
-	// Line 2384, Address: 0x1bdde4, Func Offset: 0xf4
-	// Line 2386, Address: 0x1bde10, Func Offset: 0x120
-	// Line 2387, Address: 0x1bde1c, Func Offset: 0x12c
-	// Line 2388, Address: 0x1bde34, Func Offset: 0x144
-	// Line 2389, Address: 0x1bde3c, Func Offset: 0x14c
-	// Line 2390, Address: 0x1bde44, Func Offset: 0x154
-	// Line 2391, Address: 0x1bde58, Func Offset: 0x168
-	// Line 2395, Address: 0x1bde64, Func Offset: 0x174
-	// Line 2391, Address: 0x1bde68, Func Offset: 0x178
-	// Line 2392, Address: 0x1bde70, Func Offset: 0x180
-	// Line 2393, Address: 0x1bde84, Func Offset: 0x194
-	// Line 2395, Address: 0x1bde94, Func Offset: 0x1a4
-	// Line 2398, Address: 0x1bde9c, Func Offset: 0x1ac
-	// Line 2399, Address: 0x1bdea0, Func Offset: 0x1b0
-	// Func End, Address: 0x1bdec4, Func Offset: 0x1d4
+	float dist;    
+	int i;
+
+    vec.x = 0.0f;
+    vec.y = 0.0f;
+    vec.z = -10.0f;
+    njUnitMatrix(NULL);
+    njRotateY(NULL, epw->ay);
+    njCalcVector(NULL, &vec, &vec);
+    ep = ene;
+    i = 0;
+    pos.x = epw->px + vec.x;
+    pos.y = epw->py;
+    pos.z = epw->pz + vec.z;
+
+    while (i < sys->ewk_n)
+    {
+        if ((ep->flg & 1) && (ep->id == 6) && (ep != epw))
+        {
+            dist = njDistanceP2P((NJS_POINT3*)&ep->px, &pos);
+            if (dist < 10.0f)
+            {
+                return 0;
+            }
+        }
+        
+        i++;
+        ep++;
+    }
+
+    hp = bhCollisionCheckLine((NJS_VECTOR*)&epw->px, &pos);
+    if ((hp != NULL) && !(hp->attr & 8))
+    {
+        bhGetHitCollisionNormal(&n);
+        njUnitVector(&n);
+        epw->ayp = bhArcTan2(n.x, n.z);
+        EXP0_F(0x28) = pos.x + n.x;
+        EXP0_F(0x2C) = pos.y + n.y;
+        EXP0_F(0x30) = pos.z + n.z;
+        return 1;
+    }
+
+    return 0;
 }
 
+/*
 // 
 // Start address: 0x1bded0
 int bhEne06_AvoidWall(BH_PWORK* epw, int dir)
