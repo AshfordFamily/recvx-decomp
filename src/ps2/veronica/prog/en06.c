@@ -1561,7 +1561,15 @@ struct _anon47
 };
 
 int ENE06_HITPOINT[16];
-char junction_tree[6][1];
+
+*/
+
+static char junction_tree[1][6] =
+{
+    { 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00 }
+};
+
+/*
 char player_junction_tree[8][8];
 char SdwTab[2];
 _anon18 ene06_child;
@@ -2126,55 +2134,65 @@ void bhEne06_MV07()
 	// Func End, Address: 0x1bb4a8, Func Offset: 0x8
 }
 
-// 
-// Start address: 0x1bb4b0
+*/
+
+#pragma divbyzerocheck on
+
+// 100% matching!
 void bhEne06_MV08(BH_PWORK* epw)
 {
-	_anon35 pos;
-	// Line 1111, Address: 0x1bb4b0, Func Offset: 0
-	// Line 1114, Address: 0x1bb4c0, Func Offset: 0x10
-	// Line 1116, Address: 0x1bb4e0, Func Offset: 0x30
-	// Line 1118, Address: 0x1bb4e8, Func Offset: 0x38
-	// Line 1117, Address: 0x1bb4ec, Func Offset: 0x3c
-	// Line 1118, Address: 0x1bb4f0, Func Offset: 0x40
-	// Line 1119, Address: 0x1bb4f4, Func Offset: 0x44
-	// Line 1121, Address: 0x1bb4fc, Func Offset: 0x4c
-	// Line 1122, Address: 0x1bb504, Func Offset: 0x54
-	// Line 1125, Address: 0x1bb50c, Func Offset: 0x5c
-	// Line 1121, Address: 0x1bb510, Func Offset: 0x60
-	// Line 1122, Address: 0x1bb518, Func Offset: 0x68
-	// Line 1124, Address: 0x1bb524, Func Offset: 0x74
-	// Line 1125, Address: 0x1bb544, Func Offset: 0x94
-	// Line 1126, Address: 0x1bb548, Func Offset: 0x98
-	// Line 1129, Address: 0x1bb554, Func Offset: 0xa4
-	// Line 1130, Address: 0x1bb560, Func Offset: 0xb0
-	// Line 1131, Address: 0x1bb58c, Func Offset: 0xdc
-	// Line 1136, Address: 0x1bb5b4, Func Offset: 0x104
-	// Line 1131, Address: 0x1bb5b8, Func Offset: 0x108
-	// Line 1136, Address: 0x1bb5bc, Func Offset: 0x10c
-	// Line 1131, Address: 0x1bb5c0, Func Offset: 0x110
-	// Line 1132, Address: 0x1bb5c8, Func Offset: 0x118
-	// Line 1133, Address: 0x1bb5ec, Func Offset: 0x13c
-	// Line 1136, Address: 0x1bb610, Func Offset: 0x160
-	// Line 1138, Address: 0x1bb634, Func Offset: 0x184
-	// Line 1142, Address: 0x1bb640, Func Offset: 0x190
-	// Line 1144, Address: 0x1bb650, Func Offset: 0x1a0
-	// Line 1145, Address: 0x1bb664, Func Offset: 0x1b4
-	// Line 1153, Address: 0x1bb668, Func Offset: 0x1b8
-	// Line 1157, Address: 0x1bb66c, Func Offset: 0x1bc
-	// Line 1145, Address: 0x1bb670, Func Offset: 0x1c0
-	// Line 1146, Address: 0x1bb674, Func Offset: 0x1c4
-	// Line 1147, Address: 0x1bb67c, Func Offset: 0x1cc
-	// Line 1150, Address: 0x1bb684, Func Offset: 0x1d4
-	// Line 1153, Address: 0x1bb68c, Func Offset: 0x1dc
-	// Line 1154, Address: 0x1bb690, Func Offset: 0x1e0
-	// Line 1155, Address: 0x1bb694, Func Offset: 0x1e4
-	// Line 1157, Address: 0x1bb698, Func Offset: 0x1e8
-	// Line 1158, Address: 0x1bb69c, Func Offset: 0x1ec
-	// Line 1163, Address: 0x1bb6a0, Func Offset: 0x1f0
-	// Func End, Address: 0x1bb6b0, Func Offset: 0x200
+    NJS_POINT3 pos;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->mtn_no = 3;
+        epw->frm_no = 0;
+        
+        epw->hokan_count = 5;
+        epw->hokan_rate = 0x8000;
+        
+        epw->flg |= 0x580000;
+        epw->flg &= ~0x400000;
+        
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num;
+        epw->ct1 = 8;
+        epw->mode3++;
+        
+    case 1:
+        if (epw->ct1 != 0)
+        {
+            epw->ax += (short)-epw->ax / epw->ct1;
+            epw->ay += (short)(epw->ayp - epw->ay) / epw->ct1;
+            
+            epw->px = epw->px + ((EXP0_F(0x28)- epw->px) / epw->ct1);   
+            epw->pz = epw->pz + ((EXP0_F(0x30) - epw->pz) / epw->ct1);
+            
+            ((BH_PWORK*)EXP0_I(0x84))->sy += (2.0f - ((BH_PWORK*)EXP0_I(0x84))->sy) / (float)epw->ct1;
+            
+            epw->ct1--;
+        }
+
+        if (epw->ct0-- == 0)
+        {
+            bhEne_GetPartsPos(epw, *junction_tree, &pos);
+            epw->px = pos.x;
+            epw->py = pos.y;
+            epw->pz = pos.z;
+            
+            epw->ay = epw->ayp;
+            
+            epw->mode1 = 1;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+            
+            epw->mtn_no = 4;
+            epw->frm_no = 0;
+        }
+    }
 }
-*/
+
+#pragma divbyzerocheck off
 
 // 100% matching!
 void bhEne06_MV09(BH_PWORK* epw)
