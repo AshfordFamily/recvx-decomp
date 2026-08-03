@@ -3172,44 +3172,36 @@ void bhEne06_DD02(BH_PWORK* epw)
 	// Line 2131, Address: 0x1bd6d4, Func Offset: 0x344
 	// Func End, Address: 0x1bd6ec, Func Offset: 0x35c
 }
-
-// 
-// Start address: 0x1bd6f0
+*/
+// 100% matching!
 void bhEne06_DD03(BH_PWORK* epw)
 {
+    O_WORK* owk;
 	int i;
-	_anon4* owk;
-	// Line 2141, Address: 0x1bd6f0, Func Offset: 0
-	// Line 2145, Address: 0x1bd6fc, Func Offset: 0xc
-	// Line 2148, Address: 0x1bd710, Func Offset: 0x20
-	// Line 2149, Address: 0x1bd71c, Func Offset: 0x2c
-	// Line 2148, Address: 0x1bd724, Func Offset: 0x34
-	// Line 2153, Address: 0x1bd72c, Func Offset: 0x3c
-	// Line 2150, Address: 0x1bd730, Func Offset: 0x40
-	// Line 2154, Address: 0x1bd734, Func Offset: 0x44
-	// Line 2155, Address: 0x1bd738, Func Offset: 0x48
-	// Line 2150, Address: 0x1bd740, Func Offset: 0x50
-	// Line 2154, Address: 0x1bd754, Func Offset: 0x64
-	// Line 2150, Address: 0x1bd758, Func Offset: 0x68
-	// Line 2153, Address: 0x1bd760, Func Offset: 0x70
-	// Line 2154, Address: 0x1bd770, Func Offset: 0x80
-	// Line 2155, Address: 0x1bd780, Func Offset: 0x90
-	// Line 2162, Address: 0x1bd788, Func Offset: 0x98
-	// Line 2170, Address: 0x1bd78c, Func Offset: 0x9c
-	// Line 2177, Address: 0x1bd790, Func Offset: 0xa0
-	// Line 2162, Address: 0x1bd798, Func Offset: 0xa8
-	// Line 2177, Address: 0x1bd79c, Func Offset: 0xac
-	// Line 2162, Address: 0x1bd7a0, Func Offset: 0xb0
-	// Line 2164, Address: 0x1bd7ac, Func Offset: 0xbc
-	// Line 2168, Address: 0x1bd7c0, Func Offset: 0xd0
-	// Line 2170, Address: 0x1bd7cc, Func Offset: 0xdc
-	// Line 2171, Address: 0x1bd7d8, Func Offset: 0xe8
-	// Line 2177, Address: 0x1bd7e4, Func Offset: 0xf4
-	// Line 2179, Address: 0x1bd7ec, Func Offset: 0xfc
-	// Line 2182, Address: 0x1bd7f8, Func Offset: 0x108
-	// Func End, Address: 0x1bd808, Func Offset: 0x118
+	
+    switch (epw->mode3)
+    {
+    case 0:
+        owk = epw->mlwP->owP;
+        for (i = 0; i < 12U; i++)
+        {
+            owk[BrokenParts[i]].flg |= 3;
+            *(char *)(*(int *)(epw->exp0 + i * 4 + 0x34) + 0xC) = 1;
+            *(char *)(*(int *)(epw->exp0 + i * 4 + 0x34) + 0xE) = (i < 4);
+        }
+        
+        epw->mlwP->objP[1].evalflags |= 8;
+        epw->mlwP->objP[2].evalflags |= 8;
+        
+        epw->stflg |= 8;
+        epw->flg &= ~0x78;
+        epw->flg |= 0x8000;
+        
+        epw->mtn_add = 0;
+        bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 8960);
+        epw->mode3++;        
+    } 
 }
-*/
 
 // 100% matching!
 void bhEne06_DD04(BH_PWORK* epw)
