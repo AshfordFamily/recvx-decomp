@@ -1802,35 +1802,45 @@ void bhEne06_Move(BH_PWORK* epw)
 	// Line 696, Address: 0x1ba038, Func Offset: 0x98
 	// Func End, Address: 0x1ba048, Func Offset: 0xa8
 }
+*/
 
-// 
-// Start address: 0x1ba050
+// 100% matching!
 void bhEne06_MV00(BH_PWORK* epw)
 {
-	// Line 706, Address: 0x1ba050, Func Offset: 0
-	// Line 707, Address: 0x1ba064, Func Offset: 0x14
-	// Line 710, Address: 0x1ba084, Func Offset: 0x34
-	// Line 711, Address: 0x1ba08c, Func Offset: 0x3c
-	// Line 712, Address: 0x1ba118, Func Offset: 0xc8
-	// Line 713, Address: 0x1ba11c, Func Offset: 0xcc
-	// Line 714, Address: 0x1ba124, Func Offset: 0xd4
-	// Line 713, Address: 0x1ba12c, Func Offset: 0xdc
-	// Line 714, Address: 0x1ba134, Func Offset: 0xe4
-	// Line 717, Address: 0x1ba13c, Func Offset: 0xec
-	// Line 718, Address: 0x1ba184, Func Offset: 0x134
-	// Line 719, Address: 0x1ba1c4, Func Offset: 0x174
-	// Line 720, Address: 0x1ba1cc, Func Offset: 0x17c
-	// Line 722, Address: 0x1ba210, Func Offset: 0x1c0
-	// Line 724, Address: 0x1ba21c, Func Offset: 0x1cc
-	// Line 726, Address: 0x1ba238, Func Offset: 0x1e8
-	// Line 728, Address: 0x1ba248, Func Offset: 0x1f8
-	// Line 727, Address: 0x1ba24c, Func Offset: 0x1fc
-	// Line 728, Address: 0x1ba250, Func Offset: 0x200
-	// Line 729, Address: 0x1ba254, Func Offset: 0x204
-	// Line 733, Address: 0x1ba258, Func Offset: 0x208
-	// Func End, Address: 0x1ba26c, Func Offset: 0x21c
+    switch (epw->mode3)
+    { 
+    case 0:
+        epw->mtn_no = 4;
+        epw->frm_no = epw->mnwP[epw->mtn_no].frm_num * (32768.0f * njRandom());
+        epw->hokan_count = 0;
+        
+        epw->flg |= 0x180000;
+        epw->flg &= ~0x400000;
+        
+        if (njRandom() < 0.8f)
+        {
+            epw->ct0 = (int)(30.0f * njRandom()) + 30;
+        } 
+        else
+        {
+            epw->ct0 = (int)(90.0f * njRandom()) + 120;
+        }
+        epw->mode3++;
+
+    case 1:
+        epw->ax += (short)-epw->ax / 8;
+        
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 0;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        }
+
+    }
 }
 
+/*
 // 
 // Start address: 0x1ba270
 void bhEne06_MV01(BH_PWORK* epw)
