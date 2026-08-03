@@ -4,6 +4,7 @@
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
 
 // ENEMY: MOTH
 
@@ -1564,7 +1565,11 @@ char junction_tree[6][1];
 char player_junction_tree[8][8];
 char SdwTab[2];
 _anon18 ene06_child;
-char BrokenParts[12];
+*/
+
+static char BrokenParts[12] = {0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16};
+
+/*
 _anon18 ene27;
 _anon18 ene06_leader;
 */
@@ -2240,78 +2245,81 @@ void bhEne06_MV09(BH_PWORK* epw)
 	// Line 1242, Address: 0x1bb9f0, Func Offset: 0x340
 	// Func End, Address: 0x1bba00, Func Offset: 0x350
 }
+*/
 
-// 
-// Start address: 0x1bba00
+// 100% matching!
 void bhEne06_MV10(BH_PWORK* epw)
 {
-	// Line 1252, Address: 0x1bba00, Func Offset: 0
-	// Line 1253, Address: 0x1bba10, Func Offset: 0x10
-	// Line 1256, Address: 0x1bba30, Func Offset: 0x30
-	// Line 1257, Address: 0x1bba40, Func Offset: 0x40
-	// Line 1259, Address: 0x1bba44, Func Offset: 0x44
-	// Line 1258, Address: 0x1bba48, Func Offset: 0x48
-	// Line 1259, Address: 0x1bba4c, Func Offset: 0x4c
-	// Line 1260, Address: 0x1bba50, Func Offset: 0x50
-	// Line 1262, Address: 0x1bba58, Func Offset: 0x58
-	// Line 1264, Address: 0x1bba64, Func Offset: 0x64
-	// Line 1268, Address: 0x1bba68, Func Offset: 0x68
-	// Line 1262, Address: 0x1bba6c, Func Offset: 0x6c
-	// Line 1264, Address: 0x1bba74, Func Offset: 0x74
-	// Line 1265, Address: 0x1bba80, Func Offset: 0x80
-	// Line 1266, Address: 0x1bba88, Func Offset: 0x88
-	// Line 1267, Address: 0x1bba90, Func Offset: 0x90
-	// Line 1268, Address: 0x1bba98, Func Offset: 0x98
-	// Line 1269, Address: 0x1bbaa0, Func Offset: 0xa0
-	// Line 1270, Address: 0x1bbae4, Func Offset: 0xe4
-	// Line 1272, Address: 0x1bbaf0, Func Offset: 0xf0
-	// Line 1273, Address: 0x1bbb08, Func Offset: 0x108
-	// Line 1274, Address: 0x1bbb54, Func Offset: 0x154
-	// Line 1275, Address: 0x1bbb5c, Func Offset: 0x15c
-	// Line 1276, Address: 0x1bbb7c, Func Offset: 0x17c
-	// Line 1275, Address: 0x1bbb84, Func Offset: 0x184
-	// Line 1276, Address: 0x1bbb9c, Func Offset: 0x19c
-	// Line 1279, Address: 0x1bbba4, Func Offset: 0x1a4
-	// Line 1280, Address: 0x1bbbb4, Func Offset: 0x1b4
-	// Line 1282, Address: 0x1bbbb8, Func Offset: 0x1b8
-	// Line 1281, Address: 0x1bbbbc, Func Offset: 0x1bc
-	// Line 1282, Address: 0x1bbbc0, Func Offset: 0x1c0
-	// Line 1283, Address: 0x1bbbc4, Func Offset: 0x1c4
-	// Line 1284, Address: 0x1bbbcc, Func Offset: 0x1cc
-	// Line 1285, Address: 0x1bbbd0, Func Offset: 0x1d0
-	// Line 1289, Address: 0x1bbbd4, Func Offset: 0x1d4
-	// Line 1291, Address: 0x1bbbd8, Func Offset: 0x1d8
-	// Line 1284, Address: 0x1bbbdc, Func Offset: 0x1dc
-	// Line 1285, Address: 0x1bbbe4, Func Offset: 0x1e4
-	// Line 1291, Address: 0x1bbbe8, Func Offset: 0x1e8
-	// Line 1285, Address: 0x1bbbf8, Func Offset: 0x1f8
-	// Line 1288, Address: 0x1bbc00, Func Offset: 0x200
-	// Line 1289, Address: 0x1bbc04, Func Offset: 0x204
-	// Line 1291, Address: 0x1bbc08, Func Offset: 0x208
-	// Line 1293, Address: 0x1bbc10, Func Offset: 0x210
-	// Line 1295, Address: 0x1bbc28, Func Offset: 0x228
-	// Line 1297, Address: 0x1bbc38, Func Offset: 0x238
-	// Line 1301, Address: 0x1bbc44, Func Offset: 0x244
-	// Line 1302, Address: 0x1bbc58, Func Offset: 0x258
-	// Line 1303, Address: 0x1bbc60, Func Offset: 0x260
-	// Line 1304, Address: 0x1bbc68, Func Offset: 0x268
-	// Line 1305, Address: 0x1bbc70, Func Offset: 0x270
-	// Line 1306, Address: 0x1bbc78, Func Offset: 0x278
-	// Line 1308, Address: 0x1bbc80, Func Offset: 0x280
-	// Line 1311, Address: 0x1bbc84, Func Offset: 0x284
-	// Line 1308, Address: 0x1bbc8c, Func Offset: 0x28c
-	// Line 1311, Address: 0x1bbc90, Func Offset: 0x290
-	// Line 1308, Address: 0x1bbc94, Func Offset: 0x294
-	// Line 1309, Address: 0x1bbca0, Func Offset: 0x2a0
-	// Line 1310, Address: 0x1bbcb4, Func Offset: 0x2b4
-	// Line 1311, Address: 0x1bbcc8, Func Offset: 0x2c8
-	// Line 1315, Address: 0x1bbcd8, Func Offset: 0x2d8
-	// Line 1316, Address: 0x1bbce8, Func Offset: 0x2e8
-	// Line 1317, Address: 0x1bbcfc, Func Offset: 0x2fc
-	// Line 1321, Address: 0x1bbd40, Func Offset: 0x340
-	// Func End, Address: 0x1bbd50, Func Offset: 0x350
+    switch (epw->mode3)
+    {
+    case 0:
+        if (epw->mtn_no != 16)
+        {
+            epw->mtn_no = 16;
+            epw->frm_no = 0;
+            epw->hokan_count = 5;
+            epw->hokan_rate = 32768;
+        }
+        
+        epw->flg &= ~0x180000;
+        epw->flg |= 0x800000;
+        
+        EXP0_F(0x1C) = 0.0f;
+        EXP0_F(0x20) = 0.0f;
+        EXP0_F(0x24) = 0.0f;
+        
+        epw->flg |= 0x200000;
+        epw->ct2 = (int)(20.0f * njRandom()) + 10;
+        epw->mode3++;
+
+    case 1:
+        epw->ax += (short)(-epw->ax) / 8;
+        epw->ay += (int)(1820.0f * njRandom());
+        epw->ay -= 910;
+        epw->spd = 0.2f * njRandom();
+        
+        bhAddSpeed(epw, 0);
+        
+        if (bhEne06_DeadCheck(epw) != 0)
+        {
+            epw->frm_no = 0;
+            epw->mtn_add = 0;
+            epw->hokan_count = 5;
+            epw->hokan_rate = 32768;
+            epw->flg |= 2;
+            epw->flg &= ~0x28;
+            epw->dvx = 0.0f;
+            epw->dvy = -1.0f;
+            epw->dvz = 0.0f;
+            bhEne_SetBloodEffectBurst(epw, 3, 1, NULL, 0);
+            bhEne_BloodPool(epw, (NJS_POINT3*)&epw->px, epw->ay, &BloodParam);
+            bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 8965);
+            epw->mode3++;
+        }
+        
+        if (!(epw->flg & 0x200000))
+        {
+            EXP0_F(0x1C) = 0.0f;
+            EXP0_F(0x20) = 0.0f;
+            EXP0_F(0x24) = 0.0f;
+            epw->flg |= 0x200000;
+            return;
+        }
+        
+        epw->px += EXP0_F(0x1C);
+        epw->py += EXP0_F(0x20);
+        epw->pz += EXP0_F(0x24);
+        EXP0_F(0x20) -= 0.2f;
+
+        if (epw->ct2-- == 0)
+        {
+            bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 74498);
+            epw->ct2 = (int)(20.0f * njRandom()) + 10;
+        }
+    }
 }
 
+/*
 // 
 // Start address: 0x1bbd50
 void bhEne06_Nage(BH_PWORK* epw)
@@ -3587,6 +3595,8 @@ void bhEne06_HitMark(BH_PWORK* epw)
 	// Line 2766, Address: 0x1bf084, Func Offset: 0x4f4
 	// Func End, Address: 0x1bf0a8, Func Offset: 0x518
 }
+*/
+
 
 // 
 // Start address: 0x1bf0b0
@@ -3594,12 +3604,12 @@ int bhEne06_DeadCheck(BH_PWORK* epw)
 {
 	int joint[2];
 	int i;
-	_anon4* owk;
+	//_anon4* owk;
 	float mov;
 	int w;
 	int ang;
-	_anon35 vec;
-	_anon35 pos;
+	//_anon35 vec;
+	//_anon35 pos;
 	// Line 2776, Address: 0x1bf0b0, Func Offset: 0
 	// Line 2782, Address: 0x1bf0d4, Func Offset: 0x24
 	// Line 2776, Address: 0x1bf0d8, Func Offset: 0x28
@@ -3642,4 +3652,5 @@ int bhEne06_DeadCheck(BH_PWORK* epw)
 	// Line 2828, Address: 0x1bf270, Func Offset: 0x1c0
 	// Line 2829, Address: 0x1bf274, Func Offset: 0x1c4
 	// Func End, Address: 0x1bf2a4, Func Offset: 0x1f4
-}*/
+    scePrintf("bhEne06_DeadCheck - UNIMPLEMENTED!\n");
+}
