@@ -2259,16 +2259,11 @@ void bhEne06_MV06(void)
 
 }
 
-/*
-// 
-// Start address: 0x1bb4a0
-void bhEne06_MV07()
+// 100% matching!
+void bhEne06_MV07(void)
 {
-	// Line 1101, Address: 0x1bb4a0, Func Offset: 0
-	// Func End, Address: 0x1bb4a8, Func Offset: 0x8
-}
 
-*/
+}
 
 #pragma divbyzerocheck on
 
