@@ -2253,15 +2253,13 @@ void bhEne06_MV05(BH_PWORK* epw)
 
 #pragma divbyzerocheck off
 
-/*
-// 
-// Start address: 0x1bb490
-void bhEne06_MV06()
+// 100% matching!
+void bhEne06_MV06(void)
 {
-	// Line 1090, Address: 0x1bb490, Func Offset: 0
-	// Func End, Address: 0x1bb498, Func Offset: 0x8
+
 }
 
+/*
 // 
 // Start address: 0x1bb4a0
 void bhEne06_MV07()
