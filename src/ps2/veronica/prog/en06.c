@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/subpl.h"
 
 // ENEMY: MOTH
 
@@ -450,7 +451,7 @@ struct BH_PWORK
 	int wpnl_no;
 	unsigned int at_flg;
 	_anon46 watr;
-	_anon28* cpcl;
+	CPCL* cpcl;
 	short wax;
 	short way;
 	short waz;
@@ -667,6 +668,8 @@ struct _anon12
 	float amb_b[4];
 };
 
+
+
 struct _anon13
 {
 	unsigned char flg;
@@ -789,7 +792,7 @@ struct _anon17
 	_anon31* light;
 };
 
-struct _anon18
+struct _anon18 ETTY_WORK
 {
 	unsigned int flg;
 	unsigned short id;
@@ -1560,9 +1563,14 @@ struct _anon47
 	unsigned char* recp;
 };
 
-int ENE06_HITPOINT[16];
-
 */
+static int ENE06_HITPOINT[16] = 
+{
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1
+};
 
 static char junction_tree[1][6] =
 {
@@ -1570,17 +1578,70 @@ static char junction_tree[1][6] =
 };
 
 /*
-char player_junction_tree[8][8];
-char SdwTab[2];
-_anon18 ene06_child;
+char player_junction_tree[8][8];  // unused?
 */
+
+static char SdwTab[2] = { 0x00, 0xFF };
+
+static ETTY_WORK ene06_child =
+{
+    0x8001,                                 /* flg */
+    0x1F,                                   /* id */
+    0,                                      /* type */
+    0,                                      /* flr_no */
+    0,                                      /* mdlver */
+    0,                                      /* wrk_no */
+    0,                                      /* prm1 */
+    0.0f,                                   /* px */
+    0.0f,                                   /* py */
+    0.0f,                                   /* pz */
+    0,                                      /* ax */
+    0,                                      /* az */
+    0,                                      /* ay */
+    0,                                      /* aspd */
+    {0, 0, 0, 0}                            /* hide */
+};
 
 static char BrokenParts[12] = {0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16};
 
-/*
-_anon18 ene27;
-_anon18 ene06_leader;
-*/
+static ETTY_WORK ene27 =
+{
+    0x8001,                                 /* flg */
+    0x1B,                                   /* id */
+    0,                                      /* type */
+    0,                                      /* flr_no */
+    0,                                      /* mdlver */
+    0,                                      /* wrk_no */
+    0,                                      /* prm1 */
+    0.0f,                                   /* px */
+    0.0f,                                   /* py */
+    0.0f,                                   /* pz */
+    0,                                      /* ax */
+    0,                                      /* az */
+    0,                                      /* ay */
+    0,                                      /* aspd */
+    {0, 0, 0, 0}                            /* hide */
+};
+
+
+static ETTY_WORK ene06_leader =
+{
+    0x01008001,                             /* flg */
+    0x06,                                   /* id */
+    0,                                      /* type */
+    0,                                      /* flr_no */
+    0,                                      /* mdlver */
+    0,                                      /* wrk_no */
+    0,                                      /* prm1 */
+    0.0f,                                   /* px */
+    0.0f,                                   /* py */
+    0.0f,                                   /* pz */
+    0,                                      /* ax */
+    0,                                      /* az */
+    0,                                      /* ay */
+    0,                                      /* aspd */
+    {0, 0, 0, 0}                            /* hide */
+};
 
 static BP_WORK BloodParam =
 {
@@ -1592,17 +1653,85 @@ static BP_WORK BloodParam =
     {0, 3, 6, 9, 12}                        /* srt_dir */
 };
 
+static CPCL CapColTab[8] =
+{
+    { 1,  1,  5 },                          /* [0] */
+    { 0,  0, -6 },                          /* [1] */
+    { 1,  2,  5 },                          /* [2] */
+    { 2,  4,  6 },                          /* [3] */
+    { 4,  6,  7 },                          /* [4] */
+    { 6,  8,  7 },                          /* [5] */
+    { 8, 10,  6 },                          /* [6] */
+    { 0,  0,  0 }                           /* [7] */
+};
+
+
 /*
-_anon28 CapColTab[8];
 _anon7 DmgReact[21];
+
+
 _anon36 BloodTbl[23];
-void(*bhEne06_Mode0)(BH_PWORK*)[6];*/
-typedef void (*BrainType_proc)(BH_PWORK*);
-BrainType_proc bhEne06_BrainType[4] = { bhEne06_BR00 };
-/*void(*bhEne06_MoveMode2)(BH_PWORK*)[11];
-void(*bhEne06_NageMode2)(BH_PWORK*)[1];
-void(*bhEne06_DamageMode2)(BH_PWORK*)[2];
-void(*bhEne06_DeadMode2)(BH_PWORK*)[5];
+
+*/
+
+typedef void (*bhEne06_Mode0_proc)(BH_PWORK*);
+typedef void (*bhEne06_BrainType_proc)(BH_PWORK*);
+typedef void (*bhEne06_MoveMode2_proc)(BH_PWORK*);
+typedef void (*bhEne06_NageMode2_proc)(BH_PWORK*);
+typedef void (*bhEne06_DamageMode2_proc)(BH_PWORK*);
+typedef void (*bhEne06_DeadMode2_proc)(BH_PWORK*);
+
+bhEne06_Mode0_proc bhEne06_Mode0[6] =
+{
+    bhEne06_Init,                           
+    bhEne06_Move,                           
+    bhEne06_Nage,                           
+    bhEne06_Damage,                         
+    bhEne06_Die,                            
+    bhEne_Event                             
+};
+
+bhEne06_BrainType_proc bhEne06_BrainType[1] =
+{
+    bhEne06_BR00
+};
+
+bhEne06_MoveMode2_proc bhEne06_MoveMode2[11] =
+{
+    bhEne06_MV00,                           
+    bhEne06_MV01,                           
+    bhEne06_MV02,                           
+    bhEne06_MV03,                           
+    bhEne06_MV04,
+    bhEne06_MV05,
+    bhEne06_MV06,
+    bhEne06_MV07,
+    bhEne06_MV08,
+    bhEne06_MV09,
+    bhEne06_MV10 
+};
+
+bhEne06_NageMode2_proc bhEne06_NageMode2[1] =
+{
+    bhEne06_NG00
+};
+
+bhEne06_DamageMode2_proc bhEne06_DamageMode2[2] =
+{
+    bhEne06_DG00,
+    bhEne06_DG01
+};
+
+bhEne06_DeadMode2_proc bhEne06_DeadMode2[5] =
+{
+    bhEne06_DD00,
+    bhEne06_DD01, 
+    bhEne06_DD02,
+    bhEne06_DD03,
+    bhEne06_DD04
+};
+
+/*
 BH_PWORK* plp;
 _anon0 eff[0];
 void(*bhEne06s)(BH_PWORK*);
