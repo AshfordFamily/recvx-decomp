@@ -2483,15 +2483,12 @@ void bhEne06_MV10(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1bbd50
+// 100% matching!
 void bhEne06_Nage(BH_PWORK* epw)
 {
-	// Line 1332, Address: 0x1bbd50, Func Offset: 0
-	// Func End, Address: 0x1bbd70, Func Offset: 0x20
-    scePrintf("bhEne06_Nage - UNIMPLEMENTED!\n");
+    bhEne06_NageMode2[epw->mode2](epw);
 }
-/*
+
 // 
 // Start address: 0x1bbd70
 void bhEne06_NG00(BH_PWORK* epw)
@@ -2500,10 +2497,10 @@ void bhEne06_NG00(BH_PWORK* epw)
 	int type;
 	int i;
 	BH_PWORK* epw2;
-	_anon4* owk;
-	_anon35 v;
-	_anon35 offset;
-	_anon35 pos;
+	//_anon4* owk;
+	//_anon35 v;
+	//_anon35 offset;
+	//_anon35 pos;
 	// Line 1343, Address: 0x1bbd70, Func Offset: 0
 	// Line 1346, Address: 0x1bbd84, Func Offset: 0x14
 	// Line 1349, Address: 0x1bbda4, Func Offset: 0x34
@@ -2610,8 +2607,9 @@ void bhEne06_NG00(BH_PWORK* epw)
 	// Line 1463, Address: 0x1bc248, Func Offset: 0x4d8
 	// Line 1467, Address: 0x1bc24c, Func Offset: 0x4dc
 	// Func End, Address: 0x1bc260, Func Offset: 0x4f0
+    scePrintf("bhEne06_NG00 - UNIMPLEMENTED!\n");
 }
-*/
+
 // 
 // Start address: 0x1bc260
 void bhEne06_Damage(BH_PWORK* epw)
