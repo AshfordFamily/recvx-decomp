@@ -3389,36 +3389,51 @@ void bhEne06_CollisionWalls(BH_PWORK* epw)
     scePrintf("bhEne06_CollisionWalls - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1bdb70
+// 100% matching!
 void bhEne06_FloorCollision(BH_PWORK* epw)
 {
-	//_anon22* hp;
-	// Line 2316, Address: 0x1bdb70, Func Offset: 0
-	// Line 2319, Address: 0x1bdb80, Func Offset: 0x10
-	// Line 2320, Address: 0x1bdb94, Func Offset: 0x24
-	// Line 2321, Address: 0x1bdb9c, Func Offset: 0x2c
-	// Line 2322, Address: 0x1bdba8, Func Offset: 0x38
-	// Line 2323, Address: 0x1bdbb4, Func Offset: 0x44
-	// Line 2324, Address: 0x1bdbb8, Func Offset: 0x48
-	// Line 2323, Address: 0x1bdbc4, Func Offset: 0x54
-	// Line 2324, Address: 0x1bdbc8, Func Offset: 0x58
-	// Line 2325, Address: 0x1bdbe0, Func Offset: 0x70
-	// Line 2326, Address: 0x1bdbec, Func Offset: 0x7c
-	// Line 2325, Address: 0x1bdbf0, Func Offset: 0x80
-	// Line 2326, Address: 0x1bdbf8, Func Offset: 0x88
-	// Line 2327, Address: 0x1bdc04, Func Offset: 0x94
-	// Line 2329, Address: 0x1bdc1c, Func Offset: 0xac
-	// Line 2332, Address: 0x1bdc24, Func Offset: 0xb4
-	// Line 2333, Address: 0x1bdc74, Func Offset: 0x104
-	// Line 2336, Address: 0x1bdc78, Func Offset: 0x108
-	// Line 2338, Address: 0x1bdc9c, Func Offset: 0x12c
-	// Line 2340, Address: 0x1bdca0, Func Offset: 0x130
-	// Line 2342, Address: 0x1bdccc, Func Offset: 0x15c
-	// Line 2343, Address: 0x1bdcd4, Func Offset: 0x164
-	// Line 2346, Address: 0x1bdcdc, Func Offset: 0x16c
-	// Func End, Address: 0x1bdcf0, Func Offset: 0x180
-    scePrintf("bhEne06_FloorCollision - UNIMPLEMENTED!\n");
+    ATR_WORK* hp;
+
+    hp = (ATR_WORK*)bhCollisionCheckLine((NJS_VECTOR*)&epw->pxb, (NJS_VECTOR*)&epw->px);
+    
+    if (hp != NULL)
+    {
+        bhGetHitCollisionNormal((NJS_VECTOR*)((char *)epw->exp0 + 0x78));
+        njUnitVector((NJS_VECTOR*)((char *)epw->exp0 + 0x78));
+        *(ATR_WORK**)((char *)epw->exp0 + 0x18) = hp;
+        
+        if (EXP0_F(0x7C) > 0.9f)
+        {
+            epw->flg &= ~0x200000; 
+            
+            if (hp->type == 7)
+            {
+                if (hp->py > epw->py)
+                {
+                    epw->py = hp->py;
+                }
+            } 
+            else
+            {
+                float tmp = hp->py + ((hp->h) ? hp->h : rom->h);
+                if (tmp > epw->py)
+                {
+                    epw->py = tmp;
+                }
+            }
+        }
+        
+        if (EXP0_F(0x7C) < -0.9f)
+        {
+            EXP0_I(0x20) = 0;
+        }
+        
+        if (fabsf(EXP0_F(0x7C)) < 0.3f)
+        {
+            EXP0_I(0x1C) = 0;
+            EXP0_I(0x24) = 0;
+        }
+    }
 }
 
 // 100% matching!
