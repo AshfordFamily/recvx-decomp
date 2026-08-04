@@ -1983,60 +1983,78 @@ void bhEne06_MV00(BH_PWORK* epw)
     }
 }
 
-
-// 
-// Start address: 0x1ba270
+// 100% matching!
 void bhEne06_MV01(BH_PWORK* epw)
 {
-	// Line 743, Address: 0x1ba270, Func Offset: 0
-	// Line 744, Address: 0x1ba280, Func Offset: 0x10
-	// Line 747, Address: 0x1ba2a0, Func Offset: 0x30
-	// Line 750, Address: 0x1ba2f0, Func Offset: 0x80
-	// Line 752, Address: 0x1ba2f4, Func Offset: 0x84
-	// Line 751, Address: 0x1ba2f8, Func Offset: 0x88
-	// Line 752, Address: 0x1ba2fc, Func Offset: 0x8c
-	// Line 753, Address: 0x1ba300, Func Offset: 0x90
-	// Line 755, Address: 0x1ba308, Func Offset: 0x98
-	// Line 756, Address: 0x1ba310, Func Offset: 0xa0
-	// Line 757, Address: 0x1ba318, Func Offset: 0xa8
-	// Line 758, Address: 0x1ba31c, Func Offset: 0xac
-	// Line 755, Address: 0x1ba320, Func Offset: 0xb0
-	// Line 756, Address: 0x1ba328, Func Offset: 0xb8
-	// Line 757, Address: 0x1ba32c, Func Offset: 0xbc
-	// Line 758, Address: 0x1ba334, Func Offset: 0xc4
-	// Line 759, Address: 0x1ba338, Func Offset: 0xc8
-	// Line 760, Address: 0x1ba344, Func Offset: 0xd4
-	// Line 761, Address: 0x1ba34c, Func Offset: 0xdc
-	// Line 762, Address: 0x1ba354, Func Offset: 0xe4
-	// Line 766, Address: 0x1ba360, Func Offset: 0xf0
-	// Line 767, Address: 0x1ba368, Func Offset: 0xf8
-	// Line 768, Address: 0x1ba370, Func Offset: 0x100
-	// Line 769, Address: 0x1ba378, Func Offset: 0x108
-	// Line 771, Address: 0x1ba380, Func Offset: 0x110
-	// Line 772, Address: 0x1ba38c, Func Offset: 0x11c
-	// Line 773, Address: 0x1ba3bc, Func Offset: 0x14c
-	// Line 774, Address: 0x1ba3d8, Func Offset: 0x168
-	// Line 775, Address: 0x1ba3f4, Func Offset: 0x184
-	// Line 776, Address: 0x1ba3fc, Func Offset: 0x18c
-	// Line 778, Address: 0x1ba404, Func Offset: 0x194
-	// Line 779, Address: 0x1ba408, Func Offset: 0x198
-	// Line 781, Address: 0x1ba40c, Func Offset: 0x19c
-	// Line 782, Address: 0x1ba410, Func Offset: 0x1a0
-	// Line 783, Address: 0x1ba418, Func Offset: 0x1a8
-	// Line 787, Address: 0x1ba41c, Func Offset: 0x1ac
-	// Line 789, Address: 0x1ba434, Func Offset: 0x1c4
-	// Line 790, Address: 0x1ba478, Func Offset: 0x208
-	// Line 791, Address: 0x1ba480, Func Offset: 0x210
-	// Line 792, Address: 0x1ba490, Func Offset: 0x220
-	// Line 793, Address: 0x1ba4a0, Func Offset: 0x230
-	// Line 794, Address: 0x1ba4b0, Func Offset: 0x240
-	// Line 795, Address: 0x1ba4c4, Func Offset: 0x254
-	// Line 800, Address: 0x1ba50c, Func Offset: 0x29c
-	// Line 802, Address: 0x1ba518, Func Offset: 0x2a8
-	// Line 803, Address: 0x1ba544, Func Offset: 0x2d4
-	// Line 808, Address: 0x1ba550, Func Offset: 0x2e0
-	// Func End, Address: 0x1ba560, Func Offset: 0x2f0
-    scePrintf("bhEne06_MV01 - UNIMPLEMENTED!\n");
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->ct1 = (njRandom() > 0.5f);
+        epw->mtn_no = 0;
+        epw->frm_no = 0;
+        epw->hokan_count = 5;
+        epw->hokan_rate = 32768;
+        
+        epw->flg |= 0x580000;
+        epw->ar = 0.1f;
+        EXP0_F(0x6C) = 5.0f;
+        epw->spd = 1.0f;
+        
+        if (epw->ct1 != 0)
+        {
+          epw->ayp = epw->ay + 16384;
+        }
+        else
+        {
+          epw->ayp = epw->ay - 16384;
+        }
+        
+        epw->ct0 = 14;
+        epw->ct2 = 8;
+        epw->mode3++;
+        break;
+        
+    case 1:
+        if (epw->ct0 != 0)
+        {
+            epw->ay += (short)(epw->ayp - epw->ay) / epw->ct0;
+            epw->px -= epw->spd * njSin(epw->ayp);
+            epw->pz -= epw->spd * njCos(epw->ayp);
+            epw->ct0--;
+        } 
+        else
+        {
+            epw->mtn_no = 0;
+            epw->frm_no = 0;
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        
+        if (plp->flg & 4)
+        {
+            EXP0_I(0x74) = (int)(30.0f * njRandom()) + 60;                        
+        } 
+        else
+        {
+            EXP0_I(0x74)--;
+            if (EXP0_I(0x74) < 0)
+            {
+                bhEne06_SetRinpunEffect(epw, 1, 0);
+                if (EXP0_I(0x74) < -5)
+                {
+                    EXP0_I(0x74) = (int)(30.0f * njRandom()) + 30;
+    
+                }
+            }
+        }
+
+        if (epw->ct2 != 0)
+        {
+            ((BH_PWORK*)EXP0_I(0x84))->sy += (4.0f - ((BH_PWORK*)EXP0_I(0x84))->sy) / (float)epw->ct2;
+            epw->ct2--;
+        }
+    }
 }
 
 // 
