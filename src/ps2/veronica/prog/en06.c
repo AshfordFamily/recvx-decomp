@@ -7,6 +7,8 @@
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/Motion.h"
+#include "../../../ps2/veronica/prog/en03.h"
+
 
 // ENEMY: MOTH
 
@@ -3325,68 +3327,67 @@ void bhEne06_SearchPlayer(BH_PWORK* epw)
     EXP0_C(0x16) = 1;
 }
 
-
-// 
-// Start address: 0x1bd910
+// 100% matching!
 void bhEne06_CollisionWalls(BH_PWORK* epw)
 {
-	//npobj* objP;
-	//_anon20* mkaP;
-	//_anon35 trans;
-	//_anon35 ofp;
-	// Line 2238, Address: 0x1bd910, Func Offset: 0
-	// Line 2243, Address: 0x1bd92c, Func Offset: 0x1c
-	// Line 2246, Address: 0x1bd93c, Func Offset: 0x2c
-	// Line 2243, Address: 0x1bd940, Func Offset: 0x30
-	// Line 2246, Address: 0x1bd954, Func Offset: 0x44
-	// Line 2247, Address: 0x1bd964, Func Offset: 0x54
-	// Line 2248, Address: 0x1bd96c, Func Offset: 0x5c
-	// Line 2249, Address: 0x1bd974, Func Offset: 0x64
-	// Line 2250, Address: 0x1bd97c, Func Offset: 0x6c
-	// Line 2251, Address: 0x1bd980, Func Offset: 0x70
-	// Line 2250, Address: 0x1bd984, Func Offset: 0x74
-	// Line 2251, Address: 0x1bd988, Func Offset: 0x78
-	// Line 2253, Address: 0x1bd998, Func Offset: 0x88
-	// Line 2254, Address: 0x1bd9a0, Func Offset: 0x90
-	// Line 2256, Address: 0x1bd9a4, Func Offset: 0x94
-	// Line 2253, Address: 0x1bd9a8, Func Offset: 0x98
-	// Line 2254, Address: 0x1bd9c0, Func Offset: 0xb0
-	// Line 2256, Address: 0x1bd9d0, Func Offset: 0xc0
-	// Line 2257, Address: 0x1bd9d8, Func Offset: 0xc8
-	// Line 2258, Address: 0x1bd9e4, Func Offset: 0xd4
-	// Line 2259, Address: 0x1bd9f8, Func Offset: 0xe8
-	// Line 2265, Address: 0x1bda08, Func Offset: 0xf8
-	// Line 2268, Address: 0x1bda0c, Func Offset: 0xfc
-	// Line 2269, Address: 0x1bda10, Func Offset: 0x100
-	// Line 2272, Address: 0x1bda14, Func Offset: 0x104
-	// Line 2265, Address: 0x1bda18, Func Offset: 0x108
-	// Line 2267, Address: 0x1bda1c, Func Offset: 0x10c
-	// Line 2268, Address: 0x1bda24, Func Offset: 0x114
-	// Line 2269, Address: 0x1bda2c, Func Offset: 0x11c
-	// Line 2272, Address: 0x1bda34, Func Offset: 0x124
-	// Line 2274, Address: 0x1bda48, Func Offset: 0x138
-	// Line 2275, Address: 0x1bda54, Func Offset: 0x144
-	// Line 2276, Address: 0x1bda60, Func Offset: 0x150
-	// Line 2278, Address: 0x1bda70, Func Offset: 0x160
-	// Line 2284, Address: 0x1bda78, Func Offset: 0x168
-	// Line 2285, Address: 0x1bda7c, Func Offset: 0x16c
-	// Line 2297, Address: 0x1bda80, Func Offset: 0x170
-	// Line 2278, Address: 0x1bda84, Func Offset: 0x174
-	// Line 2279, Address: 0x1bda8c, Func Offset: 0x17c
-	// Line 2280, Address: 0x1bda9c, Func Offset: 0x18c
-	// Line 2283, Address: 0x1bdaac, Func Offset: 0x19c
-	// Line 2284, Address: 0x1bdabc, Func Offset: 0x1ac
-	// Line 2285, Address: 0x1bdacc, Func Offset: 0x1bc
-	// Line 2297, Address: 0x1bdad8, Func Offset: 0x1c8
-	// Line 2298, Address: 0x1bdae8, Func Offset: 0x1d8
-	// Line 2299, Address: 0x1bdaf8, Func Offset: 0x1e8
-	// Line 2300, Address: 0x1bdb08, Func Offset: 0x1f8
-	// Line 2303, Address: 0x1bdb18, Func Offset: 0x208
-	// Line 2304, Address: 0x1bdb28, Func Offset: 0x218
-	// Line 2305, Address: 0x1bdb38, Func Offset: 0x228
-	// Line 2306, Address: 0x1bdb48, Func Offset: 0x238
-	// Func End, Address: 0x1bdb68, Func Offset: 0x258
-    scePrintf("bhEne06_CollisionWalls - UNIMPLEMENTED!\n");
+    NJS_VECTOR ofp;
+    NJS_VECTOR trans;
+    NJS_MKEY_A_MOD* mkaP;
+	NJS_CNK_OBJECT* objP;
+	
+    epw->ar += (EXP0_F(0x6C) - epw->ar) / 8.0f;
+    if (epw->flg & 0x400000)
+    {
+        ofp.z = 0.0f;
+        ofp.y = 0.0f;
+        ofp.x = 0.0f;
+    } 
+    else
+    {
+        ofp.z = 0.0f;
+        ofp.x = 0.0f;
+        ofp.y = epw->ar;
+        if (epw->flg & 0x100000)
+        {
+            mkaP = epw->mnwP[epw->mtn_no].md2P->p[1];
+            mkaP += (epw->frm_no / 65536); 
+            
+            njUnitMatrix(NULL);
+            njRotateY(NULL, epw->ay);
+            njRotateXYZ(NULL, mkaP->key[0], mkaP->key[1], mkaP->key[2]);
+            njCalcVector(NULL, &ofp, &ofp);
+        }
+    }
+    objP = epw->mlwP->objP;
+    trans.x = objP->pos[0];
+    trans.y = objP->pos[1];
+    trans.z = objP->pos[2];
+    
+    if (!(epw->flg & 0x80000))
+    {
+        trans.y = 0.0f;
+    }
+    njUnitMatrix(NULL);
+    njRotateY(NULL, epw->ay);
+    njCalcVector(NULL, &trans, &trans);
+    
+    epw->px += trans.x;
+    epw->py += trans.y;
+    epw->pz += trans.z;
+    
+    epw->px += ofp.x;
+    epw->py += ofp.y;
+    epw->pz += ofp.z;
+    
+    *(ATR_WORK**)((char *)epw->exp0 + 0x18) = bhEne03_Collision(epw);
+    
+    epw->px -= ofp.x;
+    epw->py -= ofp.y;
+    epw->pz -= ofp.z;
+    
+    epw->px -= trans.x;
+    epw->py -= trans.y;
+    epw->pz -= trans.z;
 }
 
 // 100% matching!
