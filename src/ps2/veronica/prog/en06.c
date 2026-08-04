@@ -3711,53 +3711,34 @@ void bhEne06_PlayerControl(BH_PWORK* epw)
 
 #pragma divbyzerocheck off
 
-// 
-// Start address: 0x1be8b0
+// 99.95% matching
 void bhEne06_SetRinpunEffect(BH_PWORK* epw, int num, int flg)
 {
+    int eno;
 	float size;
-	int eno;
-	// Line 2671, Address: 0x1be8b0, Func Offset: 0
-	// Line 2680, Address: 0x1be8c0, Func Offset: 0x10
-	// Line 2681, Address: 0x1be8c8, Func Offset: 0x18
-	// Line 2682, Address: 0x1be8d4, Func Offset: 0x24
-	// Line 2681, Address: 0x1be8d8, Func Offset: 0x28
-	// Line 2682, Address: 0x1be8e4, Func Offset: 0x34
-	// Line 2683, Address: 0x1be8f8, Func Offset: 0x48
-	// Line 2685, Address: 0x1be908, Func Offset: 0x58
-	// Line 2686, Address: 0x1be930, Func Offset: 0x80
-	// Line 2685, Address: 0x1be934, Func Offset: 0x84
-	// Line 2686, Address: 0x1be944, Func Offset: 0x94
-	// Line 2688, Address: 0x1be948, Func Offset: 0x98
-	// Line 2686, Address: 0x1be94c, Func Offset: 0x9c
-	// Line 2685, Address: 0x1be954, Func Offset: 0xa4
-	// Line 2686, Address: 0x1be964, Func Offset: 0xb4
-	// Line 2687, Address: 0x1be968, Func Offset: 0xb8
-	// Line 2688, Address: 0x1be97c, Func Offset: 0xcc
-	// Line 2690, Address: 0x1be98c, Func Offset: 0xdc
-	// Line 2692, Address: 0x1be9ec, Func Offset: 0x13c
-	// Line 2693, Address: 0x1bea04, Func Offset: 0x154
-	// Line 2692, Address: 0x1bea0c, Func Offset: 0x15c
-	// Line 2693, Address: 0x1bea20, Func Offset: 0x170
-	// Line 2694, Address: 0x1bea54, Func Offset: 0x1a4
-	// Line 2695, Address: 0x1bea88, Func Offset: 0x1d8
-	// Line 2697, Address: 0x1beab0, Func Offset: 0x200
-	// Line 2695, Address: 0x1beab4, Func Offset: 0x204
-	// Line 2697, Address: 0x1beacc, Func Offset: 0x21c
-	// Line 2695, Address: 0x1bead4, Func Offset: 0x224
-	// Line 2697, Address: 0x1beaec, Func Offset: 0x23c
-	// Line 2698, Address: 0x1beb04, Func Offset: 0x254
-	// Line 2699, Address: 0x1beb10, Func Offset: 0x260
-	// Line 2700, Address: 0x1beb34, Func Offset: 0x284
-	// Line 2699, Address: 0x1beb40, Func Offset: 0x290
-	// Line 2700, Address: 0x1beb48, Func Offset: 0x298
-	// Line 2701, Address: 0x1beb4c, Func Offset: 0x29c
-	// Line 2700, Address: 0x1beb5c, Func Offset: 0x2ac
-	// Line 2703, Address: 0x1beb60, Func Offset: 0x2b0
-	// Line 2704, Address: 0x1beb68, Func Offset: 0x2b8
-	// Line 2705, Address: 0x1beb74, Func Offset: 0x2c4
-	// Func End, Address: 0x1beb88, Func Offset: 0x2d8
-    scePrintf("bhEne06_SetRinpunEffect - UNIMPLEMENTED!\n");
+	
+    while (0 < num)
+    {
+        sys->ef.id = 260;
+        sys->ef.flg = 1;
+        sys->ef.type = flg;
+        size = 0.6f + (0.4f * njRandom());
+        sys->ef.sy = sys->ef.sx = size;
+        sys->ef.sz = 1.0f;
+        sys->ef.ay = (int)((epw->ay + 18204) + (29127.0f * njRandom()));
+        size = 8.0f * njRandom();
+        sys->ef.px = epw->px - (size * njSin(sys->ef.ay));
+        sys->ef.pz = epw->pz - (size * njCos(sys->ef.ay));
+        sys->ef.py = (epw->py + (8.0f * njRandom())) - 4.0f;
+        eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        if (eno != -1)
+        {            
+            eff[eno].stflg |= 0x20;            
+            eff[eno].txp[0] = epw->mdl[1].texP;
+            eff[eno].tex_id = 1;            
+        }
+        break;
+    }     
 }
 
 // 
