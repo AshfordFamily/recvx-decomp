@@ -1,5 +1,6 @@
 #include "../../../ps2/veronica/prog/en09.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Bandersnatch 
 
@@ -158,37 +159,68 @@ void bhEne09_DmmyBrain(void)
 
 }
 
-// 
-// Start address: 0x1c6af0
-void bhEne09(BH_PWORK* epw)
+// 100% matching!
+void bhEne09(BH_PWORK* epw) 
 {
-	int i;
 	BH_PWORK* ep;
-	// Line 284, Address: 0x1c6af0, Func Offset: 0
-	// Line 291, Address: 0x1c6b04, Func Offset: 0x14
-	// Line 294, Address: 0x1c6b0c, Func Offset: 0x1c
-	// Line 297, Address: 0x1c6b14, Func Offset: 0x24
-	// Line 299, Address: 0x1c6b24, Func Offset: 0x34
-	// Line 300, Address: 0x1c6b2c, Func Offset: 0x3c
-	// Line 301, Address: 0x1c6b48, Func Offset: 0x58
-	// Line 304, Address: 0x1c6b58, Func Offset: 0x68
-	// Line 307, Address: 0x1c6b78, Func Offset: 0x88
-	// Line 310, Address: 0x1c6b84, Func Offset: 0x94
-	// Line 313, Address: 0x1c6b8c, Func Offset: 0x9c
-	// Line 316, Address: 0x1c6b9c, Func Offset: 0xac
-	// Line 318, Address: 0x1c6bb0, Func Offset: 0xc0
-	// Line 321, Address: 0x1c6bdc, Func Offset: 0xec
-	// Line 324, Address: 0x1c6be4, Func Offset: 0xf4
-	// Line 326, Address: 0x1c6bf4, Func Offset: 0x104
-	// Line 333, Address: 0x1c6c40, Func Offset: 0x150
-	// Line 334, Address: 0x1c6c4c, Func Offset: 0x15c
-	// Line 335, Address: 0x1c6c50, Func Offset: 0x160
-	// Line 338, Address: 0x1c6c78, Func Offset: 0x188
-	// Line 339, Address: 0x1c6c98, Func Offset: 0x1a8
-	// Line 341, Address: 0x1c6cb8, Func Offset: 0x1c8
-	// Func End, Address: 0x1c6cd0, Func Offset: 0x1e0
-	scePrintf("bhEne09 - UNIMPLEMENTED!\n");
+    int i;
+
+    bhEne09_DmgCheck(epw);
+    bhEne09_MainLoop(epw);
+    
+    if (epw->flg & 4) 
+    {
+        for (i = 0; i < 64; i++)
+        {
+            epw->dam[i] = 0;
+        }
+        
+        epw->flg &= ~4;
+    }
+    
+    if (EXP0_I(0x14) > 0)
+    {
+        EXP0_I(0x14)--;
+    }
+    
+    bhEne09_CollCheck(epw);
+    bhEne09_CalcEnemy(epw);
+    bhEne09_PlayerLink(plp, epw);
+     
+    if (EXP0_I(0x18) & 0x8000)
+    {
+        if (!(plp->flg & 4) && !(plp->stflg & 0x80000000)) 
+        {
+            bhEne09_CollChkArm(epw, plp);
+        }
+        
+        ep = ene;
+        for (i = 0; i < sys->ewk_n; i++, ep++)
+        {
+            if (ep != epw)
+            {
+                if ((ep->id != 0) && (ep->id != 0x3D))
+                {
+                    if (!(ep->flg & 2) && !(ep->flg2 & 1) && (ep->flg & 1)) 
+                    {
+                        bhEne09_CollChkArm(epw, ep);
+                    }
+                }
+            }
+        }
+    }
+    
+    if (EXP0_I(0x1C) > 0)
+    {
+        EXP0_I(0x1C)--;
+    }
+    
+    if (EXP0_I(0x20) > 0)
+    {
+        EXP0_I(0x20)--;
+    }
 }
+
 
 /*// 
 // Start address: 0x1c6cd0
