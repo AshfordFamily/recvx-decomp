@@ -577,21 +577,15 @@ void bhEne09_Init(BH_PWORK* epw)
 	// Func End, Address: 0x1c7970, Func Offset: 0x3d0
 }
 
-// 
-// Start address: 0x1c7970
+*/
+
+// 100% matching!
 void bhEne09_Move(BH_PWORK* epw)
 {
-	// Line 927, Address: 0x1c7970, Func Offset: 0
-	// Func End, Address: 0x1c7990, Func Offset: 0x20
+    bhEne09_MoveType[epw->type](epw);
 }
 
-// 
-// Start address: 0x1c7990
-void bhEne09_Damage(BH_PWORK* epw)
-{
-	// Line 946, Address: 0x1c7990, Func Offset: 0
-	// Func End, Address: 0x1c79a0, Func Offset: 0x10
-}
+/*
 
 // 
 // Start address: 0x1c79a0
