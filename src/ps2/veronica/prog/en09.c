@@ -250,48 +250,46 @@ void bhEne09_PlayerControl(BH_PWORK* pl, BH_PWORK* epw)
     }
 }
 
-/*// 
-// 
-// Start address: 0x1c6dc0
-void bhEne09_CalcEnemy(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_CalcEnemy(BH_PWORK* epw) 
 {
-	_anon25 pd;
-	_anon25 ps;
-	_anon24* owk;
-	// Line 496, Address: 0x1c6dc0, Func Offset: 0
-	// Line 501, Address: 0x1c6dcc, Func Offset: 0xc
-	// Line 504, Address: 0x1c6dd4, Func Offset: 0x14
-	// Line 505, Address: 0x1c6dd8, Func Offset: 0x18
-	// Line 508, Address: 0x1c6ddc, Func Offset: 0x1c
-	// Line 509, Address: 0x1c6de0, Func Offset: 0x20
-	// Line 504, Address: 0x1c6de8, Func Offset: 0x28
-	// Line 505, Address: 0x1c6dec, Func Offset: 0x2c
-	// Line 507, Address: 0x1c6dfc, Func Offset: 0x3c
-	// Line 508, Address: 0x1c6e04, Func Offset: 0x44
-	// Line 509, Address: 0x1c6e0c, Func Offset: 0x4c
-	// Line 510, Address: 0x1c6e18, Func Offset: 0x58
-	// Line 524, Address: 0x1c6e20, Func Offset: 0x60
-	// Line 527, Address: 0x1c6e28, Func Offset: 0x68
-	// Line 510, Address: 0x1c6e2c, Func Offset: 0x6c
-	// Line 511, Address: 0x1c6e34, Func Offset: 0x74
-	// Line 515, Address: 0x1c6e44, Func Offset: 0x84
-	// Line 516, Address: 0x1c6e4c, Func Offset: 0x8c
-	// Line 517, Address: 0x1c6e54, Func Offset: 0x94
-	// Line 518, Address: 0x1c6e5c, Func Offset: 0x9c
-	// Line 519, Address: 0x1c6e64, Func Offset: 0xa4
-	// Line 520, Address: 0x1c6e6c, Func Offset: 0xac
-	// Line 521, Address: 0x1c6e74, Func Offset: 0xb4
-	// Line 522, Address: 0x1c6e7c, Func Offset: 0xbc
-	// Line 523, Address: 0x1c6e84, Func Offset: 0xc4
-	// Line 524, Address: 0x1c6e88, Func Offset: 0xc8
-	// Line 523, Address: 0x1c6e8c, Func Offset: 0xcc
-	// Line 524, Address: 0x1c6e90, Func Offset: 0xd0
-	// Line 525, Address: 0x1c6ea0, Func Offset: 0xe0
-	// Line 526, Address: 0x1c6eb4, Func Offset: 0xf4
-	// Line 527, Address: 0x1c6ec8, Func Offset: 0x108
-	// Line 528, Address: 0x1c6ecc, Func Offset: 0x10c
-	// Func End, Address: 0x1c6edc, Func Offset: 0x11c
+    O_WORK* owk;
+    NJS_VECTOR ps;
+    NJS_VECTOR pd;
+
+    bhCalcModel(epw);
+
+    epw->cah = epw->ah = epw->mlwP->owP[4].mtx[13] - epw->py;
+    
+    owk = epw->mlwP->owP;
+    ps.x = 2.0f;
+    ps.y = 0;
+    ps.z = 0;
+    
+    njCalcPoint((NJS_MATRIX *)owk->mtx, &ps, &pd);
+    
+    epw->aox = pd.x - epw->px;
+    epw->aoz = pd.z - epw->pz;
+    
+    owk = epw->mlwP->owP;
+    epw->watr.c1.x = owk[4].mtx[12];
+    epw->watr.c1.y = owk[4].mtx[13];
+    epw->watr.c1.z = owk[4].mtx[14];
+    
+    owk = epw->mlwP->owP;
+    epw->watr.c2.x = owk[20].mtx[12];
+    epw->watr.c2.y = owk[20].mtx[13];
+    epw->watr.c2.z = owk[20].mtx[14];
+    
+    owk = epw->mlwP->owP;
+    epw->watr.c2.x = (epw->watr.c2.x + owk[23].mtx[12]) / 2.0f;
+    epw->watr.c2.y = (epw->watr.c2.y + owk[23].mtx[13]) / 2.0f;
+    epw->watr.c2.z = (epw->watr.c2.z + owk[23].mtx[14]) / 2.0f;
+    
+    epw->watr.r = 2.5f;
 }
+
+/*
 
 // 
 // Start address: 0x1c6ee0
