@@ -234,22 +234,23 @@ void bhEne09_MainLoop(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1c6d40
-void bhEne09_PlayerControl(BH_PWORK* pl, BH_PWORK* epw)
+// 100% matching!
+void bhEne09_PlayerControl(BH_PWORK* pl, BH_PWORK* epw) 
 {
-	// Line 468, Address: 0x1c6d40, Func Offset: 0
-	// Line 469, Address: 0x1c6d48, Func Offset: 0x8
-	// Line 471, Address: 0x1c6d60, Func Offset: 0x20
-	// Line 473, Address: 0x1c6d7c, Func Offset: 0x3c
-	// Line 474, Address: 0x1c6d88, Func Offset: 0x48
-	// Line 476, Address: 0x1c6d9c, Func Offset: 0x5c
-	// Line 478, Address: 0x1c6da8, Func Offset: 0x68
-	// Func End, Address: 0x1c6db4, Func Offset: 0x74
+    if ((EXP0_I(0x18) & 0x400000) && (((pl->mode0 == 4)) || (pl->mode0 == 6))) 
+    {
+        if (pl->mode2 == 0) 
+        {
+            bhEne09_PlyDG00(plp, epw);
+        }
+        else
+        {
+            bhEne09_PlyDG01(plp, epw);
+        }
+    }
 }
 
+/*// 
 // 
 // Start address: 0x1c6dc0
 void bhEne09_CalcEnemy(BH_PWORK* epw)
