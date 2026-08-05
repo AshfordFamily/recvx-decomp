@@ -289,22 +289,27 @@ void bhEne09_CalcEnemy(BH_PWORK* epw)
     epw->watr.r = 2.5f;
 }
 
-/*
-
-// 
-// Start address: 0x1c6ee0
-void bhEne09_CollCheck(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_CollCheck(BH_PWORK* epw) 
 {
-	// Line 544, Address: 0x1c6ee0, Func Offset: 0
-	// Line 545, Address: 0x1c6eec, Func Offset: 0xc
-	// Line 548, Address: 0x1c6efc, Func Offset: 0x1c
-	// Line 549, Address: 0x1c6f10, Func Offset: 0x30
-	// Line 552, Address: 0x1c6f18, Func Offset: 0x38
-	// Line 553, Address: 0x1c6f2c, Func Offset: 0x4c
-	// Line 557, Address: 0x1c6f34, Func Offset: 0x54
-	// Line 558, Address: 0x1c6f40, Func Offset: 0x60
-	// Func End, Address: 0x1c6f50, Func Offset: 0x70
+    if (!(epw->flg & 2)) 
+    {
+        if (!(EXP0_I(0x18) & 0x10)) 
+        {
+            bhCheckPlayer(epw);
+        }
+        
+        if (!(EXP0_I(0x18) & 0x20)) 
+        {
+            bhCheckEnemies(epw);
+        }
+    }
+    
+    bhEne09_CollCheckWall(epw);
 }
+
+
+/*
 
 // 
 // Start address: 0x1c6f50
