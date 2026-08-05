@@ -585,6 +585,12 @@ void bhEne09_Move(BH_PWORK* epw)
     bhEne09_MoveType[epw->type](epw);
 }
 
+// 100% matching!
+void bhEne09_Damage(BH_PWORK* epw)
+{
+    bhEne09_DamageType[0](epw);
+}
+
 /*
 
 // 
