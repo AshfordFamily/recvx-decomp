@@ -597,23 +597,13 @@ void bhEne09_Nage(BH_PWORK* epw)
     bhEne09_NageType[0](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1c79a0
-void bhEne09_Nage(BH_PWORK* epw)
-{
-	// Line 964, Address: 0x1c79a0, Func Offset: 0
-	// Func End, Address: 0x1c79b0, Func Offset: 0x10
-}
-
-// 
-// Start address: 0x1c79b0
+// 100% matching!
 void bhEne09_Die(BH_PWORK* epw)
 {
-	// Line 982, Address: 0x1c79b0, Func Offset: 0
-	// Func End, Address: 0x1c79c0, Func Offset: 0x10
+    bhEne09_DieType[0](epw);
 }
+
+/*
 
 // 
 // Start address: 0x1c79c0
