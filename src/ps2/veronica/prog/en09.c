@@ -591,6 +591,12 @@ void bhEne09_Damage(BH_PWORK* epw)
     bhEne09_DamageType[0](epw);
 }
 
+// 100% matching!
+void bhEne09_Nage(BH_PWORK* epw)
+{
+    bhEne09_NageType[0](epw);
+}
+
 /*
 
 // 
