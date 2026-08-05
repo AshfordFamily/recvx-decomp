@@ -318,6 +318,7 @@ void bhEne09_CollCheck(BH_PWORK* epw)
     bhEne09_CollCheckWall(epw);
 }
 
+// 99.9% matching!
 void bhEne09_CollCheckWall(BH_PWORK* epw) 
 {
 	ATR_WORK *hp;
@@ -457,15 +458,13 @@ void bhEne09_CollCheckWall(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1c7590
-void bhEne09_CollCheckArm()
+// 100% matching!
+void bhEne09_CollCheckArm(void)
 {
-	// Line 760, Address: 0x1c7590, Func Offset: 0
-	// Func End, Address: 0x1c7598, Func Offset: 0x8
+
 }
+
+/*
 
 // 
 // Start address: 0x1c75a0
