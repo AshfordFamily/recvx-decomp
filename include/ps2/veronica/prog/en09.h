@@ -27,11 +27,11 @@ void bhEne09_MVType10(BH_PWORK* epw);
 void bhEne09_EneSearch(BH_PWORK* epw);
 void bhEne09_Brain(BH_PWORK* epw);
 int bhEne09_OtherEnemyCheck(BH_PWORK* epw, float dist, int ang);
-/*_anon4* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned char id);
-int bhEne09_JumpCheck(BH_PWORK* epw, _anon4* hp);*/
+ATR_WORK* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned char id);
+int bhEne09_JumpCheck(BH_PWORK* epw, ATR_WORK* hp);
 void bhEne09_Brain00(BH_PWORK* epw);
 int bhEne09_AttackCheck(BH_PWORK* epw, int mode);
-/*int bhEne09_AramLineCheck(BH_PWORK* epw, _anon25* p1, _anon25* p2);*/
+int bhEne09_AramLineCheck(BH_PWORK* epw, NJS_VECTOR* p1, NJS_VECTOR* p2);
 void bhEne09_MV00(BH_PWORK* epw);
 void bhEne09_MV01(BH_PWORK* epw);
 void bhEne09_MV02();
@@ -70,11 +70,11 @@ void bhEne09_DD00(BH_PWORK* epw);
 int bhEne09_CollChkArm(BH_PWORK* epw, BH_PWORK* trg);
 int bhEne09_CollChkArm2(BH_PWORK* epw);
 float bhEne09_ChkArmLen2(BH_PWORK* epw);
-/*_anon4* bhEne09_ChkArmLen(BH_PWORK* epw, float* len, _anon25* vec);*/
+ATR_WORK* bhEne09_ChkArmLen(BH_PWORK* epw, float* len, NJS_VECTOR* vec);
 int bhEne09_ChkDiffAngle(int pang, int dang);
 int bhEne09_SetMtn(BH_PWORK* epw);
 void bhEne09_MtnTblPlay(BH_PWORK* epw, int frm);
 void bhEne09_SePlay(BH_PWORK* epw, int no);
-/*void bhEne09_SetSmokeEffect(BH_PWORK* epw, _anon25* ofs, int rot);*/
+void bhEne09_SetSmokeEffect(BH_PWORK* epw, NJS_VECTOR* ofs, int rot);
 
 #endif
