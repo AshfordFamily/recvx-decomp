@@ -3,6 +3,8 @@
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
+#include "../../../ps2/veronica/prog/player.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Bandersnatch 
@@ -127,6 +129,33 @@ char en09_tree[4][16] =
     { 0x00, 0x01, 0x02, 0x03, 0x04, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
 };
 
+static COMBJOINT_WORK CombJointTbl[24] = { 0 };
+
+static COMBWEP_WORK CombWepTbl[21] =
+{
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 5,   { 0, 0, 0 }, 120, 5 },
+    { 5,   { 0, 0, 0 }, 60,  0 },
+    { 5,   { 0, 0, 0 }, 60,  0 },
+    { 5,   { 0, 0, 0 }, 60,  0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 5,   { 0, 0, 0 }, 60,  0 },
+    { 180, { 0, 0, 0 }, 30,  0 },
+    { 5,   { 0, 0, 0 }, 0,   0 },
+    { 5,   { 0, 0, 0 }, 60,  0 },
+    { 4,   { 0, 0, 0 }, 60,  0 },
+    { 100, { 0, 0, 0 }, 30,  0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+    { 0,   { 0, 0, 0 }, 0,   0 },
+};
+
 /*
 typedef void(*type_126)(void*);
 
@@ -136,8 +165,6 @@ _anon6 en09_mtn_tbl2[24];
 _anon6 en09_mtn_tbl3[5];
 _anon55 mtn_chg_tbl[17];
 _anon23 En09_WpnDamageTbl[22];
-_anon49 CombWepTbl[21];
-_anon54 CombJointTbl[24];
 _anon32 Ene09CapColTab[19];
 _anon40 en09_BldTbl;
 _anon40 en09_BldTbl2;
@@ -603,74 +630,100 @@ void bhEne09_Die(BH_PWORK* epw)
     bhEne09_DieType[0](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1c79c0
+// 98.79% matching!
 int bhEne09_DmgCheck(BH_PWORK* epw)
 {
-	int flg;
-	// Line 1000, Address: 0x1c79c0, Func Offset: 0
-	// Line 1004, Address: 0x1c79d0, Func Offset: 0x10
-	// Line 1009, Address: 0x1c79f0, Func Offset: 0x30
-	// Line 1011, Address: 0x1c7a08, Func Offset: 0x48
-	// Line 1014, Address: 0x1c7a1c, Func Offset: 0x5c
-	// Line 1024, Address: 0x1c7aa0, Func Offset: 0xe0
-	// Line 1027, Address: 0x1c7aac, Func Offset: 0xec
-	// Line 1029, Address: 0x1c7abc, Func Offset: 0xfc
-	// Line 1030, Address: 0x1c7acc, Func Offset: 0x10c
-	// Line 1034, Address: 0x1c7ad4, Func Offset: 0x114
-	// Line 1037, Address: 0x1c7ad8, Func Offset: 0x118
-	// Line 1040, Address: 0x1c7ae0, Func Offset: 0x120
-	// Line 1034, Address: 0x1c7ae4, Func Offset: 0x124
-	// Line 1037, Address: 0x1c7aec, Func Offset: 0x12c
-	// Line 1040, Address: 0x1c7afc, Func Offset: 0x13c
-	// Line 1043, Address: 0x1c7b0c, Func Offset: 0x14c
-	// Line 1046, Address: 0x1c7b1c, Func Offset: 0x15c
-	// Line 1047, Address: 0x1c7b28, Func Offset: 0x168
-	// Line 1050, Address: 0x1c7b30, Func Offset: 0x170
-	// Line 1053, Address: 0x1c7b44, Func Offset: 0x184
-	// Line 1056, Address: 0x1c7b4c, Func Offset: 0x18c
-	// Line 1059, Address: 0x1c7b68, Func Offset: 0x1a8
-	// Line 1060, Address: 0x1c7b74, Func Offset: 0x1b4
-	// Line 1062, Address: 0x1c7b78, Func Offset: 0x1b8
-	// Line 1059, Address: 0x1c7b7c, Func Offset: 0x1bc
-	// Line 1060, Address: 0x1c7b84, Func Offset: 0x1c4
-	// Line 1063, Address: 0x1c7b88, Func Offset: 0x1c8
-	// Line 1065, Address: 0x1c7b90, Func Offset: 0x1d0
-	// Line 1060, Address: 0x1c7b98, Func Offset: 0x1d8
-	// Line 1062, Address: 0x1c7b9c, Func Offset: 0x1dc
-	// Line 1060, Address: 0x1c7ba0, Func Offset: 0x1e0
-	// Line 1062, Address: 0x1c7bac, Func Offset: 0x1ec
-	// Line 1063, Address: 0x1c7bcc, Func Offset: 0x20c
-	// Line 1064, Address: 0x1c7bd8, Func Offset: 0x218
-	// Line 1063, Address: 0x1c7bdc, Func Offset: 0x21c
-	// Line 1064, Address: 0x1c7be4, Func Offset: 0x224
-	// Line 1065, Address: 0x1c7bec, Func Offset: 0x22c
-	// Line 1064, Address: 0x1c7bf0, Func Offset: 0x230
-	// Line 1065, Address: 0x1c7bf8, Func Offset: 0x238
-	// Line 1066, Address: 0x1c7c00, Func Offset: 0x240
-	// Line 1065, Address: 0x1c7c04, Func Offset: 0x244
-	// Line 1066, Address: 0x1c7c0c, Func Offset: 0x24c
-	// Line 1067, Address: 0x1c7c14, Func Offset: 0x254
-	// Line 1069, Address: 0x1c7c20, Func Offset: 0x260
-	// Line 1067, Address: 0x1c7c24, Func Offset: 0x264
-	// Line 1069, Address: 0x1c7c28, Func Offset: 0x268
-	// Line 1072, Address: 0x1c7c3c, Func Offset: 0x27c
-	// Line 1073, Address: 0x1c7c44, Func Offset: 0x284
-	// Line 1074, Address: 0x1c7c54, Func Offset: 0x294
-	// Line 1075, Address: 0x1c7c60, Func Offset: 0x2a0
-	// Line 1077, Address: 0x1c7c7c, Func Offset: 0x2bc
-	// Line 1078, Address: 0x1c7c84, Func Offset: 0x2c4
-	// Line 1081, Address: 0x1c7c8c, Func Offset: 0x2cc
-	// Line 1083, Address: 0x1c7c9c, Func Offset: 0x2dc
-	// Line 1084, Address: 0x1c7cac, Func Offset: 0x2ec
-	// Line 1087, Address: 0x1c7cb4, Func Offset: 0x2f4
-	// Line 1088, Address: 0x1c7cbc, Func Offset: 0x2fc
-	// Line 1093, Address: 0x1c7cd4, Func Offset: 0x314
-	// Line 1094, Address: 0x1c7cd8, Func Offset: 0x318
-	// Func End, Address: 0x1c7cec, Func Offset: 0x32c
+    int flg;
+
+    flg = 0;
+    
+    if ((epw->flg & 4) && !(epw->flg & 2))
+    {
+        flg = 1;
+        bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
+        
+        if (epw->total_dam == 0) 
+            return flg;
+        
+        else if (!(EXP0_I(0x18) & 0x40)
+            || (epw->flr_no > plp->flr_no)
+            || ((WpnTab[epw->wpnr_no].flg & 0x20) != 0)
+            || (WpnTab[epw->wpnr_no].flg & 0x20000000)
+            || !(plp->at_flg & 2))
+        {
+            bhEne09_DamageAdd(epw);
+            
+            if (epw->mode0 >= 3) 
+            {
+                bhEne09_SePlay(epw, 0x0100230E);
+                flg = 1;
+                return flg;
+            }
+            else
+            {
+                epw->flg |= 0x40;
+            
+                EXP0_I(0x18) &= 0xEFFFFFFF;
+                
+                EXP0_I(0x18) |= 0x08000000;
+                
+                if (epw->comb_flg & 4) 
+                {
+                    EXP0_I(0x18) |= 0x200;
+                }
+                else 
+                {
+                    EXP0_I(0x18) &= ~0x200;
+                }
+                
+                bhEne09_ChgDmgMode(epw);
+                
+                if (EXP0_I(0x18) & 0x04000000)
+                {
+                    EXP0_I(0x18) &= 0xFB1FFFFF;
+                    
+                    *(int *)plp->exp1 |= 4;
+                    
+                    sys->pad_on &= ~0xF;
+                    plp->flg &= 0xFFFEFFFF;
+                    plp->flg |= 8;
+                    plp->stflg &= 0xFFFAFFFF;
+                    plp->at_flg = 0;
+                    plp->mnwP = plp->mnwPb;
+                    
+                    if (plp->flg2 & 0x200) 
+                    {
+                        plp->mode0 = 2;
+                        plp->mode2 = 1;
+                        plp->mode3 = 0;
+                        
+                        if (bhDGCdirCheck((NJS_VECTOR *)&plp->dvx, plp->ay) == 0) 
+                        {
+                            plp->mode1 = 0;
+                        }
+                        else 
+                        {
+                            plp->mode1 = 1;
+                        }
+                        
+                        plp->flg |= 4;
+                    }
+                    else 
+                    {
+                        *((int*)&plp->mode0) = 1;
+                        plp->flg &= ~4;
+                    }
+                }
+            }
+        }
+        
+    }
+
+    return flg;
 }
+
+
+/*
 
 // 
 // Start address: 0x1c7cf0
