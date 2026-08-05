@@ -221,19 +221,20 @@ void bhEne09(BH_PWORK* epw)
     }
 }
 
-
-/*// 
-// Start address: 0x1c6cd0
+// 100% matching!
 void bhEne09_MainLoop(BH_PWORK* epw)
 {
-	// Line 359, Address: 0x1c6cd0, Func Offset: 0
-	// Line 362, Address: 0x1c6ce0, Func Offset: 0x10
-	// Line 365, Address: 0x1c6d00, Func Offset: 0x30
-	// Line 368, Address: 0x1c6d10, Func Offset: 0x40
-	// Line 369, Address: 0x1c6d24, Func Offset: 0x54
-	// Line 450, Address: 0x1c6d2c, Func Offset: 0x5c
-	// Func End, Address: 0x1c6d3c, Func Offset: 0x6c
+    bhEne09_Mode0[epw->mode0](epw);
+    
+    bhEne09_PlayerControl(plp, epw);
+    
+    if (!(EXP0_I(0x18) & 0x800)) 
+    {
+        bhEne09_SetMtn(epw);
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1c6d40
