@@ -14,6 +14,23 @@ typedef struct WPNDAMAGE_WORK
 	int cb_blood; // offset 0x10, size 0x4
 } WPNDAMAGE_WORK;
 
+typedef struct CHG_TBL_WORK
+{
+	signed int mtn_no; // offset 0x0, size 0x4
+    signed int type; // offset 0x4, size 0x4
+    signed int frm_no; // offset 0x8, size 0x4
+    unsigned int h_cnt; // offset 0xC, size 0x4
+    unsigned int mode; // offset 0x10, size 0x4
+} CHG_TBL_WORK;
+
+typedef struct CHK_TBL_WORK
+{
+    signed int mtn_no; // offset 0x0, size 0x4
+    signed int s_frm; // offset 0x4, size 0x4
+    signed int e_frm; // offset 0x8, size 0x4
+    CHG_TBL_WORK chg_tbl[4]; // offset 0xC, size 0x50
+} CHK_TBL_WORK;
+
 void bhEne09_DmmyBrain();
 void bhEne09(BH_PWORK* epw);
 void bhEne09_MainLoop(BH_PWORK* epw);

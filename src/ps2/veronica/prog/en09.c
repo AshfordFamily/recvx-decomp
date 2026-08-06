@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/player.h"
+#include "../../../ps2/veronica/prog/njplus.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Bandersnatch 
@@ -180,6 +181,34 @@ WPNDAMAGE_WORK En09_WpnDamageTbl[22] =
     { 0x12, 2, 1, 3, 3 },
     { 0x60, 2, 1, 3, 3 },
     { 0x0A, 2, 1, 3, 3 },
+};
+
+BT_WORK en09prt_blood_tbl[24] = 
+{
+    {  0, 0.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+    {  1, 0.0f, -1.0f, 1.8f, 1.0f, 1.0f, 2.5f, 0.8f },
+    {  2, 0.0f,  1.0f, 2.0f, 1.0f, 1.0f, 2.5f, 0.8f },
+    {  3, 0.0f,  2.0f, 2.0f, 1.0f, 1.0f, 2.5f, 0.8f },
+    {  4, 0.0f,  1.0f, 1.0f, 0.5f, 0.5f, 2.0f, 0.8f },
+    {  5, 0.0f,  0.0f, 1.2f, 0.0f, 0.5f, 1.0f, 1.0f },
+    {  6, 0.0f,  0.0f, 2.0f, 1.0f, 0.5f, 2.5f, 0.8f },
+    {  7, 0.0f,  0.8f, 0.5f, 0.5f, 0.0f, 2.0f, 0.8f },
+    {  8, 0.0f,  0.8f, 0.5f, 0.5f, 0.0f, 2.0f, 0.5f },
+    {  9, 0.0f,  1.0f, 0.5f, 0.5f, 0.0f, 2.0f, 0.5f },
+    { 10, 0.0f,  0.8f, 0.5f, 0.5f, 0.0f, 2.0f, 0.5f },
+    { 11, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 12, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 13, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 14, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 15, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 16, 0.0f,  0.0f, 0.5f, 0.2f, 0.5f, 1.0f, 0.0f },
+    { 17, 0.0f,  0.0f, 1.2f, 0.5f, 0.0f, 1.0f, 1.0f },
+    { 18, 0.0f, -2.0f, 1.0f, 0.2f, 1.0f, 2.0f, 0.8f },
+    { 19, 0.0f, -1.0f, 1.0f, 0.2f, 1.0f, 1.5f, 0.5f },
+    { 20, 0.0f,  0.0f, 1.0f, 0.2f, 0.5f, 1.5f, 0.5f },
+    { 21, 0.0f, -1.0f, 1.0f, 0.2f, 1.0f, 2.0f, 0.8f },
+    { 22, 0.0f, -2.0f, 1.0f, 0.2f, 1.0f, 2.5f, 0.5f },
+    { 23, 0.0f,  0.0f, 1.0f, 0.2f, 0.5f, 1.5f, 0.5f },
 };
 
 /*
@@ -898,86 +927,136 @@ int bhEne09_ExDmgCheck(BH_PWORK* epw)
 	scePrintf("bhEne09_ExDmgCheck - UNIMPLEMENTED!\n");
 }
 
-/*
-
-// 
-// Start address: 0x1c8210
-void bhEne09_DamageAdd(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_DamageAdd(BH_PWORK* epw) 
 {
-	int i;
-	int obj_no;
-	int* d;
-	_anon25 ofp;
-	_anon23* wp_tbl;
-	// Line 1342, Address: 0x1c8210, Func Offset: 0
-	// Line 1343, Address: 0x1c8228, Func Offset: 0x18
-	// Line 1344, Address: 0x1c8230, Func Offset: 0x20
-	// Line 1350, Address: 0x1c8250, Func Offset: 0x40
-	// Line 1352, Address: 0x1c825c, Func Offset: 0x4c
-	// Line 1354, Address: 0x1c8260, Func Offset: 0x50
-	// Line 1356, Address: 0x1c8264, Func Offset: 0x54
-	// Line 1352, Address: 0x1c8268, Func Offset: 0x58
-	// Line 1353, Address: 0x1c8270, Func Offset: 0x60
-	// Line 1356, Address: 0x1c8280, Func Offset: 0x70
-	// Line 1358, Address: 0x1c8288, Func Offset: 0x78
-	// Line 1360, Address: 0x1c8294, Func Offset: 0x84
-	// Line 1362, Address: 0x1c8298, Func Offset: 0x88
-	// Line 1364, Address: 0x1c82a8, Func Offset: 0x98
-	// Line 1367, Address: 0x1c82c8, Func Offset: 0xb8
-	// Line 1369, Address: 0x1c82d4, Func Offset: 0xc4
-	// Line 1371, Address: 0x1c82e4, Func Offset: 0xd4
-	// Line 1372, Address: 0x1c82e8, Func Offset: 0xd8
-	// Line 1373, Address: 0x1c82ec, Func Offset: 0xdc
-	// Line 1376, Address: 0x1c82f4, Func Offset: 0xe4
-	// Line 1377, Address: 0x1c82f8, Func Offset: 0xe8
-	// Line 1376, Address: 0x1c82fc, Func Offset: 0xec
-	// Line 1380, Address: 0x1c8300, Func Offset: 0xf0
-	// Line 1382, Address: 0x1c8310, Func Offset: 0x100
-	// Line 1384, Address: 0x1c8320, Func Offset: 0x110
-	// Line 1385, Address: 0x1c8330, Func Offset: 0x120
-	// Line 1388, Address: 0x1c8338, Func Offset: 0x128
-	// Line 1390, Address: 0x1c8348, Func Offset: 0x138
-	// Line 1391, Address: 0x1c8364, Func Offset: 0x154
-	// Line 1394, Address: 0x1c836c, Func Offset: 0x15c
-	// Line 1396, Address: 0x1c837c, Func Offset: 0x16c
-	// Line 1399, Address: 0x1c8384, Func Offset: 0x174
-	// Line 1401, Address: 0x1c8394, Func Offset: 0x184
-	// Line 1402, Address: 0x1c83ac, Func Offset: 0x19c
-	// Line 1404, Address: 0x1c83bc, Func Offset: 0x1ac
-	// Line 1405, Address: 0x1c83c0, Func Offset: 0x1b0
-	// Line 1406, Address: 0x1c83c4, Func Offset: 0x1b4
-	// Line 1409, Address: 0x1c83cc, Func Offset: 0x1bc
-	// Line 1410, Address: 0x1c83d0, Func Offset: 0x1c0
-	// Line 1409, Address: 0x1c83d4, Func Offset: 0x1c4
-	// Line 1413, Address: 0x1c83d8, Func Offset: 0x1c8
-	// Line 1415, Address: 0x1c83e8, Func Offset: 0x1d8
-	// Line 1416, Address: 0x1c83fc, Func Offset: 0x1ec
-	// Line 1419, Address: 0x1c8404, Func Offset: 0x1f4
-	// Line 1421, Address: 0x1c8418, Func Offset: 0x208
-	// Line 1422, Address: 0x1c8420, Func Offset: 0x210
-	// Line 1426, Address: 0x1c842c, Func Offset: 0x21c
-	// Line 1427, Address: 0x1c8440, Func Offset: 0x230
-	// Line 1431, Address: 0x1c8448, Func Offset: 0x238
-	// Line 1436, Address: 0x1c845c, Func Offset: 0x24c
-	// Line 1437, Address: 0x1c8460, Func Offset: 0x250
-	// Line 1438, Address: 0x1c847c, Func Offset: 0x26c
-	// Line 1441, Address: 0x1c8480, Func Offset: 0x270
-	// Line 1444, Address: 0x1c849c, Func Offset: 0x28c
-	// Line 1446, Address: 0x1c84b0, Func Offset: 0x2a0
-	// Line 1447, Address: 0x1c84b8, Func Offset: 0x2a8
-	// Line 1449, Address: 0x1c84c8, Func Offset: 0x2b8
-	// Line 1451, Address: 0x1c84e0, Func Offset: 0x2d0
-	// Line 1453, Address: 0x1c84ec, Func Offset: 0x2dc
-	// Line 1454, Address: 0x1c84f8, Func Offset: 0x2e8
-	// Line 1456, Address: 0x1c850c, Func Offset: 0x2fc
-	// Line 1459, Address: 0x1c8514, Func Offset: 0x304
-	// Line 1465, Address: 0x1c852c, Func Offset: 0x31c
-	// Line 1467, Address: 0x1c853c, Func Offset: 0x32c
-	// Line 1469, Address: 0x1c8550, Func Offset: 0x340
-	// Line 1470, Address: 0x1c8558, Func Offset: 0x348
-	// Line 1473, Address: 0x1c856c, Func Offset: 0x35c
-	// Func End, Address: 0x1c8588, Func Offset: 0x378
+    WPNDAMAGE_WORK *wp_tbl = En09_WpnDamageTbl;
+    NJS_POINT3 ofp = { 0.0, 0.0, 0.0 };
+    int *d;
+    int obj_no;
+    int i;
+
+    if (epw->hp >= 0)
+    {
+        d = &epw->dam[1];
+        epw->hp = epw->hp - epw->total_dam;
+        wp_tbl = &wp_tbl[epw->comb_wep];
+        
+        for (i = 1; i < (int)epw->mlwP->obj_num; i++, d++)
+        {
+            if (*d > 0) 
+            {
+                epw->djnt_no = i;
+                
+                if (!(wp_tbl->flg & 0x40)) 
+                {
+                    if ((epw->comb_flg & 1) || epw->hp < 0)
+                    {
+                        EXP0_I(0x1C) = 0xA;
+                        
+                        if (epw->djnt_no < 0x12)
+                        {
+                            ofp.y = 1.0f;
+                            obj_no = 3;
+                        }
+                        else 
+                        {
+                            ofp.y = -2.0f;
+                            obj_no = 1;
+                        }
+                        if (wp_tbl->cb_blood == 9) 
+                        {
+                            if (epw->comb_flg & 0x40) 
+                            {
+                                bhEne_SetBlood4(epw, obj_no, &ofp, 9, 3);
+                            }
+                            else 
+                            {
+                                bhEne_SetBlood4(epw, obj_no, &ofp, 9, 1);
+                            }
+                            
+                            bhEne_SetBlood2(epw, 9U, &ofp, plp->way);
+                        }
+                        else 
+                        {
+                            bhEne_SetBlood4(epw, obj_no, &ofp, 9, 0);
+                        }
+                    } 
+                    else 
+                    {
+                        if (wp_tbl->nm_blood == 9) 
+                        {
+                            bhEne_SetBlood2(epw, 9U, &ofp, plp->way);
+                            
+                            if (epw->djnt_no < 0x12) 
+                            {
+                                ofp.y = 1.0f;
+                                obj_no = 3;
+                            }
+                            else 
+                            {
+                                ofp.y = -2.0f;
+                                obj_no = 1;
+                            }
+                            
+                            if (epw->comb_flg & 0x40) 
+                            {
+                                bhEne_SetBlood4(epw, obj_no, &ofp, 9, 3);
+                            }
+                            else 
+                            {
+                                bhEne_SetBlood4(epw, obj_no, &ofp, 9, 0);
+                            }
+                        }
+                        
+                        else if (wp_tbl->nm_blood == 7) 
+                        {
+                            bhEne_SetBlood(epw, wp_tbl->nm_blood & 0xFF, en09prt_blood_tbl);
+                        }
+                        else 
+                        {
+                            bhEne_SetBlood(epw, wp_tbl->nm_blood & 0xFF, en09prt_blood_tbl);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    if ((wp_tbl->flg & 0x10) || (wp_tbl->flg & 0x20)) 
+    {
+        if (EXP0_I(0x20) <= 0) 
+        {
+            EXP0_I(0x20) = 0xA;
+            
+            if (wp_tbl->flg & 0x20) 
+            {
+                bhEne_SetDFireEffect(epw, epw->djnt_no, en09prt_blood_tbl, 2);
+                
+                if (epw->hp < 0) 
+                {
+                    epw->mdflg |= 0x400;
+                    npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, 0xFF000000U);
+                }
+            }
+            else 
+            {
+                bhEne_SetDFireEffect(epw, epw->djnt_no, en09prt_blood_tbl, 1);
+            }
+        }
+    }
+    
+    if (wp_tbl->flg & 0x80) 
+    {
+        if (EXP0_I(0x20) <= 0) 
+        {
+            EXP0_I(0x20) = 0xA;
+            bhEne_SetSanEffect(epw, epw->djnt_no, en09prt_blood_tbl);
+        }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1c8590
