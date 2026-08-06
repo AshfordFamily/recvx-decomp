@@ -508,19 +508,15 @@ void bhEne09_CollCheckArm(void)
 
 }
 
-/*
-
-// 
-// Start address: 0x1c75a0
 void bhEne09_Init(BH_PWORK* epw)
 {
-	_anon24* owk;
-	int i;
-	int size;
-	unsigned char* addr;
-	float save_pos[4];
-	int i;
-	npobj* obj;
+	NJS_CNK_OBJECT* obj;
+    int i;
+    float save_pos[4];
+    unsigned char* addr;
+    int size;
+    // int i;
+    O_WORK* owk;
 	// Line 781, Address: 0x1c75a0, Func Offset: 0
 	// Line 787, Address: 0x1c75ac, Func Offset: 0xc
 	// Line 788, Address: 0x1c75b4, Func Offset: 0x14
@@ -619,9 +615,8 @@ void bhEne09_Init(BH_PWORK* epw)
 	// Line 909, Address: 0x1c7958, Func Offset: 0x3b8
 	// Line 910, Address: 0x1c7960, Func Offset: 0x3c0
 	// Func End, Address: 0x1c7970, Func Offset: 0x3d0
+	scePrintf("bhEne09_Init - UNIMPLEMENTED!\n");
 }
-
-*/
 
 // 100% matching!
 void bhEne09_Move(BH_PWORK* epw)
