@@ -1868,8 +1868,8 @@ int bhEne09_AttackCheck(BH_PWORK* epw, int mode)
 {
 	O_WORK *owk;
     ATR_WORK *hp;
-    NJS_POINT3 ps1;    // r29+0x90
-    NJS_POINT3 ps2;    // r29+0xA0
+    NJS_POINT3 ps1; 
+    NJS_POINT3 ps2;
     float dist2;
     float h;
 
@@ -1982,52 +1982,60 @@ int bhEne09_AttackCheck(BH_PWORK* epw, int mode)
     return 0;
 }
 
-/*
-
-// 
-// Start address: 0x1c9c70
-int bhEne09_AramLineCheck(BH_PWORK* epw, _anon25* p1, _anon25* p2)
+// 99.84% matching!
+int bhEne09_AramLineCheck(BH_PWORK* epw, NJS_VECTOR* p1, NJS_VECTOR* p2) 
 {
-	int max;
-	int j;
-	int i;
-	_anon50 at;
 	BH_PWORK* ep;
-	// Line 2311, Address: 0x1c9c70, Func Offset: 0
-	// Line 2318, Address: 0x1c9c98, Func Offset: 0x28
-	// Line 2319, Address: 0x1c9ca0, Func Offset: 0x30
-	// Line 2318, Address: 0x1c9ca8, Func Offset: 0x38
-	// Line 2323, Address: 0x1c9cb0, Func Offset: 0x40
-	// Line 2318, Address: 0x1c9cb4, Func Offset: 0x44
-	// Line 2324, Address: 0x1c9cb8, Func Offset: 0x48
-	// Line 2321, Address: 0x1c9cbc, Func Offset: 0x4c
-	// Line 2326, Address: 0x1c9cc0, Func Offset: 0x50
-	// Line 2319, Address: 0x1c9cc4, Func Offset: 0x54
-	// Line 2329, Address: 0x1c9ccc, Func Offset: 0x5c
-	// Line 2322, Address: 0x1c9cd0, Func Offset: 0x60
-	// Line 2318, Address: 0x1c9cd4, Func Offset: 0x64
-	// Line 2322, Address: 0x1c9cd8, Func Offset: 0x68
-	// Line 2323, Address: 0x1c9cdc, Func Offset: 0x6c
-	// Line 2324, Address: 0x1c9ce4, Func Offset: 0x74
-	// Line 2326, Address: 0x1c9ce8, Func Offset: 0x78
-	// Line 2319, Address: 0x1c9cf8, Func Offset: 0x88
-	// Line 2334, Address: 0x1c9cfc, Func Offset: 0x8c
-	// Line 2336, Address: 0x1c9d1c, Func Offset: 0xac
-	// Line 2340, Address: 0x1c9d24, Func Offset: 0xb4
-	// Line 2341, Address: 0x1c9d2c, Func Offset: 0xbc
-	// Line 2343, Address: 0x1c9d38, Func Offset: 0xc8
-	// Line 2347, Address: 0x1c9d5c, Func Offset: 0xec
-	// Line 2349, Address: 0x1c9d70, Func Offset: 0x100
-	// Line 2353, Address: 0x1c9d78, Func Offset: 0x108
-	// Line 2355, Address: 0x1c9d88, Func Offset: 0x118
-	// Line 2357, Address: 0x1c9d8c, Func Offset: 0x11c
-	// Line 2355, Address: 0x1c9d94, Func Offset: 0x124
-	// Line 2356, Address: 0x1c9d9c, Func Offset: 0x12c
-	// Line 2357, Address: 0x1c9da4, Func Offset: 0x134
-	// Line 2358, Address: 0x1c9dac, Func Offset: 0x13c
-	// Line 2359, Address: 0x1c9db0, Func Offset: 0x140
-	// Func End, Address: 0x1c9ddc, Func Offset: 0x16c
+    NJS_SPHERE at;
+    int i;
+    int j;
+    int max;
+
+    // NOT from DWARF
+    float px;
+    float pz;
+
+    px = (p2->x - p1->x) / 10.0f;
+    pz = (p2->z - p1->z) / 10.0f;
+
+    at.c.x = p1->x;
+    at.c.y = p1->y;
+    at.c.z = p1->z;
+    
+    at.r = 3.0f;
+    
+    max = sys->ewk_n;
+
+    for (i = 0; i < 10; i++)
+    {
+        if (bhCheckWallType(&at.c, epw->flg, 2.0f, 2.0f) != NULL) 
+        {
+            return 1;
+        }
+        
+        ep = ene;
+        
+        for (j = 0; j < max; j++, ep++)
+        {
+            if (ep != epw) 
+            {
+                if (!(ep->flg & 2) 
+                    && (ep->flg & 1)
+                    && (npCollisionCheckSC(&at, &ep->watr) != 0)) 
+                {
+                    return 1;
+                }
+            }
+        }
+        
+        at.c.x += px;
+        at.c.z += pz;
+    }
+
+    return 0;
 }
+
+/*
 
 // 
 // Start address: 0x1c9de0
