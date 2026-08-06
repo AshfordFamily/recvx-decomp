@@ -1056,42 +1056,43 @@ void bhEne09_DamageAdd(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1c8590
-void bhEne09_PlayerLink(BH_PWORK* pl, BH_PWORK* epw)
+void bhEne09_PlayerLink(BH_PWORK* pl, BH_PWORK* epw) 
 {
-	_anon25 pd;
-	_anon25 ps;
-	char ply_tree[7];
-	// Line 1493, Address: 0x1c8590, Func Offset: 0
-	// Line 1494, Address: 0x1c859c, Func Offset: 0xc
-	// Line 1493, Address: 0x1c85a0, Func Offset: 0x10
-	// Line 1494, Address: 0x1c85a4, Func Offset: 0x14
-	// Line 1499, Address: 0x1c85cc, Func Offset: 0x3c
-	// Line 1501, Address: 0x1c85e4, Func Offset: 0x54
-	// Line 1502, Address: 0x1c85ec, Func Offset: 0x5c
-	// Line 1503, Address: 0x1c8600, Func Offset: 0x70
-	// Line 1504, Address: 0x1c8614, Func Offset: 0x84
-	// Line 1505, Address: 0x1c8628, Func Offset: 0x98
-	// Line 1506, Address: 0x1c8630, Func Offset: 0xa0
-	// Line 1507, Address: 0x1c8638, Func Offset: 0xa8
-	// Line 1508, Address: 0x1c8648, Func Offset: 0xb8
-	// Line 1509, Address: 0x1c8650, Func Offset: 0xc0
-	// Line 1514, Address: 0x1c8660, Func Offset: 0xd0
-	// Line 1516, Address: 0x1c8678, Func Offset: 0xe8
-	// Line 1517, Address: 0x1c868c, Func Offset: 0xfc
-	// Line 1518, Address: 0x1c86ac, Func Offset: 0x11c
-	// Line 1519, Address: 0x1c86b4, Func Offset: 0x124
-	// Line 1518, Address: 0x1c86b8, Func Offset: 0x128
-	// Line 1519, Address: 0x1c86c0, Func Offset: 0x130
-	// Line 1521, Address: 0x1c86d0, Func Offset: 0x140
-	// Line 1522, Address: 0x1c86e0, Func Offset: 0x150
-	// Line 1523, Address: 0x1c86f0, Func Offset: 0x160
-	// Line 1552, Address: 0x1c8704, Func Offset: 0x174
-	// Func End, Address: 0x1c8718, Func Offset: 0x188
+    char ply_tree[7] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF };
+    NJS_POINT3 ps, pd;
+
+    if (EXP0_I(0x18) & 0x200000) 
+    {
+        njUnitMatrix(NULL);
+        njTranslate(NULL, epw->px, epw->py, epw->pz);
+        njRotateXYZ(NULL, epw->ax, epw->ay, epw->az);
+        njCalcPoint(NULL, (NJS_VECTOR* ) &EXP0_F(0x38), &pd);
+        
+        pl->px = pd.x;
+        pl->pz = pd.z;
+        
+        pl->ay = (epw->ay + epw->wax) & 0xFFFF;
+    }
+    else if (EXP0_I(0x18) & 0x800000) 
+    {
+        njCalcPoint((NJS_MATRIX *)&epw->mlwP->owP[13].mtx, (NJS_VECTOR* ) &EXP0_F(0x38), &pd);
+        
+        bhSetMotion(pl, 0, pl->mtn_md, pl->mtn_tp);
+        
+        bhEne_CalcPartsPos(pl, lcmat, &ps, ply_tree, 6, 1);
+        
+        ps.x = pl->px - ps.x;
+        ps.z = pl->pz - ps.z;
+        
+        pl->px = pd.x + ps.x;
+        pl->pz = pd.z + ps.z;
+        
+        pl->ay = (epw->ay + epw->wax) & 0xFFFF;
+    }
 }
+
+
+/*
 
 // 
 // Start address: 0x1c8720
