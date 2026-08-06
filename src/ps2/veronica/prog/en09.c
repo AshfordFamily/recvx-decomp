@@ -1373,37 +1373,53 @@ void bhEne09_MVType10(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1c8890
-void bhEne09_EneSearch(BH_PWORK* epw)
+void bhEne09_EneSearch(BH_PWORK* epw) 
 {
-	// Line 1658, Address: 0x1c8890, Func Offset: 0
-	// Line 1663, Address: 0x1c889c, Func Offset: 0xc
-	// Line 1665, Address: 0x1c88b4, Func Offset: 0x24
-	// Line 1688, Address: 0x1c88c8, Func Offset: 0x38
-	// Line 1691, Address: 0x1c88d8, Func Offset: 0x48
-	// Line 1694, Address: 0x1c88f0, Func Offset: 0x60
-	// Line 1695, Address: 0x1c88fc, Func Offset: 0x6c
-	// Line 1696, Address: 0x1c8908, Func Offset: 0x78
-	// Line 1699, Address: 0x1c8910, Func Offset: 0x80
-	// Line 1701, Address: 0x1c8920, Func Offset: 0x90
-	// Line 1705, Address: 0x1c892c, Func Offset: 0x9c
-	// Line 1708, Address: 0x1c893c, Func Offset: 0xac
-	// Line 1710, Address: 0x1c8958, Func Offset: 0xc8
-	// Line 1714, Address: 0x1c8964, Func Offset: 0xd4
-	// Line 1716, Address: 0x1c8978, Func Offset: 0xe8
-	// Line 1717, Address: 0x1c897c, Func Offset: 0xec
-	// Line 1716, Address: 0x1c8980, Func Offset: 0xf0
-	// Line 1717, Address: 0x1c8988, Func Offset: 0xf8
-	// Line 1718, Address: 0x1c898c, Func Offset: 0xfc
-	// Line 1721, Address: 0x1c8994, Func Offset: 0x104
-	// Line 1723, Address: 0x1c89a4, Func Offset: 0x114
-	// Line 1726, Address: 0x1c89bc, Func Offset: 0x12c
-	// Line 1731, Address: 0x1c89d0, Func Offset: 0x140
-	// Func End, Address: 0x1c89e0, Func Offset: 0x150
+    if ((EXP0_UC(0x10) & 0x1F) < 0x1F) 
+    {
+        if (bhSearchPlayer(epw, 0x471C) != -1)
+        {
+            EXP0_UC(0x10) |= 0x20;
+        }
+        
+        if (EXP0_UC(0x10) & 0x20) 
+        {
+            EXP0_UC(0x10) |= 0x40;
+            EXP0_UC(0x10) &= 0xDF;
+        } 
+        else if ((EXP0_UC(0x10) & 0x1F) == 0x1E) 
+        {
+            EXP0_UC(0x10) &= 0xBF;
+        }
+    }
+    
+    EXP0_UC(0x10)++;
+    
+    if ((EXP0_UC(0x10) & 0x1F) >= 0x1F) 
+    {
+        EXP0_UC(0x10) &= 0xE0;
+    }
+    
+    if (EXP0_UC(0x10) & 0x40) 
+    {
+        EXP0_I(0x18) |= 0x1000;
+        EXP0_C(0x11)= 0xFU;
+    }
+        
+    else if (EXP0_I(0x18) & 0x1000) 
+    {
+        unsigned char temp = EXP0_C(0x11) - 1;
+        EXP0_C(0x11) = temp;
+        
+        if ((temp & 0xFF) < 0) 
+        {
+            EXP0_I(0x18) &= ~0x1000;
+        }
+    }
 }
+
+
+/*
 
 // 
 // Start address: 0x1c89e0
