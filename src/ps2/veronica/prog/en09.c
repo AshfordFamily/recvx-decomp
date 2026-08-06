@@ -2,6 +2,7 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
+#include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/player.h"
@@ -9,6 +10,9 @@
 #include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/Motion.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Bandersnatch 
@@ -1373,6 +1377,7 @@ void bhEne09_MVType10(BH_PWORK* epw)
     }
 }
 
+// 100% matching!
 void bhEne09_EneSearch(BH_PWORK* epw) 
 {
     if ((EXP0_UC(0x10) & 0x1F) < 0x1F) 
@@ -1418,94 +1423,179 @@ void bhEne09_EneSearch(BH_PWORK* epw)
     }
 }
 
-
-/*
-
-// 
-// Start address: 0x1c89e0
+// 100% matching!
 void bhEne09_Brain(BH_PWORK* epw)
 {
-	unsigned char rid;
-	_anon25 pos2;
-	_anon25 pos;
-	_anon4* hp;
-	// Line 1748, Address: 0x1c89e0, Func Offset: 0
-	// Line 1758, Address: 0x1c89f8, Func Offset: 0x18
-	// Line 1760, Address: 0x1c8a00, Func Offset: 0x20
-	// Line 1762, Address: 0x1c8a28, Func Offset: 0x48
-	// Line 1765, Address: 0x1c8a3c, Func Offset: 0x5c
-	// Line 1767, Address: 0x1c8a5c, Func Offset: 0x7c
-	// Line 1768, Address: 0x1c8a68, Func Offset: 0x88
-	// Line 1769, Address: 0x1c8a70, Func Offset: 0x90
-	// Line 1773, Address: 0x1c8a78, Func Offset: 0x98
-	// Line 1774, Address: 0x1c8a88, Func Offset: 0xa8
-	// Line 1773, Address: 0x1c8a8c, Func Offset: 0xac
-	// Line 1774, Address: 0x1c8a90, Func Offset: 0xb0
-	// Line 1777, Address: 0x1c8aa0, Func Offset: 0xc0
-	// Line 1789, Address: 0x1c8ab8, Func Offset: 0xd8
-	// Line 1792, Address: 0x1c8ae4, Func Offset: 0x104
-	// Line 1794, Address: 0x1c8b00, Func Offset: 0x120
-	// Line 1795, Address: 0x1c8b04, Func Offset: 0x124
-	// Line 1794, Address: 0x1c8b08, Func Offset: 0x128
-	// Line 1795, Address: 0x1c8b0c, Func Offset: 0x12c
-	// Line 1796, Address: 0x1c8b14, Func Offset: 0x134
-	// Line 1797, Address: 0x1c8b3c, Func Offset: 0x15c
-	// Line 1800, Address: 0x1c8b54, Func Offset: 0x174
-	// Line 1797, Address: 0x1c8b58, Func Offset: 0x178
-	// Line 1800, Address: 0x1c8b5c, Func Offset: 0x17c
-	// Line 1797, Address: 0x1c8b60, Func Offset: 0x180
-	// Line 1798, Address: 0x1c8b6c, Func Offset: 0x18c
-	// Line 1800, Address: 0x1c8b74, Func Offset: 0x194
-	// Line 1802, Address: 0x1c8b84, Func Offset: 0x1a4
-	// Line 1805, Address: 0x1c8b8c, Func Offset: 0x1ac
-	// Line 1806, Address: 0x1c8b94, Func Offset: 0x1b4
-	// Line 1808, Address: 0x1c8bd8, Func Offset: 0x1f8
-	// Line 1809, Address: 0x1c8c00, Func Offset: 0x220
-	// Line 1811, Address: 0x1c8c10, Func Offset: 0x230
-	// Line 1810, Address: 0x1c8c14, Func Offset: 0x234
-	// Line 1811, Address: 0x1c8c18, Func Offset: 0x238
-	// Line 1812, Address: 0x1c8c1c, Func Offset: 0x23c
-	// Line 1819, Address: 0x1c8c20, Func Offset: 0x240
-	// Line 1822, Address: 0x1c8c6c, Func Offset: 0x28c
-	// Line 1825, Address: 0x1c8c88, Func Offset: 0x2a8
-	// Line 1828, Address: 0x1c8ca4, Func Offset: 0x2c4
-	// Line 1831, Address: 0x1c8cc0, Func Offset: 0x2e0
-	// Line 1834, Address: 0x1c8cf8, Func Offset: 0x318
-	// Line 1837, Address: 0x1c8d10, Func Offset: 0x330
-	// Line 1836, Address: 0x1c8d14, Func Offset: 0x334
-	// Line 1837, Address: 0x1c8d18, Func Offset: 0x338
-	// Line 1838, Address: 0x1c8d1c, Func Offset: 0x33c
-	// Line 1847, Address: 0x1c8d20, Func Offset: 0x340
-	// Line 1848, Address: 0x1c8d34, Func Offset: 0x354
-	// Line 1852, Address: 0x1c8d3c, Func Offset: 0x35c
-	// Line 1854, Address: 0x1c8d54, Func Offset: 0x374
-	// Line 1857, Address: 0x1c8d64, Func Offset: 0x384
-	// Line 1862, Address: 0x1c8d74, Func Offset: 0x394
-	// Line 1864, Address: 0x1c8da8, Func Offset: 0x3c8
-	// Line 1867, Address: 0x1c8db8, Func Offset: 0x3d8
-	// Line 1870, Address: 0x1c8dc0, Func Offset: 0x3e0
-	// Line 1871, Address: 0x1c8dd4, Func Offset: 0x3f4
-	// Line 1873, Address: 0x1c8dd8, Func Offset: 0x3f8
-	// Line 1876, Address: 0x1c8dec, Func Offset: 0x40c
-	// Line 1878, Address: 0x1c8e08, Func Offset: 0x428
-	// Line 1884, Address: 0x1c8e1c, Func Offset: 0x43c
-	// Line 1887, Address: 0x1c8e34, Func Offset: 0x454
-	// Line 1889, Address: 0x1c8e54, Func Offset: 0x474
-	// Line 1890, Address: 0x1c8e60, Func Offset: 0x480
-	// Line 1891, Address: 0x1c8e68, Func Offset: 0x488
-	// Line 1895, Address: 0x1c8e70, Func Offset: 0x490
-	// Line 1896, Address: 0x1c8e7c, Func Offset: 0x49c
-	// Line 1900, Address: 0x1c8e88, Func Offset: 0x4a8
-	// Line 1902, Address: 0x1c8ea0, Func Offset: 0x4c0
-	// Line 1904, Address: 0x1c8eb4, Func Offset: 0x4d4
-	// Line 1907, Address: 0x1c8ebc, Func Offset: 0x4dc
-	// Line 1908, Address: 0x1c8ec8, Func Offset: 0x4e8
-	// Line 1907, Address: 0x1c8ecc, Func Offset: 0x4ec
-	// Line 1908, Address: 0x1c8ed0, Func Offset: 0x4f0
-	// Line 1912, Address: 0x1c8ee0, Func Offset: 0x500
-	// Line 1913, Address: 0x1c8f00, Func Offset: 0x520
-	// Func End, Address: 0x1c8f1c, Func Offset: 0x53c
+	ATR_WORK *hp;
+    NJS_POINT3 pos;
+    NJS_POINT3 pos2;
+    unsigned char rid;
+
+    bhEne09_EneSearch(epw);
+    
+    if ((epw->flr_no == plp->flr_no) && !(plp->stflg & 0x10)) 
+    {
+        if (EXP0_I(0x18) & 0x1000)
+        {
+            rid = bhCheckRoute((NJS_VECTOR *)&epw->px, (NJS_VECTOR *)&plp->px, &pos) & 0xFF;
+            
+            if (rid != 0xFF)
+            {
+                EXP0_F(0x2C) = pos.x;
+                EXP0_F(0x34) = pos.z;
+            }
+            else 
+            {
+                EXP0_F(0x2C) = plp->px;
+                EXP0_F(0x34) = plp->pz;
+            }
+            
+            if ((epw->mode2 == 1) || (epw->mode2 == 0))
+            {
+                if ((rid & 0xFF) != 0xFF)
+                {
+                    if ((ikou3(epw, (NJS_VECTOR *)&EXP0_F(0x2C), 0x2000) == 0)
+                        && (bhEne_EnemyAtariCheck((NJS_VECTOR *)&epw->px, epw->flr_no, epw->id, 5U) != NULL)) 
+                    {
+                        pos.x = epw->px;
+                        pos.z = epw->pz;
+                        
+                        pos2.x = epw->px - ((3.0f + epw->ar) * njSin(epw->ay));
+                        pos2.z = epw->pz - ((3.0f + epw->ar) * njCos(epw->ay));
+                        
+                        pos2.y = pos.y = epw->py;
+                        
+                        if ((hp = bhCollisionCheckLine(&pos, &pos2)) != NULL)
+                        {
+                            bhGetHitCollisionNormal(&pos);
+                            
+                            *(ATR_WORK **)(epw->exp0 + 0x54) = hp;
+                            
+                            if (hp->type == 0) 
+                            {
+                                if (!(hp->h <= 0.0f) && (hp->h <= 8.0f)) 
+                                {
+                                    epw->axp = epw->ayp = (int)(10430.381f * atan2f(pos.x, pos.z));
+                                    
+                                    epw->ayp = bhEne09_ChkDiffAngle(epw->ay, epw->ayp);
+                                    
+                                    epw->mode1 = 0;
+                                    epw->mode2 = 4;
+                                    epw->mode3 = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if (((rid & 0xFF) != 0xFF) 
+                    && !(EXP0_F(0x28) <= 30.0f)
+                    && (ikou3(epw, (NJS_VECTOR *)&plp->px, 0xE38) == 0)
+                    && (bhEne_EnemyAtariCheck((NJS_VECTOR* ) &epw->px, epw->flr_no, epw->id, 4U) == NULL) 
+                    && (bhEne09_OtherEnemyCheck(epw, 50.0f, 0xAAA) == 0))
+                {
+                    hp = bhEne09_ChkArmLen(epw, (float *)&EXP0_F(0x6C), &pos);
+                    
+                    if ((hp != NULL)
+                        && !(hp->attr & 8)
+                        && (hp->h == 0.0f) 
+                        && (hp->type == 0)
+                        && (bhEne_AngleCheck(&pos, epw->ay, 0x800) != 0)) 
+                    {
+                        epw->mode1 = 0;
+                        epw->mode2 = 5;
+                        epw->mode3 = 0;
+                    }
+                }
+            }
+        }
+        
+        EXP0_I(0x18) &= 0xFDFFFFFF;
+    } 
+    else 
+    {
+        if (!(EXP0_I(0x18) & 0x02000000))
+        {
+            if (plp->stflg & 0x10) 
+            {
+                if (plp->mode0 == 1) 
+                {
+                    unsigned char temp;
+                    if (plp->mode2 == 0xE) 
+                    {
+                        temp = 2;
+                    }
+                    else
+                    {
+                        temp = 3;
+                    }
+                    
+                    hp = bhEne09_GetCloseEnemyAtari(epw, temp, 0xFFU);
+                    
+                    *(ATR_WORK **)(epw->exp0 + 0x54) = hp;
+                    
+                    if (hp != NULL)
+                    {
+                        EXP0_I(0x18) |= 0x02000000;
+                    }
+                }
+            }
+            else 
+            {
+                if (epw->flr_no < plp->flr_no) 
+                {
+                    rid = 2;
+                }
+                else
+                {
+                    rid = 3;
+                }
+                
+                hp = bhEne_EnemyAtariCheck((NJS_VECTOR *)&plp->px, plp->flr_no, epw->id, rid);
+                
+                if (hp != NULL) 
+                {
+                    hp = bhEne09_GetCloseEnemyAtari(epw, hp->prm1, hp->prm3);
+                    
+                    *(ATR_WORK **)(epw->exp0 + 0x54) = hp;
+                    
+                    if (hp != NULL)
+                    {
+                        EXP0_I(0x18) |= 0x02000000;
+                    }
+                }
+            }
+        }
+        
+        if (EXP0_I(0x18) & 0x02000000)
+        {
+            if ((bhCheckRoute((NJS_VECTOR *)&epw->px, (NJS_VECTOR *)&EXP0_F(0x44), &pos) & 0xFF) != 0xFF) 
+            {
+                EXP0_F(0x2C) = pos.x;
+                EXP0_F(0x34) = pos.z;
+            }
+            else 
+            {
+                EXP0_F(0x2C) = EXP0_F(0x44);
+                EXP0_F(0x34) = EXP0_F(0x4C);
+            }
+            
+            if (bhEne09_JumpCheck(epw, *(ATR_WORK **)(epw->exp0 + 0x54)) != 0) 
+            {
+                EXP0_I(0x18) &= 0xFDFFFFFF;
+            }
+        } 
+        else 
+        {
+            EXP0_F(0x2C) = plp->px;
+            EXP0_F(0x34) = plp->pz;
+        }
+    }
+    
+    bhEne09_BrainMode2[epw->mode2](epw);
 }
+
+/*
 
 // 
 // Start address: 0x1c8f20
