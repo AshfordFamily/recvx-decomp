@@ -1109,25 +1109,21 @@ void bhEne09_MVType00(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1c87b0
-void bhEne09_MVType09(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_MVType09(BH_PWORK* epw) 
 {
-	// Line 1598, Address: 0x1c87b0, Func Offset: 0
-	// Line 1600, Address: 0x1c87bc, Func Offset: 0xc
-	// Line 1606, Address: 0x1c87d8, Func Offset: 0x28
-	// Line 1608, Address: 0x1c87dc, Func Offset: 0x2c
-	// Line 1600, Address: 0x1c87e0, Func Offset: 0x30
-	// Line 1602, Address: 0x1c87e4, Func Offset: 0x34
-	// Line 1603, Address: 0x1c87f0, Func Offset: 0x40
-	// Line 1605, Address: 0x1c87fc, Func Offset: 0x4c
-	// Line 1606, Address: 0x1c8800, Func Offset: 0x50
-	// Line 1608, Address: 0x1c8804, Func Offset: 0x54
-	// Line 1609, Address: 0x1c880c, Func Offset: 0x5c
-	// Func End, Address: 0x1c881c, Func Offset: 0x6c
+    EXP0_F(0x28) = njDistanceP2P((NJS_VECTOR *)&plp->px, (NJS_VECTOR *)&epw->px);
+    EXP0_F(0x2C) = epw->px;
+    EXP0_F(0x34) = epw->pz;
+    
+    epw->mode1 = 0;
+    epw->mode2 = 0xA;
+    epw->mode3 = 0;
+    
+    bhEne09_MV10(epw);
 }
+
+/*
 
 // 
 // Start address: 0x1c8820
