@@ -1056,10 +1056,12 @@ void bhEne09_DamageAdd(BH_PWORK* epw)
     }
 }
 
+// 100% matching!
 void bhEne09_PlayerLink(BH_PWORK* pl, BH_PWORK* epw) 
 {
     char ply_tree[7] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF };
-    NJS_POINT3 ps, pd;
+    NJS_POINT3 ps;
+    NJS_POINT3 pd;
 
     if (EXP0_I(0x18) & 0x200000) 
     {
@@ -1091,24 +1093,23 @@ void bhEne09_PlayerLink(BH_PWORK* pl, BH_PWORK* epw)
     }
 }
 
+// 100% matching!
+void bhEne09_MVType00(BH_PWORK* epw) 
+{
+    EXP0_F(0x28) = njDistanceP2P((NJS_VECTOR* ) &plp->px, (NJS_VECTOR* ) &epw->px);
+    
+    if (epw->mode1 == 1) 
+    {
+        bhEne09_Brain(epw);
+    }
+    
+    if (epw->mode0 == 1) 
+    {
+        bhEne09_MoveMode2[epw->mode2](epw);
+    }
+}
 
 /*
-
-// 
-// Start address: 0x1c8720
-void bhEne09_MVType00(BH_PWORK* epw)
-{
-	// Line 1569, Address: 0x1c8720, Func Offset: 0
-	// Line 1571, Address: 0x1c872c, Func Offset: 0xc
-	// Line 1574, Address: 0x1c8748, Func Offset: 0x28
-	// Line 1571, Address: 0x1c874c, Func Offset: 0x2c
-	// Line 1574, Address: 0x1c8750, Func Offset: 0x30
-	// Line 1575, Address: 0x1c875c, Func Offset: 0x3c
-	// Line 1577, Address: 0x1c8764, Func Offset: 0x44
-	// Line 1579, Address: 0x1c8774, Func Offset: 0x54
-	// Line 1580, Address: 0x1c8794, Func Offset: 0x74
-	// Func End, Address: 0x1c87a4, Func Offset: 0x84
-}
 
 // 
 // Start address: 0x1c87b0
