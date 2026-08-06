@@ -1894,6 +1894,15 @@ typedef struct EnemySlot
     unsigned short EnemyNo; // offset 0xA, size 0x2
 } EnemySlot;
 
+typedef struct WPNDAMAGE_WORK
+{
+	int flg; // offset 0x0, size 0x4
+	int nm_act; // offset 0x4, size 0x4
+	int nm_blood; // offset 0x8, size 0x4
+	int cb_act; // offset 0xC, size 0x4
+	int cb_blood; // offset 0x10, size 0x4
+} WPNDAMAGE_WORK;
+
 typedef struct COLBAR_DEF
 {
 	// total size: 0x8

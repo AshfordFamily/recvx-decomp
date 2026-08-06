@@ -14,16 +14,6 @@ typedef struct EN04_MTBL {
 	EN04_ATB atb[4];
 } EN04_MTBL;
 
-// total size: 0x14
-typedef struct WPNDAMAGE_WORK
-{
-	int flg; // offset 0x0, size 0x4
-	int nm_act; // offset 0x4, size 0x4
-	int nm_blood; // offset 0x8, size 0x4
-	int cb_act; // offset 0xC, size 0x4
-	int cb_blood; // offset 0x10, size 0x4
-} WPNDAMAGE_WORK;
-
 void bhEne04_DmmyBrain();
 void bhEne04(BH_PWORK* epw);
 void bhEne04_MainLoop(BH_PWORK* epw);

@@ -4,16 +4,6 @@
 #include "types.h"
 #include "macros.h"
 
-// total size: 0x14
-typedef struct WPNDAMAGE_WORK
-{
-	int flg; // offset 0x0, size 0x4
-	int nm_act; // offset 0x4, size 0x4
-	int nm_blood; // offset 0x8, size 0x4
-	int cb_act; // offset 0xC, size 0x4
-	int cb_blood; // offset 0x10, size 0x4
-} WPNDAMAGE_WORK;
-
 typedef struct CHG_TBL_WORK
 {
 	signed int mtn_no; // offset 0x0, size 0x4
