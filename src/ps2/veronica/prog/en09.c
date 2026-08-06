@@ -1623,7 +1623,7 @@ int bhEne09_OtherEnemyCheck(BH_PWORK* epw, float dist, int ang)
 // 100% matching!
 ATR_WORK* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned char id)
 {
-	unsigned char TypeTbl[2] = { 01, 00 };
+	unsigned char TypeTbl[2] = { 00, 01 };
     short i;
     ATR_WORK *fp;
     ATR_WORK *near_fp;
@@ -1684,79 +1684,124 @@ ATR_WORK* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned
     return NULL;
 }
 
+// 100% matching!
+int bhEne09_JumpCheck(BH_PWORK* epw, ATR_WORK* hp)
+{
+    int jump_ang[4] =
+    {
+        0x00000000,
+        0x0000C000,
+        0x00008000,
+        0x00004000
+    };
+    ATR_WORK *fp;
+    NJS_POINT3 pd;
+    NJS_LINE l1;
+    float len;
+    int i;
+    int flr_n;
+
+    flr_n = rom->flr_n + sys->mflr_n;
+    
+    for (i = 0; i < flr_n; i++)
+    {
+        if (i < rom->flr_n) 
+        {
+            fp = &rom->flrp[i];
+        }
+        else 
+        {
+            fp = &sys->mflrp[i - rom->flr_n];
+        }
+        
+        if ((fp->flg & 1) && (fp->type == 2)) 
+        {
+            if ((fp->px <= epw->px) && !((fp->px + fp->w) < epw->px)) 
+            {
+                if ((fp->pz <= epw->pz) 
+                    && !((fp->pz + fp->d) < epw->pz)
+                    && (fp->flr_no == epw->flr_no)
+                    && (fp == hp)) 
+                {
+                    switch (hp->prm2) 
+                    {
+                        case 0:
+                        case 2:
+                            l1.px = hp->px;
+                            l1.pz = hp->pz + (hp->d / 2.0f);
+                            l1.py = hp->py;
+                            
+                            l1.vx = hp->w;
+                            l1.vy = 0;
+                            l1.vz = 0.0f;
+                            break;
+                        
+                        case 1:
+                        case 3:
+                            l1.px = hp->px + (hp->w / 2.0f);
+                            l1.pz = hp->pz;
+                            l1.py = hp->py;
+                            
+                            l1.vx = 0.0f;
+                            l1.vy = 0;
+                            l1.vz = hp->d;
+                    }
+                    
+                    if (njDistanceP2L((NJS_VECTOR *)&epw->px, &l1, &pd) < 2.0f)
+                    {
+                        if (hp->prm1 == 0)
+                        {
+                            if (!(plp->py <= epw->py)
+                                && (plp->mode0 == 1)
+                                && (plp->mode2 == 0xF)) 
+                            {
+                                return 0;
+                            }
+                            
+                            epw->mode1 = 0;
+                            epw->mode2 = 0xA;
+                            epw->mode3 = 0;
+                            
+                            EXP0_F(0x2C) = pd.x;
+                            EXP0_F(0x34) = pd.z;
+                            EXP0_F(0x30) = epw->py;
+                            
+                            epw->ayp = bhEne09_ChkDiffAngle(epw->ay, jump_ang[hp->prm2]);
+                            
+                            return 1;
+                        }
+                        
+                        if (hp->prm1 == 1) 
+                        {
+                            if ((plp->py < epw->py)
+                                && (plp->mode0 == 1)
+                                && (plp->mode2 == 0xE))
+                            {
+                                return 0;
+                            }
+                            
+                            epw->mode1 = 0;
+                            epw->mode2 = 0xB;
+                            epw->mode3 = 0;
+                            
+                            EXP0_F(0x2C) = pd.x;
+                            EXP0_F(0x34) = pd.z;
+                            EXP0_F(0x30) = epw->py;
+                            
+                            epw->ayp = bhEne09_ChkDiffAngle(epw->ay, jump_ang[hp->prm2]);
+                            
+                            return 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return 0;
+}
 
 /*
-
-// 
-// Start address: 0x1c9270
-int bhEne09_JumpCheck(BH_PWORK* epw, _anon4* hp)
-{
-	int flr_n;
-	int i;
-	float len;
-	_anon46 l1;
-	_anon25 pd;
-	_anon4* fp;
-	int jump_ang[4];
-	// Line 1993, Address: 0x1c9270, Func Offset: 0
-	// Line 1994, Address: 0x1c9284, Func Offset: 0x14
-	// Line 1993, Address: 0x1c9288, Func Offset: 0x18
-	// Line 1994, Address: 0x1c9290, Func Offset: 0x20
-	// Line 2002, Address: 0x1c929c, Func Offset: 0x2c
-	// Line 1994, Address: 0x1c92a8, Func Offset: 0x38
-	// Line 2002, Address: 0x1c92ac, Func Offset: 0x3c
-	// Line 2003, Address: 0x1c92cc, Func Offset: 0x5c
-	// Line 2006, Address: 0x1c92dc, Func Offset: 0x6c
-	// Line 2007, Address: 0x1c9328, Func Offset: 0xb8
-	// Line 2009, Address: 0x1c9348, Func Offset: 0xd8
-	// Line 2014, Address: 0x1c93b8, Func Offset: 0x148
-	// Line 2016, Address: 0x1c93c0, Func Offset: 0x150
-	// Line 2020, Address: 0x1c93f4, Func Offset: 0x184
-	// Line 2021, Address: 0x1c93f8, Func Offset: 0x188
-	// Line 2020, Address: 0x1c9404, Func Offset: 0x194
-	// Line 2021, Address: 0x1c9408, Func Offset: 0x198
-	// Line 2022, Address: 0x1c941c, Func Offset: 0x1ac
-	// Line 2023, Address: 0x1c9424, Func Offset: 0x1b4
-	// Line 2024, Address: 0x1c942c, Func Offset: 0x1bc
-	// Line 2026, Address: 0x1c9430, Func Offset: 0x1c0
-	// Line 2029, Address: 0x1c9438, Func Offset: 0x1c8
-	// Line 2030, Address: 0x1c9454, Func Offset: 0x1e4
-	// Line 2031, Address: 0x1c945c, Func Offset: 0x1ec
-	// Line 2032, Address: 0x1c9464, Func Offset: 0x1f4
-	// Line 2033, Address: 0x1c9468, Func Offset: 0x1f8
-	// Line 2034, Address: 0x1c946c, Func Offset: 0x1fc
-	// Line 2036, Address: 0x1c9474, Func Offset: 0x204
-	// Line 2038, Address: 0x1c9478, Func Offset: 0x208
-	// Line 2039, Address: 0x1c9488, Func Offset: 0x218
-	// Line 2041, Address: 0x1c94a4, Func Offset: 0x234
-	// Line 2044, Address: 0x1c94b0, Func Offset: 0x240
-	// Line 2046, Address: 0x1c94f0, Func Offset: 0x280
-	// Line 2049, Address: 0x1c94f8, Func Offset: 0x288
-	// Line 2048, Address: 0x1c94fc, Func Offset: 0x28c
-	// Line 2049, Address: 0x1c9500, Func Offset: 0x290
-	// Line 2050, Address: 0x1c9504, Func Offset: 0x294
-	// Line 2051, Address: 0x1c9508, Func Offset: 0x298
-	// Line 2052, Address: 0x1c9514, Func Offset: 0x2a4
-	// Line 2053, Address: 0x1c9520, Func Offset: 0x2b0
-	// Line 2054, Address: 0x1c952c, Func Offset: 0x2bc
-	// Line 2055, Address: 0x1c9548, Func Offset: 0x2d8
-	// Line 2057, Address: 0x1c9550, Func Offset: 0x2e0
-	// Line 2060, Address: 0x1c955c, Func Offset: 0x2ec
-	// Line 2062, Address: 0x1c9598, Func Offset: 0x328
-	// Line 2065, Address: 0x1c95a0, Func Offset: 0x330
-	// Line 2064, Address: 0x1c95a4, Func Offset: 0x334
-	// Line 2065, Address: 0x1c95a8, Func Offset: 0x338
-	// Line 2066, Address: 0x1c95ac, Func Offset: 0x33c
-	// Line 2067, Address: 0x1c95b0, Func Offset: 0x340
-	// Line 2068, Address: 0x1c95bc, Func Offset: 0x34c
-	// Line 2069, Address: 0x1c95c8, Func Offset: 0x358
-	// Line 2070, Address: 0x1c95d4, Func Offset: 0x364
-	// Line 2071, Address: 0x1c95f0, Func Offset: 0x380
-	// Line 2077, Address: 0x1c95f8, Func Offset: 0x388
-	// Line 2078, Address: 0x1c9608, Func Offset: 0x398
-	// Line 2079, Address: 0x1c960c, Func Offset: 0x39c
-	// Func End, Address: 0x1c962c, Func Offset: 0x3bc
-}
 
 // 
 // Start address: 0x1c9630
