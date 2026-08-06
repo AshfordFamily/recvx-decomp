@@ -1358,22 +1358,22 @@ void bhEne09_MVType09(BH_PWORK* epw)
     bhEne09_MV10(epw);
 }
 
-/*
-
-// 
-// Start address: 0x1c8820
-void bhEne09_MVType10(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_MVType10(BH_PWORK* epw) 
 {
-	// Line 1626, Address: 0x1c8820, Func Offset: 0
-	// Line 1628, Address: 0x1c882c, Func Offset: 0xc
-	// Line 1630, Address: 0x1c8848, Func Offset: 0x28
-	// Line 1628, Address: 0x1c884c, Func Offset: 0x2c
-	// Line 1630, Address: 0x1c8850, Func Offset: 0x30
-	// Line 1631, Address: 0x1c885c, Func Offset: 0x3c
-	// Line 1633, Address: 0x1c886c, Func Offset: 0x4c
-	// Line 1634, Address: 0x1c8878, Func Offset: 0x58
-	// Func End, Address: 0x1c8888, Func Offset: 0x68
+    EXP0_F(0x28) = njDistanceP2P((NJS_VECTOR *)&plp->px, (NJS_VECTOR *)&epw->px);
+    
+    if (epw->mode2 == 3) 
+    {
+        bhEne09_MV03(epw);
+    }
+    else
+    {
+        bhEne09_MV00(epw);
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1c8890
