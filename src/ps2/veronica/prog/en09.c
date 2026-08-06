@@ -1620,62 +1620,72 @@ int bhEne09_OtherEnemyCheck(BH_PWORK* epw, float dist, int ang)
     return 0;
 }
 
-/*
-
-// 
-// Start address: 0x1c9010
-_anon4* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned char id)
+// 100% matching!
+ATR_WORK* bhEne09_GetCloseEnemyAtari(BH_PWORK* epw, unsigned char type, unsigned char id)
 {
-	int flr_n;
-	float dist;
-	float near_dist;
-	_anon25 pos;
-	_anon4* near_fp;
-	_anon4* fp;
-	short i;
-	unsigned char TypeTbl[2];
-	// Line 1947, Address: 0x1c9010, Func Offset: 0
-	// Line 1958, Address: 0x1c9044, Func Offset: 0x34
-	// Line 1947, Address: 0x1c9048, Func Offset: 0x38
-	// Line 1948, Address: 0x1c904c, Func Offset: 0x3c
-	// Line 1947, Address: 0x1c9050, Func Offset: 0x40
-	// Line 1948, Address: 0x1c9058, Func Offset: 0x48
-	// Line 1952, Address: 0x1c905c, Func Offset: 0x4c
-	// Line 1948, Address: 0x1c9060, Func Offset: 0x50
-	// Line 1957, Address: 0x1c9068, Func Offset: 0x58
-	// Line 1948, Address: 0x1c9074, Func Offset: 0x64
-	// Line 1957, Address: 0x1c9078, Func Offset: 0x68
-	// Line 1958, Address: 0x1c907c, Func Offset: 0x6c
-	// Line 1957, Address: 0x1c9084, Func Offset: 0x74
-	// Line 1958, Address: 0x1c909c, Func Offset: 0x8c
-	// Line 1961, Address: 0x1c90a4, Func Offset: 0x94
-	// Line 1962, Address: 0x1c90f0, Func Offset: 0xe0
-	// Line 1968, Address: 0x1c914c, Func Offset: 0x13c
-	// Line 1970, Address: 0x1c915c, Func Offset: 0x14c
-	// Line 1968, Address: 0x1c9160, Func Offset: 0x150
-	// Line 1971, Address: 0x1c9164, Func Offset: 0x154
-	// Line 1968, Address: 0x1c916c, Func Offset: 0x15c
-	// Line 1969, Address: 0x1c9174, Func Offset: 0x164
-	// Line 1970, Address: 0x1c917c, Func Offset: 0x16c
-	// Line 1971, Address: 0x1c9190, Func Offset: 0x180
-	// Line 1972, Address: 0x1c9198, Func Offset: 0x188
-	// Line 1977, Address: 0x1c91c0, Func Offset: 0x1b0
-	// Line 1976, Address: 0x1c91c4, Func Offset: 0x1b4
-	// Line 1974, Address: 0x1c91c8, Func Offset: 0x1b8
-	// Line 1975, Address: 0x1c91cc, Func Offset: 0x1bc
-	// Line 1981, Address: 0x1c91d0, Func Offset: 0x1c0
-	// Line 1977, Address: 0x1c91d8, Func Offset: 0x1c8
-	// Line 1981, Address: 0x1c91dc, Func Offset: 0x1cc
-	// Line 1982, Address: 0x1c91f4, Func Offset: 0x1e4
-	// Line 1984, Address: 0x1c920c, Func Offset: 0x1fc
-	// Line 1986, Address: 0x1c9210, Func Offset: 0x200
-	// Line 1984, Address: 0x1c9214, Func Offset: 0x204
-	// Line 1985, Address: 0x1c9218, Func Offset: 0x208
-	// Line 1986, Address: 0x1c921c, Func Offset: 0x20c
-	// Line 1988, Address: 0x1c9224, Func Offset: 0x214
-	// Line 1989, Address: 0x1c9228, Func Offset: 0x218
-	// Func End, Address: 0x1c9264, Func Offset: 0x254
+	unsigned char TypeTbl[2] = { 01, 00 };
+    short i;
+    ATR_WORK *fp;
+    ATR_WORK *near_fp;
+    NJS_POINT3 pos;
+    float near_dist;
+    float dist;
+    int flr_n;
+
+    // NOT from DWARF
+    float px;
+    float pz;
+
+    near_dist = 0.0f;
+    
+    flr_n = rom->flr_n + sys->mflr_n;
+    
+    for (i = 0; i < flr_n; i++)
+    {
+        if (i < rom->flr_n) 
+        {
+            fp = &rom->flrp[i];
+        }
+        else 
+        {
+            fp = &sys->mflrp[i - rom->flr_n];
+        }
+        
+        if (fp->flg & 1) 
+        {
+            if ((fp->type == 2) 
+                && (fp->flr_no == epw->flr_no)
+                && (fp->prm0 == epw->id)
+                && (fp->prm1 == TypeTbl[type - 2]) 
+                && (fp->prm3 != (id & 0xFF))
+                && ((pos.x = fp->px + (fp->w / 2.0f), 
+                     pos.y = fp->py, pos.z = fp->pz + (fp->d / 2.0f), 
+                     dist = njDistanceP2P(&pos, (NJS_VECTOR *)&epw->px),
+                     (near_dist > dist))
+                    || (near_dist == 0.0f)))
+            {
+                pz = pos.z;
+                px = pos.x;
+                
+                near_dist = dist;
+                near_fp = fp;
+            }
+        }
+    }
+    
+    if (!(near_dist <= 0.0f)) 
+    {
+        EXP0_F(0x44) = px;
+        EXP0_F(0x4C) = pz;
+        
+        return near_fp;
+    }
+    
+    return NULL;
 }
+
+
+/*
 
 // 
 // Start address: 0x1c9270
