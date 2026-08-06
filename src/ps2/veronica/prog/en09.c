@@ -156,9 +156,33 @@ static COMBWEP_WORK CombWepTbl[21] =
     { 0,   { 0, 0, 0 }, 0,   0 },
 };
 
-/*
-typedef void(*type_126)(void*);
+WPNDAMAGE_WORK En09_WpnDamageTbl[22] = 
+{
+    { 0x00, 0, 0, 0, 0 },
+    { 0x00, 0, 0, 0, 0 },
+    { 0x0A, 4, 3, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 2, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x02, 2, 9, 3, 9 },
+    { 0x0A, 4, 7, 3, 3 },
+    { 0x02, 2, 3, 3, 3 },
+    { 0x12, 2, 1, 3, 3 },
+    { 0xC2, 2, 1, 3, 3 },
+    { 0x52, 2, 1, 3, 3 },
+    { 0x02, 2, 1, 3, 3 },
+    { 0x60, 2, 1, 3, 3 },
+    { 0x12, 2, 1, 3, 3 },
+    { 0x60, 2, 1, 3, 3 },
+    { 0x0A, 2, 1, 3, 3 },
+};
 
+/*
 int En09_PlyMtn_OffsetTbl[4];
 _anon1 en09_mtn_tbl[28];
 _anon6 en09_mtn_tbl2[24];
@@ -179,15 +203,8 @@ _anon39 arm4_pos3[143];
 _anon39 arm4_pos4[128];
 _anon39 arm4_pos5[654];
 _anon39 arm4_pos6[185];
-_anon21* sys;
-BH_PWORK ene[0];
-BH_PWORK* plp;
-float lcmat[16][0];
 _anon26 WpnTab[0];
-_anon14* rom;
-_anon45 cam;
 float en09_mogmog[40];
-_anon0 eff[0];
 */
 
 // 100% matching!
@@ -722,69 +739,112 @@ int bhEne09_DmgCheck(BH_PWORK* epw)
     return flg;
 }
 
-
-/*
-
-// 
-// Start address: 0x1c7cf0
+// 97.5% matching!
 void bhEne09_ChgDmgMode(BH_PWORK* epw)
 {
-	int act;
-	_anon23* wp_tbl;
-	// Line 1114, Address: 0x1c7cf0, Func Offset: 0
-	// Line 1118, Address: 0x1c7d04, Func Offset: 0x14
-	// Line 1115, Address: 0x1c7d08, Func Offset: 0x18
-	// Line 1118, Address: 0x1c7d10, Func Offset: 0x20
-	// Line 1124, Address: 0x1c7d20, Func Offset: 0x30
-	// Line 1121, Address: 0x1c7d24, Func Offset: 0x34
-	// Line 1124, Address: 0x1c7d28, Func Offset: 0x38
-	// Line 1135, Address: 0x1c7dc4, Func Offset: 0xd4
-	// Line 1136, Address: 0x1c7dc8, Func Offset: 0xd8
-	// Line 1135, Address: 0x1c7dcc, Func Offset: 0xdc
-	// Line 1136, Address: 0x1c7dd0, Func Offset: 0xe0
-	// Line 1134, Address: 0x1c7dd4, Func Offset: 0xe4
-	// Line 1135, Address: 0x1c7dd8, Func Offset: 0xe8
-	// Line 1136, Address: 0x1c7ddc, Func Offset: 0xec
-	// Line 1140, Address: 0x1c7de8, Func Offset: 0xf8
-	// Line 1148, Address: 0x1c7e54, Func Offset: 0x164
-	// Line 1149, Address: 0x1c7e60, Func Offset: 0x170
-	// Line 1150, Address: 0x1c7e64, Func Offset: 0x174
-	// Line 1153, Address: 0x1c7e68, Func Offset: 0x178
-	// Line 1155, Address: 0x1c7e78, Func Offset: 0x188
-	// Line 1161, Address: 0x1c7e88, Func Offset: 0x198
-	// Line 1163, Address: 0x1c7e98, Func Offset: 0x1a8
-	// Line 1166, Address: 0x1c7ea0, Func Offset: 0x1b0
-	// Line 1171, Address: 0x1c7eb0, Func Offset: 0x1c0
-	// Line 1173, Address: 0x1c7eb8, Func Offset: 0x1c8
-	// Line 1175, Address: 0x1c7ed4, Func Offset: 0x1e4
-	// Line 1178, Address: 0x1c7ee0, Func Offset: 0x1f0
-	// Line 1179, Address: 0x1c7ee8, Func Offset: 0x1f8
-	// Line 1181, Address: 0x1c7ef4, Func Offset: 0x204
-	// Line 1182, Address: 0x1c7efc, Func Offset: 0x20c
-	// Line 1183, Address: 0x1c7f00, Func Offset: 0x210
-	// Line 1185, Address: 0x1c7f04, Func Offset: 0x214
-	// Line 1186, Address: 0x1c7f0c, Func Offset: 0x21c
-	// Line 1188, Address: 0x1c7f18, Func Offset: 0x228
-	// Line 1189, Address: 0x1c7f20, Func Offset: 0x230
-	// Line 1190, Address: 0x1c7f24, Func Offset: 0x234
-	// Line 1192, Address: 0x1c7f28, Func Offset: 0x238
-	// Line 1193, Address: 0x1c7f30, Func Offset: 0x240
-	// Line 1195, Address: 0x1c7f3c, Func Offset: 0x24c
-	// Line 1196, Address: 0x1c7f44, Func Offset: 0x254
-	// Line 1197, Address: 0x1c7f48, Func Offset: 0x258
-	// Line 1199, Address: 0x1c7f4c, Func Offset: 0x25c
-	// Line 1200, Address: 0x1c7f54, Func Offset: 0x264
-	// Line 1203, Address: 0x1c7f60, Func Offset: 0x270
-	// Line 1204, Address: 0x1c7f64, Func Offset: 0x274
-	// Line 1205, Address: 0x1c7f68, Func Offset: 0x278
-	// Line 1207, Address: 0x1c7f6c, Func Offset: 0x27c
-	// Line 1209, Address: 0x1c7f7c, Func Offset: 0x28c
-	// Line 1210, Address: 0x1c7f8c, Func Offset: 0x29c
-	// Line 1213, Address: 0x1c7fbc, Func Offset: 0x2cc
-	// Line 1216, Address: 0x1c7fc4, Func Offset: 0x2d4
-	// Line 1219, Address: 0x1c7fcc, Func Offset: 0x2dc
-	// Func End, Address: 0x1c7fe4, Func Offset: 0x2f4
+	WPNDAMAGE_WORK *wp_tbl = &En09_WpnDamageTbl[epw->wpnr_no];
+    int act = wp_tbl->nm_act;
+    
+    if ((wp_tbl->flg & 2) && (epw->comb_flg & 1)) 
+    {
+        if (!(EXP0_I(0x18) & 0x2000) 
+            && !(EXP0_I(0x18) & 0x4000) 
+            && !(EXP0_I(0x18) & 0x10000) 
+            && !(EXP0_I(0x18) & 0x80000) 
+            && !(EXP0_I(0x18) & 0x40000) 
+            && (epw->hp > 0) 
+            && ((rand() % 10) == 0)) 
+        {
+            act = 2;
+            epw->comb_flg &= ~1;
+            bhEne09_SePlay(epw, 0x0100230F);
+        }
+    }
+    
+    if ((epw->hp < 0) 
+        || (!(wp_tbl->flg & 8) 
+            && (((EXP0_I(0x18) & 0x2000)) 
+                || (EXP0_I(0x18) & 0x4000) 
+                || (EXP0_I(0x18) & 0x10000)
+                || (EXP0_I(0x18) & 0x80000)
+                || (EXP0_I(0x18) & 0x40000))))
+    {
+        epw->comb_flg |= 1;
+        epw->comb_timeout = 0;
+        epw->comb_pnt = 0;
+    }
+    
+    if (epw->comb_flg & 1) 
+    {
+        if (bhEne09_ExDmgCheck(epw) != 0) 
+        {
+            return;
+        }
+        else
+        {
+            bhEne09_SePlay(epw, 0x0100230F);
+            act = wp_tbl->cb_act;
+        }
+    } 
+    else 
+    {
+        bhEne09_SePlay(epw, 0x0100230E);
+    }
+
+    if (act == 0)
+    {
+        if (!(EXP0_I(0x18) & 0x100000))
+        {
+            EXP0_I(0x18) |= 0x100000;
+            epw->ct3 = 0;
+        }
+    } 
+    else if (act == 5)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 0;
+        epw->mode3 = 0;
+    }
+    else if (act == 1)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 1;
+        epw->mode3 = 0;
+    }
+    else if (act == 2)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+    }
+    else if (act == 3)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode3 = 0;
+        
+        if (epw->comb_flg & 4) 
+        {
+            if (wp_tbl->flg & 4) 
+            {
+                epw->mode2 = ((rand() % 3) == 0) ? 4 : 3;
+            }
+            else
+            {
+                epw->mode2 = 3;
+            }
+        }
+        else
+        {
+            epw->mode2 = 4;
+        }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1c7ff0
