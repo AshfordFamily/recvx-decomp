@@ -1595,27 +1595,32 @@ void bhEne09_Brain(BH_PWORK* epw)
     bhEne09_BrainMode2[epw->mode2](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1c8f20
+// 100% matching!
 int bhEne09_OtherEnemyCheck(BH_PWORK* epw, float dist, int ang)
 {
-	int i;
 	BH_PWORK* ep;
-	// Line 1919, Address: 0x1c8f20, Func Offset: 0
-	// Line 1926, Address: 0x1c8f38, Func Offset: 0x18
-	// Line 1919, Address: 0x1c8f3c, Func Offset: 0x1c
-	// Line 1926, Address: 0x1c8f40, Func Offset: 0x20
-	// Line 1928, Address: 0x1c8f58, Func Offset: 0x38
-	// Line 1932, Address: 0x1c8f7c, Func Offset: 0x5c
-	// Line 1934, Address: 0x1c8f94, Func Offset: 0x74
-	// Line 1936, Address: 0x1c8fb0, Func Offset: 0x90
-	// Line 1940, Address: 0x1c8fb8, Func Offset: 0x98
-	// Line 1941, Address: 0x1c8fe0, Func Offset: 0xc0
-	// Line 1942, Address: 0x1c8fe4, Func Offset: 0xc4
-	// Func End, Address: 0x1c9004, Func Offset: 0xe4
+    int i;
+    
+    ep = ene;
+    
+    for (i = 0; i < sys->ewk_n; i++, ep++)
+    {
+        if (ep != epw) 
+        {
+            if (!(ep->flg & 2)
+                && (ep->flg & 1)
+                && (ikou3(epw, (NJS_VECTOR *)&ep->px, ang) == 0)
+                && (njDistanceP2P((NJS_VECTOR *)&ep->px, (NJS_VECTOR *)&epw->px) < dist)) 
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
+
+/*
 
 // 
 // Start address: 0x1c9010
