@@ -839,17 +839,15 @@ void bhEne09_ChgDmgMode(BH_PWORK* epw)
     }
 }
 
-/*
-
 // 
 // Start address: 0x1c7ff0
 int bhEne09_ExDmgCheck(BH_PWORK* epw)
 {
-	int i;
-	int hit;
-	int frm;
-	_anon55* chk_tbl;
-	_anon52* chg_tbl;
+    CHG_TBL_WORK* chg_tbl;
+    CHK_TBL_WORK* chk_tbl;
+    int frm;
+    int hit;
+    int i;
 	// Line 1236, Address: 0x1c7ff0, Func Offset: 0
 	// Line 1239, Address: 0x1c8004, Func Offset: 0x14
 	// Line 1243, Address: 0x1c8008, Func Offset: 0x18
@@ -897,7 +895,10 @@ int bhEne09_ExDmgCheck(BH_PWORK* epw)
 	// Line 1319, Address: 0x1c81f8, Func Offset: 0x208
 	// Line 1323, Address: 0x1c81fc, Func Offset: 0x20c
 	// Func End, Address: 0x1c8210, Func Offset: 0x220
+	scePrintf("bhEne09_ExDmgCheck - UNIMPLEMENTED!\n");
 }
+
+/*
 
 // 
 // Start address: 0x1c8210
