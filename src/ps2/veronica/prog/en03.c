@@ -5018,6 +5018,7 @@ int bhEne03_CollisionWalls(BH_PWORK* epw)
 }
 */
 
+// 100% matching!
 ATR_WORK* bhEne03_GetWall(BH_PWORK* epw)
 {
 	NJS_POINT3 p1;
@@ -5034,6 +5035,7 @@ ATR_WORK* bhEne03_GetWall(BH_PWORK* epw)
     return bhCollisionCheckLine(&p1, &p2);
 }
 
+// 100% matching!
 ATR_WORK* bhEne03_Collision(BH_PWORK* epw)
 {
 	ATR_WORK* hp;
@@ -5276,6 +5278,7 @@ int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_POINT3* pos, float ar)
     scePrintf("bhEne03_CollisionWallBox - UNIMPLEMENTED!\n");
 }
 
+// 100% matching!
 int bhEne03_CollisionWallGround(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
     ATR_WORK hp2 = *hp;
