@@ -1,4 +1,6 @@
 #include "../../../ps2/veronica/prog/en03.h"
+#include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/hitchkl.h"
 
 // ENEMY: Black Widow
 
@@ -5014,80 +5016,122 @@ int bhEne03_CollisionWalls(BH_PWORK* epw)
 	// Line 5255, Address: 0x19f434, Func Offset: 0x484
 	// Func End, Address: 0x19f464, Func Offset: 0x4b4
 }
-
-// 
-// Start address: 0x19f470
-_anon0* bhEne03_GetWall(BH_PWORK* epw)
-{
-	_anon21 p2;
-	_anon21 p1;
-	// Line 5265, Address: 0x19f470, Func Offset: 0
-	// Line 5268, Address: 0x19f478, Func Offset: 0x8
-	// Line 5272, Address: 0x19f47c, Func Offset: 0xc
-	// Line 5268, Address: 0x19f484, Func Offset: 0x14
-	// Line 5272, Address: 0x19f488, Func Offset: 0x18
-	// Line 5269, Address: 0x19f48c, Func Offset: 0x1c
-	// Line 5268, Address: 0x19f490, Func Offset: 0x20
-	// Line 5270, Address: 0x19f494, Func Offset: 0x24
-	// Line 5276, Address: 0x19f498, Func Offset: 0x28
-	// Line 5268, Address: 0x19f49c, Func Offset: 0x2c
-	// Line 5269, Address: 0x19f4a4, Func Offset: 0x34
-	// Line 5270, Address: 0x19f4b8, Func Offset: 0x48
-	// Line 5272, Address: 0x19f4cc, Func Offset: 0x5c
-	// Line 5273, Address: 0x19f4e4, Func Offset: 0x74
-	// Line 5274, Address: 0x19f4fc, Func Offset: 0x8c
-	// Line 5276, Address: 0x19f508, Func Offset: 0x98
-	// Line 5274, Address: 0x19f50c, Func Offset: 0x9c
-	// Line 5276, Address: 0x19f514, Func Offset: 0xa4
-	// Line 5277, Address: 0x19f51c, Func Offset: 0xac
-	// Func End, Address: 0x19f528, Func Offset: 0xb8
-}
 */
-// 
-// Start address: 0x19f530
+
+ATR_WORK* bhEne03_GetWall(BH_PWORK* epw)
+{
+	NJS_POINT3 p1;
+	NJS_POINT3 p2;
+
+    p1.x = epw->px + EXP0_F(0x10);
+    p1.y = epw->py + EXP0_F(0x14);
+    p1.z = epw->pz + EXP0_F(0x18);
+    
+    p2.x = p1.x - (999.0f * EXP0_F(0x10));
+    p2.y = p1.y - (999.0f * EXP0_F(0x14));
+    p2.z = p1.z - (999.0f * EXP0_F(0x18));
+    
+    return bhCollisionCheckLine(&p1, &p2);
+}
+
 ATR_WORK* bhEne03_Collision(BH_PWORK* epw)
 {
+	ATR_WORK* hp;
+	ATR_WORK* ret;
+    int i;
 	int wal_n;
-	int i;
-	//_anon0* ret;
-	//_anon0* hp;
-	// Line 5287, Address: 0x19f530, Func Offset: 0
-	// Line 5291, Address: 0x19f550, Func Offset: 0x20
-	// Line 5288, Address: 0x19f55c, Func Offset: 0x2c
-	// Line 5291, Address: 0x19f560, Func Offset: 0x30
-	// Line 5292, Address: 0x19f57c, Func Offset: 0x4c
-	// Line 5294, Address: 0x19f58c, Func Offset: 0x5c
-	// Line 5296, Address: 0x19f5d8, Func Offset: 0xa8
-	// Line 5298, Address: 0x19f5e8, Func Offset: 0xb8
-	// Line 5300, Address: 0x19f614, Func Offset: 0xe4
-	// Line 5301, Address: 0x19f618, Func Offset: 0xe8
-	// Line 5302, Address: 0x19f638, Func Offset: 0x108
-	// Line 5305, Address: 0x19f650, Func Offset: 0x120
-	// Line 5308, Address: 0x19f658, Func Offset: 0x128
-	// Line 5309, Address: 0x19f678, Func Offset: 0x148
-	// Line 5312, Address: 0x19f690, Func Offset: 0x160
-	// Line 5315, Address: 0x19f698, Func Offset: 0x168
-	// Line 5316, Address: 0x19f6b8, Func Offset: 0x188
-	// Line 5319, Address: 0x19f6d0, Func Offset: 0x1a0
-	// Line 5321, Address: 0x19f6d8, Func Offset: 0x1a8
-	// Line 5324, Address: 0x19f6f0, Func Offset: 0x1c0
-	// Line 5326, Address: 0x19f6f8, Func Offset: 0x1c8
-	// Line 5327, Address: 0x19f710, Func Offset: 0x1e0
-	// Line 5331, Address: 0x19f714, Func Offset: 0x1e4
-	// Line 5339, Address: 0x19f728, Func Offset: 0x1f8
-	// Line 5340, Address: 0x19f72c, Func Offset: 0x1fc
-	// Func End, Address: 0x19f750, Func Offset: 0x220
-    scePrintf("bhEne03_Collision - UNIMPLEMENTED!\n");
+
+	ret = NULL;
+	wal_n = rom->wal_n + sys->mwal_n;
+
+	for (i = 0; i < wal_n; i++)
+	{
+		if (i < rom->wal_n)
+        {
+            hp = &rom->walp[i];
+        }
+        else
+        {
+            hp = &sys->mwalp[i - rom->wal_n];
+        }
+			
+		if (!(hp->flg & 1)) 
+        {
+            continue;
+        }
+
+		switch (hp->type)
+		{
+		case 0:
+		case 1:
+			if ((hp->type & 1) && (epw->flg & 0x400)) 
+            {
+                continue;
+            }
+				
+			if (bhEne03_CollisionWallBox(hp, (NJS_POINT3*)&epw->px, epw->ar))
+            {
+                ret = hp;
+            }
+				
+			break;
+
+		case 2:
+		case 3:
+			if ((hp->type & 1) && (epw->flg & 0x400))
+            {
+                continue;
+            }
+            
+			if (bhEne03_CollisionWallCylinder(hp, (NJS_POINT3*)&epw->px, epw->ar))
+			{
+                ret = hp;
+            }
+            
+			break;
+
+		case 4:
+		case 5:
+			if ((hp->type & 1) && (epw->flg & 0x400))
+            {
+                continue;
+            }
+            
+			if (bhEne03_CollisionWallTriangle(hp, (NJS_POINT3*)&epw->px, epw->ar))
+			{
+                ret = hp;
+            }
+			break;
+
+		case 6:
+			if (bhEne03_CollisionWallSlope(hp, (NJS_POINT3*)&epw->px, epw->ar))
+			{
+                ret = hp;
+            }
+            
+			break;
+
+		case 7:
+			if (bhEne03_CollisionWallGround(hp, (NJS_POINT3*)&epw->px, epw->ar))
+			{
+                ret = hp;
+            }
+            
+			break;
+		}
+	}
+	return ret;
 }
-/*
+
+
 // 
 // Start address: 0x19f750
-_anon0* bhEne03_Collision2(BH_PWORK* epw, _anon0* gnd)
+ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd)
 {
 	int wal_n;
 	int i;
-	_anon0* ret;
-	_anon0* hp;
+	ATR_WORK* ret;
+	ATR_WORK* hp;
 	// Line 5350, Address: 0x19f750, Func Offset: 0
 	// Line 5354, Address: 0x19f774, Func Offset: 0x24
 	// Line 5351, Address: 0x19f784, Func Offset: 0x34
@@ -5115,11 +5159,12 @@ _anon0* bhEne03_Collision2(BH_PWORK* epw, _anon0* gnd)
 	// Line 5403, Address: 0x19f958, Func Offset: 0x208
 	// Line 5404, Address: 0x19f95c, Func Offset: 0x20c
 	// Func End, Address: 0x19f984, Func Offset: 0x234
+    scePrintf("bhEne03_Collision2 - UNIMPLEMENTED!\n");
 }
 
 // 
 // Start address: 0x19f990
-int bhEne03_CollisionWallBox(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
 	float len;
 	float h;
@@ -5228,34 +5273,32 @@ int bhEne03_CollisionWallBox(_anon0* hp, _anon21* pos, float ar)
 	// Line 5519, Address: 0x19fda0, Func Offset: 0x410
 	// Line 5520, Address: 0x19fda4, Func Offset: 0x414
 	// Func End, Address: 0x19fdd8, Func Offset: 0x448
+    scePrintf("bhEne03_CollisionWallBox - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x19fde0
-int bhEne03_CollisionWallGround(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionWallGround(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
-	_anon0 hp2;
-	// Line 5532, Address: 0x19fde0, Func Offset: 0
-	// Line 5539, Address: 0x19fde4, Func Offset: 0x4
-	// Line 5532, Address: 0x19fde8, Func Offset: 0x8
-	// Line 5535, Address: 0x19fdec, Func Offset: 0xc
-	// Line 5538, Address: 0x19fe00, Func Offset: 0x20
-	// Line 5535, Address: 0x19fe04, Func Offset: 0x24
-	// Line 5537, Address: 0x19fe3c, Func Offset: 0x5c
-	// Line 5538, Address: 0x19fe40, Func Offset: 0x60
-	// Line 5539, Address: 0x19fe50, Func Offset: 0x70
-	// Line 5540, Address: 0x19fe64, Func Offset: 0x84
-	// Line 5541, Address: 0x19fe70, Func Offset: 0x90
-	// Line 5542, Address: 0x19fe80, Func Offset: 0xa0
-	// Line 5543, Address: 0x19fe88, Func Offset: 0xa8
-	// Line 5546, Address: 0x19fe90, Func Offset: 0xb0
-	// Line 5547, Address: 0x19fe98, Func Offset: 0xb8
-	// Func End, Address: 0x19fea4, Func Offset: 0xc4
+    ATR_WORK hp2 = *hp;
+    
+    hp2.type = 0;
+    hp2.py = hp->py + hp->h;
+
+    if (!hp->h)
+    {
+        hp2.h = 0.01f;
+        hp2.py -= 0.01f;
+    } 
+    else
+    {
+        hp2.h = -hp->h;
+    }
+    
+    return bhEne03_CollisionWallBox(&hp2, pos, ar);
 }
 
 // 
 // Start address: 0x19feb0
-int bhEne03_CollisionWallCylinder(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionWallCylinder(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
 	float h;
 	float radius;
@@ -5299,11 +5342,12 @@ int bhEne03_CollisionWallCylinder(_anon0* hp, _anon21* pos, float ar)
 	// Line 5588, Address: 0x1a0024, Func Offset: 0x174
 	// Line 5589, Address: 0x1a0028, Func Offset: 0x178
 	// Func End, Address: 0x1a0050, Func Offset: 0x1a0
+    scePrintf("bhEne03_CollisionWallCylinder - UNIMPLEMENTED!\n");
 }
 
 // 
 // Start address: 0x1a0050
-int bhEne03_CollisionWallSlope(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionWallSlope(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
 	char idx2;
 	char idx;
@@ -5311,10 +5355,10 @@ int bhEne03_CollisionWallSlope(_anon0* hp, _anon21* pos, float ar)
 	char zf0;
 	char xf1;
 	char xf0;
-	_anon41 ln;
-	_anon41 pl;
-	_anon21 cp;
-	_anon21 area[4];
+	//_anon41 ln;
+	//_anon41 pl;
+	NJS_POINT3 cp;
+	NJS_POINT3 area[4];
 	float len;
 	float h;
 	// Line 5601, Address: 0x1a0050, Func Offset: 0
@@ -5425,17 +5469,18 @@ int bhEne03_CollisionWallSlope(_anon0* hp, _anon21* pos, float ar)
 	// Line 5720, Address: 0x1a0628, Func Offset: 0x5d8
 	// Line 5721, Address: 0x1a062c, Func Offset: 0x5dc
 	// Func End, Address: 0x1a0660, Func Offset: 0x610
+    scePrintf("bhEne03_CollisionWallCylinder - UNIMPLEMENTED!\n");
 }
 
 // 
 // Start address: 0x1a0660
-int bhEne03_CollisionWallTriangle(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionWallTriangle(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
-	_anon0 bhp;
-	_anon41 ln;
-	_anon21 vd;
-	_anon21 pd;
-	_anon21 area[4];
+	ATR_WORK bhp;
+	//_anon41 ln;
+	NJS_POINT3 vd;
+	NJS_POINT3 pd;
+	NJS_POINT3 area[4];
 	float h;
 	// Line 5733, Address: 0x1a0660, Func Offset: 0
 	// Line 5742, Address: 0x1a0664, Func Offset: 0x4
@@ -5543,17 +5588,18 @@ int bhEne03_CollisionWallTriangle(_anon0* hp, _anon21* pos, float ar)
 	// Line 5861, Address: 0x1a0b08, Func Offset: 0x4a8
 	// Line 5862, Address: 0x1a0b0c, Func Offset: 0x4ac
 	// Func End, Address: 0x1a0b2c, Func Offset: 0x4cc
+    scePrintf("bhEne03_CollisionWallTriangle - UNIMPLEMENTED!\n");
 }
 
 // 
 // Start address: 0x1a0b30
-int bhEne03_CollisionBoxEdge(_anon0* hp, _anon21* pos, float ar)
+int bhEne03_CollisionBoxEdge(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
 	int ret;
 	float r;
 	float h2;
 	float h1;
-	_anon0 ht;
+	ATR_WORK ht;
 	// Line 5874, Address: 0x1a0b30, Func Offset: 0
 	// Line 5879, Address: 0x1a0b6c, Func Offset: 0x3c
 	// Line 5882, Address: 0x1a0b78, Func Offset: 0x48
@@ -5706,6 +5752,7 @@ int bhEne03_CollisionBoxEdge(_anon0* hp, _anon21* pos, float ar)
 	// Line 6011, Address: 0x1a0f08, Func Offset: 0x3d8
 	// Line 6012, Address: 0x1a0f0c, Func Offset: 0x3dc
 	// Func End, Address: 0x1a0f4c, Func Offset: 0x41c
+    scePrintf("bhEne03_CollisionBoxEdge - UNIMPLEMENTED!\n");
 }
 
 // 
@@ -5713,8 +5760,8 @@ int bhEne03_CollisionBoxEdge(_anon0* hp, _anon21* pos, float ar)
 int bhEne03_CollisionBoxEdge2(BH_PWORK* epw)
 {
 	int i;
-	_anon21 p2[4];
-	_anon21 p[4];
+	NJS_POINT3 p2[4];
+	NJS_POINT3 p[4];
 	// Line 6024, Address: 0x1a0f50, Func Offset: 0
 	// Line 6033, Address: 0x1a0f74, Func Offset: 0x24
 	// Line 6035, Address: 0x1a0fa4, Func Offset: 0x54
@@ -5821,8 +5868,9 @@ int bhEne03_CollisionBoxEdge2(BH_PWORK* epw)
 	// Line 6134, Address: 0x1a13a8, Func Offset: 0x458
 	// Line 6135, Address: 0x1a13ac, Func Offset: 0x45c
 	// Func End, Address: 0x1a13b4, Func Offset: 0x464
+    scePrintf("bhEne03_CollisionBoxEdge2 - UNIMPLEMENTED!\n");
 }
-
+/*
 // 
 // Start address: 0x1a13c0
 void bhEne03_CollisionLine(BH_PWORK* epw)
