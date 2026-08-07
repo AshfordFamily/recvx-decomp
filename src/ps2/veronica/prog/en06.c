@@ -11,6 +11,7 @@
 #include "../../../ps2/veronica/prog/en06sub.h"
 #include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/njplus.h"
+#include "../../../ps2/veronica/prog/effect.h"
 
 // ENEMY: MOTH
 
@@ -1830,8 +1831,7 @@ void bhEne06(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1b9970
+// 99.69% matching
 void bhEne06_Init(BH_PWORK* epw)
 {
 	int sdw;
@@ -1839,106 +1839,116 @@ void bhEne06_Init(BH_PWORK* epw)
 	BH_PWORK* ep_leader;
 	BH_PWORK* ep;
 	BH_PWORK** epw2;
-	//unsigned int i;
-	//_anon4* owk;
-	// Line 455, Address: 0x1b9970, Func Offset: 0
-	// Line 457, Address: 0x1b9988, Func Offset: 0x18
-	// Line 458, Address: 0x1b998c, Func Offset: 0x1c
-	// Line 459, Address: 0x1b9994, Func Offset: 0x24
-	// Line 460, Address: 0x1b999c, Func Offset: 0x2c
-	// Line 457, Address: 0x1b99a0, Func Offset: 0x30
-	// Line 458, Address: 0x1b99a8, Func Offset: 0x38
-	// Line 461, Address: 0x1b99ac, Func Offset: 0x3c
-	// Line 462, Address: 0x1b99b0, Func Offset: 0x40
-	// Line 458, Address: 0x1b99b8, Func Offset: 0x48
-	// Line 459, Address: 0x1b99c0, Func Offset: 0x50
-	// Line 460, Address: 0x1b99cc, Func Offset: 0x5c
-	// Line 461, Address: 0x1b99d0, Func Offset: 0x60
-	// Line 462, Address: 0x1b99d4, Func Offset: 0x64
-	// Line 464, Address: 0x1b99d8, Func Offset: 0x68
-	// Line 467, Address: 0x1b9a28, Func Offset: 0xb8
-	// Line 469, Address: 0x1b9a2c, Func Offset: 0xbc
-	// Line 464, Address: 0x1b9a30, Func Offset: 0xc0
-	// Line 467, Address: 0x1b9a34, Func Offset: 0xc4
-	// Line 468, Address: 0x1b9a38, Func Offset: 0xc8
-	// Line 469, Address: 0x1b9a3c, Func Offset: 0xcc
-	// Line 470, Address: 0x1b9a40, Func Offset: 0xd0
-	// Line 471, Address: 0x1b9a44, Func Offset: 0xd4
-	// Line 475, Address: 0x1b9a48, Func Offset: 0xd8
-	// Line 472, Address: 0x1b9a4c, Func Offset: 0xdc
-	// Line 475, Address: 0x1b9a50, Func Offset: 0xe0
-	// Line 476, Address: 0x1b9a54, Func Offset: 0xe4
-	// Line 477, Address: 0x1b9a58, Func Offset: 0xe8
-	// Line 478, Address: 0x1b9a5c, Func Offset: 0xec
-	// Line 486, Address: 0x1b9a60, Func Offset: 0xf0
-	// Line 487, Address: 0x1b9a64, Func Offset: 0xf4
-	// Line 486, Address: 0x1b9a68, Func Offset: 0xf8
-	// Line 487, Address: 0x1b9a6c, Func Offset: 0xfc
-	// Line 488, Address: 0x1b9a74, Func Offset: 0x104
-	// Line 489, Address: 0x1b9a78, Func Offset: 0x108
-	// Line 488, Address: 0x1b9a7c, Func Offset: 0x10c
-	// Line 489, Address: 0x1b9a84, Func Offset: 0x114
-	// Line 492, Address: 0x1b9a9c, Func Offset: 0x12c
-	// Line 498, Address: 0x1b9aa8, Func Offset: 0x138
-	// Line 501, Address: 0x1b9ab8, Func Offset: 0x148
-	// Line 502, Address: 0x1b9ac0, Func Offset: 0x150
-	// Line 503, Address: 0x1b9ae0, Func Offset: 0x170
-	// Line 504, Address: 0x1b9afc, Func Offset: 0x18c
-	// Line 506, Address: 0x1b9b08, Func Offset: 0x198
-	// Line 507, Address: 0x1b9b10, Func Offset: 0x1a0
-	// Line 511, Address: 0x1b9b20, Func Offset: 0x1b0
-	// Line 514, Address: 0x1b9b2c, Func Offset: 0x1bc
-	// Line 516, Address: 0x1b9b34, Func Offset: 0x1c4
-	// Line 517, Address: 0x1b9b4c, Func Offset: 0x1dc
-	// Line 520, Address: 0x1b9b50, Func Offset: 0x1e0
-	// Line 521, Address: 0x1b9b5c, Func Offset: 0x1ec
-	// Line 522, Address: 0x1b9b64, Func Offset: 0x1f4
-	// Line 524, Address: 0x1b9b68, Func Offset: 0x1f8
-	// Line 526, Address: 0x1b9b70, Func Offset: 0x200
-	// Line 528, Address: 0x1b9b88, Func Offset: 0x218
-	// Line 529, Address: 0x1b9b94, Func Offset: 0x224
-	// Line 528, Address: 0x1b9b98, Func Offset: 0x228
-	// Line 530, Address: 0x1b9b9c, Func Offset: 0x22c
-	// Line 532, Address: 0x1b9bb8, Func Offset: 0x248
-	// Line 533, Address: 0x1b9bc0, Func Offset: 0x250
-	// Line 534, Address: 0x1b9bc8, Func Offset: 0x258
-	// Line 542, Address: 0x1b9bcc, Func Offset: 0x25c
-	// Line 534, Address: 0x1b9bd4, Func Offset: 0x264
-	// Line 535, Address: 0x1b9bd8, Func Offset: 0x268
-	// Line 536, Address: 0x1b9be0, Func Offset: 0x270
-	// Line 537, Address: 0x1b9be8, Func Offset: 0x278
-	// Line 541, Address: 0x1b9bf8, Func Offset: 0x288
-	// Line 542, Address: 0x1b9c20, Func Offset: 0x2b0
-	// Line 545, Address: 0x1b9c2c, Func Offset: 0x2bc
-	// Line 549, Address: 0x1b9c3c, Func Offset: 0x2cc
-	// Line 550, Address: 0x1b9c48, Func Offset: 0x2d8
-	// Line 551, Address: 0x1b9c50, Func Offset: 0x2e0
-	// Line 554, Address: 0x1b9c98, Func Offset: 0x328
-	// Line 556, Address: 0x1b9ca8, Func Offset: 0x338
-	// Line 557, Address: 0x1b9cd0, Func Offset: 0x360
-	// Line 559, Address: 0x1b9cf8, Func Offset: 0x388
-	// Line 558, Address: 0x1b9d00, Func Offset: 0x390
-	// Line 559, Address: 0x1b9d04, Func Offset: 0x394
-	// Line 558, Address: 0x1b9d08, Func Offset: 0x398
-	// Line 559, Address: 0x1b9d10, Func Offset: 0x3a0
-	// Line 561, Address: 0x1b9d18, Func Offset: 0x3a8
-	// Line 564, Address: 0x1b9d20, Func Offset: 0x3b0
-	// Line 565, Address: 0x1b9d24, Func Offset: 0x3b4
-	// Line 561, Address: 0x1b9d28, Func Offset: 0x3b8
-	// Line 564, Address: 0x1b9d30, Func Offset: 0x3c0
-	// Line 565, Address: 0x1b9d34, Func Offset: 0x3c4
-	// Line 566, Address: 0x1b9d38, Func Offset: 0x3c8
-	// Line 567, Address: 0x1b9d40, Func Offset: 0x3d0
-	// Line 568, Address: 0x1b9d48, Func Offset: 0x3d8
-	// Line 569, Address: 0x1b9d50, Func Offset: 0x3e0
-	// Line 570, Address: 0x1b9d58, Func Offset: 0x3e8
-	// Line 573, Address: 0x1b9d60, Func Offset: 0x3f0
-	// Line 576, Address: 0x1b9d6c, Func Offset: 0x3fc
-	// Line 582, Address: 0x1b9d7c, Func Offset: 0x40c
-	// Line 584, Address: 0x1b9d90, Func Offset: 0x420
-	// Line 586, Address: 0x1b9da4, Func Offset: 0x434
-	// Func End, Address: 0x1b9dc0, Func Offset: 0x450
-    scePrintf("bhEne06_Init - UNIMPLEMENTED!\n");
+	O_WORK* owk;
+    
+    // not present in DWARF
+	int ene_n;
+
+	epw->flg |= 0x78;
+	epw->flg &= ~0x9006;
+	epw->flg &= ~0x800000;
+
+	epw->ar = 5.0f;
+	epw->ah = 1.0f;
+	epw->car = 3.0f;
+	epw->cah = 3.0f;
+
+	epw->hp = ENE06_HITPOINT[(int)(16.0f * njRandom())];
+
+	epw->hokan_rate = 65536;
+	epw->hokan_count = 0;
+	epw->mtn_no = 4;
+	epw->mtn_md = 0;
+	epw->mtn_add = 65536;
+	epw->frm_no = 0;
+
+	epw->mode0 = 1;
+	epw->mode1 = 0;
+	epw->mode2 = 0;
+	epw->mode3 = 0;
+
+	owk = epw->mlwP->owP;
+	for (i = 0; i < epw->mnwP->obj_num; i++, owk++)
+    {
+		owk->flg &= ~3;
+	}
+
+	if (epw->exp0 == NULL)
+    {
+		epw->exp0 = (unsigned char*)bhEne_CallocWork(176, 8);
+		ep = (BH_PWORK*)ene;
+		for (i = 0; i < sys->ewk_n; i++, ep++)
+        {
+			if ((ep->flg & 1) && ep->id == 6)
+            {
+				if (ep->exp1 != NULL)
+                {
+					epw->exp1 = ep->exp1;
+				} 
+                else
+                {
+					epw->exp1 = (unsigned char*)bhEne_CallocWork(12, 8);
+				}
+
+				if (ep->exp2 != NULL)
+                {
+					epw->exp2 = ep->exp2;
+				} 
+                else
+                {
+					ene_n = rom->ene_n;
+					ep_leader = bhSetEnemy((EGG_WORK*)&ene06_leader, ene_n);
+					epw->exp2 = (unsigned char*)ep_leader;
+					ep_leader->mdflg |= 0x21;
+					ep_leader->exp1 = epw->exp1;
+					ep_leader->mnwP = epw->mnwP;
+				}
+				break;
+			}
+		}
+
+		epw2 = (BH_PWORK**)(epw->exp0 + 0x34);
+		for (i = 0; i < 14; i++, epw2++)
+        {
+			ene_n = rom->ene_n;
+			*epw2 = bhSetEnemy((EGG_WORK*)&ene06_child, ene_n);
+			(*epw2)->lkwkp = (unsigned char*)epw;
+			(*epw2)->lkono = i;
+			(*epw2)->lox = 0.0f;
+			(*epw2)->loy = 0.0f;
+			(*epw2)->loz = 0.0f;
+			(*epw2)->mdflg |= 1;
+			(*epw2)->mtx = &epw->mlwP->owP[BrokenParts[i]].mtx;
+        }
+		bhEne_SetCallFunc((void (*)(BH_PWORK*))&bhEne06s, 31);
+	}
+
+	EXP0_F(0x6c) = epw->ar;
+	EXP0_F(0x70) = epw->car;
+	EXP0_I(0x74) = (int)(30.0f * njRandom()) + 20;
+
+	if (!(epw->flg & 0x800))
+    {
+		sdw = bhSetShadow(SdwTab, (unsigned char*)epw, 0, 5.0f, 4.0f, 4.0f);
+		eff[sdw].mdlver = 1;
+		epw->flg |= 0x800;
+		*(O_WRK **)((epw->exp0 + 0x84)) = &eff[sdw];
+	}
+
+	epw->stflg &= ~8;
+	epw->clp_jno[0] = 11;
+	epw->clp_jno[1] = 12;
+	epw->clp_jno[2] = 13;
+	epw->clp_jno[3] = 14;
+	epw->clp_jno[4] = 1;
+	epw->clp_jno[5] = 2;
+	epw->clp_jno[6] = -1;
+
+	epw->cpcl = CapColTab;
+	epw->flg |= 0x100000;
+
+	epw->mlwP->objP[1].evalflags &= ~8;
+	epw->mlwP->objP[2].evalflags &= ~8;
 }
 
 // 100% matching!
