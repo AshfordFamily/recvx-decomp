@@ -5974,27 +5974,38 @@ int bhEne03_DiveSpace(BH_PWORK* epw)
 	// Line 6745, Address: 0x1a178c, Func Offset: 0x1bc
 	// Func End, Address: 0x1a17a0, Func Offset: 0x1d0
 }
-
-// 
-// Start address: 0x1a17a0
-int bhEne03_GetWallDir(_anon21* v)
+*/
+// 100% matching!
+int bhEne03_GetWallDir(NJS_VECTOR* v)
 {
-	// Line 6756, Address: 0x1a17a0, Func Offset: 0
-	// Line 6757, Address: 0x1a17c4, Func Offset: 0x24
-	// Line 6758, Address: 0x1a17cc, Func Offset: 0x2c
-	// Line 6759, Address: 0x1a17e8, Func Offset: 0x48
-	// Line 6760, Address: 0x1a17f0, Func Offset: 0x50
-	// Line 6761, Address: 0x1a1804, Func Offset: 0x64
-	// Line 6762, Address: 0x1a180c, Func Offset: 0x6c
-	// Line 6763, Address: 0x1a181c, Func Offset: 0x7c
-	// Line 6764, Address: 0x1a1824, Func Offset: 0x84
-	// Line 6765, Address: 0x1a1838, Func Offset: 0x98
-	// Line 6766, Address: 0x1a1840, Func Offset: 0xa0
-	// Line 6767, Address: 0x1a1850, Func Offset: 0xb0
-	// Line 6769, Address: 0x1a1854, Func Offset: 0xb4
-	// Func End, Address: 0x1a185c, Func Offset: 0xbc
-}
+    if (v->y >= 0.9f)
+    {
+        return 0;
+    }    
+    else if (v->y <= -0.9f)
+    {
+        return 1;
+    }
 
+    if (v->x >= 0.9f)
+    {
+        return 2;
+    }    
+    else if (v->x <= -0.9f)
+    {
+        return 4;
+    }
+
+    if (v->z >= 0.9f)
+    {
+        return 5;
+    }    
+    else if (v->z <= -0.9f)
+    {
+        return 3;
+    }
+}
+/*
 // 
 // Start address: 0x1a1860
 void bhEne03_DamageInit(BH_PWORK* epw)
