@@ -8,7 +8,9 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/en03.h"
-
+#include "../../../ps2/veronica/prog/en06sub.h"
+#include "../../../ps2/veronica/prog/eneset.h"
+#include "../../../ps2/veronica/prog/njplus.h"
 
 // ENEMY: MOTH
 
@@ -1668,14 +1670,57 @@ static CPCL CapColTab[8] =
     { 0,  0,  0 }                           /* [7] */
 };
 
+static DMG_REACT DmgReact[21] =
+{
+    { {  0,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 0] */
+    { {  0,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 1] */
+    { {  0,  0,  0 }, {  0,  0,  0 }, 0 },          /* [ 2] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 3] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 4] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 5] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 6] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 7] */
+    { {  0,  0,  0 }, {  0,  0,  0 }, 0 },          /* [ 8] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [ 9] */
+    { {  0,  0,  0 }, {  0,  0,  0 }, 0 },          /* [10] */
+    { {  2,  1,  0 }, {  1,  0,  0 }, 0 },          /* [11] */
+    { {  0,  0,  0 }, {  0,  0,  0 }, 0 },          /* [12] */
+    { {  1,  1,  0 }, {  0,  0,  0 }, 0 },          /* [13] */
+    { {  2,  1,  0 }, {  1,  1,  1 }, 1 },          /* [14] */
+    { { -1, -1, -1 }, {  0,  0,  0 }, 2 },          /* [15] */
+    { { -1, -1, -1 }, {  0,  0,  0 }, 1 },          /* [16] */
+    { { -1, -1, -1 }, {  0,  0,  0 }, 0 },          /* [17] */
+    { {  2,  2,  2 }, {  1,  1,  1 }, 5 },          /* [18] */
+    { {  2,  2,  2 }, {  0,  0,  0 }, 1 },          /* [19] */
+    { {  2,  2,  2 }, {  1,  1,  1 }, 5 }           /* [20] */
+};
 
-/*
-_anon7 DmgReact[21];
-
-
-_anon36 BloodTbl[23];
-
-*/
+static BLOOD_TBL BloodTbl[23] =
+{
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [ 0] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 1] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 2] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 3] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 4] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 5] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 6] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 7] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 8] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [ 9] */
+    { 1, {  0.0f,  0.0f,  0.0f },  1.0f,  1.0f,  1.0f },     /* [10] */
+    { 0, {  2.0f,  0.0f, -1.0f },  1.0f,  0.0f,  1.0f },     /* [11] */
+    { 0, { -2.0f,  0.0f, -1.0f },  1.0f,  0.0f,  1.0f },     /* [12] */
+    { 0, {  1.0f,  0.0f,  1.0f },  1.0f,  0.0f,  1.0f },     /* [13] */
+    { 0, { -1.0f,  0.0f,  1.0f },  1.0f,  0.0f,  1.0f },     /* [14] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [15] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [16] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [17] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [18] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [19] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [20] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f },     /* [21] */
+    { 1, {  0.0f,  0.0f,  0.0f },  0.0f,  0.0f,  0.0f }      /* [22] */
+};
 
 typedef void (*bhEne06_Mode0_proc)(BH_PWORK*);
 typedef void (*bhEne06_BrainType_proc)(BH_PWORK*);
@@ -3741,75 +3786,68 @@ void bhEne06_SetRinpunEffect(BH_PWORK* epw, int num, int flg)
     }     
 }
 
-// 
-// Start address: 0x1beb90
+// 100% matching!
 void bhEne06_HitMark(BH_PWORK* epw)
 {
-	//_anon35 ofp;
-	//_anon36* blp;
-	int range;
 	int i;
-	// Line 2715, Address: 0x1beb90, Func Offset: 0
-	// Line 2721, Address: 0x1bebb0, Func Offset: 0x20
-	// Line 2722, Address: 0x1bebb4, Func Offset: 0x24
-	// Line 2721, Address: 0x1bebbc, Func Offset: 0x2c
-	// Line 2716, Address: 0x1bebc4, Func Offset: 0x34
-	// Line 2721, Address: 0x1bebc8, Func Offset: 0x38
-	// Line 2722, Address: 0x1bebd8, Func Offset: 0x48
-	// Line 2723, Address: 0x1bebdc, Func Offset: 0x4c
-	// Line 2724, Address: 0x1bebec, Func Offset: 0x5c
-	// Line 2725, Address: 0x1bebfc, Func Offset: 0x6c
-	// Line 2726, Address: 0x1bec24, Func Offset: 0x94
-	// Line 2727, Address: 0x1bec28, Func Offset: 0x98
-	// Line 2728, Address: 0x1bec2c, Func Offset: 0x9c
-	// Line 2726, Address: 0x1bec30, Func Offset: 0xa0
-	// Line 2727, Address: 0x1bec34, Func Offset: 0xa4
-	// Line 2728, Address: 0x1bec3c, Func Offset: 0xac
-	// Line 2729, Address: 0x1bec44, Func Offset: 0xb4
-	// Line 2730, Address: 0x1bec84, Func Offset: 0xf4
-	// Line 2731, Address: 0x1becc4, Func Offset: 0x134
-	// Line 2732, Address: 0x1bece0, Func Offset: 0x150
-	// Line 2731, Address: 0x1becec, Func Offset: 0x15c
-	// Line 2732, Address: 0x1becfc, Func Offset: 0x16c
-	// Line 2731, Address: 0x1bed00, Func Offset: 0x170
-	// Line 2732, Address: 0x1bed14, Func Offset: 0x184
-	// Line 2734, Address: 0x1bed38, Func Offset: 0x1a8
-	// Line 2735, Address: 0x1bed60, Func Offset: 0x1d0
-	// Line 2739, Address: 0x1bed74, Func Offset: 0x1e4
-	// Line 2740, Address: 0x1beda8, Func Offset: 0x218
-	// Line 2741, Address: 0x1bedac, Func Offset: 0x21c
-	// Line 2742, Address: 0x1bedb0, Func Offset: 0x220
-	// Line 2743, Address: 0x1bedb4, Func Offset: 0x224
-	// Line 2741, Address: 0x1bedb8, Func Offset: 0x228
-	// Line 2742, Address: 0x1bedbc, Func Offset: 0x22c
-	// Line 2743, Address: 0x1bedc4, Func Offset: 0x234
-	// Line 2744, Address: 0x1bedcc, Func Offset: 0x23c
-	// Line 2745, Address: 0x1bee0c, Func Offset: 0x27c
-	// Line 2746, Address: 0x1bee4c, Func Offset: 0x2bc
-	// Line 2747, Address: 0x1bee88, Func Offset: 0x2f8
-	// Line 2748, Address: 0x1bef10, Func Offset: 0x380
-	// Line 2751, Address: 0x1bef20, Func Offset: 0x390
-	// Line 2752, Address: 0x1bef48, Func Offset: 0x3b8
-	// Line 2753, Address: 0x1bef4c, Func Offset: 0x3bc
-	// Line 2754, Address: 0x1bef50, Func Offset: 0x3c0
-	// Line 2752, Address: 0x1bef54, Func Offset: 0x3c4
-	// Line 2753, Address: 0x1bef58, Func Offset: 0x3c8
-	// Line 2754, Address: 0x1bef60, Func Offset: 0x3d0
-	// Line 2755, Address: 0x1bef68, Func Offset: 0x3d8
-	// Line 2756, Address: 0x1befa8, Func Offset: 0x418
-	// Line 2757, Address: 0x1befe8, Func Offset: 0x458
-	// Line 2758, Address: 0x1bf004, Func Offset: 0x474
-	// Line 2757, Address: 0x1bf008, Func Offset: 0x478
-	// Line 2758, Address: 0x1bf02c, Func Offset: 0x49c
-	// Line 2762, Address: 0x1bf038, Func Offset: 0x4a8
-	// Line 2763, Address: 0x1bf060, Func Offset: 0x4d0
-	// Line 2764, Address: 0x1bf078, Func Offset: 0x4e8
-	// Line 2766, Address: 0x1bf084, Func Offset: 0x4f4
-	// Func End, Address: 0x1bf0a8, Func Offset: 0x518
-    scePrintf("bhEne06_HitMark - UNIMPLEMENTED!\n");
+	int range;
+	BLOOD_TBL* blp;    
+	NJS_POINT3 ofp;
+
+    blp = &BloodTbl[epw->djnt_no];   
+	i = 0;
+	if (epw->comb_flg & 0x10) i = 0;
+	if (epw->comb_flg & 0x20) i = 1;
+	if (epw->comb_flg & 0x40) i = 2;
+    
+    if (DmgReact[epw->wpnr_no].type[i] >= 0)
+    {
+        ofp.x = blp->ofp.x;
+        ofp.y = blp->ofp.y;
+        ofp.z = blp->ofp.z;
+        ofp.x += ((blp->rx * njRandom()) - (blp->rx / 2.0f));
+        ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+        ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+        bhEne_SetBloodEffectBurst(epw, DmgReact[epw->wpnr_no].type[i], epw->djnt_no, &ofp, 0);
+        if (DmgReact[epw->wpnr_no].bloodstain[i] != 0)
+        {
+            bhEne_SetBloodstain(epw, 0, epw->djnt_no, &ofp);
+        }
+    }
+    
+    if ((DmgReact[epw->wpnr_no].exef & 1) && (blp->flg == 0))
+    {
+        range = 0;
+        do
+        {
+            ofp.x = blp->ofp.x;
+            ofp.y = blp->ofp.y;
+            ofp.z = blp->ofp.z;
+            ofp.x += ((blp->rx * njRandom()) - (blp->rx / 2.0f));
+            ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+            ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+            bhEne_SetFireEffect(epw, epw->djnt_no, &ofp, 0.5f + (0.5f * njRandom()), (int)(40.0f * njRandom()) + 20);
+            range++;
+        } while (range < 4);
+    }
+    
+    if (DmgReact[epw->wpnr_no].exef & 2)
+    {
+        ofp.x = blp->ofp.x;
+        ofp.y = blp->ofp.y;
+        ofp.z = blp->ofp.z;
+        ofp.x += ((blp->rx * njRandom()) - (blp->rx / 2.0f));
+        ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+        ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+        bhEne_SetAcidEffect(epw, epw->djnt_no, &ofp, 2.0f);
+    }
+    
+    if (DmgReact[epw->wpnr_no].exef & 4)
+    {
+        npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, 0xFF201010U);
+        epw->mdflg |= 0x400;
+    }
 }
-
-
 
 // 
 // Start address: 0x1bf0b0
