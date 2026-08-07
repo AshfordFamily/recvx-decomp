@@ -1,6 +1,7 @@
 #include "../../../ps2/veronica/prog/en03.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/hitchkl.h"
+#include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 
 // ENEMY: Black Widow
 
