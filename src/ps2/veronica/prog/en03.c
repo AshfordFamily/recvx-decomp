@@ -5890,29 +5890,26 @@ void bhEne03_CollisionLine(BH_PWORK* epw)
         }
     }
 }
-/*
-// 
-// Start address: 0x1a1440
+
+// 100% matching!
 void bhEne03_CollisionLine2(BH_PWORK* epw)
 {
-	_anon21 v;
-	// Line 6166, Address: 0x1a1440, Func Offset: 0
-	// Line 6169, Address: 0x1a144c, Func Offset: 0xc
-	// Line 6173, Address: 0x1a1460, Func Offset: 0x20
-	// Line 6169, Address: 0x1a1464, Func Offset: 0x24
-	// Line 6170, Address: 0x1a1470, Func Offset: 0x30
-	// Line 6171, Address: 0x1a1480, Func Offset: 0x40
-	// Line 6173, Address: 0x1a1488, Func Offset: 0x48
-	// Line 6171, Address: 0x1a148c, Func Offset: 0x4c
-	// Line 6173, Address: 0x1a1490, Func Offset: 0x50
-	// Line 6174, Address: 0x1a1498, Func Offset: 0x58
-	// Line 6175, Address: 0x1a14a4, Func Offset: 0x64
-	// Line 6176, Address: 0x1a14b0, Func Offset: 0x70
-	// Line 6177, Address: 0x1a14bc, Func Offset: 0x7c
-	// Line 6178, Address: 0x1a14c8, Func Offset: 0x88
-	// Func End, Address: 0x1a14d8, Func Offset: 0x98
+    NJS_VECTOR v;
+
+    v.x = 0.01f * EXP0_F(0x10);
+    v.y = 0.01f * EXP0_F(0x14);
+    v.z = 0.01f * EXP0_F(0x18);
+    
+    njAddVector((NJS_VECTOR*) &epw->pxb, &v);
+    njAddVector((NJS_VECTOR*) &epw->px, &v);
+    
+    bhCollisionCheckLine((NJS_VECTOR*) &epw->pxb, (NJS_VECTOR*) &epw->px);
+    
+    njSubVector((NJS_VECTOR*) &epw->pxb, &v);
+    njSubVector((NJS_VECTOR*) &epw->px, &v);
 }
 
+/*
 // 
 // Start address: 0x1a14e0
 void bhEne03_SetModelFlg(BH_PWORK* epw, unsigned int and_flg, unsigned int or_flg)
