@@ -2216,6 +2216,24 @@ typedef struct GA_WORK
     int ay;              // offset 0x40, size 0x4
 } GA_WORK;
 
+typedef struct BLOOD_TBL
+{
+    // total size: 0x1C
+    int flg; // offset 0x0, size 0x4
+    NJS_POINT3 ofp; // offset 0x4, size 0xC
+    float rx; // offset 0x10, size 0x4
+    float ry; // offset 0x14, size 0x4
+    float rz; // offset 0x18, size 0x4
+} BLOOD_TBL;
+
+typedef struct DMG_REACT
+{
+    // total size: 0x7
+	char type[3]; // offset 0x0, size 0x3
+	char bloodstain[3]; // offset 0x3, size 0x3
+	char exef; // offset 0x6, size 0x1
+} DMG_REACT;
+
 // constant definition for ClutType, ImageType in picture header
 enum TIM2_gattr_type {
 	TIM2_NONE = 0,			// no CLUT (for ClutType)
