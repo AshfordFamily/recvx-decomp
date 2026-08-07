@@ -2,6 +2,7 @@
 #define _EN03_H_
 
 #include "types.h"
+#include "macros.h"
 
 void bhEne03(BH_PWORK* epw);
 void bhEne03_Init(BH_PWORK* epw);
@@ -64,18 +65,15 @@ void bhEne03_MakeMatrix(BH_PWORK* epw);
 void bhEne03_HidePartsSub1(npobj* p);*/
 void bhEne03_HideParts(BH_PWORK* epw, unsigned short PartsNo, unsigned short flg);
 int bhEne03_CollisionWalls(BH_PWORK* epw);
-/*
-_anon0* bhEne03_GetWall(BH_PWORK* epw);
-*/
+ATR_WORK* bhEne03_GetWall(BH_PWORK* epw);
 ATR_WORK* bhEne03_Collision(BH_PWORK* epw);
-/*
-_anon0* bhEne03_Collision2(BH_PWORK* epw, _anon0* gnd);
-int bhEne03_CollisionWallBox(_anon0* hp, _anon21* pos, float ar);
-int bhEne03_CollisionWallGround(_anon0* hp, _anon21* pos, float ar);
-int bhEne03_CollisionWallCylinder(_anon0* hp, _anon21* pos, float ar);
-int bhEne03_CollisionWallSlope(_anon0* hp, _anon21* pos, float ar);
-int bhEne03_CollisionWallTriangle(_anon0* hp, _anon21* pos, float ar);
-int bhEne03_CollisionBoxEdge(_anon0* hp, _anon21* pos, float ar);*/
+ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd);
+int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_POINT3* pos, float ar);
+int bhEne03_CollisionWallGround(ATR_WORK* hp, NJS_POINT3* pos, float ar);
+int bhEne03_CollisionWallCylinder(ATR_WORK* hp, NJS_POINT3* pos, float ar);
+int bhEne03_CollisionWallSlope(ATR_WORK* hp, NJS_POINT3* pos, float ar);
+int bhEne03_CollisionWallTriangle(ATR_WORK* hp, NJS_POINT3* pos, float ar);
+int bhEne03_CollisionBoxEdge(ATR_WORK* hp, NJS_POINT3* pos, float ar);
 int bhEne03_CollisionBoxEdge2(BH_PWORK* epw);
 void bhEne03_CollisionLine(BH_PWORK* epw);
 void bhEne03_CollisionLine2(BH_PWORK* epw);
