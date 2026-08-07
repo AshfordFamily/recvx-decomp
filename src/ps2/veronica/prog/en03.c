@@ -5873,23 +5873,24 @@ int bhEne03_CollisionBoxEdge2(BH_PWORK* epw)
 	// Func End, Address: 0x1a13b4, Func Offset: 0x464
     scePrintf("bhEne03_CollisionBoxEdge2 - UNIMPLEMENTED!\n");
 }
-/*
-// 
-// Start address: 0x1a13c0
+
+// 100% matching!
 void bhEne03_CollisionLine(BH_PWORK* epw)
 {
-	_anon0* hp;
-	_anon21 n;
-	// Line 6145, Address: 0x1a13c0, Func Offset: 0
-	// Line 6149, Address: 0x1a13d0, Func Offset: 0x10
-	// Line 6150, Address: 0x1a13e4, Func Offset: 0x24
-	// Line 6151, Address: 0x1a13ec, Func Offset: 0x2c
-	// Line 6152, Address: 0x1a13f4, Func Offset: 0x34
-	// Line 6153, Address: 0x1a1424, Func Offset: 0x64
-	// Line 6156, Address: 0x1a1428, Func Offset: 0x68
-	// Func End, Address: 0x1a143c, Func Offset: 0x7c
-}
+	NJS_VECTOR n;
+	ATR_WORK* hp;
 
+    hp = bhCollisionCheckLine((NJS_VECTOR*) &epw->pxb, (NJS_VECTOR*) &epw->px);
+    if (hp != NULL)
+    {        
+        bhGetHitCollisionNormal(&n);
+        if (((*(ATR_WORK **)((char *)epw->exp0 + (0x60))) == NULL) && (n.y > 0.0f))
+        {
+            (*(ATR_WORK **)((char *)epw->exp0 + (0x60))) = hp;
+        }
+    }
+}
+/*
 // 
 // Start address: 0x1a1440
 void bhEne03_CollisionLine2(BH_PWORK* epw)
