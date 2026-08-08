@@ -3802,56 +3802,73 @@ void bhEne09_NG00(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1cd3a0
+// 100% matching!
 void bhEne09_NG01(BH_PWORK* epw)
-{
-	BH_PWORK* pl;
-	// Line 4530, Address: 0x1cd3a0, Func Offset: 0
-	// Line 4531, Address: 0x1cd3b0, Func Offset: 0x10
-	// Line 4533, Address: 0x1cd3b4, Func Offset: 0x14
-	// Line 4531, Address: 0x1cd3b8, Func Offset: 0x18
-	// Line 4533, Address: 0x1cd3bc, Func Offset: 0x1c
-	// Line 4536, Address: 0x1cd3d8, Func Offset: 0x38
-	// Line 4538, Address: 0x1cd408, Func Offset: 0x68
-	// Line 4540, Address: 0x1cd414, Func Offset: 0x74
-	// Line 4541, Address: 0x1cd428, Func Offset: 0x88
-	// Line 4542, Address: 0x1cd42c, Func Offset: 0x8c
-	// Line 4543, Address: 0x1cd430, Func Offset: 0x90
-	// Line 4540, Address: 0x1cd434, Func Offset: 0x94
-	// Line 4541, Address: 0x1cd444, Func Offset: 0xa4
-	// Line 4542, Address: 0x1cd450, Func Offset: 0xb0
-	// Line 4544, Address: 0x1cd454, Func Offset: 0xb4
-	// Line 4547, Address: 0x1cd45c, Func Offset: 0xbc
-	// Line 4548, Address: 0x1cd470, Func Offset: 0xd0
-	// Line 4549, Address: 0x1cd474, Func Offset: 0xd4
-	// Line 4547, Address: 0x1cd478, Func Offset: 0xd8
-	// Line 4548, Address: 0x1cd488, Func Offset: 0xe8
-	// Line 4549, Address: 0x1cd494, Func Offset: 0xf4
-	// Line 4552, Address: 0x1cd498, Func Offset: 0xf8
-	// Line 4553, Address: 0x1cd49c, Func Offset: 0xfc
-	// Line 4552, Address: 0x1cd4a0, Func Offset: 0x100
-	// Line 4553, Address: 0x1cd4a8, Func Offset: 0x108
-	// Line 4554, Address: 0x1cd4b4, Func Offset: 0x114
-	// Line 4556, Address: 0x1cd4bc, Func Offset: 0x11c
-	// Line 4559, Address: 0x1cd4c4, Func Offset: 0x124
-	// Line 4561, Address: 0x1cd4f4, Func Offset: 0x154
-	// Line 4563, Address: 0x1cd500, Func Offset: 0x160
-	// Line 4564, Address: 0x1cd504, Func Offset: 0x164
-	// Line 4565, Address: 0x1cd508, Func Offset: 0x168
-	// Line 4566, Address: 0x1cd50c, Func Offset: 0x16c
-	// Line 4567, Address: 0x1cd510, Func Offset: 0x170
-	// Line 4568, Address: 0x1cd520, Func Offset: 0x180
-	// Line 4571, Address: 0x1cd528, Func Offset: 0x188
-	// Line 4572, Address: 0x1cd52c, Func Offset: 0x18c
-	// Line 4573, Address: 0x1cd530, Func Offset: 0x190
-	// Line 4574, Address: 0x1cd534, Func Offset: 0x194
-	// Line 4575, Address: 0x1cd538, Func Offset: 0x198
-	// Line 4581, Address: 0x1cd54c, Func Offset: 0x1ac
-	// Func End, Address: 0x1cd560, Func Offset: 0x1c0
+{   
+    BH_PWORK* pl;
+
+    pl = plp;
+    
+    switch (epw->mode3) 
+    {
+        case 0:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                if (pl->hp < 0) 
+                {
+                    bhEne_ChgMtn(epw, 0x3B, 0, 0);
+                    
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                    
+                    epw->flg |= 0x40000;
+                    pl->mode0 = 6;
+
+                    pl->mode3 = 4;
+                }
+                else 
+                {
+                    bhEne_ChgMtn(epw, 0x3A, 0, 0);
+                    
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                    
+                    epw->flg |= 0x40000;
+
+                    pl->mode3 = 2;
+                }
+                
+                epw->flg |= 0x20;
+                epw->flg2 &= ~1;
+                epw->mode3++;
+            }
+
+            break;
+                
+        case 1:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                if (pl->hp < 0) 
+                {
+                    epw->mode0 = 1;
+                    epw->mode1 = 0;
+                    epw->mode2 = 0;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(0x18) &= ~0x100;
+                }
+                else 
+                {
+                    epw->mode0 = 1;
+                    epw->mode1 = 0;
+                    epw->mode2 = 0;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(0x18) &= ~0x100;
+                }
+            }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1cd560
