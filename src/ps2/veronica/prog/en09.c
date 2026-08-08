@@ -2684,6 +2684,168 @@ void bhEne09_MV05(BH_PWORK* epw)
 
 #pragma divbyzerocheck off
 
+// 98.97% matching!
+void bhEne09_MV06(BH_PWORK* epw) 
+{
+	NJS_CNK_OBJECT* obj;
+    O_WORK* owk;
+    int rot;
+
+    switch(epw->mode3)
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 0x10, 0, 5);
+            
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->flg |= 0x40000;
+            epw->way = 0x71C;
+            epw->ct0 = 0;
+            epw->ct2 = 0;
+            
+            EXP0_I(0x18) |= 0x8000;
+            
+            obj = epw->mlwP->objP;
+            
+            obj[7].pos[0]  = EXP0_F(0x0);
+            obj[8].pos[0]  = EXP0_F(0x4);
+            obj[9].pos[0]  = EXP0_F(0x8);
+            obj[10].pos[0] = EXP0_F(0xC);
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            owk = plp->mlwP->owP;
+            
+            rot = ikou3(epw, (NJS_VECTOR *)&owk->mtx[0xC], epw->way);
+            
+            if (rot == 0) 
+            {
+                epw->ay = NitenDir_ck(epw->px, epw->pz, owk->mtx[0xC], owk->mtx[0xE]);
+            }
+            else 
+            {
+                epw->ay += rot;
+            }
+            
+            if ((epw->frm_no >> 0x10) == 0x10) 
+            {
+                EXP0_F(0x6C) = 30.0f;
+                EXP0_F(0x6C) = EXP0_F(0x28) - 15.0f;
+                
+                if (EXP0_F(0x6C) < 0.0f) 
+                {
+                    EXP0_F(0x6C) = 0.0f;
+                }
+                
+                EXP0_F(0x70) = 0.0f;
+                EXP0_F(0x74) = 0.0f;
+                
+                epw->ct0 = 0;
+                epw->ct1 = 0;
+                epw->mode3++;
+            }
+            
+            break;
+        
+        case 2:
+            if ((epw->frm_no >> 0x10) == 0x13) 
+            {
+                epw->mtn_add = 0;
+            }
+            
+            EXP0_F(0x74) = (10.0f - (1.2f * epw->ct1));
+            
+            if (EXP0_F(0x74) < 0.0f) 
+            {
+                EXP0_F(0x74) = 0.1f;
+            }
+            
+            EXP0_F(0x70) += EXP0_F(0x74);
+            
+            if (EXP0_F(0x6C) < EXP0_F(0x70)) 
+            {
+                EXP0_F(0x74) = EXP0_F(0x6C) - (EXP0_F(0x70) - EXP0_F(0x74));
+                epw->mtn_add = 0x10000;
+                epw->mode3++;
+                
+                break;
+            }
+            
+            epw->ct1++;
+            
+            obj = epw->mlwP->objP;
+            
+            obj[7].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[8].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[9].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[10].pos[0] += EXP0_F(0x74) / 4.0f;
+                
+            if ((0x12 < (epw->frm_no >> 0x10)) && (bhEne09_CollChkArm2(epw) != 0)) 
+            {
+                bhEne09_SePlay(epw, 0x12307);
+                
+                obj[0].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[1].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[2].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[3].pos[0] -= EXP0_F(0x74) / 4.0f;
+                    
+                epw->mtn_add = 0x10000;
+                epw->mode3++;
+            }
+            
+            break;
+        
+        case 3:
+            if ((epw->frm_no >> 0x10) == 0x19) 
+            {
+                obj = epw->mlwP->objP;
+                
+                EXP0_F(0x6C) = obj[7].pos[0] - EXP0_F(0x0);
+                EXP0_F(0x70) = obj[8].pos[0] - EXP0_F(0x4);
+                EXP0_F(0x74) = obj[9].pos[0] - EXP0_F(0x8);
+                EXP0_F(0x78) = obj[10].pos[0] - EXP0_F(0xC);
+                
+                epw->ct1 = 8;
+                epw->ct0 = 0;
+                epw->mode3++;
+            }
+            
+            bhEne09_CollChkArm2(epw);
+            
+            break;
+        
+        case 4:
+            if (epw->ct1 > epw->ct0)
+            {
+                obj = epw->mlwP->objP;
+                
+                obj[7].pos[0] -= EXP0_F(0x6C) / epw->ct1;
+                obj[8].pos[0] -= EXP0_F(0x70) / epw->ct1;
+                obj[9].pos[0] -= EXP0_F(0x74) / epw->ct1;
+                obj[10].pos[0] -= EXP0_F(0x78) / epw->ct1;
+            }
+            
+            epw->ct0++;
+            
+            rot = epw->frm_no >> 0x10;
+            
+            if (rot == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                epw->flg |= 0x100;
+                
+                EXP0_I(0x14) = ((rand() % 15) + 0xA);
+                
+                EXP0_I(0x18) &= 0xFFFF7FFF;
+                
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+            }
+    }
+}
+
 /*
 
 // 
