@@ -21,6 +21,12 @@ typedef struct CHK_TBL_WORK
     CHG_TBL_WORK chg_tbl[4]; // offset 0xC, size 0x50
 } CHK_TBL_WORK;
 
+typedef struct ARM_POS
+{
+    signed int frm; // offset 0x0, size 0x4
+    float len; // offset 0x4, size 0x4
+} ARM_POS;
+
 void bhEne09_DmmyBrain();
 void bhEne09(BH_PWORK* epw);
 void bhEne09_MainLoop(BH_PWORK* epw);
