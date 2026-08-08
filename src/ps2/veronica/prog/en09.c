@@ -2088,37 +2088,57 @@ void bhEne09_MV00(BH_PWORK* epw)
 
 #pragma divbyzerocheck off
 
-/*
-
-// 
-// Start address: 0x1c9f60
 void bhEne09_MV01(BH_PWORK* epw)
 {
-	int hit;
-	// Line 2445, Address: 0x1c9f60, Func Offset: 0
-	// Line 2448, Address: 0x1c9f6c, Func Offset: 0xc
-	// Line 2451, Address: 0x1c9f98, Func Offset: 0x38
-	// Line 2452, Address: 0x1c9fac, Func Offset: 0x4c
-	// Line 2451, Address: 0x1c9fb0, Func Offset: 0x50
-	// Line 2452, Address: 0x1c9fc0, Func Offset: 0x60
-	// Line 2453, Address: 0x1c9fcc, Func Offset: 0x6c
-	// Line 2456, Address: 0x1c9fd8, Func Offset: 0x78
-	// Line 2458, Address: 0x1c9fec, Func Offset: 0x8c
-	// Line 2459, Address: 0x1c9ffc, Func Offset: 0x9c
-	// Line 2463, Address: 0x1ca004, Func Offset: 0xa4
-	// Line 2465, Address: 0x1ca020, Func Offset: 0xc0
-	// Line 2467, Address: 0x1ca03c, Func Offset: 0xdc
-	// Line 2468, Address: 0x1ca06c, Func Offset: 0x10c
-	// Line 2471, Address: 0x1ca074, Func Offset: 0x114
-	// Line 2473, Address: 0x1ca080, Func Offset: 0x120
-	// Line 2474, Address: 0x1ca088, Func Offset: 0x128
-	// Line 2480, Address: 0x1ca090, Func Offset: 0x130
-	// Line 2482, Address: 0x1ca0a8, Func Offset: 0x148
-	// Line 2483, Address: 0x1ca0ac, Func Offset: 0x14c
-	// Line 2485, Address: 0x1ca0b4, Func Offset: 0x154
-	// Line 2488, Address: 0x1ca0c4, Func Offset: 0x164
-	// Func End, Address: 0x1ca0d4, Func Offset: 0x174
+    int hit;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 0, 0, 0xF);
+            
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->flg |= 0x40000;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (EXP0_I(0x18) & 0x1000)
+            {
+                ikou(epw, (NJS_VECTOR *)&EXP0_I(0x2C), 0x16C);
+                return;
+            }
+            
+            if (bhEne_CheckDirWall2(epw, 0, 6.0f) != NULL) 
+            {
+                hit = bhEne_CheckSideWall(epw, 6.0f, 0);
+                
+                if (hit == 0) 
+                {
+                    epw->way = (rand() % 2) ? 0x16C : -0x16C;
+                } 
+                else 
+                {
+                    epw->way = hit * 0x16C;
+                }
+                
+                epw->mode3++;
+            }
+            
+            break;
+        case 2:
+            if (bhEne_CheckDirWall2(epw, 0, 6.0f) == NULL) 
+            {
+                epw->mode3 = 1;
+                return;
+            }
+            
+            epw->ay += epw->way;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1ca0e0
