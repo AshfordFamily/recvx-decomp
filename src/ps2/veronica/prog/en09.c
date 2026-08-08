@@ -3755,22 +3755,25 @@ void bhEne09_MV14(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1cd230
-void bhEne09_NGType00(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_NGType00(BH_PWORK* epw) 
 {
-	// Line 4443, Address: 0x1cd230, Func Offset: 0
-	// Line 4444, Address: 0x1cd23c, Func Offset: 0xc
-	// Line 4446, Address: 0x1cd248, Func Offset: 0x18
-	// Line 4449, Address: 0x1cd264, Func Offset: 0x34
-	// Line 4450, Address: 0x1cd270, Func Offset: 0x40
-	// Line 4454, Address: 0x1cd278, Func Offset: 0x48
-	// Line 4458, Address: 0x1cd28c, Func Offset: 0x5c
-	// Line 4459, Address: 0x1cd2ac, Func Offset: 0x7c
-	// Func End, Address: 0x1cd2bc, Func Offset: 0x8c
+    if (epw->mode3 == 0) 
+    {
+        if (bhCdirCheck(plp->ay, epw->ay) == 0) 
+        {
+            EXP0_I(0x18) |= 0x400;
+        }
+        else 
+        {
+            EXP0_I(0x18) &= ~0x400;
+        }
+    }
+    
+    bhEne09_NageMode2[epw->mode2](epw);
 }
+
+/*
 
 // 
 // Start address: 0x1cd2c0
