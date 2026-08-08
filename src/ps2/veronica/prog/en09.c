@@ -2846,6 +2846,119 @@ void bhEne09_MV06(BH_PWORK* epw)
     }
 }
 
+// 99.96% matching!
+void bhEne09_MV07(BH_PWORK* epw) 
+{
+	NJS_SPHERE at;    // r29+0x30
+    int rot;
+    int frm;
+
+    switch (epw->mode3) 
+    {
+        case 0:
+            rot = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz) - epw->ay;
+            
+            if ((0x8000 < (rot & 0xFFFF) ) && (0xE7FF >= (rot & 0xFFFF)))
+            {
+                bhEne_ChgMtn(epw, 0x31, 0, 8);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else 
+            {
+                bhEne_ChgMtn(epw, 0x2D, 0, 8);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+
+            if ((rot & 0xFFFF) < 0x8001)
+            {
+                epw->ayp = ((rot & 0xFFFF) / 5);
+            }
+            else 
+            {
+                epw->ayp = (-(0x10000 - (rot & 0xFFFF)) / 5);
+            }
+            
+            epw->flg |= 0x40000;
+            epw->way = 0x600;
+            epw->ct0 = 5;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (--epw->ct0 >= 0) 
+            {
+                epw->ay += epw->ayp;
+            }
+            
+            frm = epw->frm_no >> 0x10;
+            
+            bhEne_CalcPartsPos(epw, lcmat, &at.c, en09_tree[2], 10, 1);
+            
+            if ((epw->mtn_no == 0x2D && frm >= 0xA && frm < 0x10) ||
+                (epw->mtn_no == 0x31 && 0xC < frm && 0x10 >= frm))
+            {
+                at.r = 3.0f;
+                
+                if ((npCollisionCheckSC((NJS_SPHERE* ) &at, &plp->watr) != 0) && !(plp->flg & 4) && !(plp->stflg & 0x80000000)) 
+                {
+                    plp->djnt_no = 2;
+                    
+                    plp->dpx = at.c.x;
+                    plp->dpy = at.c.y;
+                    plp->dpz = at.c.z;
+                    
+                    bhEne_HitCheckParts(plp, &at.c);
+                    
+                    plp->flg |= 4;
+                    plp->mode0 = 2;
+                    plp->mode2 = 1;
+                    plp->mode3 = 0;
+                    plp->hp -= 0x14;
+                    
+                    rot = (plp->ay - epw->ay) & 0xFFFF;
+                    
+                    if (epw->mtn_no == 0x2D) 
+                    {
+                        if (0x2000 < rot && rot < 0xA000) 
+                        {
+                            plp->mode1 = 0;
+                        } 
+                        else 
+                        {
+                            plp->mode1 = 1;
+                        }
+                    } 
+                    else 
+                    {
+                        if (rot < 0x8000) 
+                        {
+                            plp->mode1 = 1;
+                        } 
+                        else 
+                        {
+                            plp->mode1 = 0;
+                        }
+                    }
+                    
+                    bhEne_SetVibration(1);
+                    bhEne09_SePlay(epw, 0x12307);
+                }
+            }
+            
+            frm = epw->frm_no >> 0x10;
+            
+            if (frm == (epw->mnwP[epw->mtn_no].frm_num - 1))
+            {
+                EXP0_I(0x18) &= ~0x100;
+                EXP0_I(0x14) = ((rand() % 15) + 0xA);
+                
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+            }
+    }
+}
+
 /*
 
 // 
