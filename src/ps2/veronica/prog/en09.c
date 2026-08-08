@@ -2146,56 +2146,89 @@ void bhEne09_MV02()
 
 }
 
-/*
-
-// 
-// Start address: 0x1ca0f0
-void bhEne09_MV03(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_MV03(BH_PWORK* epw) 
 {
-	// Line 2535, Address: 0x1ca0f0, Func Offset: 0
-	// Line 2538, Address: 0x1ca0fc, Func Offset: 0xc
-	// Line 2541, Address: 0x1ca128, Func Offset: 0x38
-	// Line 2543, Address: 0x1ca138, Func Offset: 0x48
-	// Line 2544, Address: 0x1ca158, Func Offset: 0x68
-	// Line 2547, Address: 0x1ca160, Func Offset: 0x70
-	// Line 2549, Address: 0x1ca184, Func Offset: 0x94
-	// Line 2552, Address: 0x1ca1a0, Func Offset: 0xb0
-	// Line 2549, Address: 0x1ca1a4, Func Offset: 0xb4
-	// Line 2552, Address: 0x1ca1ac, Func Offset: 0xbc
-	// Line 2553, Address: 0x1ca1bc, Func Offset: 0xcc
-	// Line 2554, Address: 0x1ca1cc, Func Offset: 0xdc
-	// Line 2556, Address: 0x1ca1dc, Func Offset: 0xec
-	// Line 2559, Address: 0x1ca1ec, Func Offset: 0xfc
-	// Line 2560, Address: 0x1ca1f8, Func Offset: 0x108
-	// Line 2561, Address: 0x1ca204, Func Offset: 0x114
-	// Line 2564, Address: 0x1ca210, Func Offset: 0x120
-	// Line 2566, Address: 0x1ca238, Func Offset: 0x148
-	// Line 2568, Address: 0x1ca248, Func Offset: 0x158
-	// Line 2569, Address: 0x1ca26c, Func Offset: 0x17c
-	// Line 2572, Address: 0x1ca274, Func Offset: 0x184
-	// Line 2574, Address: 0x1ca29c, Func Offset: 0x1ac
-	// Line 2575, Address: 0x1ca2a8, Func Offset: 0x1b8
-	// Line 2574, Address: 0x1ca2ac, Func Offset: 0x1bc
-	// Line 2575, Address: 0x1ca2b8, Func Offset: 0x1c8
-	// Line 2576, Address: 0x1ca2c4, Func Offset: 0x1d4
-	// Line 2578, Address: 0x1ca2cc, Func Offset: 0x1dc
-	// Line 2581, Address: 0x1ca2d4, Func Offset: 0x1e4
-	// Line 2584, Address: 0x1ca318, Func Offset: 0x228
-	// Line 2587, Address: 0x1ca32c, Func Offset: 0x23c
-	// Line 2590, Address: 0x1ca388, Func Offset: 0x298
-	// Line 2591, Address: 0x1ca390, Func Offset: 0x2a0
-	// Line 2592, Address: 0x1ca394, Func Offset: 0x2a4
-	// Line 2590, Address: 0x1ca398, Func Offset: 0x2a8
-	// Line 2591, Address: 0x1ca3a0, Func Offset: 0x2b0
-	// Line 2594, Address: 0x1ca3a4, Func Offset: 0x2b4
-	// Line 2591, Address: 0x1ca3a8, Func Offset: 0x2b8
-	// Line 2592, Address: 0x1ca3b4, Func Offset: 0x2c4
-	// Line 2594, Address: 0x1ca3c4, Func Offset: 0x2d4
-	// Line 2595, Address: 0x1ca3c8, Func Offset: 0x2d8
-	// Line 2596, Address: 0x1ca3cc, Func Offset: 0x2dc
-	// Line 2600, Address: 0x1ca3d0, Func Offset: 0x2e0
-	// Func End, Address: 0x1ca3e0, Func Offset: 0x2f0
+    int temp;    // NOT from DWARF
+    
+    switch (epw->mode3)
+    {
+        case 0:
+            if (epw->mtn_no == 0x35) 
+            {
+                bhEne_ChgMtn(epw, 0x38, 0, 0);
+                
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else 
+            {
+                bhEne_ChgMtn(epw, 0x27, 0, 0);
+                
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            
+            epw->ct0 = (rand() % 60) + 0x1E;
+            
+            EXP0_I(0x18) &= ~0xF;
+            EXP0_I(0x18) |= 1;
+            EXP0_I(0x18) |= 0x10;
+            EXP0_I(0x18) |= 0x2000;
+            
+            epw->flg |= 0x20;
+            epw->flg2 |= 1;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            temp = epw->ct0 - 1;
+            epw->ct0 = temp;
+            if ((temp < 0) || (EXP0_I(0x18) & 0x08000000))
+            {
+                if (epw->mtn_no == 0x27)
+                {
+                    bhEne_ChgMtn(epw, 0x1D, 0, 0);
+                    
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                }
+                else 
+                {
+                    bhEne_ChgMtn(epw, 0x36, 0, 0);
+                    
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                }
+                
+                EXP0_I(0x18) &= 0xF7FFFFFF;
+                
+                epw->flg |= 0x40000;
+                epw->mode3++;
+            }
+            
+            break;
+        
+        case 2:
+            if (((epw->mtn_no == 0x1D) && ((epw->frm_no >> 0x10) == 0x32)) ||
+                ((epw->mtn_no == 0x36) && ((epw->frm_no >> 0x10) == 0x41)))
+            {
+                EXP0_I(0x18) &= ~0x40;
+            }
+            
+            if (((epw->mtn_no == 0x1D) && ((epw->frm_no >> 0x10) == 0x38)) ||
+                ((epw->mtn_no == 0x36) && ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1))))
+            {
+                epw->flg2 &= ~1;
+            
+                EXP0_I(0x18) &= ~0x10;
+                EXP0_I(0x18) &= ~0x2000;
+            
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+            }
+            break;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1ca3e0
