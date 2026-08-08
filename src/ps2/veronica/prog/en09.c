@@ -2035,40 +2035,60 @@ int bhEne09_AramLineCheck(BH_PWORK* epw, NJS_VECTOR* p1, NJS_VECTOR* p2)
     return 0;
 }
 
-/*
+#pragma divbyzerocheck on
 
-// 
-// Start address: 0x1c9de0
 void bhEne09_MV00(BH_PWORK* epw)
 {
-	npobj* obj;
-	// Line 2380, Address: 0x1c9de0, Func Offset: 0
-	// Line 2383, Address: 0x1c9df0, Func Offset: 0x10
-	// Line 2386, Address: 0x1c9e10, Func Offset: 0x30
-	// Line 2387, Address: 0x1c9e30, Func Offset: 0x50
-	// Line 2388, Address: 0x1c9e64, Func Offset: 0x84
-	// Line 2390, Address: 0x1c9e88, Func Offset: 0xa8
-	// Line 2391, Address: 0x1c9e8c, Func Offset: 0xac
-	// Line 2403, Address: 0x1c9e90, Func Offset: 0xb0
-	// Line 2390, Address: 0x1c9e94, Func Offset: 0xb4
-	// Line 2391, Address: 0x1c9e98, Func Offset: 0xb8
-	// Line 2392, Address: 0x1c9ea0, Func Offset: 0xc0
-	// Line 2393, Address: 0x1c9eac, Func Offset: 0xcc
-	// Line 2394, Address: 0x1c9eb8, Func Offset: 0xd8
-	// Line 2403, Address: 0x1c9ec4, Func Offset: 0xe4
-	// Line 2404, Address: 0x1c9ed0, Func Offset: 0xf0
-	// Line 2406, Address: 0x1c9ed8, Func Offset: 0xf8
-	// Line 2408, Address: 0x1c9ee0, Func Offset: 0x100
-	// Line 2412, Address: 0x1c9eec, Func Offset: 0x10c
-	// Line 2414, Address: 0x1c9ef0, Func Offset: 0x110
-	// Line 2412, Address: 0x1c9ef8, Func Offset: 0x118
-	// Line 2414, Address: 0x1c9efc, Func Offset: 0x11c
-	// Line 2419, Address: 0x1c9f3c, Func Offset: 0x15c
-	// Line 2420, Address: 0x1c9f44, Func Offset: 0x164
-	// Line 2421, Address: 0x1c9f48, Func Offset: 0x168
-	// Line 2425, Address: 0x1c9f4c, Func Offset: 0x16c
-	// Func End, Address: 0x1c9f60, Func Offset: 0x180
+    NJS_CNK_OBJECT* obj;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 1, 0, 0xF);
+
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->frm_no = (rand() % epw->mnwP[epw->mtn_no].frm_num) << 0x10;
+            
+            epw->ct0 = (rand() % 128) + 200;
+            
+            obj = epw->mlwP->objP;
+            
+            obj[7].pos[0]  = EXP0_F(0x0);
+            obj[8].pos[0]  = EXP0_F(0x4);
+            obj[9].pos[0]  = EXP0_F(0x8);
+            obj[10].pos[0] = EXP0_F(0xC);
+            
+            if (epw->type == 0xA)
+            {
+                epw->mode1 = 0;
+            }
+            else 
+            {
+                epw->mode1 = 1;
+            }
+            
+            epw->mode3 += 1;
+        
+            /* fallthrough */
+        case 1:
+            epw->ct0 -= 1;
+            
+            if (((bhSearchPlayer(epw, 0x471C) != -1) 
+                 || (epw->flg & 4) 
+                 || (epw->ct0 <= 0)) 
+                && (epw->type != 0xA)) 
+            {
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+            }
+    }
 }
+
+#pragma divbyzerocheck off
+
+/*
 
 // 
 // Start address: 0x1c9f60
