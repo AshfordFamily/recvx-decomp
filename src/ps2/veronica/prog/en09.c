@@ -3505,76 +3505,107 @@ void bhEne09_MV12(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1cca40
-void bhEne09_MV13(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_MV13(BH_PWORK* epw) 
 {
-	int frm;
-	int rot;
-	_anon24* owk;
-	BH_PWORK* pl;
-	// Line 4177, Address: 0x1cca40, Func Offset: 0
-	// Line 4178, Address: 0x1cca58, Func Offset: 0x18
-	// Line 4183, Address: 0x1cca5c, Func Offset: 0x1c
-	// Line 4178, Address: 0x1cca60, Func Offset: 0x20
-	// Line 4183, Address: 0x1cca64, Func Offset: 0x24
-	// Line 4186, Address: 0x1cca8c, Func Offset: 0x4c
-	// Line 4187, Address: 0x1ccab0, Func Offset: 0x70
-	// Line 4188, Address: 0x1ccac8, Func Offset: 0x88
-	// Line 4189, Address: 0x1ccad8, Func Offset: 0x98
-	// Line 4190, Address: 0x1ccae8, Func Offset: 0xa8
-	// Line 4193, Address: 0x1ccaf4, Func Offset: 0xb4
-	// Line 4195, Address: 0x1ccafc, Func Offset: 0xbc
-	// Line 4197, Address: 0x1ccb08, Func Offset: 0xc8
-	// Line 4199, Address: 0x1ccb0c, Func Offset: 0xcc
-	// Line 4197, Address: 0x1ccb14, Func Offset: 0xd4
-	// Line 4199, Address: 0x1ccb18, Func Offset: 0xd8
-	// Line 4201, Address: 0x1ccb28, Func Offset: 0xe8
-	// Line 4202, Address: 0x1ccb3c, Func Offset: 0xfc
-	// Line 4205, Address: 0x1ccb44, Func Offset: 0x104
-	// Line 4210, Address: 0x1ccb50, Func Offset: 0x110
-	// Line 4212, Address: 0x1ccb5c, Func Offset: 0x11c
-	// Line 4215, Address: 0x1ccb7c, Func Offset: 0x13c
-	// Line 4216, Address: 0x1ccb84, Func Offset: 0x144
-	// Line 4217, Address: 0x1ccb88, Func Offset: 0x148
-	// Line 4218, Address: 0x1ccb8c, Func Offset: 0x14c
-	// Line 4219, Address: 0x1ccb90, Func Offset: 0x150
-	// Line 4220, Address: 0x1ccb94, Func Offset: 0x154
-	// Line 4219, Address: 0x1ccb98, Func Offset: 0x158
-	// Line 4220, Address: 0x1ccb9c, Func Offset: 0x15c
-	// Line 4223, Address: 0x1ccba0, Func Offset: 0x160
-	// Line 4219, Address: 0x1ccba4, Func Offset: 0x164
-	// Line 4220, Address: 0x1ccbac, Func Offset: 0x16c
-	// Line 4228, Address: 0x1ccbb0, Func Offset: 0x170
-	// Line 4231, Address: 0x1ccbb4, Func Offset: 0x174
-	// Line 4220, Address: 0x1ccbb8, Func Offset: 0x178
-	// Line 4223, Address: 0x1ccbc0, Func Offset: 0x180
-	// Line 4224, Address: 0x1ccbc4, Func Offset: 0x184
-	// Line 4225, Address: 0x1ccbc8, Func Offset: 0x188
-	// Line 4226, Address: 0x1ccbcc, Func Offset: 0x18c
-	// Line 4228, Address: 0x1ccbd0, Func Offset: 0x190
-	// Line 4229, Address: 0x1ccbe0, Func Offset: 0x1a0
-	// Line 4231, Address: 0x1ccbec, Func Offset: 0x1ac
-	// Line 4234, Address: 0x1ccc04, Func Offset: 0x1c4
-	// Line 4235, Address: 0x1ccc10, Func Offset: 0x1d0
-	// Line 4239, Address: 0x1ccc18, Func Offset: 0x1d8
-	// Line 4241, Address: 0x1ccc28, Func Offset: 0x1e8
-	// Line 4245, Address: 0x1ccc30, Func Offset: 0x1f0
-	// Line 4250, Address: 0x1ccc48, Func Offset: 0x208
-	// Line 4245, Address: 0x1ccc4c, Func Offset: 0x20c
-	// Line 4248, Address: 0x1ccc5c, Func Offset: 0x21c
-	// Line 4251, Address: 0x1ccc68, Func Offset: 0x228
-	// Line 4257, Address: 0x1ccc70, Func Offset: 0x230
-	// Line 4259, Address: 0x1ccca0, Func Offset: 0x260
-	// Line 4260, Address: 0x1ccca4, Func Offset: 0x264
-	// Line 4261, Address: 0x1ccca8, Func Offset: 0x268
-	// Line 4262, Address: 0x1cccac, Func Offset: 0x26c
-	// Line 4263, Address: 0x1cccb0, Func Offset: 0x270
-	// Line 4269, Address: 0x1cccc4, Func Offset: 0x284
-	// Func End, Address: 0x1ccce0, Func Offset: 0x2a0
+    BH_PWORK* pl;
+    O_WORK* owk;
+    int rot;
+    int frm;
+
+    pl = plp;
+    
+    switch (epw->mode3) 
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 0x32, 0, 5);
+            
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->ay = NitenDir_ck(epw->px, epw->pz, pl->px, pl->pz);
+            
+            epw->flg &= ~0x40;
+            
+            EXP0_I(0x18) |= 0x100;
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            frm = epw->frm_no >> 0x10;
+            
+            if (frm < 0x11) 
+            {
+                owk = pl->mlwP->owP;
+                
+                rot = ikou3(epw, (NJS_VECTOR* ) &owk->mtx[0xC], 0x71C);
+                
+                if (rot == 0) 
+                {
+                    epw->ay = NitenDir_ck(epw->px, epw->pz, owk->mtx[0xC], owk->mtx[0xE]);
+                }
+                else 
+                {
+                    epw->ay += rot;
+                }
+            }
+            
+            if (frm == 0x10) 
+            {
+                if (bhEne09_PlyNageCheck(epw, pl, 15.0f) == 1) 
+                {
+                    pl->mode0 = 6;
+                    pl->mode1 = 0;
+                    pl->mode2 = 0;
+                    pl->mode3 = 0;
+                    pl->flg &= ~0x10;
+                    pl->flg |= 0x10004;
+                    
+                    epw->mode0 = 2;
+                    epw->mode1 = 0;
+                    epw->mode2 = 0;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(0x18) |= 0x04400000;
+                    
+                    epw->flg2 |= 1;
+                    
+                    if (bhCdirCheck(plp->ay, epw->ay) == 0) 
+                    {
+                        EXP0_I(0x18) |= 0x400;
+                        
+                        return;
+                    }
+                    
+                    EXP0_I(0x18) &= ~0x400;
+                } 
+                else 
+                {
+                    bhEne_ChgMtn(epw, 0x33, 0, 0);
+
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                    
+                    epw->flg |= 0x40;
+                    epw->mode3 = 2;
+                }
+            }
+            
+            break;
+        
+        case 2:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                epw->mtn_add = 0;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+                
+                EXP0_I(0x18) &= ~0x100;
+            }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1ccce0
