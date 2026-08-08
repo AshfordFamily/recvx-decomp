@@ -2037,6 +2037,7 @@ int bhEne09_AramLineCheck(BH_PWORK* epw, NJS_VECTOR* p1, NJS_VECTOR* p2)
 
 #pragma divbyzerocheck on
 
+// 100% matching!
 void bhEne09_MV00(BH_PWORK* epw)
 {
     NJS_CNK_OBJECT* obj;
@@ -2088,6 +2089,7 @@ void bhEne09_MV00(BH_PWORK* epw)
 
 #pragma divbyzerocheck off
 
+// 100% matching!
 void bhEne09_MV01(BH_PWORK* epw)
 {
     int hit;
@@ -2138,15 +2140,13 @@ void bhEne09_MV01(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1ca0e0
-void bhEne09_MV02()
+// 100% matching!
+void bhEne09_MV02() 
 {
-	// Line 2515, Address: 0x1ca0e0, Func Offset: 0
-	// Func End, Address: 0x1ca0e8, Func Offset: 0x8
+
 }
+
+/*
 
 // 
 // Start address: 0x1ca0f0
