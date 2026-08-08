@@ -2998,6 +2998,53 @@ void bhEne09_MV08(BH_PWORK* epw)
     }
 }
 
+// 100% matching!
+void bhEne09_MV09(BH_PWORK* epw) 
+{
+    switch (epw->mode3)
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 1, 0, 0xA);
+            
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->flg |= 0x40000;
+            epw->ayp = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
+            epw->ayp = (epw->ayp - epw->ay) & 0xFFFF;
+            
+            if (epw->ayp > 0x8000)
+            {
+                epw->ayp = (epw->ayp - 0x8000) - 0x8000;
+            }
+            
+            epw->ct0 = 0xA;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (--epw->ct0 >= 0)
+            {
+                epw->ay += (epw->ayp / 10);
+            }
+            
+            if (!(plp->flg & 4)) 
+            {
+                if (bhEne09_AttackCheck(epw, 1)) 
+                {
+                    epw->mode1 = 0;
+                    epw->mode2 = 0xC;
+                    epw->mode3 = 0;
+                }
+                else 
+                {
+                    epw->mode1 = 1;
+                    epw->mode2 = 1;
+                    epw->mode3 = 0;
+                }
+            }
+    }
+}
+
 /*
 
 // 
