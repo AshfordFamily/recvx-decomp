@@ -3773,33 +3773,36 @@ void bhEne09_NGType00(BH_PWORK* epw)
     bhEne09_NageMode2[epw->mode2](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1cd2c0
-void bhEne09_NG00(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_NG00(BH_PWORK* epw) 
 {
-	// Line 4481, Address: 0x1cd2c0, Func Offset: 0
-	// Line 4484, Address: 0x1cd2e0, Func Offset: 0x20
-	// Line 4486, Address: 0x1cd310, Func Offset: 0x50
-	// Line 4487, Address: 0x1cd314, Func Offset: 0x54
-	// Line 4488, Address: 0x1cd318, Func Offset: 0x58
-	// Line 4489, Address: 0x1cd31c, Func Offset: 0x5c
-	// Line 4490, Address: 0x1cd320, Func Offset: 0x60
-	// Line 4491, Address: 0x1cd324, Func Offset: 0x64
-	// Line 4494, Address: 0x1cd328, Func Offset: 0x68
-	// Line 4495, Address: 0x1cd330, Func Offset: 0x70
-	// Line 4491, Address: 0x1cd338, Func Offset: 0x78
-	// Line 4499, Address: 0x1cd340, Func Offset: 0x80
-	// Line 4491, Address: 0x1cd344, Func Offset: 0x84
-	// Line 4494, Address: 0x1cd34c, Func Offset: 0x8c
-	// Line 4495, Address: 0x1cd35c, Func Offset: 0x9c
-	// Line 4498, Address: 0x1cd36c, Func Offset: 0xac
-	// Line 4499, Address: 0x1cd378, Func Offset: 0xb8
-	// Line 4500, Address: 0x1cd384, Func Offset: 0xc4
-	// Line 4508, Address: 0x1cd390, Func Offset: 0xd0
-	// Func End, Address: 0x1cd398, Func Offset: 0xd8
+    switch (epw->mode3)
+    {
+        case 0:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                epw->mtn_add = 0;
+                epw->mode0 = 1;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+                
+                EXP0_I(0x18) &= ~0x100;
+                EXP0_I(0x18) &= 0xFFDFFFFF;
+                EXP0_I(0x18) &= 0xFFBFFFFF;
+                
+                epw->flg |= 0x20;
+                epw->flg2 &= ~1;
+                epw->mode3 += 1;
+            }
+        
+            /* fallthrough */
+        case 1:
+            break;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1cd3a0
