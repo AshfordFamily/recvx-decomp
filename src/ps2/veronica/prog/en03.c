@@ -5126,43 +5126,92 @@ ATR_WORK* bhEne03_Collision(BH_PWORK* epw)
 	return ret;
 }
 
-
-// 
-// Start address: 0x19f750
-ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd)
-{
-	int wal_n;
-	int i;
-	ATR_WORK* ret;
+// 100% matching!
+ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd) {
 	ATR_WORK* hp;
-	// Line 5350, Address: 0x19f750, Func Offset: 0
-	// Line 5354, Address: 0x19f774, Func Offset: 0x24
-	// Line 5351, Address: 0x19f784, Func Offset: 0x34
-	// Line 5354, Address: 0x19f788, Func Offset: 0x38
-	// Line 5355, Address: 0x19f7a4, Func Offset: 0x54
-	// Line 5357, Address: 0x19f7b4, Func Offset: 0x64
-	// Line 5359, Address: 0x19f800, Func Offset: 0xb0
-	// Line 5360, Address: 0x19f810, Func Offset: 0xc0
-	// Line 5362, Address: 0x19f818, Func Offset: 0xc8
-	// Line 5364, Address: 0x19f844, Func Offset: 0xf4
-	// Line 5365, Address: 0x19f848, Func Offset: 0xf8
-	// Line 5366, Address: 0x19f868, Func Offset: 0x118
-	// Line 5369, Address: 0x19f880, Func Offset: 0x130
-	// Line 5372, Address: 0x19f888, Func Offset: 0x138
-	// Line 5373, Address: 0x19f8a8, Func Offset: 0x158
-	// Line 5376, Address: 0x19f8c0, Func Offset: 0x170
-	// Line 5379, Address: 0x19f8c8, Func Offset: 0x178
-	// Line 5380, Address: 0x19f8e8, Func Offset: 0x198
-	// Line 5383, Address: 0x19f900, Func Offset: 0x1b0
-	// Line 5385, Address: 0x19f908, Func Offset: 0x1b8
-	// Line 5388, Address: 0x19f920, Func Offset: 0x1d0
-	// Line 5390, Address: 0x19f928, Func Offset: 0x1d8
-	// Line 5391, Address: 0x19f940, Func Offset: 0x1f0
-	// Line 5395, Address: 0x19f944, Func Offset: 0x1f4
-	// Line 5403, Address: 0x19f958, Func Offset: 0x208
-	// Line 5404, Address: 0x19f95c, Func Offset: 0x20c
-	// Func End, Address: 0x19f984, Func Offset: 0x234
-    scePrintf("bhEne03_Collision2 - UNIMPLEMENTED!\n");
+	ATR_WORK* ret;
+    int i;
+	int wal_n;
+
+	ret = NULL;
+	wal_n = rom->wal_n + sys->mwal_n;
+
+	for (i = 0; i < wal_n; i++)
+	{
+		if (i < rom->wal_n)
+        {
+            hp = &rom->walp[i];
+        }
+        else
+        {
+            hp = &sys->mwalp[i - rom->wal_n];
+        }
+			
+		if ((hp->flg & 1) && (hp != gnd)) 
+        {
+    		switch (hp->type)
+    		{
+    		case 0:
+    		case 1:
+    			if ((hp->type & 1) && (epw->flg & 0x400)) 
+                {
+                    continue;
+                }
+    				
+    			if (bhEne03_CollisionWallBox(hp, (NJS_POINT3*)&epw->px, epw->ar))
+                {
+                    ret = hp;
+                }
+    				
+    			break;
+    
+    		case 2:
+    		case 3:
+    			if ((hp->type & 1) && (epw->flg & 0x400))
+                {
+                    continue;
+                }
+                
+    			if (bhEne03_CollisionWallCylinder(hp, (NJS_POINT3*)&epw->px, epw->ar))
+    			{
+                    ret = hp;
+                }
+                
+    			break;
+    
+    		case 4:
+    		case 5:
+    			if ((hp->type & 1) && (epw->flg & 0x400))
+                {
+                    continue;
+                }
+                
+    			if (bhEne03_CollisionWallTriangle(hp, (NJS_POINT3*)&epw->px, epw->ar))
+    			{
+                    ret = hp;
+                }
+                
+    			break;
+    
+    		case 6:
+    			if (bhEne03_CollisionWallSlope(hp, (NJS_POINT3*)&epw->px, epw->ar))
+    			{
+                    ret = hp;
+                }
+                
+    			break;
+    
+    		case 7:
+    			if (bhEne03_CollisionWallGround(hp, (NJS_POINT3*)&epw->px, epw->ar))
+    			{
+                    ret = hp;
+                }
+                
+    			break;
+    		}
+        }
+	}
+	return ret;
 }
 
 // 
