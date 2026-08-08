@@ -488,6 +488,77 @@ ARM_POS arm4_pos[92] =
     { -1, 0.0f },
 };
 
+ARM_POS arm4_pos2[67] =
+{
+    { 0, 3.3304150104522705f },
+    { 1, 3.3281750679016113f },
+    { 2, 3.3257288932800293f },
+    { 3, 3.3228020668029785f },
+    { 4, 3.3172481060028076f },
+    { 5, 3.313291072845459f },
+    { 6, 3.322521924972534f },
+    { 7, 3.333894968032837f },
+    { 8, 3.3278119564056396f },
+    { 9, 3.3363139629364014f },
+    { 10, 3.3661410808563232f },
+    { 11, 3.538316011428833f },
+    { 12, 3.7945759296417236f },
+    { 13, 5.828187942504883f },
+    { 14, 7.164752006530762f },
+    { 15, 7.129210948944092f },
+    { 16, 5.681756019592285f },
+    { 17, 5.750618934631348f },
+    { 18, 5.815890789031982f },
+    { 19, 5.88588285446167f },
+    { 20, 5.838542938232422f },
+    { 21, 5.753118991851807f },
+    { 22, 5.472600936889648f },
+    { 23, 4.1639580726623535f },
+    { 24, 3.7393789291381836f },
+    { 25, 3.263000965118408f },
+    { 26, 3.010317087173462f },
+    { 27, 2.559079885482788f },
+    { 28, 2.7073869705200195f },
+    { 29, 3.374871015548706f },
+    { 30, 3.3669939041137695f },
+    { 31, 3.3669419288635254f },
+    { 32, 3.38474702835083f },
+    { 33, 3.3895459175109863f },
+    { 34, 3.384922981262207f },
+    { 35, 3.318751096725464f },
+    { 36, 3.3052749633789062f },
+    { 37, 3.341733932495117f },
+    { 38, 3.349622964859009f },
+    { 39, 3.3379650115966797f },
+    { 40, 3.3210129737854004f },
+    { 41, 3.2968170642852783f },
+    { 42, 3.2965660095214844f },
+    { 43, 3.297795057296753f },
+    { 44, 3.2877180576324463f },
+    { 45, 3.2752270698547363f },
+    { 46, 3.2768659591674805f },
+    { 47, 3.304769992828369f },
+    { 48, 3.304020881652832f },
+    { 49, 3.2983579635620117f },
+    { 50, 3.2994349002838135f },
+    { 51, 3.301455020904541f },
+    { 52, 3.306067943572998f },
+    { 53, 3.3106300830841064f },
+    { 54, 3.3175549507141113f },
+    { 55, 3.3199400901794434f },
+    { 56, 3.325040102005005f },
+    { 57, 3.3283770084381104f },
+    { 58, 3.3271889686584473f },
+    { 59, 3.3289051055908203f },
+    { 60, 3.327683925628662f },
+    { 61, 3.3276939392089844f },
+    { 62, 3.326749086380005f },
+    { 63, 3.325943946838379f },
+    { 64, 3.326085090637207f },
+    { 65, 3.326111078262329f },
+    { -1, 0.0f },
+};
+
 /*
 int En09_PlyMtn_OffsetTbl[4];
 _anon1 en09_mtn_tbl[28];
@@ -497,7 +568,6 @@ _anon40 en09_BldTbl;
 _anon40 en09_BldTbl2;
 _anon20 en09_lkmtab;
 float en09_mtn23[35];
-_anon39 arm4_pos2[67];
 _anon39 arm4_pos3[143];
 _anon39 arm4_pos4[128];
 _anon39 arm4_pos5[654];
@@ -3229,73 +3299,94 @@ void bhEne09_MV10(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1cc3f0
-void bhEne09_MV11(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_MV11(BH_PWORK* epw) 
 {
-	int frm;
-	npobj* obj;
-	// Line 3932, Address: 0x1cc3f0, Func Offset: 0
-	// Line 3939, Address: 0x1cc3fc, Func Offset: 0xc
-	// Line 3945, Address: 0x1cc428, Func Offset: 0x38
-	// Line 3949, Address: 0x1cc454, Func Offset: 0x64
-	// Line 3956, Address: 0x1cc458, Func Offset: 0x68
-	// Line 3945, Address: 0x1cc45c, Func Offset: 0x6c
-	// Line 3947, Address: 0x1cc484, Func Offset: 0x94
-	// Line 3949, Address: 0x1cc490, Func Offset: 0xa0
-	// Line 3950, Address: 0x1cc494, Func Offset: 0xa4
-	// Line 3953, Address: 0x1cc498, Func Offset: 0xa8
-	// Line 3954, Address: 0x1cc4a8, Func Offset: 0xb8
-	// Line 3956, Address: 0x1cc4b8, Func Offset: 0xc8
-	// Line 3957, Address: 0x1cc4c8, Func Offset: 0xd8
-	// Line 3958, Address: 0x1cc4d4, Func Offset: 0xe4
-	// Line 3959, Address: 0x1cc4e0, Func Offset: 0xf0
-	// Line 3962, Address: 0x1cc4ec, Func Offset: 0xfc
-	// Line 3965, Address: 0x1cc500, Func Offset: 0x110
-	// Line 3976, Address: 0x1cc518, Func Offset: 0x128
-	// Line 3968, Address: 0x1cc520, Func Offset: 0x130
-	// Line 3972, Address: 0x1cc524, Func Offset: 0x134
-	// Line 3965, Address: 0x1cc528, Func Offset: 0x138
-	// Line 3974, Address: 0x1cc52c, Func Offset: 0x13c
-	// Line 3975, Address: 0x1cc530, Func Offset: 0x140
-	// Line 3977, Address: 0x1cc534, Func Offset: 0x144
-	// Line 3965, Address: 0x1cc538, Func Offset: 0x148
-	// Line 3966, Address: 0x1cc544, Func Offset: 0x154
-	// Line 3968, Address: 0x1cc550, Func Offset: 0x160
-	// Line 3970, Address: 0x1cc55c, Func Offset: 0x16c
-	// Line 3972, Address: 0x1cc568, Func Offset: 0x178
-	// Line 3974, Address: 0x1cc580, Func Offset: 0x190
-	// Line 3975, Address: 0x1cc590, Func Offset: 0x1a0
-	// Line 3976, Address: 0x1cc5a0, Func Offset: 0x1b0
-	// Line 3978, Address: 0x1cc5b0, Func Offset: 0x1c0
-	// Line 3981, Address: 0x1cc5b8, Func Offset: 0x1c8
-	// Line 3982, Address: 0x1cc5c0, Func Offset: 0x1d0
-	// Line 3984, Address: 0x1cc5cc, Func Offset: 0x1dc
-	// Line 3989, Address: 0x1cc600, Func Offset: 0x210
-	// Line 3990, Address: 0x1cc604, Func Offset: 0x214
-	// Line 3989, Address: 0x1cc614, Func Offset: 0x224
-	// Line 3990, Address: 0x1cc618, Func Offset: 0x228
-	// Line 3996, Address: 0x1cc624, Func Offset: 0x234
-	// Line 3990, Address: 0x1cc628, Func Offset: 0x238
-	// Line 3991, Address: 0x1cc640, Func Offset: 0x250
-	// Line 3992, Address: 0x1cc65c, Func Offset: 0x26c
-	// Line 3993, Address: 0x1cc678, Func Offset: 0x288
-	// Line 3996, Address: 0x1cc690, Func Offset: 0x2a0
-	// Line 3999, Address: 0x1cc698, Func Offset: 0x2a8
-	// Line 4000, Address: 0x1cc6ac, Func Offset: 0x2bc
-	// Line 4001, Address: 0x1cc6b4, Func Offset: 0x2c4
-	// Line 4004, Address: 0x1cc6c0, Func Offset: 0x2d0
-	// Line 4007, Address: 0x1cc6c8, Func Offset: 0x2d8
-	// Line 4010, Address: 0x1cc6d0, Func Offset: 0x2e0
-	// Line 4012, Address: 0x1cc6e0, Func Offset: 0x2f0
-	// Line 4013, Address: 0x1cc6e8, Func Offset: 0x2f8
-	// Line 4014, Address: 0x1cc6ec, Func Offset: 0x2fc
-	// Line 4015, Address: 0x1cc6f0, Func Offset: 0x300
-	// Line 4019, Address: 0x1cc700, Func Offset: 0x310
-	// Func End, Address: 0x1cc710, Func Offset: 0x320
+    NJS_CNK_OBJECT *obj;
+    int frm;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            bhEne_ChgMtn(epw, 0x2C, 0, 5);
+            
+            EXP0_I(0x18) &= 0xBFFFFFFF;
+            EXP0_I(0x18) &= 0xDFFFFFFF;
+            EXP0_I(0x18) |= 0x80000000;
+
+            epw->flg2 |= 1;
+            epw->way = 0x16C;
+            epw->ct0 = 0;
+
+            EXP0_I(0x18) |= 0x30;
+            EXP0_I(0x18) |= 0x80;
+            EXP0_I(0x18) |= 0x80000;
+            
+            epw->px = EXP0_F(0x2C);
+            epw->pz = EXP0_F(0x34);
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (epw->flg & 0x02000000)
+            {
+                bhEne_ChgMtn(epw, 1, 0, 0xA);
+                
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+                
+                epw->mtn_md |= 0x100;
+
+                epw->flg2 &= ~1;
+                epw->mode3++;
+                
+                epw->py = rom->grand[epw->flr_no + 2];
+                
+                EXP0_I(0x18) &= ~0x30;
+                EXP0_I(0x18) &= ~0x80;
+                EXP0_I(0x18) &= 0xFFF7FFFF;
+                
+                epw->ct0 = 0xA;
+                return;
+            }
+            
+            frm = epw->frm_no >> 0x10;
+            
+            if (frm < 5)
+            {
+                epw->ay += epw->ayp / 5;
+            }
+            
+            obj = epw->mlwP->objP;
+            
+            obj[7].pos[0] += (arm4_pos2[frm].len - obj[10].pos[0]) / 4.0f;
+            obj[8].pos[0] += (arm4_pos2[frm].len - obj[10].pos[0]) / 4.0f;
+            obj[9].pos[0] += (arm4_pos2[frm].len - obj[10].pos[0]) / 4.0f;
+            obj[10].pos[0] += (arm4_pos2[frm].len - obj[10].pos[0]) / 4.0f;
+
+            if (frm == 30)
+            {
+                EXP0_I(0x18) &= 0xFFFF7FFF;
+            }
+            else if (frm == 45)
+            {
+                epw->flr_no = bhCheckFloorNum(epw->py);
+            }
+            
+            break;
+        
+        case 2:
+            if (--epw->ct0 < 0) 
+            {
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+                epw->mtn_md &= ~0x100;
+            }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1cc710
