@@ -3386,80 +3386,126 @@ void bhEne09_MV11(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1cc710
+// 100% matching!
 void bhEne09_MV12(BH_PWORK* epw)
 {
-	int frm;
-	int rot;
-	_anon24* owk;
 	BH_PWORK* pl;
-	// Line 4040, Address: 0x1cc710, Func Offset: 0
-	// Line 4041, Address: 0x1cc72c, Func Offset: 0x1c
-	// Line 4046, Address: 0x1cc730, Func Offset: 0x20
-	// Line 4049, Address: 0x1cc75c, Func Offset: 0x4c
-	// Line 4051, Address: 0x1cc760, Func Offset: 0x50
-	// Line 4053, Address: 0x1cc76c, Func Offset: 0x5c
-	// Line 4058, Address: 0x1cc784, Func Offset: 0x74
-	// Line 4062, Address: 0x1cc798, Func Offset: 0x88
-	// Line 4063, Address: 0x1cc7b0, Func Offset: 0xa0
-	// Line 4062, Address: 0x1cc7b4, Func Offset: 0xa4
-	// Line 4063, Address: 0x1cc7c4, Func Offset: 0xb4
-	// Line 4065, Address: 0x1cc7d0, Func Offset: 0xc0
-	// Line 4066, Address: 0x1cc7e8, Func Offset: 0xd8
-	// Line 4067, Address: 0x1cc7f8, Func Offset: 0xe8
-	// Line 4070, Address: 0x1cc804, Func Offset: 0xf4
-	// Line 4072, Address: 0x1cc80c, Func Offset: 0xfc
-	// Line 4074, Address: 0x1cc818, Func Offset: 0x108
-	// Line 4077, Address: 0x1cc830, Func Offset: 0x120
-	// Line 4079, Address: 0x1cc83c, Func Offset: 0x12c
-	// Line 4081, Address: 0x1cc840, Func Offset: 0x130
-	// Line 4079, Address: 0x1cc848, Func Offset: 0x138
-	// Line 4081, Address: 0x1cc84c, Func Offset: 0x13c
-	// Line 4083, Address: 0x1cc85c, Func Offset: 0x14c
-	// Line 4084, Address: 0x1cc870, Func Offset: 0x160
-	// Line 4087, Address: 0x1cc878, Func Offset: 0x168
-	// Line 4092, Address: 0x1cc884, Func Offset: 0x174
-	// Line 4094, Address: 0x1cc890, Func Offset: 0x180
-	// Line 4097, Address: 0x1cc8b0, Func Offset: 0x1a0
-	// Line 4098, Address: 0x1cc8b8, Func Offset: 0x1a8
-	// Line 4099, Address: 0x1cc8bc, Func Offset: 0x1ac
-	// Line 4100, Address: 0x1cc8c0, Func Offset: 0x1b0
-	// Line 4102, Address: 0x1cc8c4, Func Offset: 0x1b4
-	// Line 4103, Address: 0x1cc8d8, Func Offset: 0x1c8
-	// Line 4105, Address: 0x1cc8e4, Func Offset: 0x1d4
-	// Line 4108, Address: 0x1cc8f0, Func Offset: 0x1e0
-	// Line 4112, Address: 0x1cc900, Func Offset: 0x1f0
-	// Line 4114, Address: 0x1cc908, Func Offset: 0x1f8
-	// Line 4113, Address: 0x1cc90c, Func Offset: 0x1fc
-	// Line 4114, Address: 0x1cc910, Func Offset: 0x200
-	// Line 4115, Address: 0x1cc914, Func Offset: 0x204
-	// Line 4117, Address: 0x1cc918, Func Offset: 0x208
-	// Line 4120, Address: 0x1cc920, Func Offset: 0x210
-	// Line 4117, Address: 0x1cc924, Func Offset: 0x214
-	// Line 4118, Address: 0x1cc930, Func Offset: 0x220
-	// Line 4120, Address: 0x1cc93c, Func Offset: 0x22c
-	// Line 4123, Address: 0x1cc954, Func Offset: 0x244
-	// Line 4124, Address: 0x1cc960, Func Offset: 0x250
-	// Line 4128, Address: 0x1cc968, Func Offset: 0x258
-	// Line 4130, Address: 0x1cc978, Func Offset: 0x268
-	// Line 4134, Address: 0x1cc980, Func Offset: 0x270
-	// Line 4135, Address: 0x1cc998, Func Offset: 0x288
-	// Line 4134, Address: 0x1cc99c, Func Offset: 0x28c
-	// Line 4135, Address: 0x1cc9ac, Func Offset: 0x29c
-	// Line 4136, Address: 0x1cc9b8, Func Offset: 0x2a8
-	// Line 4137, Address: 0x1cc9c0, Func Offset: 0x2b0
-	// Line 4143, Address: 0x1cc9c8, Func Offset: 0x2b8
-	// Line 4145, Address: 0x1cc9f8, Func Offset: 0x2e8
-	// Line 4146, Address: 0x1cc9fc, Func Offset: 0x2ec
-	// Line 4147, Address: 0x1cca00, Func Offset: 0x2f0
-	// Line 4148, Address: 0x1cca04, Func Offset: 0x2f4
-	// Line 4149, Address: 0x1cca08, Func Offset: 0x2f8
-	// Line 4155, Address: 0x1cca1c, Func Offset: 0x30c
-	// Func End, Address: 0x1cca38, Func Offset: 0x328
+    O_WORK* owk;
+    int rot;
+    int frm;
+
+    pl = plp;
+    
+    switch (epw->mode3) 
+    {
+        case 0:
+            frm = epw->frm_no >> 0x10;
+            
+            if (epw->mtn_no == 0)
+            {
+                if ((frm < 0x14) || (frm > 0x31))
+                {
+                    EXP0_I(0x18) |= 0x10000000;
+                }
+            }
+            
+            bhEne_ChgMtn(epw, 0x39, 0, 5);
+            
+            EXP0_I(0x18) &= 0x1FFFFFFF;
+            
+            epw->flg |= 0x40000;
+            
+            epw->ay = NitenDir_ck(epw->px, epw->pz, pl->px, pl->pz);
+            
+            EXP0_I(0x18) |= 0x100;
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            frm = epw->frm_no >> 0x10;
+            
+            if (frm > 9)
+            {
+                EXP0_I(0x18) &= 0xEFFFFFFF;
+            }
+            
+            if ((frm < 0x10) != 0) 
+            {
+                owk = pl->mlwP->owP;
+                
+                rot = ikou3(epw, (NJS_VECTOR *)&owk->mtx[0xC], 0x71C);
+                
+                if (rot == 0) 
+                {
+                    epw->ay = NitenDir_ck(epw->px, epw->pz, owk->mtx[0xC], owk->mtx[0xE]);
+                }
+                else 
+                {
+                    epw->ay += rot;
+                }
+            }
+            
+            if (frm == 0xF) 
+            {
+                if (bhEne09_PlyNageCheck(epw, plp, 0.0f) == 1) 
+                {
+                    pl->mode0 = 4;
+                    pl->mode1 = 0;
+                    pl->mode2 = 1;
+                    pl->mode3 = 0;
+                    pl->flg |= 0x10004;
+                    pl->hp -= 0x1E;
+                    
+                    if (pl->hp < 0) 
+                    {
+                        pl->stflg |= 0x40000;
+                    }
+                    
+                    epw->mode0 = 2;
+                    epw->mode1 = 0;
+                    epw->mode2 = 1;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(0x18) |= 0x04400000;
+                    
+                    epw->flg2 |= 1;
+                    
+                    if (bhCdirCheck(plp->ay, epw->ay) == 0) 
+                    {
+                        EXP0_I(0x18) |= 0x400;
+                        return;
+                    }
+                    
+                    EXP0_I(0x18) &= ~0x400;
+                }
+                else 
+                {
+                    bhEne_ChgMtn(epw, 0x45, 0, 0);
+                    
+                    EXP0_I(0x18) &= 0x1FFFFFFF;
+                    
+                    epw->flg |= 0x40000;
+                    epw->mode3++;
+                }
+            }
+                
+            break;
+                
+        case 2:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+            {
+                epw->mtn_add = 0;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+                
+                EXP0_I(0x18) &= ~0x100;
+            }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1cca40
