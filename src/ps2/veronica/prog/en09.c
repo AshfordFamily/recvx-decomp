@@ -2581,13 +2581,13 @@ void bhEne09_MV05(BH_PWORK* epw)
 {
 	NJS_CNK_OBJECT* obj;
     O_WORK* owk;
-    NJS_POINT3 pos;    // r29+0x70
-    NJS_POINT3 pos2;    // r29+0x80
-    NJS_POINT3 pos3;    // r29+0x90
-    NJS_POINT3 v1;    // r29+0xA0
+    NJS_POINT3 pos;
+    NJS_POINT3 pos2;
+    NJS_POINT3 pos3;
+    NJS_POINT3 v1;
 	int frm;
     int frm_max;
-    float nn;    // r29+0xB0
+    float nn;
 
     switch (epw->mode3) 
     {
