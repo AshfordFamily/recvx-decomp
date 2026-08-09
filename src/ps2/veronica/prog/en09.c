@@ -4296,15 +4296,13 @@ int bhEne09_PlyNageCheck(BH_PWORK* epw, BH_PWORK* pl, float h)
     return 0;
 }
 
-/*
-
-// 
-// Start address: 0x1ce3a0
+// 100% matching!
 void bhEne09_DGType00(BH_PWORK* epw)
 {
-	// Line 5359, Address: 0x1ce3a0, Func Offset: 0
-	// Func End, Address: 0x1ce3c0, Func Offset: 0x20
+    bhEne09_DamageMode2[epw->mode2](epw);
 }
+
+/*
 
 // 
 // Start address: 0x1ce3c0
