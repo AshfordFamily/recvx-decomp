@@ -3859,59 +3859,49 @@ void bhEne06_HitMark(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1bf0b0
+// 100% matching!
 int bhEne06_DeadCheck(BH_PWORK* epw)
 {
-	int joint[2];
-	int i;
-	//_anon4* owk;
-	float mov;
-	int w;
-	int ang;
-	//_anon35 vec;
-	//_anon35 pos;
-	// Line 2776, Address: 0x1bf0b0, Func Offset: 0
-	// Line 2782, Address: 0x1bf0d4, Func Offset: 0x24
-	// Line 2776, Address: 0x1bf0d8, Func Offset: 0x28
-	// Line 2782, Address: 0x1bf0dc, Func Offset: 0x2c
-	// Line 2776, Address: 0x1bf0e0, Func Offset: 0x30
-	// Line 2782, Address: 0x1bf0e4, Func Offset: 0x34
-	// Line 2784, Address: 0x1bf0f0, Func Offset: 0x40
-	// Line 2782, Address: 0x1bf0fc, Func Offset: 0x4c
-	// Line 2786, Address: 0x1bf100, Func Offset: 0x50
-	// Line 2788, Address: 0x1bf10c, Func Offset: 0x5c
-	// Line 2789, Address: 0x1bf110, Func Offset: 0x60
-	// Line 2786, Address: 0x1bf114, Func Offset: 0x64
-	// Line 2795, Address: 0x1bf118, Func Offset: 0x68
-	// Line 2786, Address: 0x1bf11c, Func Offset: 0x6c
-	// Line 2787, Address: 0x1bf130, Func Offset: 0x80
-	// Line 2788, Address: 0x1bf138, Func Offset: 0x88
-	// Line 2789, Address: 0x1bf140, Func Offset: 0x90
-	// Line 2792, Address: 0x1bf148, Func Offset: 0x98
-	// Line 2793, Address: 0x1bf160, Func Offset: 0xb0
-	// Line 2794, Address: 0x1bf178, Func Offset: 0xc8
-	// Line 2795, Address: 0x1bf18c, Func Offset: 0xdc
-	// Line 2798, Address: 0x1bf194, Func Offset: 0xe4
-	// Line 2801, Address: 0x1bf1a4, Func Offset: 0xf4
-	// Line 2802, Address: 0x1bf1bc, Func Offset: 0x10c
-	// Line 2805, Address: 0x1bf1c8, Func Offset: 0x118
-	// Line 2812, Address: 0x1bf1cc, Func Offset: 0x11c
-	// Line 2805, Address: 0x1bf1d0, Func Offset: 0x120
-	// Line 2812, Address: 0x1bf1d4, Func Offset: 0x124
-	// Line 2805, Address: 0x1bf1e0, Func Offset: 0x130
-	// Line 2812, Address: 0x1bf1e4, Func Offset: 0x134
-	// Line 2806, Address: 0x1bf1e8, Func Offset: 0x138
-	// Line 2807, Address: 0x1bf1f8, Func Offset: 0x148
-	// Line 2810, Address: 0x1bf208, Func Offset: 0x158
-	// Line 2812, Address: 0x1bf210, Func Offset: 0x160
-	// Line 2817, Address: 0x1bf228, Func Offset: 0x178
-	// Line 2818, Address: 0x1bf250, Func Offset: 0x1a0
-	// Line 2826, Address: 0x1bf258, Func Offset: 0x1a8
-	// Line 2818, Address: 0x1bf260, Func Offset: 0x1b0
-	// Line 2826, Address: 0x1bf268, Func Offset: 0x1b8
-	// Line 2828, Address: 0x1bf270, Func Offset: 0x1c0
-	// Line 2829, Address: 0x1bf274, Func Offset: 0x1c4
-	// Func End, Address: 0x1bf2a4, Func Offset: 0x1f4
-    scePrintf("bhEne06_DeadCheck - UNIMPLEMENTED!\n");
+    NJS_POINT3 pos;
+    NJS_VECTOR vec;
+    int ang;
+    int w;
+    float mov;
+    O_WORK* owk;
+    int i;     
+    int joint[2] = { 11, 15 };
+
+    for (i = 0; i < 2; i++)
+    {
+        owk = &plp->mlwP->owP[joint[i]];
+        pos.x = owk->mtx[12];
+        pos.y = owk->mtx[13];
+        pos.z = owk->mtx[14];
+        
+        vec.x = (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x88)) - pos.x;
+        vec.y = (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x8C)) - pos.y;
+        vec.z = (*(float *)((char *)epw->exp0 + ((i) * 12) + 0x90)) - pos.z;
+        
+        mov = njScalor(&vec);
+
+        w = bhArcTan2(owk->mtx[8], owk->mtx[10]);
+
+        ang = (short)(w - *(int *)((char *)epw->exp0 + ((i) * 4) + 0xA0));
+        if (ang < 0)
+        {
+            ang = -ang;
+        }
+
+        *(float *)((char *)epw->exp0 + ((i) * 12) + 0x88) = pos.x;
+        *(float *)((char *)epw->exp0 + ((i) * 12) + 0x8C) = pos.y;
+        *(float *)((char *)epw->exp0 + ((i) * 12) + 0x90) = pos.z;
+       
+        *(int *)((char *)epw->exp0 + ((i) * 4) + 0xA0) = w;
+    
+        if ((mov > 0.1f || 182 < ang) && (njDistanceP2P((NJS_POINT3*)&epw->px, &pos) < 2.0f))
+        {
+            return 1;            
+        }
+    }
+    return 0;
 }
