@@ -1120,11 +1120,14 @@ int bhEne09_DmgCheck(BH_PWORK* epw)
     return flg;
 }
 
-// 97.5% matching!
+// 100% matching!
 void bhEne09_ChgDmgMode(BH_PWORK* epw)
 {
-	WPNDAMAGE_WORK *wp_tbl = &En09_WpnDamageTbl[epw->wpnr_no];
-    int act = wp_tbl->nm_act;
+	WPNDAMAGE_WORK* wp_tbl = En09_WpnDamageTbl;
+    int act;
+
+    wp_tbl += epw->wpnr_no;
+    act = wp_tbl->nm_act;
     
     if ((wp_tbl->flg & 2) && (epw->comb_flg & 1)) 
     {
