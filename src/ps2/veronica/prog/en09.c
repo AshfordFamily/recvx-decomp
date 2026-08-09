@@ -2566,18 +2566,18 @@ void bhEne09_MV04(BH_PWORK* epw)
 
 #pragma divbyzerocheck on
 
-// 99.58% matching!
+// 99.98% matching!
 void bhEne09_MV05(BH_PWORK* epw) 
 {
 	NJS_CNK_OBJECT* obj;
     O_WORK* owk;
-    NJS_POINT3 pos;
-    NJS_POINT3 pos2;
-    NJS_POINT3 pos3;
-    NJS_POINT3 v1;
+    NJS_POINT3 pos;    // r29+0x70
+    NJS_POINT3 pos2;    // r29+0x80
+    NJS_POINT3 pos3;    // r29+0x90
+    NJS_POINT3 v1;    // r29+0xA0
 	int frm;
     int frm_max;
-    float nn;
+    float nn;    // r29+0xB0
 
     switch (epw->mode3) 
     {
@@ -2594,12 +2594,12 @@ void bhEne09_MV05(BH_PWORK* epw)
             EXP0_I(0x18) |= 0x8000;
             EXP0_I(0x18) |= 0x30;
             
-            obj = epw->mlwP->objP;
+            obj = epw->mlwP->objP + 7;
             
-            obj[7].pos[0]  = EXP0_F(0x0);
-            obj[8].pos[0]  = EXP0_F(0x4);
-            obj[9].pos[0]  = EXP0_F(0x8);
-            obj[10].pos[0] = EXP0_F(0xC);
+            obj[0].pos[0]  = EXP0_F(0x0);
+            obj[1].pos[0]  = EXP0_F(0x4);
+            obj[2].pos[0]  = EXP0_F(0x8);
+            obj[3].pos[0] = EXP0_F(0xC);
             
             bhEne09_ChkArmLen(epw, (float *)&EXP0_F(0x6C), &v1);
             
@@ -2641,12 +2641,12 @@ void bhEne09_MV05(BH_PWORK* epw)
             
             EXP0_F(0x70) += EXP0_F(0x74);
             
-            obj = epw->mlwP->objP;
+            obj = epw->mlwP->objP + 7;
             
-            obj[7].pos[0] += EXP0_F(0x74) / 4.0f;
-            obj[8].pos[0] += EXP0_F(0x74) / 4.0f;
-            obj[9].pos[0] += EXP0_F(0x74) / 4.0f;
-            obj[10].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[0].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[1].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[2].pos[0] += EXP0_F(0x74) / 4.0f;
+            obj[3].pos[0] += EXP0_F(0x74) / 4.0f;
             
             epw->ct1++;
             
@@ -2670,19 +2670,19 @@ void bhEne09_MV05(BH_PWORK* epw)
                 
                 nn = njScalor(&pos2);
                 
-                obj = epw->mlwP->objP;
+                obj = epw->mlwP->objP + 7;
                 
-                obj[7].pos[0] -= EXP0_F(0x74) / 4.0f;
-                obj[8].pos[0] -= EXP0_F(0x74) / 4.0f;
-                obj[9].pos[0] -= EXP0_F(0x74) / 4.0f;
-                obj[10].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[0].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[1].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[2].pos[0] -= EXP0_F(0x74) / 4.0f;
+                obj[3].pos[0] -= EXP0_F(0x74) / 4.0f;
                 
                 EXP0_F(0x74) -= nn;
                 
-                obj[7].pos[0] += EXP0_F(0x74) / 4.0f;
-                obj[8].pos[0] += EXP0_F(0x74) / 4.0f;
-                obj[9].pos[0] += EXP0_F(0x74) / 4.0f;
-                obj[10].pos[0] += EXP0_F(0x74) / 4.0f;
+                obj[0].pos[0] += EXP0_F(0x74) / 4.0f;
+                obj[1].pos[0] += EXP0_F(0x74) / 4.0f;
+                obj[2].pos[0] += EXP0_F(0x74) / 4.0f;
+                obj[3].pos[0] += EXP0_F(0x74) / 4.0f;
                 
                 epw->mtn_no = 0x13;
                 epw->frm_no = 0;
@@ -2703,12 +2703,12 @@ void bhEne09_MV05(BH_PWORK* epw)
                 
                 epw->flg &= ~0x100;
                 
-                obj = epw->mlwP->objP;
+                obj = epw->mlwP->objP + 7;
                 
-                EXP0_F(0x6C) = obj[7].pos[0] - EXP0_F(0x0);
-                EXP0_F(0x70) = obj[8].pos[0] - EXP0_F(0x4);
-                EXP0_F(0x74) = obj[9].pos[0] - EXP0_F(0x8);
-                EXP0_F(0x78) = obj[10].pos[0] - EXP0_F(0xC);
+                EXP0_F(0x6C) = obj[0].pos[0] - EXP0_F(0x0);
+                EXP0_F(0x70) = obj[1].pos[0] - EXP0_F(0x4);
+                EXP0_F(0x74) = obj[2].pos[0] - EXP0_F(0x8);
+                EXP0_F(0x78) = obj[3].pos[0] - EXP0_F(0xC);
                 
                 epw->ct1 = 6;
                 epw->ct0 = 0;
@@ -2731,12 +2731,12 @@ void bhEne09_MV05(BH_PWORK* epw)
             
             if (epw->ct0 < epw->ct1)
             {
-                obj = epw->mlwP->objP;
+                obj = epw->mlwP->objP + 7;
                 
-                obj[7].pos[0] -= EXP0_F(0x6C) / epw->ct1;
-                obj[8].pos[0] -= EXP0_F(0x70) / epw->ct1;
-                obj[9].pos[0] -= EXP0_F(0x74) / epw->ct1;
-                obj[10].pos[0] -= EXP0_F(0x78) / epw->ct1;
+                obj[0].pos[0] -= EXP0_F(0x6C) / epw->ct1;
+                obj[1].pos[0] -= EXP0_F(0x70) / epw->ct1;
+                obj[2].pos[0] -= EXP0_F(0x74) / epw->ct1;
+                obj[3].pos[0] -= EXP0_F(0x78) / epw->ct1;
             }
                     
             epw->ct0++;
@@ -2784,7 +2784,7 @@ void bhEne09_MV05(BH_PWORK* epw)
                 epw->py = owk->mtx[0xD];
                 epw->pz = owk->mtx[0xE];
                 
-                EXP0_F(0x5C) = (((EXP0_F(0x60) - 0.143332f) - epw->py) / 12.0f);
+                EXP0_F(0x5C) = ((EXP0_F(0x60) - 0.143332f) - epw->py) / 12.0f;
                 
                 epw->spd = 0.3f;
                 epw->py += EXP0_F(0x5C);
