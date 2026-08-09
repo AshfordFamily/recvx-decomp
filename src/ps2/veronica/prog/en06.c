@@ -1957,31 +1957,40 @@ void bhEne06_Brain(BH_PWORK* epw)
     bhEne06_BrainType[epw->type](epw); 
 }
 
-// Start address: 0x1b9de0
+// 100% matching!
 void bhEne06_BR00(BH_PWORK* epw)
 {
-	// Line 608, Address: 0x1b9de0, Func Offset: 0
-	// Line 610, Address: 0x1b9dec, Func Offset: 0xc
-	// Line 613, Address: 0x1b9df4, Func Offset: 0x14
-	// Line 617, Address: 0x1b9e08, Func Offset: 0x28
-	// Line 618, Address: 0x1b9e38, Func Offset: 0x58
-	// Line 619, Address: 0x1b9e40, Func Offset: 0x60
-	// Line 620, Address: 0x1b9e44, Func Offset: 0x64
-	// Line 624, Address: 0x1b9e48, Func Offset: 0x68
-	// Line 625, Address: 0x1b9e74, Func Offset: 0x94
-	// Line 628, Address: 0x1b9e7c, Func Offset: 0x9c
-	// Line 632, Address: 0x1b9ea0, Func Offset: 0xc0
-	// Line 636, Address: 0x1b9f44, Func Offset: 0x164
-	// Line 637, Address: 0x1b9f48, Func Offset: 0x168
-	// Line 638, Address: 0x1b9f4c, Func Offset: 0x16c
-	// Line 639, Address: 0x1b9f50, Func Offset: 0x170
-	// Line 642, Address: 0x1b9f54, Func Offset: 0x174
-	// Line 643, Address: 0x1b9f68, Func Offset: 0x188
-	// Line 642, Address: 0x1b9f6c, Func Offset: 0x18c
-	// Line 643, Address: 0x1b9f74, Func Offset: 0x194
-	// Line 647, Address: 0x1b9f84, Func Offset: 0x1a4
-	// Func End, Address: 0x1b9f94, Func Offset: 0x1b4
-    scePrintf("bhEne06_BR00 - UNIMPLEMENTED!\n");
+    bhEne06_SearchPlayer(epw);
+    if (epw->flg & 0x400000)
+    {
+        if ((EXP0_F(0) < 20.0f) && (epw->mode2 != 3))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 3;
+            epw->mode3 = 0;
+        }
+
+        if (!(!(plp->flg & 4) && !(plp->stflg & 0x80000000)))
+        {
+            return;
+        }
+
+        if ((!(plp->stflg & 0x8000000) || !(plp->stflg & 0x10000000) || !(plp->stflg & 0x20000000))
+            && (EXP0_F(0) < 15.0f)
+            && (fabsf((epw->py - plp->py) - 15.0f) < 8.0f)
+            && (abs((short)(epw->ay - plp->ay)) < NJM_DEG_ANG(90))
+            && (abs(bhEne_DirTarget(epw, plp->px, plp->pz, NJM_DEG_ANG(90))) < NJM_DEG_ANG(90)))
+        {
+            epw->mode0 = 2;
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+            plp->flg |= 0x10004;
+            plp->stflg |= 0x10000;
+            return;
+        }
+    }
+
 }
 
 // 100% matching!
