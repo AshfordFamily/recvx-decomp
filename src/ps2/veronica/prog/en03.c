@@ -2,6 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
 
 // ENEMY: Black Widow
 
@@ -5518,126 +5519,175 @@ int bhEne03_CollisionWallSlope(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 	// Line 5720, Address: 0x1a0628, Func Offset: 0x5d8
 	// Line 5721, Address: 0x1a062c, Func Offset: 0x5dc
 	// Func End, Address: 0x1a0660, Func Offset: 0x610
-    scePrintf("bhEne03_CollisionWallCylinder - UNIMPLEMENTED!\n");
+    scePrintf("bhEne03_CollisionWallSlope - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1a0660
-int bhEne03_CollisionWallTriangle(ATR_WORK* hp, NJS_POINT3* pos, float ar)
+// 100% matching!
+int bhEne03_CollisionWallTriangle(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
 {
-	ATR_WORK bhp;
-	NJS_PLANE ln;
-	NJS_POINT3 vd;
-	NJS_POINT3 pd;
-	NJS_POINT3 area[4];
-	float h;
-	// Line 5733, Address: 0x1a0660, Func Offset: 0
-	// Line 5742, Address: 0x1a0664, Func Offset: 0x4
-	// Line 5733, Address: 0x1a0668, Func Offset: 0x8
-	// Line 5742, Address: 0x1a0680, Func Offset: 0x20
-	// Line 5746, Address: 0x1a06ac, Func Offset: 0x4c
-	// Line 5747, Address: 0x1a06dc, Func Offset: 0x7c
-	// Line 5749, Address: 0x1a06fc, Func Offset: 0x9c
-	// Line 5750, Address: 0x1a0718, Func Offset: 0xb8
-	// Line 5751, Address: 0x1a071c, Func Offset: 0xbc
-	// Line 5750, Address: 0x1a0720, Func Offset: 0xc0
-	// Line 5752, Address: 0x1a0724, Func Offset: 0xc4
-	// Line 5753, Address: 0x1a072c, Func Offset: 0xcc
-	// Line 5754, Address: 0x1a0738, Func Offset: 0xd8
-	// Line 5756, Address: 0x1a073c, Func Offset: 0xdc
-	// Line 5757, Address: 0x1a0758, Func Offset: 0xf8
-	// Line 5758, Address: 0x1a0760, Func Offset: 0x100
-	// Line 5759, Address: 0x1a0764, Func Offset: 0x104
-	// Line 5760, Address: 0x1a076c, Func Offset: 0x10c
-	// Line 5761, Address: 0x1a0778, Func Offset: 0x118
-	// Line 5763, Address: 0x1a077c, Func Offset: 0x11c
-	// Line 5764, Address: 0x1a07c4, Func Offset: 0x164
-	// Line 5767, Address: 0x1a07d0, Func Offset: 0x170
-	// Line 5768, Address: 0x1a07e8, Func Offset: 0x188
-	// Line 5769, Address: 0x1a07ec, Func Offset: 0x18c
-	// Line 5770, Address: 0x1a07f0, Func Offset: 0x190
-	// Line 5771, Address: 0x1a07f8, Func Offset: 0x198
-	// Line 5772, Address: 0x1a0800, Func Offset: 0x1a0
-	// Line 5775, Address: 0x1a080c, Func Offset: 0x1ac
-	// Line 5776, Address: 0x1a0818, Func Offset: 0x1b8
-	// Line 5777, Address: 0x1a081c, Func Offset: 0x1bc
-	// Line 5787, Address: 0x1a0820, Func Offset: 0x1c0
-	// Line 5781, Address: 0x1a0824, Func Offset: 0x1c4
-	// Line 5776, Address: 0x1a0828, Func Offset: 0x1c8
-	// Line 5783, Address: 0x1a082c, Func Offset: 0x1cc
-	// Line 5785, Address: 0x1a0830, Func Offset: 0x1d0
-	// Line 5776, Address: 0x1a0834, Func Offset: 0x1d4
-	// Line 5777, Address: 0x1a0838, Func Offset: 0x1d8
-	// Line 5787, Address: 0x1a083c, Func Offset: 0x1dc
-	// Line 5789, Address: 0x1a0844, Func Offset: 0x1e4
-	// Line 5777, Address: 0x1a0848, Func Offset: 0x1e8
-	// Line 5795, Address: 0x1a084c, Func Offset: 0x1ec
-	// Line 5777, Address: 0x1a0854, Func Offset: 0x1f4
-	// Line 5779, Address: 0x1a0858, Func Offset: 0x1f8
-	// Line 5795, Address: 0x1a0864, Func Offset: 0x204
-	// Line 5779, Address: 0x1a086c, Func Offset: 0x20c
-	// Line 5780, Address: 0x1a0878, Func Offset: 0x218
-	// Line 5781, Address: 0x1a087c, Func Offset: 0x21c
-	// Line 5787, Address: 0x1a0884, Func Offset: 0x224
-	// Line 5781, Address: 0x1a0888, Func Offset: 0x228
-	// Line 5789, Address: 0x1a088c, Func Offset: 0x22c
-	// Line 5781, Address: 0x1a0890, Func Offset: 0x230
-	// Line 5783, Address: 0x1a0894, Func Offset: 0x234
-	// Line 5784, Address: 0x1a08a0, Func Offset: 0x240
-	// Line 5785, Address: 0x1a08a4, Func Offset: 0x244
-	// Line 5787, Address: 0x1a08b8, Func Offset: 0x258
-	// Line 5788, Address: 0x1a08c4, Func Offset: 0x264
-	// Line 5789, Address: 0x1a08c8, Func Offset: 0x268
-	// Line 5791, Address: 0x1a08d4, Func Offset: 0x274
-	// Line 5792, Address: 0x1a08e0, Func Offset: 0x280
-	// Line 5793, Address: 0x1a08e4, Func Offset: 0x284
-	// Line 5795, Address: 0x1a08ec, Func Offset: 0x28c
-	// Line 5797, Address: 0x1a08fc, Func Offset: 0x29c
-	// Line 5803, Address: 0x1a0900, Func Offset: 0x2a0
-	// Line 5797, Address: 0x1a090c, Func Offset: 0x2ac
-	// Line 5798, Address: 0x1a0910, Func Offset: 0x2b0
-	// Line 5799, Address: 0x1a0914, Func Offset: 0x2b4
-	// Line 5800, Address: 0x1a091c, Func Offset: 0x2bc
-	// Line 5801, Address: 0x1a0924, Func Offset: 0x2c4
-	// Line 5802, Address: 0x1a0928, Func Offset: 0x2c8
-	// Line 5803, Address: 0x1a0930, Func Offset: 0x2d0
-	// Line 5804, Address: 0x1a0938, Func Offset: 0x2d8
-	// Line 5805, Address: 0x1a0940, Func Offset: 0x2e0
-	// Line 5806, Address: 0x1a0944, Func Offset: 0x2e4
-	// Line 5808, Address: 0x1a094c, Func Offset: 0x2ec
-	// Line 5811, Address: 0x1a095c, Func Offset: 0x2fc
-	// Line 5808, Address: 0x1a0964, Func Offset: 0x304
-	// Line 5811, Address: 0x1a097c, Func Offset: 0x31c
-	// Line 5814, Address: 0x1a09ac, Func Offset: 0x34c
-	// Line 5818, Address: 0x1a09d0, Func Offset: 0x370
-	// Line 5826, Address: 0x1a09f4, Func Offset: 0x394
-	// Line 5827, Address: 0x1a09f8, Func Offset: 0x398
-	// Line 5828, Address: 0x1a0a04, Func Offset: 0x3a4
-	// Line 5829, Address: 0x1a0a10, Func Offset: 0x3b0
-	// Line 5830, Address: 0x1a0a14, Func Offset: 0x3b4
-	// Line 5829, Address: 0x1a0a18, Func Offset: 0x3b8
-	// Line 5830, Address: 0x1a0a1c, Func Offset: 0x3bc
-	// Line 5832, Address: 0x1a0a50, Func Offset: 0x3f0
-	// Line 5833, Address: 0x1a0a58, Func Offset: 0x3f8
-	// Line 5834, Address: 0x1a0a60, Func Offset: 0x400
-	// Line 5835, Address: 0x1a0a64, Func Offset: 0x404
-	// Line 5837, Address: 0x1a0a6c, Func Offset: 0x40c
-	// Line 5838, Address: 0x1a0a74, Func Offset: 0x414
-	// Line 5839, Address: 0x1a0a7c, Func Offset: 0x41c
-	// Line 5840, Address: 0x1a0a88, Func Offset: 0x428
-	// Line 5842, Address: 0x1a0a90, Func Offset: 0x430
-	// Line 5843, Address: 0x1a0aa0, Func Offset: 0x440
-	// Line 5844, Address: 0x1a0aa8, Func Offset: 0x448
-	// Line 5845, Address: 0x1a0aac, Func Offset: 0x44c
-	// Line 5847, Address: 0x1a0ab4, Func Offset: 0x454
-	// Line 5848, Address: 0x1a0ac4, Func Offset: 0x464
-	// Line 5849, Address: 0x1a0acc, Func Offset: 0x46c
-	// Line 5852, Address: 0x1a0adc, Func Offset: 0x47c
-	// Line 5858, Address: 0x1a0afc, Func Offset: 0x49c
-	// Line 5861, Address: 0x1a0b08, Func Offset: 0x4a8
-	// Line 5862, Address: 0x1a0b0c, Func Offset: 0x4ac
-	// Func End, Address: 0x1a0b2c, Func Offset: 0x4cc
-    scePrintf("bhEne03_CollisionWallTriangle - UNIMPLEMENTED!\n");
+    float h;
+    NJS_POINT3 area[4];
+    NJS_POINT3 pd;
+    NJS_POINT3 vd;
+    NJS_LINE ln;
+    ATR_WORK bhp;
+
+    // not present in DWARF
+    float x1, x2, z1, z2;
+    float t;
+    float px;
+
+    h = hp->h;
+    if (h == 0.0f)
+    {
+        h = rom->h;
+    }
+
+    if (!((hp->py > pos->y - ar)))
+    {
+        if (hp->py + h >= pos->y - ar)           
+        {
+            if ((hp->py <= pos->y) && (hp->py + h >= pos->y))
+            {          
+                if (hp->w > 0.0f)
+                {
+                    x1 = hp->px - ar;
+                    x2 = hp->px + hp->w + ar;
+                } 
+                else
+                {
+                    x1 = hp->px + hp->w - ar;
+                    x2 = hp->px + ar;
+                }
+            
+                if (hp->d > 0.0f)
+                {
+                    z1 = hp->pz - ar;
+                    z2 = hp->pz + hp->d + ar;
+                } 
+                else
+                {
+                    z1 = hp->pz + hp->d - ar;
+                    z2 = hp->pz + ar;
+                }
+             
+                if ((x1 > pos->x || x2 <= pos->x || z1 > pos->z || z2 <= pos->z))
+                {
+                    return 0;
+                }
+                    
+                
+                if (hp->id == 0 || hp->id == 3)
+                {
+                    vd.x = hp->d;
+                    vd.z = hp->w;
+                } 
+                else
+                {
+                    vd.x = -hp->d;
+                    vd.z = -hp->w;
+                }
+                
+                vd.y = 0.0f;
+                njUnitVector(&vd);
+            
+                vd.x = vd.x * ar;
+                vd.z = vd.z * ar;
+            
+                area[0].x = hp->px + hp->w - vd.x;
+                area[0].y = 0.0f;
+                area[0].z = hp->pz - vd.z;
+            
+                area[1].x = hp->px - vd.x;
+                area[1].y = 0.0f;
+                area[1].z = hp->pz + hp->d - vd.z;
+            
+                area[2].x = area[1].x + 2.0f * vd.x;
+                area[2].y = 0.0f;
+                area[2].z = area[1].z + 2.0f * vd.z;
+            
+                area[3].x = area[0].x + 2.0f * vd.x;
+                area[3].y = 0.0f;
+                area[3].z = area[0].z + 2.0f * vd.z;
+            
+                if (bhInOutCheck(pos, area, NULL, 4))
+                {
+                    ln.px = area[2].x;
+                    ln.py = 0.0f;
+                    ln.pz = area[2].z;
+                    ln.vx = hp->w;
+                    ln.vy = 0.0f;
+                    ln.vz = -hp->d;
+            
+                    njDistanceP2L(pos, &ln, &pd);
+            
+                    pos->x = pd.x;
+                    pos->z = pd.z;        
+                } 
+                else
+                {
+                    px = pos->x - hp->px;
+                    t = hp->d + (px * -hp->d) / hp->w;
+                    switch (hp->id)
+                    {
+                    case 0:
+                    case 2:
+                        if (t < pos->z - hp->pz)
+                        {
+                            return 0;
+                        }                                
+                        break;
+                    case 1:
+                    case 3:
+                        if (t > pos->z - hp->pz)
+                        {
+                            return 0;
+                        }                                
+                        break;
+                    }
+                
+                    bhp.type = 0;
+                    bhp.w = fabsf(hp->w);
+                    bhp.d = fabsf(hp->d);
+                    bhp.h = hp->h;
+                
+                    switch (hp->id)
+                    {
+                    case 0:
+                        bhp.px = hp->px;
+                        bhp.py = hp->py;
+                        bhp.pz = hp->pz;
+                        break;
+                        
+                    case 1:
+                        bhp.px = hp->px;
+                        bhp.py = hp->py;
+                        bhp.pz = hp->pz + hp->d;
+                        break;
+                        
+                    case 2:
+                        bhp.px = hp->px + hp->w;
+                        bhp.py = hp->py;
+                        bhp.pz = hp->pz;
+                        break;
+                        
+                    case 3:
+                        bhp.px = hp->px + hp->w;
+                        bhp.py = hp->py;
+                        bhp.pz = hp->pz + hp->d;
+                        break;
+                    }
+                    if (bhEne03_CollisionWallBox(&bhp, pos, ar))
+                    {
+                        return 1;
+                    }
+                }              
+            }
+            return 1;
+        }                    
+    } 
+        
+    return 0;
 }
 
 // 100% matching! 
