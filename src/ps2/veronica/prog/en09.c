@@ -5721,6 +5721,105 @@ int bhEne09_CollChkArm2(BH_PWORK* epw)
     return bhCheckWallType(&at.c, 0, 3.0f, 3.0f) ? 1 : 0;
 }
 
+// 99.48% matching!
+float bhEne09_ChkArmLen2(BH_PWORK* epw) 
+{
+	NJS_POINT3 pos;
+    NJS_POINT3 pos2;
+    float tmp;
+    float tmp2;
+    NJS_CNK_OBJECT *obj;
+    int i;
+    int s_ang[24][3];
+    unsigned int s_mtn_no;
+    int s_frm_no;
+    int s_hokan_rate;
+    unsigned int s_hokan_count;
+    int s_mtn_add;
+
+    // NOT from DWARF
+    float t2, t3, t6;
+    float t4, t1, t5;
+
+    s_frm_no = epw->frm_no;
+    s_mtn_no = epw->mtn_no;
+    s_hokan_count = epw->hokan_count;
+    s_hokan_rate = epw->hokan_rate;
+    s_mtn_add = epw->mtn_add;
+    
+    obj = epw->mlwP->objP;
+    
+    t1 = obj->pos[0];
+    t2 = obj->pos[1];
+    t3 = obj->pos[2];
+    
+    for (i = 0; i < 24; obj++, i++)
+    {
+        s_ang[i][0] = obj->ang[0];
+        s_ang[i][1] = obj->ang[1];
+        s_ang[i][2] = obj->ang[2];
+    }
+    
+    epw->frm_no = 0;
+    epw->mtn_no = 0x15;
+    epw->hokan_count = 0;
+    epw->hokan_rate = 0;
+    epw->mtn_add = 0;
+    
+    bhSetMotion(epw, (int)epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    bhEne_CalcPartsPos(epw, &lcmat[1], &pos, en09_tree[2], 6, 1);
+    njSetMatrix(lcmat, &lcmat[1]);
+    bhEne_CalcPartsPos(epw, &lcmat[1], &pos2, &en09_tree[2][6], 4, 0); 
+                       
+    pos2.x -= pos.x;
+    tmp = pos2.y;
+    pos2.y -= pos.y;
+    tmp2 = pos2.z;
+    pos2.z -= pos.z;
+    
+    t4 = (rom->grand[epw->flr_no + 3] - 2.5);
+    
+    t5 = (t4 - tmp) / pos2.y;
+    
+    pos2.x = pos.x + (pos2.x * t5);
+    pos2.z = tmp2 + (pos2.z * t5);
+    pos2.y = t4;
+    
+    lcmat[1][0xC] = pos2.x;
+    lcmat[1][0xD] = pos2.y;
+    lcmat[1][0xE] = pos2.z;
+    
+    njInvertMatrix(lcmat);
+    njMultiMatrix(lcmat, &lcmat[1]);
+    
+    pos.x = lcmat[0][0xC];
+    pos.y = lcmat[0][0xD];
+    pos.z = lcmat[0][0xE];
+    
+    t6 = pos.x - (EXP0_F(0xC) + (EXP0_F(0x8) + (EXP0_F(0x0) + EXP0_F(0x4))));
+    
+    epw->frm_no = s_frm_no;
+    epw->mtn_no = s_mtn_no;
+    epw->hokan_count = s_hokan_count;
+    epw->hokan_rate = s_hokan_rate;
+    epw->mtn_add = s_mtn_add;
+    
+    obj = epw->mlwP->objP;
+    
+    obj->pos[0] = t1;
+    obj->pos[1] = t2;
+    obj->pos[2] = t3;
+    
+    for (i = 0; i < 24; obj++, i++)
+    {
+        obj->ang[0] = s_ang[i][0];
+        obj->ang[1] = s_ang[i][1];
+        obj->ang[2] = s_ang[i][2];
+    }
+    
+    return t6;
+}
+
 /*
 
 // 
