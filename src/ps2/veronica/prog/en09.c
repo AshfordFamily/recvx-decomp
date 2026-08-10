@@ -5820,108 +5820,154 @@ float bhEne09_ChkArmLen2(BH_PWORK* epw)
     return t6;
 }
 
-/*
-
-// 
-// Start address: 0x1d1240
-float bhEne09_ChkArmLen2(BH_PWORK* epw)
+// 98.47% matching!
+ATR_WORK* bhEne09_ChkArmLen(BH_PWORK *epw, float *len, NJS_VECTOR* vec) 
 {
-	int s_mtn_add;
-	unsigned int s_hokan_count;
-	int s_hokan_rate;
-	int s_frm_no;
-	unsigned int s_mtn_no;
-	int s_ang[3][24];
-	int i;
-	npobj* obj;
-	float tmp2;
-	float tmp;
-	_anon25 pos2;
-	_anon25 pos;
-	// Line 7063, Address: 0x1d1240, Func Offset: 0
-	// Line 7078, Address: 0x1d1284, Func Offset: 0x44
-	// Line 7079, Address: 0x1d1288, Func Offset: 0x48
-	// Line 7080, Address: 0x1d128c, Func Offset: 0x4c
-	// Line 7081, Address: 0x1d1290, Func Offset: 0x50
-	// Line 7082, Address: 0x1d1294, Func Offset: 0x54
-	// Line 7084, Address: 0x1d1298, Func Offset: 0x58
-	// Line 7089, Address: 0x1d12a0, Func Offset: 0x60
-	// Line 7084, Address: 0x1d12ac, Func Offset: 0x6c
-	// Line 7085, Address: 0x1d12b0, Func Offset: 0x70
-	// Line 7086, Address: 0x1d12b4, Func Offset: 0x74
-	// Line 7087, Address: 0x1d12b8, Func Offset: 0x78
-	// Line 7091, Address: 0x1d12c0, Func Offset: 0x80
-	// Line 7095, Address: 0x1d12c4, Func Offset: 0x84
-	// Line 7091, Address: 0x1d12cc, Func Offset: 0x8c
-	// Line 7092, Address: 0x1d12d0, Func Offset: 0x90
-	// Line 7093, Address: 0x1d12d8, Func Offset: 0x98
-	// Line 7094, Address: 0x1d12e0, Func Offset: 0xa0
-	// Line 7095, Address: 0x1d12e4, Func Offset: 0xa4
-	// Line 7099, Address: 0x1d12ec, Func Offset: 0xac
-	// Line 7098, Address: 0x1d12f0, Func Offset: 0xb0
-	// Line 7099, Address: 0x1d12f4, Func Offset: 0xb4
-	// Line 7100, Address: 0x1d12f8, Func Offset: 0xb8
-	// Line 7101, Address: 0x1d12fc, Func Offset: 0xbc
-	// Line 7102, Address: 0x1d1300, Func Offset: 0xc0
-	// Line 7104, Address: 0x1d1304, Func Offset: 0xc4
-	// Line 7106, Address: 0x1d1318, Func Offset: 0xd8
-	// Line 7108, Address: 0x1d133c, Func Offset: 0xfc
-	// Line 7109, Address: 0x1d1350, Func Offset: 0x110
-	// Line 7112, Address: 0x1d1374, Func Offset: 0x134
-	// Line 7113, Address: 0x1d137c, Func Offset: 0x13c
-	// Line 7114, Address: 0x1d1384, Func Offset: 0x144
-	// Line 7112, Address: 0x1d1388, Func Offset: 0x148
-	// Line 7116, Address: 0x1d138c, Func Offset: 0x14c
-	// Line 7112, Address: 0x1d1390, Func Offset: 0x150
-	// Line 7113, Address: 0x1d1394, Func Offset: 0x154
-	// Line 7114, Address: 0x1d139c, Func Offset: 0x15c
-	// Line 7113, Address: 0x1d13a0, Func Offset: 0x160
-	// Line 7114, Address: 0x1d13a8, Func Offset: 0x168
-	// Line 7116, Address: 0x1d13b8, Func Offset: 0x178
-	// Line 7117, Address: 0x1d13e8, Func Offset: 0x1a8
-	// Line 7126, Address: 0x1d13f0, Func Offset: 0x1b0
-	// Line 7118, Address: 0x1d13f4, Func Offset: 0x1b4
-	// Line 7122, Address: 0x1d13f8, Func Offset: 0x1b8
-	// Line 7126, Address: 0x1d13fc, Func Offset: 0x1bc
-	// Line 7117, Address: 0x1d1400, Func Offset: 0x1c0
-	// Line 7118, Address: 0x1d1404, Func Offset: 0x1c4
-	// Line 7119, Address: 0x1d1410, Func Offset: 0x1d0
-	// Line 7120, Address: 0x1d1420, Func Offset: 0x1e0
-	// Line 7122, Address: 0x1d1424, Func Offset: 0x1e4
-	// Line 7123, Address: 0x1d142c, Func Offset: 0x1ec
-	// Line 7124, Address: 0x1d1438, Func Offset: 0x1f8
-	// Line 7126, Address: 0x1d1440, Func Offset: 0x200
-	// Line 7127, Address: 0x1d1448, Func Offset: 0x208
-	// Line 7129, Address: 0x1d145c, Func Offset: 0x21c
-	// Line 7130, Address: 0x1d1464, Func Offset: 0x224
-	// Line 7148, Address: 0x1d1468, Func Offset: 0x228
-	// Line 7130, Address: 0x1d146c, Func Offset: 0x22c
-	// Line 7129, Address: 0x1d1474, Func Offset: 0x234
-	// Line 7130, Address: 0x1d1478, Func Offset: 0x238
-	// Line 7131, Address: 0x1d147c, Func Offset: 0x23c
-	// Line 7133, Address: 0x1d148c, Func Offset: 0x24c
-	// Line 7137, Address: 0x1d14a8, Func Offset: 0x268
-	// Line 7138, Address: 0x1d14ac, Func Offset: 0x26c
-	// Line 7139, Address: 0x1d14b0, Func Offset: 0x270
-	// Line 7140, Address: 0x1d14b4, Func Offset: 0x274
-	// Line 7141, Address: 0x1d14b8, Func Offset: 0x278
-	// Line 7143, Address: 0x1d14bc, Func Offset: 0x27c
-	// Line 7133, Address: 0x1d14c0, Func Offset: 0x280
-	// Line 7143, Address: 0x1d14c8, Func Offset: 0x288
-	// Line 7133, Address: 0x1d14cc, Func Offset: 0x28c
-	// Line 7144, Address: 0x1d14d0, Func Offset: 0x290
-	// Line 7145, Address: 0x1d14d4, Func Offset: 0x294
-	// Line 7146, Address: 0x1d14d8, Func Offset: 0x298
-	// Line 7150, Address: 0x1d14dc, Func Offset: 0x29c
-	// Line 7154, Address: 0x1d14e0, Func Offset: 0x2a0
-	// Line 7150, Address: 0x1d14e8, Func Offset: 0x2a8
-	// Line 7151, Address: 0x1d14ec, Func Offset: 0x2ac
-	// Line 7152, Address: 0x1d14f4, Func Offset: 0x2b4
-	// Line 7153, Address: 0x1d14fc, Func Offset: 0x2bc
-	// Line 7154, Address: 0x1d1500, Func Offset: 0x2c0
-	// Line 7158, Address: 0x1d1508, Func Offset: 0x2c8
-	// Func End, Address: 0x1d1550, Func Offset: 0x310
+	NJS_POINT3 pos;
+    NJS_POINT3 pos2;
+    NJS_POINT3 pos3;
+    NJS_POINT3 pos4;
+    float tmp;
+    NJS_CNK_OBJECT* obj;
+    ATR_WORK *hp;
+    ATR_WORK *hp2;
+    int i;
+    int s_ang[24][3];
+    unsigned int s_mtn_no;
+    int s_frm_no;
+    int s_hokan_rate;
+    unsigned int s_hokan_count;
+    int s_mtn_add;
+
+    // NOT from DWARF
+    float t1, t2, t3, t4;
+    float t5, t6, t7;
+
+    s_hokan_count = epw->hokan_count;
+    s_mtn_add = epw->mtn_add;
+    s_frm_no = epw->frm_no;
+    s_mtn_no = epw->mtn_no;
+    s_hokan_rate = epw->hokan_rate;
+
+    obj = epw->mlwP->objP;
+    
+    t1 = obj[7].pos[0];
+    t2 = obj[8].pos[0];
+    t3 = obj[9].pos[0];
+    t4 = obj[10].pos[0];
+    
+    t5 = obj->pos[0];
+    t6 = obj->pos[1];
+    t7 = obj->pos[2];
+    
+    for (i = 0; i < 24; obj++, i++)
+    {
+        s_ang[i][0] = obj->ang[0];
+        s_ang[i][1] = obj->ang[1];
+        s_ang[i][2] = obj->ang[2];
+    }
+    
+    epw->mtn_no = 7;
+    epw->frm_no = 0x120000;
+    epw->hokan_count = 0;
+    epw->hokan_rate = 0;
+    epw->mtn_add = 0;
+    
+    bhSetMotion(epw, (int)epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    
+    bhEne_CalcPartsPos(epw, &lcmat[1], &pos, en09_tree[2], 0xB, 1);
+    
+    obj = epw->mlwP->objP;
+    
+    obj[7].pos[0] = 12.5f;
+    obj[8].pos[0] = 12.5f;
+    obj[9].pos[0] = 12.5f;
+    obj[10].pos[0] = 12.5f;
+    
+    bhEne_CalcPartsPos(epw, &lcmat[1], &pos2, en09_tree[2], 0xB, 1);
+    
+    if ((hp = bhCollisionCheckLine(&pos, &pos2)) != NULL) 
+    {
+        bhGetHitCollisionNormal(vec);
+    }
+    
+    if (hp != NULL) 
+    {
+        pos4.x = epw->px + epw->aox;
+        pos4.y = epw->py;
+        pos4.z = epw->pz + epw->aoz;
+        
+        pos3.x = (pos2.x - pos4.x) / 10.0f;
+        pos3.z = (pos2.z - pos4.z) / 10.0f;
+        pos3.y = 0.0f;
+        
+        for (i = 0; i < 0xA; i++)
+        {
+            hp2 = bhCheckWallType(&pos4, epw->flg, epw->ar, epw->ah);
+
+            if ((hp2 != NULL) && (hp != hp2))
+            {
+                hp = NULL;
+                break;
+            }
+
+            pos4.x += pos3.x;
+            pos4.z += pos3.z;
+        }
+        
+        if (hp != NULL)
+        {
+            pos3.x = pos2.x - pos.x;
+            pos3.y = pos2.y - pos.y;
+            pos3.z = pos2.z - pos.z;
+            
+            tmp = njScalor(&pos3);
+            
+            if (tmp < 30.0f) 
+            {
+                hp = NULL;
+            }
+        }
+    }
+    
+    obj = epw->mlwP->objP;
+    
+    obj[7].pos[0] = 0;
+    obj[8].pos[0] = 0;
+    obj[9].pos[0] = 0;
+    obj[10].pos[0] = 0;
+    
+    epw->frm_no = s_frm_no;
+    epw->mtn_no = s_mtn_no;
+    epw->hokan_count = s_hokan_count;
+    epw->hokan_rate = s_hokan_rate;
+    epw->mtn_add = s_mtn_add;
+    
+    obj = epw->mlwP->objP;
+    
+    obj->pos[0] = t5;
+    obj->pos[1] = t6;
+    obj->pos[2] = t7;
+    
+    for (i = 0; i < 24; obj++, i++)
+    {
+        obj->ang[0] = s_ang[i][0];
+        obj->ang[1] = s_ang[i][1];
+        obj->ang[2] = s_ang[i][2];
+    }
+    
+    obj = epw->mlwP->objP;
+    obj[7].pos[0] = t1;
+    obj[8].pos[0] = t2;
+    obj[9].pos[0] = t3;
+    obj[10].pos[0] = t4;
+    
+    *len = tmp;
+    
+    return hp;
 }
+
+/*
 
 // 
 // Start address: 0x1d1550
