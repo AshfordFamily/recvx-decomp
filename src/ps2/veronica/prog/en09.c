@@ -13,6 +13,7 @@
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
+#include "../../../ps2/veronica/prog/effsub3.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Bandersnatch 
@@ -606,11 +607,15 @@ float en09_mtn23[35] =
     0.01414966583
 };
 
+BP_WORK en09_BldTbl =
+{
+        
+};
+
 /*
 _anon1 en09_mtn_tbl[28];
 _anon6 en09_mtn_tbl2[24];
 _anon6 en09_mtn_tbl3[5];
-_anon40 en09_BldTbl;
 _anon40 en09_BldTbl2;
 _anon20 en09_lkmtab;
 _anon39 arm4_pos3[143];
@@ -5512,44 +5517,68 @@ void bhEne09_DDType00(BH_PWORK* epw)
     bhEne09_DieMode2[epw->mode2](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1d0b60
-void bhEne09_DD00(BH_PWORK* epw)
+// 100% matching!
+void bhEne09_DD00(BH_PWORK* epw) 
 {
-	// Line 6736, Address: 0x1d0b60, Func Offset: 0
-	// Line 6737, Address: 0x1d0b6c, Func Offset: 0xc
-	// Line 6740, Address: 0x1d0ba4, Func Offset: 0x44
-	// Line 6742, Address: 0x1d0bc0, Func Offset: 0x60
-	// Line 6743, Address: 0x1d0be4, Func Offset: 0x84
-	// Line 6746, Address: 0x1d0bec, Func Offset: 0x8c
-	// Line 6748, Address: 0x1d0c10, Func Offset: 0xb0
-	// Line 6749, Address: 0x1d0c14, Func Offset: 0xb4
-	// Line 6750, Address: 0x1d0c18, Func Offset: 0xb8
-	// Line 6753, Address: 0x1d0c1c, Func Offset: 0xbc
-	// Line 6749, Address: 0x1d0c20, Func Offset: 0xc0
-	// Line 6750, Address: 0x1d0c28, Func Offset: 0xc8
-	// Line 6754, Address: 0x1d0c34, Func Offset: 0xd4
-	// Line 6755, Address: 0x1d0c44, Func Offset: 0xe4
-	// Line 6754, Address: 0x1d0c54, Func Offset: 0xf4
-	// Line 6755, Address: 0x1d0c60, Func Offset: 0x100
-	// Line 6756, Address: 0x1d0c6c, Func Offset: 0x10c
-	// Line 6759, Address: 0x1d0c78, Func Offset: 0x118
-	// Line 6761, Address: 0x1d0c88, Func Offset: 0x128
-	// Line 6762, Address: 0x1d0c90, Func Offset: 0x130
-	// Line 6764, Address: 0x1d0c98, Func Offset: 0x138
-	// Line 6767, Address: 0x1d0ca0, Func Offset: 0x140
-	// Line 6769, Address: 0x1d0cd0, Func Offset: 0x170
-	// Line 6771, Address: 0x1d0cd4, Func Offset: 0x174
-	// Line 6773, Address: 0x1d0ce4, Func Offset: 0x184
-	// Line 6774, Address: 0x1d0d00, Func Offset: 0x1a0
-	// Line 6773, Address: 0x1d0d04, Func Offset: 0x1a4
-	// Line 6775, Address: 0x1d0d0c, Func Offset: 0x1ac
-	// Line 6779, Address: 0x1d0d14, Func Offset: 0x1b4
-	// Line 6787, Address: 0x1d0d20, Func Offset: 0x1c0
-	// Func End, Address: 0x1d0d30, Func Offset: 0x1d0
+    switch (epw->mode3)
+    {
+        case 0:
+
+            if ((epw->mtn_no == 0x35) || (epw->mtn_no == 0x37))
+            {
+                bhEne_ChgMtn(epw, 0x38, 0, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else
+            {
+                bhEne_ChgMtn(epw, 0x27, 0, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;  
+            }
+            
+            epw->mtn_add = 0;
+            epw->flg |= 2;
+            epw->flg &= ~0x28;
+            epw->ct0 = 1;
+            epw->ct1 = (rand() % 5) + 0xA;
+            
+            bhSetBloodPoolLnk(epw, (NJS_VECTOR* ) &epw->px, epw->ay, &en09_BldTbl, 0);
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (epw->ct0-- <= 0) 
+            {
+                epw->mtn_add = 0x10000;
+                epw->mode3++;
+            }
+            
+            break;
+        
+        case 2:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+            {
+                epw->mtn_add = 0;
+                
+                if (epw->ct1-- > 0)
+                {
+                    epw->ct0 = (rand() % 50) + 0xA;
+                    epw->mode3 = 1;
+                }
+                else 
+                {
+                    epw->mode3++;
+                }
+            }
+            
+            break;
+
+        case 3:
+            break;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1d0d30
