@@ -27,6 +27,29 @@ typedef struct ARM_POS
     float len; // offset 0x4, size 0x4
 } ARM_POS;
 
+typedef struct MTN_TBL_FMTN_WORK 
+{
+    signed int no; // offset 0x0, size 0x4
+    // total size: 0xC
+    struct /* @anon56 */ {
+        // Members
+        signed int type; // offset 0x0, size 0x4
+        signed int s_frm; // offset 0x4, size 0x4
+        signed int e_frm; // offset 0x8, size 0x4
+    } fmtn[3]; // offset 0x4, size 0x24
+} MTN_TBL_FMTN_WORK;
+
+typedef struct MTN_TBL_ATB_WORK 
+{
+    signed int no; // offset 0x0, size 0x4
+    // total size: 0x8
+    struct /* @anon10 */ {
+        // Members
+        signed int frm; // offset 0x0, size 0x4
+        unsigned int act; // offset 0x4, size 0x4
+    } atb[5]; // offset 0x4, size 0x28
+} MTN_TBL_ATB_WORK;
+
 void bhEne09_DmmyBrain();
 void bhEne09(BH_PWORK* epw);
 void bhEne09_MainLoop(BH_PWORK* epw);

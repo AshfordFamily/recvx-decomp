@@ -1745,20 +1745,91 @@ BP_WORK en09_BldTbl =
 
 float en09_mogmog[40] =
 {
-    
+    100.0f, 200.0f, 300.0f, 400.0f, 500.0f,
+    400.0f, 300.0f, 200.0f, 100.0f,   0.0f,
+    100.0f, 200.0f, 300.0f, 400.0f, 500.0f,
+    600.0f, 700.0f, 800.0f, 900.0f, 1000.0f,
+    900.0f, 800.0f, 700.0f, 600.0f, 500.0f,
+    400.0f, 300.0f, 200.0f, 100.0f,   0.0f,
+      0.0f,   0.0f,   0.0f,   0.0f,   0.0f,
+      0.0f,   0.0f,   0.0f,   0.0f,   0.0f,
+};
+
+MTN_TBL_FMTN_WORK en09_mtn_tbl[28] =
+{
+    {  0, { {  8,  0x00, 0x13 }, {  7, 0x14, 0x31 }, {  8, 0x32, 0x3B } } },
+    {  1, {  {  0,  0x00, 0x3B }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    {  2, {  {  1,  0x00, 0x3B }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x2D, { {  0, 0x00, 0x05 }, {  1, 0x06, 0x2D }, { -1, 0x00, 0x00 } } },
+    { 0x31, { {  8, 0x00, 0x28 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x39, { {  8, 0x00, 0x09 }, {  7, 0x0A, 0x5A }, { -1, 0x00, 0x00 } } },
+    { 0x3A, { {  0, 0x00, 0x21 }, {  8, 0x22, 0x3B }, {  0, 0x3C, 0x4B } } },
+    { 0x45, { {  8, 0x00, 0x23 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x3B, { {  8, 0x00, 0x1F }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x1D, { {  1, 0x21, 0x45 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x20, { {  1, 0x00, 0x0B }, {  0, 0x0C, 0x14 }, {  1, 0x0D, 0x23 } } },
+    { 0x3E, { {  1, 0x00, 0x0B }, {  0, 0x0C, 0x14 }, {  1, 0x0D, 0x23 } } },
+    { 0x21, { {  0, 0x00, 0x0E }, {  1, 0x0E, 0x30 }, { -1, 0x00, 0x00 } } },
+    { 0x3F, { {  0, 0x00, 0x0E }, {  1, 0x0E, 0x30 }, { -1, 0x00, 0x00 } } },
+    { 0x22, { {  1, 0x00, 0x0A }, {  0, 0x0B, 0x18 }, {  1, 0x19, 0x1E } } },
+    { 0x23, { {  0, 0x00, 0x15 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x16, { {  1, 0x00, 0x17 }, {  0, 0x18, 0x19 }, { -1, 0x00, 0x00 } } },
+    { 0x17, { {  0, 0x00, 0x19 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x3D, { {  0, 0x00, 0x19 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    {    6, { {  0, 0x00, 0x12 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x15, { {  0, 0x00, 0x06 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    {    9, { {  6, 0x00, 0x06 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x0C, { {  6, 0x00, 0x04 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    {    7, { {  1, 0x00, 0x12 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x0A, { {  6, 0x00, 0x04 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x0E, { {  6, 0x00, 0x0A }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    { 0x10, { {  1, 0x00, 0x34 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+    {   -1, { { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 }, { -1, 0x00, 0x00 } } },
+};
+
+// ?
+unsigned char Ps2_tex_mem[10485760] __attribute__((aligned(64)));
+
+MTN_TBL_ATB_WORK en09_mtn_tbl2[24] =
+{
+    {    0, { { 0x13, 0x00012300 }, { 0x31, 0x00012300 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x2D, { {    0, (unsigned int)(Ps2_tex_mem + 0x8EEF8C) }, { 0x0A, 0x00012304 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x31, { {    5, (unsigned int)(Ps2_tex_mem + 0x8EEF8C) }, { 0x0D, 0x00012304 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x16, { { 0x1D, 0x0000230D }, { 0x21, 0x0000230D }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x17, { { 0x0D, 0x0000230D }, { 0x12, 0x0000230D }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x10, { { 0x0E, 0x00012304 }, { 0x11, 0x00012305 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    {    6, { { 0x0D, 0x00012304 }, { 0x0F, 0x00012305 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    {    7, { { 0x0E, 0x00012304 }, { 0x11, 0x00012305 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x2B, { { 0x0C, 0x00012304 }, { 0x13, 0x00012305 }, { 0x1B, 0x00012301 }, { 0x4B, 0x00012302 }, { -1, 0 } } },
+    { 0x2C, { { 0x0C, 0x00012304 }, { 0x10, 0x00012306 }, { 0x19, 0x00012301 }, { 0x2F, 0x00012302 }, { -1, 0 } } },
+    { 0x11, { { 0x0C, 0x00012304 }, { 0x0F, 0x00011309 }, { 0x33, 0x0001130A }, { 0x53, 0x0001130B }, { -1, 0 } } },
+    { 0x30, { { 0x3B, 0x0000230D }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x15, { {    0, 0x00012306 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    {    9, { {    0, 0x00012301 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x0C, { {    9, 0x00012302 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x13, { {    0, 0x00012306 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x0A, { {    0, 0x00012301 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x0E, { {    3, 0x00012303 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x0F, { { 0x0A, 0x00012302 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x32, { {    0, (unsigned int)(Ps2_tex_mem + 0x8EEF8C) }, { 0x0A, 0x00012304 }, { 0x0F, 0x00011309 }, { 0x28, 0x0001130A }, { 0x52, 0x0001130B } } },
+    { 0x39, { {    0, (unsigned int)(Ps2_tex_mem + 0x8EEF8C) }, { 0x0A, 0x00012304 }, { 0x0F, 0x00011309 }, { 0x1B, 0x0001130A }, { 0x3B, 0x0001130A } } },
+    { 0x3A, { { 0x17, (unsigned int)(Ps2_tex_mem + 0x8DFF90) }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x3B, { {    0, 0x00011309 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    {   -1, { { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+};
+
+MTN_TBL_ATB_WORK en09_mtn_tbl3[5] =
+{
+    { 0x32, { { 0x0F, 0x01 }, { 0x2E, 0x00 }, { 0x52, 0x01 }, { -1, 0 }, { -1, 0 } } },
+    { 0x39, { { 0x0F, 0x01 }, { 0x1C, 0x00 }, { 0x2C, 0x00 }, { 0x40, 0x00 }, { -1, 0 } } },
+    { 0x3A, { { 0x17, 0x01 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    { 0x3B, { {    0, 0x01 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 } } },
+    {   -1, { { -1, 0 }, { -1, 0 }, { -1, 0 }, { -1, 0 }, {    0, 0 } } },
 };
 
 /*
-_anon1 en09_mtn_tbl[28];
-_anon6 en09_mtn_tbl2[24];
-_anon6 en09_mtn_tbl3[5];
 _anon40 en09_BldTbl2;
 _anon20 en09_lkmtab;
-_anon39 arm4_pos3[143];
-_anon39 arm4_pos4[128];
-_anon39 arm4_pos5[654];
-_anon39 arm4_pos6[185];
-float en09_mogmog[40];
 */
 
 // 100% matching!
@@ -7275,85 +7346,143 @@ int bhEne09_SetMtn(BH_PWORK* epw)
     return ret;
 }
 
-/*
-
-// 
-// Start address: 0x1d1d80
-void bhEne09_MtnTblPlay(BH_PWORK* epw, int frm)
+// 99.79% matching!
+void bhEne09_MtnTblPlay(BH_PWORK* epw, int frm) 
 {
-	int i;
-	_anon25 vec2;
-	_anon25 vec;
-	_anon6* mtbl3;
-	_anon6* mtbl2;
-	_anon1* mtbl;
-	// Line 7586, Address: 0x1d1d80, Func Offset: 0
-	// Line 7587, Address: 0x1d1da0, Func Offset: 0x20
-	// Line 7588, Address: 0x1d1da8, Func Offset: 0x28
-	// Line 7589, Address: 0x1d1db0, Func Offset: 0x30
-	// Line 7591, Address: 0x1d1db8, Func Offset: 0x38
-	// Line 7595, Address: 0x1d1dd4, Func Offset: 0x54
-	// Line 7591, Address: 0x1d1dd8, Func Offset: 0x58
-	// Line 7595, Address: 0x1d1de0, Func Offset: 0x60
-	// Line 7598, Address: 0x1d1dfc, Func Offset: 0x7c
-	// Line 7600, Address: 0x1d1e10, Func Offset: 0x90
-	// Line 7602, Address: 0x1d1e18, Func Offset: 0x98
-	// Line 7604, Address: 0x1d1e24, Func Offset: 0xa4
-	// Line 7606, Address: 0x1d1e30, Func Offset: 0xb0
-	// Line 7610, Address: 0x1d1e60, Func Offset: 0xe0
-	// Line 7613, Address: 0x1d1eb4, Func Offset: 0x134
-	// Line 7614, Address: 0x1d1eb8, Func Offset: 0x138
-	// Line 7615, Address: 0x1d1ebc, Func Offset: 0x13c
-	// Line 7616, Address: 0x1d1ec4, Func Offset: 0x144
-	// Line 7617, Address: 0x1d1ec8, Func Offset: 0x148
-	// Line 7619, Address: 0x1d1ee0, Func Offset: 0x160
-	// Line 7620, Address: 0x1d1ef8, Func Offset: 0x178
-	// Line 7623, Address: 0x1d1f00, Func Offset: 0x180
-	// Line 7625, Address: 0x1d1f18, Func Offset: 0x198
-	// Line 7626, Address: 0x1d1f28, Func Offset: 0x1a8
-	// Line 7627, Address: 0x1d1f34, Func Offset: 0x1b4
-	// Line 7630, Address: 0x1d1f3c, Func Offset: 0x1bc
-	// Line 7631, Address: 0x1d1f40, Func Offset: 0x1c0
-	// Line 7632, Address: 0x1d1f44, Func Offset: 0x1c4
-	// Line 7633, Address: 0x1d1f4c, Func Offset: 0x1cc
-	// Line 7634, Address: 0x1d1f50, Func Offset: 0x1d0
-	// Line 7636, Address: 0x1d1f68, Func Offset: 0x1e8
-	// Line 7637, Address: 0x1d1f80, Func Offset: 0x200
-	// Line 7640, Address: 0x1d1f88, Func Offset: 0x208
-	// Line 7642, Address: 0x1d1fa0, Func Offset: 0x220
-	// Line 7643, Address: 0x1d1fb0, Func Offset: 0x230
-	// Line 7644, Address: 0x1d1fbc, Func Offset: 0x23c
-	// Line 7647, Address: 0x1d1fc4, Func Offset: 0x244
-	// Line 7648, Address: 0x1d1fdc, Func Offset: 0x25c
-	// Line 7649, Address: 0x1d1fec, Func Offset: 0x26c
-	// Line 7650, Address: 0x1d1ffc, Func Offset: 0x27c
-	// Line 7653, Address: 0x1d2008, Func Offset: 0x288
-	// Line 7655, Address: 0x1d2010, Func Offset: 0x290
-	// Line 7657, Address: 0x1d2020, Func Offset: 0x2a0
-	// Line 7658, Address: 0x1d2024, Func Offset: 0x2a4
-	// Line 7663, Address: 0x1d2038, Func Offset: 0x2b8
-	// Line 7665, Address: 0x1d2040, Func Offset: 0x2c0
-	// Line 7667, Address: 0x1d204c, Func Offset: 0x2cc
-	// Line 7669, Address: 0x1d2058, Func Offset: 0x2d8
-	// Line 7671, Address: 0x1d2068, Func Offset: 0x2e8
-	// Line 7673, Address: 0x1d2070, Func Offset: 0x2f0
-	// Line 7674, Address: 0x1d207c, Func Offset: 0x2fc
-	// Line 7675, Address: 0x1d2080, Func Offset: 0x300
-	// Line 7677, Address: 0x1d2090, Func Offset: 0x310
-	// Line 7678, Address: 0x1d2094, Func Offset: 0x314
-	// Line 7681, Address: 0x1d20a8, Func Offset: 0x328
-	// Line 7683, Address: 0x1d20b8, Func Offset: 0x338
-	// Line 7685, Address: 0x1d20c0, Func Offset: 0x340
-	// Line 7687, Address: 0x1d20cc, Func Offset: 0x34c
-	// Line 7689, Address: 0x1d20d8, Func Offset: 0x358
-	// Line 7691, Address: 0x1d20e8, Func Offset: 0x368
-	// Line 7693, Address: 0x1d20f0, Func Offset: 0x370
-	// Line 7695, Address: 0x1d20f8, Func Offset: 0x378
-	// Line 7697, Address: 0x1d2108, Func Offset: 0x388
-	// Line 7698, Address: 0x1d210c, Func Offset: 0x38c
-	// Line 7700, Address: 0x1d2120, Func Offset: 0x3a0
-	// Func End, Address: 0x1d2144, Func Offset: 0x3c4
+	MTN_TBL_FMTN_WORK *mtbl = en09_mtn_tbl;
+    MTN_TBL_ATB_WORK *mtbl2 = en09_mtn_tbl2;
+    MTN_TBL_ATB_WORK *mtbl3 = en09_mtn_tbl3;
+    NJS_VECTOR vec;
+    NJS_VECTOR vec2 =
+    {
+        0.0f,
+        0.0f,
+        0.0f
+    };
+    int i;
+    
+    if (sys->rmthp != epw->mnwP) 
+    {
+        if (epw->flg & 0x40000)
+        {
+            while (mtbl->no != -1)
+            {
+                if (mtbl->no == epw->mtn_no) 
+                {
+                    for (i = 0; i < 3; i++)
+                    {
+                        if ((mtbl->fmtn[i].type != -1)
+                            && (frm >= mtbl->fmtn[i].s_frm)
+                            && (frm <= mtbl->fmtn[i].e_frm))
+                        {
+                            switch (mtbl->fmtn[i].type)
+                            {
+                                case 7:
+                                    vec2.x = 0;
+                                    vec2.y = 0;
+                                    vec2.z = -1.5f;
+                                
+                                    /* fallthrough */
+                                case 0:
+                                    if (EXP0_I(0x18) & 0x10000000) 
+                                    {
+                                        bhCalcFixOffset(epw, en09_tree[1], &vec2, &vec);
+                                    }
+                                    else 
+                                    {
+                                        bhCalcFixOffset(epw, en09_tree[0], &vec2, &vec);
+                                    }
+                                    
+                                    epw->px -= vec.x;
+                                    epw->pz -= vec.z;
+                                    
+                                    break;
+                                
+                                case 8:
+                                    vec2.x = 0;
+                                    vec2.y = 0;
+                                    vec2.z = -1.5f;
+                                
+                                    /* fallthrough */
+                                case 1:
+                                    if (EXP0_I(0x18) & 0x10000000)
+                                    {
+                                        bhCalcFixOffset(epw, en09_tree[0], &vec2, &vec);
+                                    } 
+                                    else 
+                                    {
+                                        bhCalcFixOffset(epw, en09_tree[1], &vec2, &vec);
+                                    }
+                                    
+                                    epw->px -= vec.x;
+                                    epw->pz -= vec.z;
+                                    
+                                    break;
+                                
+                                case 6:
+                                    bhCalcFixOffset(epw, en09_tree[2], NULL, &vec);
+                                    
+                                    epw->px -= vec.x;
+                                    epw->py -= vec.y;
+                                    epw->pz -= vec.z;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                
+                mtbl++;
+            }
+            
+        }
+        
+        while (mtbl2->no != -1) 
+        {
+            if (mtbl2->no == epw->mtn_no)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    if (mtbl2->atb[i].frm != -1) 
+                    {
+                        if (mtbl2->atb[i].frm == frm) 
+                        {
+                            bhEne09_SePlay(epw, mtbl2->atb[i].act);
+                        }
+                    }
+                    else break;
+                }
+            }
+            
+            mtbl2++;
+        }
+        
+        if (epw->mode0 < 5) 
+        {
+            while (mtbl3->no != -1) 
+            {
+                if (mtbl3->no == epw->mtn_no) 
+                {
+                    for (i = 0; i < 5; i++)
+                    {
+                        if (mtbl3->atb[i].frm != -1)
+                        {
+                            if (mtbl3->atb[i].frm == frm) 
+                            {
+                                bhEne_SetVibration(mtbl3->atb[i].act);
+                            }
+                        }
+                        else break;
+                    }
+                }
+                
+                mtbl3++;
+            }
+        }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1d2150
