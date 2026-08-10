@@ -5583,64 +5583,59 @@ void bhEne09_DD00(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1d0d30
+// 100% matching!
 int bhEne09_CollChkArm(BH_PWORK* epw, BH_PWORK* trg)
 {
-	int i;
-	float len;
-	int r;
-	_anon25 pd;
-	_anon46 l1;
-	_anon51 cp;
-	_anon50 sp;
-	_anon24* owk;
-	// Line 6847, Address: 0x1d0d30, Func Offset: 0
-	// Line 6858, Address: 0x1d0d5c, Func Offset: 0x2c
-	// Line 6861, Address: 0x1d0d60, Func Offset: 0x30
-	// Line 6865, Address: 0x1d0d6c, Func Offset: 0x3c
-	// Line 6858, Address: 0x1d0d70, Func Offset: 0x40
-	// Line 6859, Address: 0x1d0d74, Func Offset: 0x44
-	// Line 6860, Address: 0x1d0d7c, Func Offset: 0x4c
-	// Line 6861, Address: 0x1d0d84, Func Offset: 0x54
-	// Line 6864, Address: 0x1d0d8c, Func Offset: 0x5c
-	// Line 6867, Address: 0x1d0d98, Func Offset: 0x68
-	// Line 6868, Address: 0x1d0d9c, Func Offset: 0x6c
-	// Line 6869, Address: 0x1d0da0, Func Offset: 0x70
-	// Line 6870, Address: 0x1d0da4, Func Offset: 0x74
-	// Line 6867, Address: 0x1d0da8, Func Offset: 0x78
-	// Line 6868, Address: 0x1d0dac, Func Offset: 0x7c
-	// Line 6872, Address: 0x1d0db0, Func Offset: 0x80
-	// Line 6873, Address: 0x1d0db8, Func Offset: 0x88
-	// Line 6868, Address: 0x1d0dbc, Func Offset: 0x8c
-	// Line 6869, Address: 0x1d0dc0, Func Offset: 0x90
-	// Line 6873, Address: 0x1d0dc4, Func Offset: 0x94
-	// Line 6869, Address: 0x1d0dc8, Func Offset: 0x98
-	// Line 6870, Address: 0x1d0dcc, Func Offset: 0x9c
-	// Line 6871, Address: 0x1d0dd4, Func Offset: 0xa4
-	// Line 6873, Address: 0x1d0de0, Func Offset: 0xb0
-	// Line 6875, Address: 0x1d0df4, Func Offset: 0xc4
-	// Line 6882, Address: 0x1d0df8, Func Offset: 0xc8
-	// Line 6875, Address: 0x1d0e04, Func Offset: 0xd4
-	// Line 6876, Address: 0x1d0e08, Func Offset: 0xd8
-	// Line 6877, Address: 0x1d0e10, Func Offset: 0xe0
-	// Line 6878, Address: 0x1d0e1c, Func Offset: 0xec
-	// Line 6880, Address: 0x1d0e28, Func Offset: 0xf8
-	// Line 6882, Address: 0x1d0e30, Func Offset: 0x100
-	// Line 6883, Address: 0x1d0e38, Func Offset: 0x108
-	// Line 6885, Address: 0x1d0e54, Func Offset: 0x124
-	// Line 6886, Address: 0x1d0e8c, Func Offset: 0x15c
-	// Line 6887, Address: 0x1d0ea0, Func Offset: 0x170
-	// Line 6886, Address: 0x1d0ea4, Func Offset: 0x174
-	// Line 6887, Address: 0x1d0eb0, Func Offset: 0x180
-	// Line 6889, Address: 0x1d0ed4, Func Offset: 0x1a4
-	// Line 6892, Address: 0x1d0ee0, Func Offset: 0x1b0
-	// Line 6902, Address: 0x1d0ef0, Func Offset: 0x1c0
-	// Line 6903, Address: 0x1d0ef4, Func Offset: 0x1c4
-	// Func End, Address: 0x1d0f24, Func Offset: 0x1f4
+	O_WORK* owk;
+    NJS_SPHERE sp;
+    NJS_CAPSULE cp;
+    NJS_LINE l1;
+    NJS_POINT3 pd;
+    int r;
+    float len;
+    int i;
+
+    sp.c.x = trg->px;
+    sp.c.y = trg->py;
+    sp.c.z = trg->pz;
+    sp.r = trg->car;
+    
+    owk = epw->mlwP->owP + 6;
+    
+    for (i = 0; i < 4; i++, owk++)
+    {
+        cp.c1.x = owk[0].mtx[0xC];
+        cp.c1.z = owk[0].mtx[0xE];
+        cp.c2.x = owk[1].mtx[0xC];
+        cp.c2.z = owk[1].mtx[0xE];
+        cp.c1.y = cp.c2.y = epw->py;
+        cp.r = 1.0f;
+        
+        if (npCollisionCheckSC(&sp, &cp) == 1) 
+        {
+            l1.px = cp.c1.x;
+            l1.pz = cp.c1.z;
+            l1.vx = cp.c2.x - cp.c1.x;
+            l1.vz = cp.c2.z - cp.c1.z;
+            l1.py = epw->py;
+            l1.vy = 0;
+            
+            if (njDistanceP2L((NJS_VECTOR *)&trg->px, &l1, &pd) < (sp.r + cp.r))
+            {
+                r = (int)(10430.381f * atan2f(pd.x - trg->px, pd.z - trg->pz));
+                
+                trg->px = pd.x - ((sp.r + cp.r) * njSin(r));
+                trg->pz = pd.z - ((sp.r + cp.r) * njCos(r));
+            }
+            
+            return 1;
+        }
+    }
+    
+    return 0;
 }
+
+/*
 
 // 
 // Start address: 0x1d0f30
