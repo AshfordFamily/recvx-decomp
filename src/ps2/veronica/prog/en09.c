@@ -5451,44 +5451,62 @@ void bhEne09_DG09(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1d0960
+// 100% matching!
 void bhEne09_DG10(BH_PWORK* epw)
 {
-	// Line 6649, Address: 0x1d0960, Func Offset: 0
-	// Line 6652, Address: 0x1d096c, Func Offset: 0xc
-	// Line 6655, Address: 0x1d0998, Func Offset: 0x38
-	// Line 6657, Address: 0x1d09a8, Func Offset: 0x48
-	// Line 6658, Address: 0x1d09c8, Func Offset: 0x68
-	// Line 6659, Address: 0x1d09d0, Func Offset: 0x70
-	// Line 6661, Address: 0x1d09dc, Func Offset: 0x7c
-	// Line 6662, Address: 0x1d09fc, Func Offset: 0x9c
-	// Line 6663, Address: 0x1d0a04, Func Offset: 0xa4
-	// Line 6665, Address: 0x1d0a10, Func Offset: 0xb0
-	// Line 6666, Address: 0x1d0a30, Func Offset: 0xd0
-	// Line 6667, Address: 0x1d0a38, Func Offset: 0xd8
-	// Line 6669, Address: 0x1d0a44, Func Offset: 0xe4
-	// Line 6671, Address: 0x1d0a68, Func Offset: 0x108
-	// Line 6674, Address: 0x1d0a74, Func Offset: 0x114
-	// Line 6677, Address: 0x1d0aa4, Func Offset: 0x144
-	// Line 6676, Address: 0x1d0aa8, Func Offset: 0x148
-	// Line 6677, Address: 0x1d0aac, Func Offset: 0x14c
-	// Line 6678, Address: 0x1d0ab0, Func Offset: 0x150
-	// Line 6679, Address: 0x1d0ab4, Func Offset: 0x154
-	// Line 6680, Address: 0x1d0ab8, Func Offset: 0x158
-	// Line 6683, Address: 0x1d0abc, Func Offset: 0x15c
-	// Line 6684, Address: 0x1d0ac8, Func Offset: 0x168
-	// Line 6683, Address: 0x1d0acc, Func Offset: 0x16c
-	// Line 6684, Address: 0x1d0ad8, Func Offset: 0x178
-	// Line 6685, Address: 0x1d0ae8, Func Offset: 0x188
-	// Line 6687, Address: 0x1d0af4, Func Offset: 0x194
-	// Line 6690, Address: 0x1d0afc, Func Offset: 0x19c
-	// Line 6692, Address: 0x1d0b2c, Func Offset: 0x1cc
-	// Line 6697, Address: 0x1d0b30, Func Offset: 0x1d0
-	// Func End, Address: 0x1d0b40, Func Offset: 0x1e0
+    switch (epw->mode3) 
+    {
+        case 0:
+
+            if (epw->mtn_no == 0x27)
+            {
+                bhEne_ChgMtn(epw, 0x30, 0, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else if (epw->mtn_no == 0x17)
+            {
+                bhEne_ChgMtn(epw, 0x30, 0xF0000, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else if (epw->mtn_no == 0x38)
+            {
+                bhEne_ChgMtn(epw, 0x37, 0, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            else if (epw->mtn_no == 0x35)
+            {
+                bhEne_ChgMtn(epw, 0x37, 0x100000, 0);
+                EXP0_I(0x18) &= 0x1FFFFFFF;
+            }
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                epw->mtn_add = 0;
+                epw->mode0 = 4;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+                
+                EXP0_I(0x18) &= 0xFFFF3E7F;
+                EXP0_I(0x18) &= ~0xF;
+                EXP0_I(0x18) |= 1;
+            }
+            
+            break;
+        
+        case 2:
+            if ((epw->frm_no >> 0x10) == (epw->mnwP[epw->mtn_no].frm_num - 1)) 
+            {
+                epw->mode3 = 0;
+            }
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1d0b40
