@@ -7491,51 +7491,43 @@ void bhEne09_SePlay(BH_PWORK* epw, int no)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1d21a0
-void bhEne09_SetSmokeEffect(BH_PWORK* epw, _anon25* ofs, int rot)
+// 100% matching!
+void bhEne09_SetSmokeEffect(BH_PWORK* epw, NJS_VECTOR* ofs, int rot) 
 {
-	int i;
-	int eno;
-	float en09_eff_tbl[4];
-	// Line 7746, Address: 0x1d21a0, Func Offset: 0
-	// Line 7751, Address: 0x1d21b8, Func Offset: 0x18
-	// Line 7752, Address: 0x1d21c8, Func Offset: 0x28
-	// Line 7751, Address: 0x1d21cc, Func Offset: 0x2c
-	// Line 7752, Address: 0x1d21d8, Func Offset: 0x38
-	// Line 7754, Address: 0x1d21e0, Func Offset: 0x40
-	// Line 7763, Address: 0x1d21e8, Func Offset: 0x48
-	// Line 7752, Address: 0x1d21ec, Func Offset: 0x4c
-	// Line 7753, Address: 0x1d21f8, Func Offset: 0x58
-	// Line 7754, Address: 0x1d220c, Func Offset: 0x6c
-	// Line 7755, Address: 0x1d2220, Func Offset: 0x80
-	// Line 7756, Address: 0x1d2234, Func Offset: 0x94
-	// Line 7757, Address: 0x1d2248, Func Offset: 0xa8
-	// Line 7758, Address: 0x1d225c, Func Offset: 0xbc
-	// Line 7759, Address: 0x1d2270, Func Offset: 0xd0
-	// Line 7761, Address: 0x1d2284, Func Offset: 0xe4
-	// Line 7765, Address: 0x1d229c, Func Offset: 0xfc
-	// Line 7766, Address: 0x1d22f0, Func Offset: 0x150
-	// Line 7768, Address: 0x1d2318, Func Offset: 0x178
-	// Line 7766, Address: 0x1d231c, Func Offset: 0x17c
-	// Line 7768, Address: 0x1d2334, Func Offset: 0x194
-	// Line 7766, Address: 0x1d233c, Func Offset: 0x19c
-	// Line 7768, Address: 0x1d2354, Func Offset: 0x1b4
-	// Line 7769, Address: 0x1d236c, Func Offset: 0x1cc
-	// Line 7771, Address: 0x1d2378, Func Offset: 0x1d8
-	// Line 7773, Address: 0x1d239c, Func Offset: 0x1fc
-	// Line 7771, Address: 0x1d23a0, Func Offset: 0x200
-	// Line 7772, Address: 0x1d23a8, Func Offset: 0x208
-	// Line 7774, Address: 0x1d23b4, Func Offset: 0x214
-	// Line 7775, Address: 0x1d23e8, Func Offset: 0x248
-	// Line 7774, Address: 0x1d23ec, Func Offset: 0x24c
-	// Line 7775, Address: 0x1d23f8, Func Offset: 0x258
-	// Line 7776, Address: 0x1d2400, Func Offset: 0x260
-	// Line 7777, Address: 0x1d240c, Func Offset: 0x26c
-	// Line 7779, Address: 0x1d2410, Func Offset: 0x270
-	// Line 7780, Address: 0x1d2420, Func Offset: 0x280
-	// Func End, Address: 0x1d243c, Func Offset: 0x29c
-}*/
+	static float en09_eff_tbl[4] =
+    {
+        1, 0.400000006, 0.05000000075, 0.8999999762
+    };
+    int eno;
+    int i;
 
+    sys->ef.id = 0x171;
+    sys->ef.flg = 1;
+    sys->ef.type = 1;
+    sys->ef.sx = 2.0f;
+    sys->ef.sy = 2.0f;
+    sys->ef.sz = 2.0f;
+    sys->ef.ax = 0;
+    sys->ef.ay = rot;
+    sys->ef.mdlver = 0;
+    sys->ef.py = ofs->y;
+    
+    for (i = 0; i < 3; i++)
+    {
+        sys->ef.px = (ofs->x + (2.0f * (-rand() / -2.1474836e9f))) - 1.0f;
+        sys->ef.pz = (ofs->z + (2.0f * (-rand() / -2.1474836e9f))) - 1.0f;
+        
+        eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        
+        if (eno != -1) 
+        {
+            (&eff[eno])->stflg |= 0x20;
+            (&eff[eno])->txp[0] = epw->mlwP->texP;
+            (&eff[eno])->tex_id = 0xA;
+            (&eff[eno])->xn = en09_eff_tbl[0] + (en09_eff_tbl[1] * (-rand() / -2.1474836e9f));
+            (&eff[eno])->yn = en09_eff_tbl[2];
+            (&eff[eno])->zn = en09_eff_tbl[3];
+            (&eff[eno])->ct3 = i;
+        }
+    } 
+}
