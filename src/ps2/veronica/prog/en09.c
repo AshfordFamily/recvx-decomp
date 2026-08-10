@@ -5506,15 +5506,13 @@ void bhEne09_DG10(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1d0b40
+// 100% matching!
 void bhEne09_DDType00(BH_PWORK* epw)
 {
-	// Line 6715, Address: 0x1d0b40, Func Offset: 0
-	// Func End, Address: 0x1d0b60, Func Offset: 0x20
+    bhEne09_DieMode2[epw->mode2](epw);
 }
+
+/*
 
 // 
 // Start address: 0x1d0b60
