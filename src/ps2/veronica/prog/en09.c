@@ -7482,18 +7482,16 @@ void bhEne09_MtnTblPlay(BH_PWORK* epw, int frm)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1d2150
+// 100% matching!
 void bhEne09_SePlay(BH_PWORK* epw, int no)
 {
-	// Line 7720, Address: 0x1d2150, Func Offset: 0
-	// Line 7721, Address: 0x1d215c, Func Offset: 0xc
-	// Line 7723, Address: 0x1d2170, Func Offset: 0x20
-	// Line 7724, Address: 0x1d218c, Func Offset: 0x3c
-	// Func End, Address: 0x1d2198, Func Offset: 0x48
+    if (!(epw->flg & 0x10000))
+    {
+        RequestEnemySe(sys->enow, (NJS_VECTOR *)&epw->px, no);
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1d21a0
