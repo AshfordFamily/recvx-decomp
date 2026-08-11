@@ -2492,7 +2492,7 @@ void bhEne09_Die(BH_PWORK* epw)
     bhEne09_DieType[0](epw);
 }
 
-// 98.79% matching!
+// 100% matching!
 int bhEne09_DmgCheck(BH_PWORK* epw)
 {
     int flg;
@@ -2507,78 +2507,79 @@ int bhEne09_DmgCheck(BH_PWORK* epw)
         if (epw->total_dam == 0) 
             return flg;
         
-        else if (!(EXP0_I(0x18) & 0x40)
-            || (epw->flr_no > plp->flr_no)
-            || ((WpnTab[epw->wpnr_no].flg & 0x20) != 0)
-            || (WpnTab[epw->wpnr_no].flg & 0x20000000)
-            || !(plp->at_flg & 2))
+         if ((EXP0_I(0x18) & 0x40)
+            && (epw->flr_no <= plp->flr_no)
+            && !(WpnTab[epw->wpnr_no].flg & 0x20)
+            && !(WpnTab[epw->wpnr_no].flg & 0x20000000)
+            && (plp->at_flg & 2))
         {
-            bhEne09_DamageAdd(epw);
+            return;
+        }
+        
+        bhEne09_DamageAdd(epw);
+        
+        if (epw->mode0 >= 3) 
+        {
+            bhEne09_SePlay(epw, 0x0100230E);
+            flg = 1;
+            return flg;
+        }
+        else
+        {
+            epw->flg |= 0x40;
+        
+            EXP0_I(0x18) &= 0xEFFFFFFF;
             
-            if (epw->mode0 >= 3) 
+            EXP0_I(0x18) |= 0x08000000;
+            
+            if (epw->comb_flg & 4) 
             {
-                bhEne09_SePlay(epw, 0x0100230E);
-                flg = 1;
-                return flg;
+                EXP0_I(0x18) |= 0x200;
             }
-            else
+            else 
             {
-                epw->flg |= 0x40;
+                EXP0_I(0x18) &= ~0x200;
+            }
             
-                EXP0_I(0x18) &= 0xEFFFFFFF;
+            bhEne09_ChgDmgMode(epw);
+            
+            if (EXP0_I(0x18) & 0x04000000)
+            {
+                EXP0_I(0x18) &= 0xFB1FFFFF;
                 
-                EXP0_I(0x18) |= 0x08000000;
+                *(int *)plp->exp1 |= 4;
                 
-                if (epw->comb_flg & 4) 
+                sys->pad_on &= ~0xF;
+                plp->flg &= 0xFFFEFFFF;
+                plp->flg |= 8;
+                plp->stflg &= 0xFFFAFFFF;
+                plp->at_flg = 0;
+                plp->mnwP = plp->mnwPb;
+                
+                if (plp->flg2 & 0x200) 
                 {
-                    EXP0_I(0x18) |= 0x200;
-                }
-                else 
-                {
-                    EXP0_I(0x18) &= ~0x200;
-                }
-                
-                bhEne09_ChgDmgMode(epw);
-                
-                if (EXP0_I(0x18) & 0x04000000)
-                {
-                    EXP0_I(0x18) &= 0xFB1FFFFF;
+                    plp->mode0 = 2;
+                    plp->mode2 = 1;
+                    plp->mode3 = 0;
                     
-                    *(int *)plp->exp1 |= 4;
-                    
-                    sys->pad_on &= ~0xF;
-                    plp->flg &= 0xFFFEFFFF;
-                    plp->flg |= 8;
-                    plp->stflg &= 0xFFFAFFFF;
-                    plp->at_flg = 0;
-                    plp->mnwP = plp->mnwPb;
-                    
-                    if (plp->flg2 & 0x200) 
+                    if (bhDGCdirCheck((NJS_VECTOR *)&plp->dvx, plp->ay) == 0) 
                     {
-                        plp->mode0 = 2;
-                        plp->mode2 = 1;
-                        plp->mode3 = 0;
-                        
-                        if (bhDGCdirCheck((NJS_VECTOR *)&plp->dvx, plp->ay) == 0) 
-                        {
-                            plp->mode1 = 0;
-                        }
-                        else 
-                        {
-                            plp->mode1 = 1;
-                        }
-                        
-                        plp->flg |= 4;
+                        plp->mode1 = 0;
                     }
                     else 
                     {
-                        *((int*)&plp->mode0) = 1;
-                        plp->flg &= ~4;
+                        plp->mode1 = 1;
                     }
+                    
+                    plp->flg |= 4;
+                }
+                else 
+                {
+                    *((int*)&plp->mode0) = 1;
+                    plp->flg &= ~4;
                 }
             }
         }
-        
     }
 
     return flg;
