@@ -53,6 +53,7 @@ options:
   ld_bss_is_noload: True
   disasm_unknown: True
   # migrate_rodata_to_functions: False
+  mips_abi_gpr: numeric
 
 segments:
   - name: header
