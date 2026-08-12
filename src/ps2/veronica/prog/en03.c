@@ -5395,131 +5395,181 @@ int bhEne03_CollisionWallCylinder(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
 
 	return 0;
 }
-// 
-// Start address: 0x1a0050
+
+// 100% matching!
 int bhEne03_CollisionWallSlope(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 {
-	char idx2;
-	char idx;
-	char zf1;
-	char zf0;
-	char xf1;
-	char xf0;
-	NJS_PLANE ln;
-	NJS_PLANE pl;
-	NJS_POINT3 cp;
-	NJS_POINT3 area[4];
-	float len;
-	float h;
-	// Line 5601, Address: 0x1a0050, Func Offset: 0
-	// Line 5611, Address: 0x1a0054, Func Offset: 0x4
-	// Line 5601, Address: 0x1a0058, Func Offset: 0x8
-	// Line 5611, Address: 0x1a0084, Func Offset: 0x34
-	// Line 5615, Address: 0x1a00b0, Func Offset: 0x60
-	// Line 5619, Address: 0x1a0154, Func Offset: 0x104
-	// Line 5620, Address: 0x1a0158, Func Offset: 0x108
-	// Line 5621, Address: 0x1a0160, Func Offset: 0x110
-	// Line 5623, Address: 0x1a0164, Func Offset: 0x114
-	// Line 5620, Address: 0x1a0168, Func Offset: 0x118
-	// Line 5621, Address: 0x1a016c, Func Offset: 0x11c
-	// Line 5626, Address: 0x1a0170, Func Offset: 0x120
-	// Line 5629, Address: 0x1a0174, Func Offset: 0x124
-	// Line 5632, Address: 0x1a0178, Func Offset: 0x128
-	// Line 5621, Address: 0x1a017c, Func Offset: 0x12c
-	// Line 5622, Address: 0x1a0180, Func Offset: 0x130
-	// Line 5623, Address: 0x1a0188, Func Offset: 0x138
-	// Line 5624, Address: 0x1a0190, Func Offset: 0x140
-	// Line 5625, Address: 0x1a01a0, Func Offset: 0x150
-	// Line 5626, Address: 0x1a01b0, Func Offset: 0x160
-	// Line 5627, Address: 0x1a01b8, Func Offset: 0x168
-	// Line 5628, Address: 0x1a01c8, Func Offset: 0x178
-	// Line 5629, Address: 0x1a01d8, Func Offset: 0x188
-	// Line 5630, Address: 0x1a01e0, Func Offset: 0x190
-	// Line 5632, Address: 0x1a01e8, Func Offset: 0x198
-	// Line 5633, Address: 0x1a021c, Func Offset: 0x1cc
-	// Line 5634, Address: 0x1a0230, Func Offset: 0x1e0
-	// Line 5635, Address: 0x1a0244, Func Offset: 0x1f4
-	// Line 5636, Address: 0x1a0258, Func Offset: 0x208
-	// Line 5639, Address: 0x1a0268, Func Offset: 0x218
-	// Line 5640, Address: 0x1a0278, Func Offset: 0x228
-	// Line 5644, Address: 0x1a027c, Func Offset: 0x22c
-	// Line 5640, Address: 0x1a0288, Func Offset: 0x238
-	// Line 5641, Address: 0x1a028c, Func Offset: 0x23c
-	// Line 5642, Address: 0x1a0294, Func Offset: 0x244
-	// Line 5644, Address: 0x1a0298, Func Offset: 0x248
-	// Line 5645, Address: 0x1a02a0, Func Offset: 0x250
-	// Line 5648, Address: 0x1a02b0, Func Offset: 0x260
-	// Line 5646, Address: 0x1a02b8, Func Offset: 0x268
-	// Line 5648, Address: 0x1a02c8, Func Offset: 0x278
-	// Line 5649, Address: 0x1a02dc, Func Offset: 0x28c
-	// Line 5650, Address: 0x1a02f8, Func Offset: 0x2a8
-	// Line 5651, Address: 0x1a0318, Func Offset: 0x2c8
-	// Line 5654, Address: 0x1a0334, Func Offset: 0x2e4
-	// Line 5660, Address: 0x1a0354, Func Offset: 0x304
-	// Line 5661, Address: 0x1a035c, Func Offset: 0x30c
-	// Line 5665, Address: 0x1a0364, Func Offset: 0x314
-	// Line 5661, Address: 0x1a0368, Func Offset: 0x318
-	// Line 5662, Address: 0x1a0374, Func Offset: 0x324
-	// Line 5663, Address: 0x1a0388, Func Offset: 0x338
-	// Line 5665, Address: 0x1a0398, Func Offset: 0x348
-	// Line 5669, Address: 0x1a03a0, Func Offset: 0x350
-	// Line 5670, Address: 0x1a03d8, Func Offset: 0x388
-	// Line 5673, Address: 0x1a03e0, Func Offset: 0x390
-	// Line 5674, Address: 0x1a03f0, Func Offset: 0x3a0
-	// Line 5676, Address: 0x1a03f4, Func Offset: 0x3a4
-	// Line 5678, Address: 0x1a0404, Func Offset: 0x3b4
-	// Line 5679, Address: 0x1a0408, Func Offset: 0x3b8
-	// Line 5680, Address: 0x1a0410, Func Offset: 0x3c0
-	// Line 5681, Address: 0x1a0414, Func Offset: 0x3c4
-	// Line 5684, Address: 0x1a0418, Func Offset: 0x3c8
-	// Line 5687, Address: 0x1a041c, Func Offset: 0x3cc
-	// Line 5684, Address: 0x1a0420, Func Offset: 0x3d0
-	// Line 5685, Address: 0x1a0438, Func Offset: 0x3e8
-	// Line 5686, Address: 0x1a043c, Func Offset: 0x3ec
-	// Line 5685, Address: 0x1a0440, Func Offset: 0x3f0
-	// Line 5684, Address: 0x1a0448, Func Offset: 0x3f8
-	// Line 5685, Address: 0x1a044c, Func Offset: 0x3fc
-	// Line 5687, Address: 0x1a0450, Func Offset: 0x400
-	// Line 5686, Address: 0x1a0454, Func Offset: 0x404
-	// Line 5685, Address: 0x1a045c, Func Offset: 0x40c
-	// Line 5686, Address: 0x1a0460, Func Offset: 0x410
-	// Line 5687, Address: 0x1a0464, Func Offset: 0x414
-	// Line 5688, Address: 0x1a0470, Func Offset: 0x420
-	// Line 5689, Address: 0x1a0474, Func Offset: 0x424
-	// Line 5686, Address: 0x1a0478, Func Offset: 0x428
-	// Line 5687, Address: 0x1a047c, Func Offset: 0x42c
-	// Line 5691, Address: 0x1a0488, Func Offset: 0x438
-	// Line 5687, Address: 0x1a0490, Func Offset: 0x440
-	// Line 5691, Address: 0x1a0494, Func Offset: 0x444
-	// Line 5687, Address: 0x1a0498, Func Offset: 0x448
-	// Line 5688, Address: 0x1a049c, Func Offset: 0x44c
-	// Line 5689, Address: 0x1a04ac, Func Offset: 0x45c
-	// Line 5691, Address: 0x1a04b8, Func Offset: 0x468
-	// Line 5692, Address: 0x1a04c0, Func Offset: 0x470
-	// Line 5693, Address: 0x1a04d0, Func Offset: 0x480
-	// Line 5697, Address: 0x1a04d8, Func Offset: 0x488
-	// Line 5693, Address: 0x1a04dc, Func Offset: 0x48c
-	// Line 5694, Address: 0x1a04f0, Func Offset: 0x4a0
-	// Line 5695, Address: 0x1a050c, Func Offset: 0x4bc
-	// Line 5697, Address: 0x1a0528, Func Offset: 0x4d8
-	// Line 5702, Address: 0x1a0530, Func Offset: 0x4e0
-	// Line 5703, Address: 0x1a053c, Func Offset: 0x4ec
-	// Line 5704, Address: 0x1a0550, Func Offset: 0x500
-	// Line 5705, Address: 0x1a0564, Func Offset: 0x514
-	// Line 5706, Address: 0x1a0578, Func Offset: 0x528
-	// Line 5708, Address: 0x1a058c, Func Offset: 0x53c
-	// Line 5709, Address: 0x1a05b4, Func Offset: 0x564
-	// Line 5710, Address: 0x1a05c4, Func Offset: 0x574
-	// Line 5711, Address: 0x1a05cc, Func Offset: 0x57c
-	// Line 5714, Address: 0x1a05d0, Func Offset: 0x580
-	// Line 5710, Address: 0x1a05d4, Func Offset: 0x584
-	// Line 5711, Address: 0x1a05e8, Func Offset: 0x598
-	// Line 5712, Address: 0x1a0604, Func Offset: 0x5b4
-	// Line 5714, Address: 0x1a0620, Func Offset: 0x5d0
-	// Line 5720, Address: 0x1a0628, Func Offset: 0x5d8
-	// Line 5721, Address: 0x1a062c, Func Offset: 0x5dc
-	// Func End, Address: 0x1a0660, Func Offset: 0x610
-    scePrintf("bhEne03_CollisionWallSlope - UNIMPLEMENTED!\n");
+    float h;
+    float len;
+    NJS_POINT3 area[4];
+    NJS_POINT3 cp;
+    NJS_PLANE pl;
+    NJS_LINE ln;  
+    signed char xf0;
+    signed char xf1;
+    signed char zf0;
+    signed char zf1;  
+    signed char idx;  
+    signed char idx2;
+
+    h = hp->h;
+    if (h == 0.0f)
+    {
+        h = rom->h;
+    }
+
+    if (pos->x > hp->px - ar)
+    {
+        if(!(pos->x >= hp->px + hp->w + ar ||
+            pos->z <= hp->pz - ar ||
+            pos->z >= hp->pz + hp->d + ar ||
+            pos->y <= hp->py - ar ||
+            pos->y >= hp->py + h + ar))
+        {    
+        
+            area[0].x = hp->px;
+            area[0].y = hp->py;
+            area[0].z = hp->pz;
+        
+            area[1].x = hp->px;
+            area[1].y = hp->py;
+            area[1].z = hp->pz + hp->d;
+        
+            area[2].x = hp->px + hp->w;
+            area[2].y = hp->py;
+            area[2].z = hp->pz + hp->d;
+        
+            area[3].x = hp->px + hp->w;
+            area[3].y = hp->py;
+            area[3].z = hp->pz;
+        
+            switch (hp->id)
+            {
+            case 0:
+                area[2].y = area[3].y = hp->py + h;
+                break;
+                
+            case 1:
+                area[0].y = area[3].y = hp->py + h;
+                break;
+                
+            case 2:
+                area[1].y = area[2].y = hp->py + h;            
+                break;
+                
+            case 3:
+                area[0].y = area[1].y = hp->py + h;            
+                break;
+            }
+        
+            njGetPlaneNormal(area, (NJS_VECTOR*)&pl.vx);
+            pl.px = area[0].x;
+            pl.py = area[0].y;
+            pl.pz = area[0].z;
+        
+            len = njDistanceP2PL(pos, &pl, &cp);
+            if ((len < ar))
+            {   
+                xf0 = zf0 = xf1 = zf1 = 0;
+                
+                if (cp.x < hp->px)
+                {
+                    xf0 = 1;
+                }
+                if (cp.x > (hp->px + hp->w))
+                {
+                    xf1 = 1;
+                }
+                if (cp.z < hp->pz) 
+                {
+                    zf0 = 1;
+                }
+                if (cp.z > (hp->pz + hp->d))
+                {
+                    zf1 = 1;
+                }
+
+                if (!xf0 && !zf0 && !xf1 && !zf1)
+                {
+                    njUnitVector((NJS_VECTOR*)&pl.vx);
+                    pos->x = cp.x + pl.vx * ar;
+                    pos->y = cp.y + pl.vy * ar;
+                    pos->z = cp.z + pl.vz * ar;
+                    return 1;
+                }
+            
+                if (xf0 + xf1 + zf0 + zf1 == 1)
+                {                    
+                    if (xf0)
+                    {
+                        idx = 0;  
+                        idx2 = 1;
+                    }
+                    else if (xf1)
+                    {
+                        idx = 2;
+                        idx2 = 3;
+                    } 
+                    else if (zf0)
+                    {
+                        idx = 0;
+                        idx2 = 3;
+                    } 
+                    else
+                    {
+                        idx = 1;
+                        idx2 = 2;
+                    }
+            
+                    ln.px = area[idx].x;
+                    ln.py = area[idx].y;
+                    ln.pz = area[idx].z;
+                    ln.vx = area[idx2].x - ln.px;
+                    ln.vy = area[idx2].y - ln.py;
+                    ln.vz = area[idx2].z - ln.pz;
+            
+                    len = njDistanceP2L(pos, &ln, &cp);
+                    if (len < ar)
+                    {
+                        pos->x = cp.x - ar * (cp.x - pos->x) / len;
+                        pos->y = cp.y - ar * (cp.y - pos->y) / len;
+                        pos->z = cp.z - ar * (cp.z - pos->z) / len;
+                        return 1;
+                    }
+                }
+            
+                if (xf0 + xf1 + zf0 + zf1 == 2)
+                {
+                    if (xf0 && zf0)
+                    {
+                        idx = 0;
+                    }                    
+                    if (xf0 && zf1)
+                    {
+                        idx = 1;
+                    }
+                    if (xf1 && zf1)
+                    {
+                        idx = 2;
+                    }
+                    if (xf1 && zf0)
+                    {
+                        idx = 3;
+                    }
+                                    
+                    len = njDistanceP2P(&area[idx], pos);
+                    if (len < ar)
+                    {
+                        pos->x = area[idx].x - ar * (area[idx].x - pos->x) / len;
+                        pos->y = area[idx].y - ar * (area[idx].y - pos->y) / len;
+                        pos->z = area[idx].z - ar * (area[idx].z - pos->z) / len;
+                        return 1;
+                    }
+                } 
+            } 
+        } 
+    }
+    return 0;
 }
 
 // 100% matching!
