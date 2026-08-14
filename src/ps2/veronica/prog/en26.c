@@ -1,6 +1,10 @@
 #include "../../../ps2/veronica/prog/en26.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/sdfunc.h"
+#include "../../../ps2/veronica/prog/main.h"
+
+#pragma optimization_level 4
 
 // ENEMY: Anatomist Zombie 
 
@@ -2667,6 +2671,7 @@ void bhEne26_MV01(BH_PWORK* epw)
 	// Func End, Address: 0x20cb84, Func Offset: 0x284
 }
 */
+// 100% matching!
 void bhEne26_MV02(BH_PWORK* epw)
 {
     int frm;
@@ -3798,16 +3803,21 @@ void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
 	// Func End, Address: 0x20fa10, Func Offset: 0xe0
 }
 */
-// 
-// Start address: 0x20fa10
+// 100% matching!
 void bhEne26_SePlay(BH_PWORK* epw, int no)
-{
-	// Line 4382, Address: 0x20fa10, Func Offset: 0
-	// Line 4383, Address: 0x20fa24, Func Offset: 0x14
-	// Line 4385, Address: 0x20fa38, Func Offset: 0x28
-	// Line 4387, Address: 0x20fa48, Func Offset: 0x38
-	// Line 4389, Address: 0x20fa58, Func Offset: 0x48
-	// Line 4393, Address: 0x20faa4, Func Offset: 0x94
-	// Line 4394, Address: 0x20fac4, Func Offset: 0xb4
-	// Func End, Address: 0x20fad8, Func Offset: 0xc8
+{    
+    if (epw->flg & 0x10000)
+    {
+        return;
+    }
+
+    if (((u_char)no >= 20) && (((u_char)no == 20 || (u_char)no == 21)))
+    {
+        if ((ChechPlayEnemySe(sys->enow, no)) || (!(rand() % 2)))
+        {
+            return;
+        }
+    }
+
+    RequestEnemySe(sys->enow, (NJS_POINT3*)&epw->px, no);
 }
