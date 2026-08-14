@@ -3,6 +3,7 @@
 #include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
+#include "../../../ps2/veronica/prog/ps2_NaMath.h"
 
 // ENEMY: Black Widow
 
@@ -5216,118 +5217,131 @@ ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd)
 	return ret;
 }
 
-// 
-// Start address: 0x19f990
-int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_POINT3* pos, float ar)
+// 100% matching!
+int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
 {
-	float len;
-	float h;
-	float az;
-	float ay;
-	float ax;
-	float dz;
-	float dy;
-	float dx;
-	float cz;
-	float cy;
-	float cx;
-	float pz;
-	float py;
-	float px;
-	// Line 5416, Address: 0x19f990, Func Offset: 0
-	// Line 5426, Address: 0x19f994, Func Offset: 0x4
-	// Line 5416, Address: 0x19f998, Func Offset: 0x8
-	// Line 5426, Address: 0x19f9c4, Func Offset: 0x34
-	// Line 5436, Address: 0x19f9ec, Func Offset: 0x5c
-	// Line 5430, Address: 0x19f9f8, Func Offset: 0x68
-	// Line 5431, Address: 0x19f9fc, Func Offset: 0x6c
-	// Line 5432, Address: 0x19fa00, Func Offset: 0x70
-	// Line 5436, Address: 0x19fa04, Func Offset: 0x74
-	// Line 5438, Address: 0x19fa08, Func Offset: 0x78
-	// Line 5440, Address: 0x19fa0c, Func Offset: 0x7c
-	// Line 5436, Address: 0x19fa10, Func Offset: 0x80
-	// Line 5437, Address: 0x19fa14, Func Offset: 0x84
-	// Line 5438, Address: 0x19fa1c, Func Offset: 0x8c
-	// Line 5430, Address: 0x19fa20, Func Offset: 0x90
-	// Line 5431, Address: 0x19fa24, Func Offset: 0x94
-	// Line 5440, Address: 0x19fa28, Func Offset: 0x98
-	// Line 5432, Address: 0x19fa2c, Func Offset: 0x9c
-	// Line 5438, Address: 0x19fa30, Func Offset: 0xa0
-	// Line 5440, Address: 0x19fa38, Func Offset: 0xa8
-	// Line 5447, Address: 0x19fab0, Func Offset: 0x120
-	// Line 5449, Address: 0x19fac0, Func Offset: 0x130
-	// Line 5448, Address: 0x19fac4, Func Offset: 0x134
-	// Line 5451, Address: 0x19fac8, Func Offset: 0x138
-	// Line 5453, Address: 0x19fad8, Func Offset: 0x148
-	// Line 5452, Address: 0x19fadc, Func Offset: 0x14c
-	// Line 5455, Address: 0x19fae0, Func Offset: 0x150
-	// Line 5457, Address: 0x19faf0, Func Offset: 0x160
-	// Line 5456, Address: 0x19faf4, Func Offset: 0x164
-	// Line 5460, Address: 0x19faf8, Func Offset: 0x168
-	// Line 5461, Address: 0x19fb08, Func Offset: 0x178
-	// Line 5462, Address: 0x19fb18, Func Offset: 0x188
-	// Line 5465, Address: 0x19fb24, Func Offset: 0x194
-	// Line 5467, Address: 0x19fb54, Func Offset: 0x1c4
-	// Line 5468, Address: 0x19fb58, Func Offset: 0x1c8
-	// Line 5469, Address: 0x19fb5c, Func Offset: 0x1cc
-	// Line 5467, Address: 0x19fb60, Func Offset: 0x1d0
-	// Line 5468, Address: 0x19fb64, Func Offset: 0x1d4
-	// Line 5469, Address: 0x19fb68, Func Offset: 0x1d8
-	// Line 5470, Address: 0x19fb6c, Func Offset: 0x1dc
-	// Line 5471, Address: 0x19fb80, Func Offset: 0x1f0
-	// Line 5472, Address: 0x19fb90, Func Offset: 0x200
-	// Line 5473, Address: 0x19fb9c, Func Offset: 0x20c
-	// Line 5472, Address: 0x19fba4, Func Offset: 0x214
-	// Line 5474, Address: 0x19fbac, Func Offset: 0x21c
-	// Line 5473, Address: 0x19fbb0, Func Offset: 0x220
-	// Line 5474, Address: 0x19fbb4, Func Offset: 0x224
-	// Line 5473, Address: 0x19fbb8, Func Offset: 0x228
-	// Line 5474, Address: 0x19fbbc, Func Offset: 0x22c
-	// Line 5476, Address: 0x19fbc4, Func Offset: 0x234
-	// Line 5478, Address: 0x19fbec, Func Offset: 0x25c
-	// Line 5479, Address: 0x19fbf0, Func Offset: 0x260
-	// Line 5478, Address: 0x19fbf4, Func Offset: 0x264
-	// Line 5479, Address: 0x19fbf8, Func Offset: 0x268
-	// Line 5480, Address: 0x19fbfc, Func Offset: 0x26c
-	// Line 5481, Address: 0x19fc08, Func Offset: 0x278
-	// Line 5482, Address: 0x19fc18, Func Offset: 0x288
-	// Line 5483, Address: 0x19fc20, Func Offset: 0x290
-	// Line 5482, Address: 0x19fc28, Func Offset: 0x298
-	// Line 5483, Address: 0x19fc30, Func Offset: 0x2a0
-	// Line 5485, Address: 0x19fc38, Func Offset: 0x2a8
-	// Line 5487, Address: 0x19fc60, Func Offset: 0x2d0
-	// Line 5488, Address: 0x19fc64, Func Offset: 0x2d4
-	// Line 5487, Address: 0x19fc68, Func Offset: 0x2d8
-	// Line 5488, Address: 0x19fc6c, Func Offset: 0x2dc
-	// Line 5489, Address: 0x19fc70, Func Offset: 0x2e0
-	// Line 5490, Address: 0x19fc7c, Func Offset: 0x2ec
-	// Line 5491, Address: 0x19fc8c, Func Offset: 0x2fc
-	// Line 5492, Address: 0x19fc94, Func Offset: 0x304
-	// Line 5491, Address: 0x19fc9c, Func Offset: 0x30c
-	// Line 5492, Address: 0x19fca4, Func Offset: 0x314
-	// Line 5494, Address: 0x19fcac, Func Offset: 0x31c
-	// Line 5496, Address: 0x19fcd4, Func Offset: 0x344
-	// Line 5497, Address: 0x19fcd8, Func Offset: 0x348
-	// Line 5496, Address: 0x19fcdc, Func Offset: 0x34c
-	// Line 5497, Address: 0x19fce0, Func Offset: 0x350
-	// Line 5498, Address: 0x19fce4, Func Offset: 0x354
-	// Line 5499, Address: 0x19fcf0, Func Offset: 0x360
-	// Line 5500, Address: 0x19fd00, Func Offset: 0x370
-	// Line 5501, Address: 0x19fd08, Func Offset: 0x378
-	// Line 5500, Address: 0x19fd10, Func Offset: 0x380
-	// Line 5501, Address: 0x19fd18, Func Offset: 0x388
-	// Line 5503, Address: 0x19fd20, Func Offset: 0x390
-	// Line 5505, Address: 0x19fd28, Func Offset: 0x398
-	// Line 5506, Address: 0x19fd48, Func Offset: 0x3b8
-	// Line 5508, Address: 0x19fd4c, Func Offset: 0x3bc
-	// Line 5509, Address: 0x19fd6c, Func Offset: 0x3dc
-	// Line 5511, Address: 0x19fd70, Func Offset: 0x3e0
-	// Line 5512, Address: 0x19fd90, Func Offset: 0x400
-	// Line 5516, Address: 0x19fd94, Func Offset: 0x404
-	// Line 5519, Address: 0x19fda0, Func Offset: 0x410
-	// Line 5520, Address: 0x19fda4, Func Offset: 0x414
-	// Func End, Address: 0x19fdd8, Func Offset: 0x448
-    scePrintf("bhEne03_CollisionWallBox - UNIMPLEMENTED!\n");
+    float cx;
+    float cy;   
+    float cz;
+    float h;   
+    float dx;
+    float dy;
+    float dz;  
+    float px;
+    float py;
+    float pz;
+    float ax;
+    float ay;
+    float az; 
+    float len;
+
+    h = hp->h;
+    if (h == 0.0f)
+    {
+        h = rom->h;
+    }
+
+    px = hp->px;
+    py = hp->py;
+    pz = hp->pz;
+
+    dx = px - ar;
+    dy = py - ar;
+    dz = pz - ar;
+
+    cx = px + (hp->w / 2.0f);
+    cy = py + (h / 2.0f);
+    cz = pz + (hp->d / 2.0f);
+    
+    if ((pos->x > dx) && (pos->x < (ar + (px + hp->w)))
+        && (pos->y > dy) && (pos->y < (ar + (py + h)))
+        && (pos->z > dz) && (pos->z < (ar + (pz + hp->d))))
+    {
+        if (pos->x > cx)
+        {
+            dx = ar + (px + hp->w);
+            px += hp->w;
+        }
+
+        if (pos->z > cz)
+        {
+            dz = ar + (pz + hp->d);
+            pz += hp->d;
+        }
+
+        if (pos->y > cy)
+        {
+            dy = ar + (py + h);
+            py += h;
+        }
+
+        ax = fabsf(pos->x - dx);
+        ay = fabsf(pos->y - dy);
+        az = fabsf(pos->z - dz);
+
+        if ((ax < ar) && (ay < ar) && (az < ar))
+        {
+            dx = pos->x - px;
+            dy = pos->y - py;
+            dz = pos->z - pz;
+            len = njSqrt((dx * dx) + (dy * dy) + (dz * dz));
+            if (len < ar)
+            {
+                pos->x = px + ((dx * ar) / len);
+                pos->y = py + ((dy * ar) / len);
+                pos->z = pz + ((dz * ar) / len);
+            }
+        } 
+        else if ((ay < ar) && (az < ar))
+        {
+            dy = pos->y - py;
+            dz = pos->z - pz;
+            len = njSqrt((dy * dy) + (dz * dz));
+            if (len < ar)
+            {
+                pos->y = py + ((dy * ar) / len);
+                pos->z = pz + ((dz * ar) / len);
+            }
+        } 
+        else if ((ax < ar) && (az < ar))
+        {
+            dx = pos->x - px;
+            dz = pos->z - pz;
+            len = njSqrt((dx * dx) + (dz * dz));
+            if (len < ar)
+            {
+                pos->x = px + ((dx * ar) / len);
+                pos->z = pz + ((dz * ar) / len);
+            }
+        } 
+        else if ((ax < ar) && (ay < ar))
+        {
+            dx = pos->x - px;
+            dy = pos->y - py;
+            len = njSqrt((dx * dx) + (dy * dy));
+            if (len < ar)
+            {
+                pos->x = px + ((dx * ar) / len);
+                pos->y = py + ((dy * ar) / len);
+            }
+        } 
+        else
+        {
+            if ((ay > ax) && (az > ax)) {
+                pos->x = dx;
+            }
+            if ((ax > ay) && (az > ay)) {
+                pos->y = dy;
+            }
+            if ((ax > az) && (ay > az)) {
+                pos->z = dz;
+            }
+        }
+
+        return 1;
+    }
+
+    return 0;
 }
 
 // 100% matching!
