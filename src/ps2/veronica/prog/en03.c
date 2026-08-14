@@ -5220,6 +5220,7 @@ ATR_WORK* bhEne03_Collision2(BH_PWORK* epw, ATR_WORK* gnd)
 // 100% matching!
 int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
 {
+    // the order of the variables below is different from the one in the DWARF
     float cx;
     float cy;   
     float cz;
@@ -5234,6 +5235,7 @@ int bhEne03_CollisionWallBox(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
     float ay;
     float az; 
     float len;
+
 
     h = hp->h;
     if (h == 0.0f)
@@ -5434,11 +5436,11 @@ int bhEne03_CollisionWallSlope(ATR_WORK* hp, NJS_POINT3* pos, float ar)
 
     if (pos->x > hp->px - ar)
     {
-        if(!(pos->x >= hp->px + hp->w + ar ||
-            pos->z <= hp->pz - ar ||
-            pos->z >= hp->pz + hp->d + ar ||
-            pos->y <= hp->py - ar ||
-            pos->y >= hp->py + h + ar))
+        if((pos->x < hp->px + hp->w + ar &&
+            pos->z > hp->pz - ar &&
+            pos->z < hp->pz + hp->d + ar &&
+            pos->y > hp->py - ar &&
+            pos->y < hp->py + h + ar))
         {    
         
             area[0].x = hp->px;
@@ -5607,7 +5609,7 @@ int bhEne03_CollisionWallTriangle(ATR_WORK* hp, NJS_VECTOR* pos, float ar)
         h = rom->h;
     }
 
-    if (!((hp->py > pos->y - ar)))
+    if ((hp->py <= pos->y - ar))
     {
         if (hp->py + h >= pos->y - ar)           
         {
