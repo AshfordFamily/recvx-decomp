@@ -3510,41 +3510,36 @@ void bhEne26_DG02(BH_PWORK* epw)
 	// Line 3696, Address: 0x20ed9c, Func Offset: 0x27c
 	// Func End, Address: 0x20edac, Func Offset: 0x28c
 }
-
-// 
-// Start address: 0x20edb0
+*/
+// 100% matching!
 void bhEne26_DG03(BH_PWORK* epw)
 {
-	// Line 3717, Address: 0x20edb0, Func Offset: 0
-	// Line 3718, Address: 0x20edbc, Func Offset: 0xc
-	// Line 3721, Address: 0x20eddc, Func Offset: 0x2c
-	// Line 3726, Address: 0x20ede4, Func Offset: 0x34
-	// Line 3721, Address: 0x20edec, Func Offset: 0x3c
-	// Line 3726, Address: 0x20edf0, Func Offset: 0x40
-	// Line 3721, Address: 0x20edf4, Func Offset: 0x44
-	// Line 3722, Address: 0x20edfc, Func Offset: 0x4c
-	// Line 3726, Address: 0x20ee0c, Func Offset: 0x5c
-	// Line 3727, Address: 0x20ee20, Func Offset: 0x70
-	// Line 3726, Address: 0x20ee24, Func Offset: 0x74
-	// Line 3727, Address: 0x20ee30, Func Offset: 0x80
-	// Line 3728, Address: 0x20ee3c, Func Offset: 0x8c
-	// Line 3732, Address: 0x20ee48, Func Offset: 0x98
-	// Line 3735, Address: 0x20ee78, Func Offset: 0xc8
-	// Line 3739, Address: 0x20ee7c, Func Offset: 0xcc
-	// Line 3735, Address: 0x20ee84, Func Offset: 0xd4
-	// Line 3740, Address: 0x20ee88, Func Offset: 0xd8
-	// Line 3735, Address: 0x20ee8c, Func Offset: 0xdc
-	// Line 3736, Address: 0x20ee98, Func Offset: 0xe8
-	// Line 3738, Address: 0x20eea8, Func Offset: 0xf8
-	// Line 3739, Address: 0x20eeac, Func Offset: 0xfc
-	// Line 3740, Address: 0x20eebc, Func Offset: 0x10c
-	// Line 3741, Address: 0x20eec0, Func Offset: 0x110
-	// Line 3742, Address: 0x20eec4, Func Offset: 0x114
-	// Line 3743, Address: 0x20eec8, Func Offset: 0x118
-	// Line 3747, Address: 0x20eecc, Func Offset: 0x11c
-	// Func End, Address: 0x20eedc, Func Offset: 0x12c
-}
+    switch (epw->mode3)
+    {        
+    case 0:
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 6;
+        epw->spd = 0.0f;
+        bhEne_ChgMtn(epw, 3, 0, 10);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->flg |= 0x40000;
+        epw->mode3++;
 
+    case 1:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1)) {
+            EXP0_I(0x40) &= ~0xF;
+            EXP0_I(0x40) |= 6;
+            epw->mtn_add = 0;
+            EXP0_I(0x40) &= ~0x8000;
+            epw->mode0 = 4;
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+        break;
+    }
+}
+/*
 // 
 // Start address: 0x20eee0
 void bhEne26_DG04(BH_PWORK* epw)
