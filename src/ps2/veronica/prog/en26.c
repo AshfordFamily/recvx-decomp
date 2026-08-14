@@ -1416,7 +1416,12 @@ void(*bhEne26_MoveMode2)(BH_PWORK*)[17];
 void(*bhEne26_NageMode2)(BH_PWORK*)[1];
 void(*bhEne26_DamageMode2)(BH_PWORK*)[16];
 void(*bhEne26_DieMode2)(BH_PWORK*)[1];
-void(*bhEne26_PlyDmgMode)(BH_PWORK*, BH_PWORK*)[1];
+*/
+void(*bhEne26_PlyDmgMode[1])(BH_PWORK*, BH_PWORK*) =
+{
+    bhEne26_PlyDG00
+};
+/*
 BH_PWORK* plp;
 _anon18 WpnTab[0];
 _anon0 eff[0];
@@ -1781,19 +1786,16 @@ void bhEne26_MainLoop(BH_PWORK* epw, BH_PWORK* pl)
 	// Line 927, Address: 0x20a694, Func Offset: 0x64
 	// Func End, Address: 0x20a6a8, Func Offset: 0x78
 }
-
-// 
-// Start address: 0x20a6b0
+*/
+// 100 matching!
 void bhEne26_PlayerControl(BH_PWORK* epw, BH_PWORK* pl)
 {
-	// Line 948, Address: 0x20a6b0, Func Offset: 0
-	// Line 949, Address: 0x20a6c0, Func Offset: 0x10
-	// Line 952, Address: 0x20a6d8, Func Offset: 0x28
-	// Line 953, Address: 0x20a6f4, Func Offset: 0x44
-	// Line 954, Address: 0x20a714, Func Offset: 0x64
-	// Func End, Address: 0x20a720, Func Offset: 0x70
+    if ((EXP0_I(0x40) & 0x20000) && (pl->mode0 == 4 || pl->mode0 == 6))
+    {
+        bhEne26_PlyDmgMode[pl->mode2](pl, epw);
+    }
 }
-
+/*
 // 
 // Start address: 0x20a720
 int bhEne26_SetMtn(BH_PWORK* epw)
