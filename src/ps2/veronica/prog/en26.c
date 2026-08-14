@@ -1658,25 +1658,44 @@ void bhEne26_DmgCheckType00(BH_PWORK* epw, _anon25* wp_tbl)
 	// Line 671, Address: 0x20a17c, Func Offset: 0x26c
 	// Func End, Address: 0x20a194, Func Offset: 0x284
 }
-
-// 
-// Start address: 0x20a1a0
+*/
+// 100% matching!
 int bhEne26_CheckExpHead(BH_PWORK* epw)
 {
-	// Line 689, Address: 0x20a1a0, Func Offset: 0
-	// Line 691, Address: 0x20a1b8, Func Offset: 0x18
-	// Line 695, Address: 0x20a1f4, Func Offset: 0x54
-	// Line 699, Address: 0x20a23c, Func Offset: 0x9c
-	// Line 704, Address: 0x20a244, Func Offset: 0xa4
-	// Line 708, Address: 0x20a27c, Func Offset: 0xdc
-	// Line 714, Address: 0x20a29c, Func Offset: 0xfc
-	// Line 720, Address: 0x20a2a8, Func Offset: 0x108
-	// Line 723, Address: 0x20a2d0, Func Offset: 0x130
-	// Line 729, Address: 0x20a2dc, Func Offset: 0x13c
-	// Line 730, Address: 0x20a2e0, Func Offset: 0x140
-	// Func End, Address: 0x20a2e8, Func Offset: 0x148
-}
+    if (EXP0_I(0x78) > 0)
+    {
+        return 1;
+    }
 
+    switch (epw->wpnr_no)
+    {
+    case 11:
+    case 14:
+        if ((epw->flr_no == plp->flr_no) && (EXP0_F(0x54) < 10.0f) && (plp->at_flg & 4))
+        {
+            return 1;
+        }
+        break;
+        
+    case 6:
+        if (((epw->flr_no == plp->flr_no) &&
+             (epw->comb_flg & 0x10)) &&
+             (plp->at_flg & 6) &&
+             (epw->djnt_no == 1 || ((epw->djnt_no == 10) || epw->djnt_no == 11 || epw->djnt_no == 12 || epw->djnt_no == 13)))
+        {
+          return 1;
+        }
+        break;
+        
+    case 19:
+        if (((epw->djnt_no >= 10) && (19 >= epw->djnt_no)) || (epw->djnt_no == 1))
+        {
+          return 1;
+        }
+    }
+    return 0;
+}
+/*
 // 
 // Start address: 0x20a2f0
 void bhEne26_SetBlood(BH_PWORK* epw, _anon25* wp_tbl)
