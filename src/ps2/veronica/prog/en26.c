@@ -1413,7 +1413,31 @@ char En26SdwTab[5];
 _anon12 en26prt_blood_tbl[20];
 _anon36 en26_keff_tbl[5];
 void(*bhEne26_Mode0)(BH_PWORK*)[6];
-void(*bhEne26_MoveMode2)(BH_PWORK*)[17];
+*/
+
+void(*bhEne26_MoveMode2[17])(BH_PWORK*) =
+{
+    bhEne26_MV00,
+    bhEne26_MV01,
+    bhEne26_MV02,
+    bhEne26_MV03,   
+    NULL,
+    bhEne26_MV05,     
+    bhEne26_MV06,
+    bhEne26_MV07,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,    
+    bhEne26_MV16 
+};
+
+
+/*
 void(*bhEne26_NageMode2)(BH_PWORK*)[1];
 void(*bhEne26_DamageMode2)(BH_PWORK*)[16];
 void(*bhEne26_DieMode2)(BH_PWORK*)[1];
@@ -2459,26 +2483,36 @@ void bhEne26_Move(BH_PWORK* epw)
 	// Line 1962, Address: 0x20bfec, Func Offset: 0x8c
 	// Func End, Address: 0x20bffc, Func Offset: 0x9c
 }
-
-// 
-// Start address: 0x20c000
+*/
+// 100% matching!
 void bhEne26_MVType(BH_PWORK* epw)
 {
-	// Line 1979, Address: 0x20c000, Func Offset: 0
-	// Line 1981, Address: 0x20c00c, Func Offset: 0xc
-	// Line 1983, Address: 0x20c034, Func Offset: 0x34
-	// Line 1984, Address: 0x20c044, Func Offset: 0x44
-	// Line 1987, Address: 0x20c04c, Func Offset: 0x4c
-	// Line 1991, Address: 0x20c064, Func Offset: 0x64
-	// Line 1992, Address: 0x20c074, Func Offset: 0x74
-	// Line 1995, Address: 0x20c07c, Func Offset: 0x7c
-	// Line 1996, Address: 0x20c08c, Func Offset: 0x8c
-	// Line 1998, Address: 0x20c094, Func Offset: 0x94
-	// Line 2001, Address: 0x20c0a4, Func Offset: 0xa4
-	// Line 2002, Address: 0x20c0c4, Func Offset: 0xc4
-	// Func End, Address: 0x20c0d4, Func Offset: 0xd4
+    if (bhEne_EnemyAtariCheck((NJS_POINT3*) &plp->px, plp->flr_no, epw->id, 0))
+    {
+        EXP0_I(0x40) |= 0x20000000;
+    } 
+    else
+    {
+        EXP0_I(0x40) &= ~0x20000000;
+    }
+
+    if (epw->mode1 == 1) 
+    {
+        bhEne26_Brain00(epw);
+    }
+    
+    if (EXP0_I(0x70) == 0)
+    {
+        bhEne26_ActionModeCheck(epw);
+    }
+    
+    if (epw->mode0 == 1)
+    {
+        bhEne26_MoveMode2[epw->mode2](epw);
+    }
 }
 
+/*
 // 
 // Start address: 0x20c0e0
 void bhEne26_EneSearch(BH_PWORK* epw)
@@ -2518,13 +2552,13 @@ void bhEne26_EneSearch(BH_PWORK* epw)
 	// Line 2109, Address: 0x20c254, Func Offset: 0x174
 	// Func End, Address: 0x20c264, Func Offset: 0x184
 }
-
+*/
 // 
 // Start address: 0x20c270
 void bhEne26_Brain00(BH_PWORK* epw)
 {
 	unsigned char RutID;
-	_anon28 pos;
+	//_anon28 pos;
 	// Line 2126, Address: 0x20c270, Func Offset: 0
 	// Line 2131, Address: 0x20c27c, Func Offset: 0xc
 	// Line 2134, Address: 0x20c284, Func Offset: 0x14
@@ -2550,13 +2584,14 @@ void bhEne26_Brain00(BH_PWORK* epw)
 	// Line 2159, Address: 0x20c38c, Func Offset: 0x11c
 	// Line 2163, Address: 0x20c394, Func Offset: 0x124
 	// Func End, Address: 0x20c3a4, Func Offset: 0x134
+    scePrintf("bhEne26_Brain00 - UNIMPLEMENTED!\n");
 }
 
 // 
 // Start address: 0x20c3b0
 int bhEne26_ActionModeCheck(BH_PWORK* epw)
 {
-	_anon8* owk;
+	//_anon8* owk;
 	// Line 2181, Address: 0x20c3b0, Func Offset: 0
 	// Line 2184, Address: 0x20c3c0, Func Offset: 0x10
 	// Line 2189, Address: 0x20c3dc, Func Offset: 0x2c
@@ -2608,8 +2643,9 @@ int bhEne26_ActionModeCheck(BH_PWORK* epw)
 	// Line 2281, Address: 0x20c75c, Func Offset: 0x3ac
 	// Line 2285, Address: 0x20c760, Func Offset: 0x3b0
 	// Func End, Address: 0x20c774, Func Offset: 0x3c4
+    scePrintf("bhEne26_ActionModeCheck - UNIMPLEMENTED!\n");
 }
-*/
+
 #pragma divbyzerocheck on
 // 100% matching!
 void bhEne26_MV00(BH_PWORK* epw)
@@ -3871,7 +3907,7 @@ void bhEne26_SePlay(BH_PWORK* epw, int no)
         return;
     }
 
-    if (((u_char)no >= 20) && (((u_char)no == 20 || (u_char)no == 21)))
+    if (((unsigned char)no >= 20) && (((unsigned char)no == 20 || (unsigned char)no == 21)))
     {
         if ((ChechPlayEnemySe(sys->enow, no)) || (!(rand() % 2)))
         {
