@@ -2,6 +2,7 @@
 #define _EN01B_H_
 
 #include "types.h"
+#include "macros.h"
 
 void bhEne01_Dummy();
 void bhEne01_Brain02B(BH_PWORK* epw);
@@ -20,8 +21,8 @@ void bhEne01_DG12B(BH_PWORK* epw);
 void bhEne01_DG13B(BH_PWORK* epw);
 void bhEne01_DD02B(BH_PWORK* epw);
 void bhEne01_RotNeck(BH_PWORK* epw, int neck_no, BH_PWORK* ply, int ply_neck_no);
-/*int bhEne01_SideRotNeck(BH_PWORK* epw, int neck_no, _anon14* trg, int neck_ry, int neck_ry_max, int ang);
-int bhSearchPlayer2(BH_PWORK* epw, _anon14* pp, int pp_r, int r);*/
+int bhEne01_SideRotNeck(BH_PWORK* epw, int neck_no, NJS_VECTOR* trg, int neck_ry, int neck_ry_max, int ang);
+int bhSearchPlayer2(BH_PWORK* epw, NJS_VECTOR* pp, int pp_r, int r);
 
 extern void (*bhEne01_MoveTypeB[16])(BH_PWORK*);
 extern void (*bhEne01_NageTypeB[16])(BH_PWORK*);
