@@ -2966,25 +2966,32 @@ void bhEne26_MV07(BH_PWORK* epw)
 	// Line 2913, Address: 0x20d71c, Func Offset: 0x17c
 	// Func End, Address: 0x20d72c, Func Offset: 0x18c
 }
-
-// 
-// Start address: 0x20d730
+*/
+// 100% matching!
 void bhEne26_MV16(BH_PWORK* epw)
 {
-	// Line 2932, Address: 0x20d730, Func Offset: 0
-	// Line 2936, Address: 0x20d73c, Func Offset: 0xc
-	// Line 2940, Address: 0x20d768, Func Offset: 0x38
-	// Line 2941, Address: 0x20d788, Func Offset: 0x58
-	// Line 2940, Address: 0x20d794, Func Offset: 0x64
-	// Line 2941, Address: 0x20d798, Func Offset: 0x68
-	// Line 2942, Address: 0x20d7d0, Func Offset: 0xa0
-	// Line 2946, Address: 0x20d7dc, Func Offset: 0xac
-	// Line 2948, Address: 0x20d7f0, Func Offset: 0xc0
-	// Line 2949, Address: 0x20d81c, Func Offset: 0xec
-	// Line 2956, Address: 0x20d828, Func Offset: 0xf8
-	// Func End, Address: 0x20d838, Func Offset: 0x108
-}
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->ay += ikou3(epw, (NJS_POINT3*)&plp->mlwP->owP->mtx[12], 910);
+        bhEne_ChgMtn(epw, 18, 0, 5);
+        EXP0_I(0x40) &= ~0x2000000;
+        EXP0_I(0x40) |= 0x1000000;
+        epw->mode3++;
 
+    case 1:
+        if (epw->flg & 0x2000000)
+        {
+            bhEne_ChgMtn(epw, 14, 0, 0);
+            EXP0_I(0x40) &= ~0x3000000;
+            epw->mode3++;
+        }
+
+    case 2:
+        break;
+    }
+}
+/*
 // 
 // Start address: 0x20d840
 void bhEne26_Nage(BH_PWORK* epw)
