@@ -1440,12 +1440,30 @@ void(*bhEne26_MoveMode2[17])(BH_PWORK*) =
     bhEne26_MV16 
 };
 
+//void(*bhEne26_NageMode2[1])(BH_PWORK*);
 
-/*
-void(*bhEne26_NageMode2)(BH_PWORK*)[1];
-void(*bhEne26_DamageMode2)(BH_PWORK*)[16];
-void(*bhEne26_DieMode2)(BH_PWORK*)[1];
-*/
+void (*bhEne26_DamageMode2[16])(BH_PWORK*) =
+{
+    bhEne26_DG00, 
+    bhEne26_DG01, 
+    bhEne26_DG02, 
+    bhEne26_DG03, 
+    bhEne26_DG04, 
+    NULL,         
+    NULL, 
+    NULL,
+    NULL, 
+    NULL,
+    NULL, 
+    NULL, 
+    NULL, 
+    NULL, 
+    NULL, 
+    bhEne26_DG15
+};
+
+//void(*bhEne26_DieMode2)(BH_PWORK*)[1];
+
 void(*bhEne26_PlyDmgMode[1])(BH_PWORK*, BH_PWORK*) =
 {
     bhEne26_PlyDG00
@@ -3548,15 +3566,12 @@ void bhEne26_Damage(BH_PWORK* epw)
     bhEne26_DGType(epw);
 }
 
-/*
-// 
-// Start address: 0x20eae0
+// 100% matching!
 void bhEne26_DGType(BH_PWORK* epw)
 {
-	// Line 3569, Address: 0x20eae0, Func Offset: 0
-	// Func End, Address: 0x20eb00, Func Offset: 0x20
+    bhEne26_DamageMode2[epw->mode2](epw);
 }
-*/
+
 // 100% matching!
 void bhEne26_DG00(void)
 {
