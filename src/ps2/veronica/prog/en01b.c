@@ -1,4 +1,8 @@
 #include "../../../ps2/veronica/prog/en01b.h"
+#include "../../../ps2/veronica/prog/zonzon.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/rutchk.h"
+#include "../../../ps2/veronica/prog/main.h"
 
 /*typedef struct npobj;
 typedef struct _anon0;
@@ -1369,26 +1373,27 @@ void bhEne01_Dummy()
 	
 }
 
-/*// 
-// Start address: 0x18a470
 void bhEne01_Brain02B(BH_PWORK* epw)
 {
-	_anon14 pos;
-	unsigned char rid;
-	// Line 257, Address: 0x18a470, Func Offset: 0
-	// Line 264, Address: 0x18a47c, Func Offset: 0xc
-	// Line 265, Address: 0x18a48c, Func Offset: 0x1c
-	// Line 269, Address: 0x18a4a0, Func Offset: 0x30
-	// Line 274, Address: 0x18a4c8, Func Offset: 0x58
-	// Line 275, Address: 0x18a4d4, Func Offset: 0x64
-	// Line 276, Address: 0x18a4dc, Func Offset: 0x6c
-	// Line 280, Address: 0x18a4e4, Func Offset: 0x74
-	// Line 281, Address: 0x18a4f4, Func Offset: 0x84
-	// Line 280, Address: 0x18a4f8, Func Offset: 0x88
-	// Line 281, Address: 0x18a4fc, Func Offset: 0x8c
-	// Line 284, Address: 0x18a50c, Func Offset: 0x9c
-	// Func End, Address: 0x18a51c, Func Offset: 0xac
-}*/
+    unsigned char rid;
+	NJS_POINT3 pos;
+
+    EXP0_UC(0x28) |= 0x40;
+    if (EXP0_UC(0x28) & 0x40)
+    {
+        rid = bhCheckRoute((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px, &pos);
+        if (rid != 0xFF)
+        {
+            EXP0_F(0x58) = pos.x;
+            EXP0_F(0x60) = pos.z;
+        } 
+        else
+        {
+            EXP0_F(0x58) = plp->px;
+            EXP0_F(0x60) = plp->pz;
+        }
+    }
+}
 
 // 100% matching!
 void bhEne01_MVType00B(BH_PWORK* epw)
@@ -1421,20 +1426,22 @@ void bhEne01_MVType02B(BH_PWORK* epw)
 	// Func End, Address: 0x18a664, Func Offset: 0x124
 }
 
-// 
-// Start address: 0x18a670
+// 100% matching!
 void bhEne01_MV13B(BH_PWORK* epw)
 {
-	// Line 376, Address: 0x18a670, Func Offset: 0
-	// Line 377, Address: 0x18a67c, Func Offset: 0xc
-	// Line 381, Address: 0x18a69c, Func Offset: 0x2c
-	// Line 383, Address: 0x18a6bc, Func Offset: 0x4c
-	// Line 381, Address: 0x18a6c0, Func Offset: 0x50
-	// Line 383, Address: 0x18a6dc, Func Offset: 0x6c
-	// Line 384, Address: 0x18a6e0, Func Offset: 0x70
-	// Line 387, Address: 0x18a6ec, Func Offset: 0x7c
-	// Line 390, Address: 0x18a700, Func Offset: 0x90
-	// Func End, Address: 0x18a710, Func Offset: 0xa0
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 42, 0, 15);
+        EXP0_I(0x40) &= ~0x1000000;
+        EXP0_I(0x40) |= 0x2000000;
+        epw->way = 256;
+        epw->mode3++;
+
+    case 1:
+        ikou(epw, (NJS_POINT3*) (epw->exp0 + 0x58), epw->way);
+        break;
+    }
 }
 
 // 
@@ -1896,88 +1903,100 @@ void bhEne01_DD02B(BH_PWORK* epw)
 	// Func End, Address: 0x18b9e8, Func Offset: 0x3b8
 }
 
-// 
-// Start address: 0x18b9f0
+// 100% matching!
 void bhEne01_RotNeck(BH_PWORK* epw, int neck_no, BH_PWORK* ply, int ply_neck_no)
 {
-	int rot;
-	O_WORK* trg_owk;
-	// npobj* obj;
 	NJS_POINT3 pos;
-	// Line 1143, Address: 0x18b9f0, Func Offset: 0
-	// Line 1160, Address: 0x18b9fc, Func Offset: 0xc
-	// Line 1176, Address: 0x18ba20, Func Offset: 0x30
-	// Line 1177, Address: 0x18ba30, Func Offset: 0x40
-	// Line 1176, Address: 0x18ba34, Func Offset: 0x44
-	// Line 1177, Address: 0x18ba38, Func Offset: 0x48
-	// Line 1176, Address: 0x18ba48, Func Offset: 0x58
-	// Line 1177, Address: 0x18ba4c, Func Offset: 0x5c
-	// Line 1179, Address: 0x18ba50, Func Offset: 0x60
-	// Line 1177, Address: 0x18ba54, Func Offset: 0x64
-	// Line 1187, Address: 0x18ba58, Func Offset: 0x68
-	// Line 1177, Address: 0x18ba5c, Func Offset: 0x6c
-	// Line 1179, Address: 0x18ba60, Func Offset: 0x70
-	// Line 1180, Address: 0x18ba64, Func Offset: 0x74
-	// Line 1181, Address: 0x18ba6c, Func Offset: 0x7c
-	// Line 1187, Address: 0x18ba74, Func Offset: 0x84
-	// Line 1189, Address: 0x18ba84, Func Offset: 0x94
-	// Func End, Address: 0x18ba94, Func Offset: 0xa4
-}
-
-// 
-// Start address: 0x18baa0
-int bhEne01_SideRotNeck(BH_PWORK* epw, int neck_no, NJS_POINT3* trg, int neck_ry, int neck_ry_max, int ang)
-{
+	NJS_CNK_OBJECT* obj;
+	O_WORK* trg_owk;   
 	int rot;
-	O_WORK* owk;
-	// Line 1211, Address: 0x18baa0, Func Offset: 0
-	// Line 1215, Address: 0x18bab4, Func Offset: 0x14
-	// Line 1217, Address: 0x18bac0, Func Offset: 0x20
-	// Line 1215, Address: 0x18bac4, Func Offset: 0x24
-	// Line 1217, Address: 0x18bac8, Func Offset: 0x28
-	// Line 1215, Address: 0x18bacc, Func Offset: 0x2c
-	// Line 1217, Address: 0x18badc, Func Offset: 0x3c
-	// Line 1218, Address: 0x18baec, Func Offset: 0x4c
-	// Line 1222, Address: 0x18baf4, Func Offset: 0x54
-	// Line 1224, Address: 0x18bb0c, Func Offset: 0x6c
-	// Line 1227, Address: 0x18bb24, Func Offset: 0x84
-	// Line 1229, Address: 0x18bb28, Func Offset: 0x88
-	// Line 1233, Address: 0x18bb34, Func Offset: 0x94
-	// Line 1243, Address: 0x18bb3c, Func Offset: 0x9c
-	// Line 1249, Address: 0x18bb64, Func Offset: 0xc4
-	// Line 1251, Address: 0x18bb74, Func Offset: 0xd4
-	// Line 1253, Address: 0x18bb7c, Func Offset: 0xdc
-	// Line 1258, Address: 0x18bb9c, Func Offset: 0xfc
-	// Line 1261, Address: 0x18bba4, Func Offset: 0x104
-	// Line 1264, Address: 0x18bba8, Func Offset: 0x108
-	// Line 1267, Address: 0x18bbc0, Func Offset: 0x120
-	// Line 1271, Address: 0x18bbc8, Func Offset: 0x128
-	// Func End, Address: 0x18bbe0, Func Offset: 0x140
+
+    if (!(epw->flg & 0x80))
+    {
+        rot = epw->ay;
+    } 
+    else
+    {
+        rot = *(int *)(epw->lkwkp + 0x20);
+    }
+    
+    trg_owk = &ply->mlwP->owP[ply_neck_no];
+    obj = &epw->mlwP->objP[neck_no];
+    pos.x = trg_owk->mtx[12];
+    pos.y = trg_owk->mtx[13];
+    pos.z = trg_owk->mtx[14];
+    obj->ang[1] = bhEne01_SideRotNeck(epw, neck_no, &pos, obj->ang[1], 9102, rot);
 }
 
-// 
-// Start address: 0x18bbe0
-int bhSearchPlayer2(BH_PWORK* epw, NJS_POINT3* pp, int pp_r, int r)
+// 100% matching!
+int bhEne01_SideRotNeck(BH_PWORK* epw, int neck_no, NJS_VECTOR* trg, int neck_ry, int neck_ry_max, int ang)
 {
-	int ret;
-	int ay;
-	float pz;
-	float py;
+    O_WORK* owk;
+    int rot;
+
+    // not present in DWARF
+    int ret;
+
+    owk = &epw->mlwP->owP[neck_no];
+    rot = (NitenDir_ck(owk->mtx[12], owk->mtx[14], trg->x, trg->z) - ang) & 0xFFFF;
+
+    if ((((rot - neck_ry) + 910) & 0xFFFF) < 1820)
+    {
+        if (((rot + neck_ry_max) & 0xFFFF) <= (neck_ry_max + neck_ry_max))
+        {
+            neck_ry = rot;
+        }
+        return neck_ry;
+    }
+
+    if (rot == 0)
+    {
+        if (neck_ry > 32768) 
+        {
+            return (unsigned short)(neck_ry + 910);
+        }
+        return (unsigned short)(neck_ry - 910);
+    }
+
+    if (((rot - neck_ry) & 0xFFFF) < 32768)
+    {
+        ret = (unsigned short)(neck_ry + 910);
+        if (((ret - neck_ry_max) & 0xFFFF) < (65536 - (neck_ry_max + neck_ry_max)))
+        {
+            ret = neck_ry_max;
+        }
+        return ret;
+    }
+
+    ret = (unsigned short)(neck_ry - 910);
+    if (((ret + neck_ry_max) & 0xFFFF) > (neck_ry_max + neck_ry_max))
+    {
+        ret = 65536 - neck_ry_max;
+    }
+    return ret;
+}
+
+// 100% matching!
+int bhSearchPlayer2(BH_PWORK* epw, NJS_VECTOR* pp, int pp_r, int r)
+{
 	float px;
-	// Line 1363, Address: 0x18bbe0, Func Offset: 0
-	// Line 1367, Address: 0x18bbfc, Func Offset: 0x1c
-	// Line 1368, Address: 0x18bc00, Func Offset: 0x20
-	// Line 1369, Address: 0x18bc04, Func Offset: 0x24
-	// Line 1370, Address: 0x18bc08, Func Offset: 0x28
-	// Line 1372, Address: 0x18bc0c, Func Offset: 0x2c
-	// Line 1373, Address: 0x18bc18, Func Offset: 0x38
-	// Line 1374, Address: 0x18bc20, Func Offset: 0x40
-	// Line 1375, Address: 0x18bc28, Func Offset: 0x48
-	// Line 1377, Address: 0x18bc2c, Func Offset: 0x4c
-	// Line 1379, Address: 0x18bc34, Func Offset: 0x54
-	// Line 1380, Address: 0x18bc38, Func Offset: 0x58
-	// Line 1381, Address: 0x18bc3c, Func Offset: 0x5c
-	// Line 1382, Address: 0x18bc40, Func Offset: 0x60
-	// Line 1385, Address: 0x18bc44, Func Offset: 0x64
-	// Func End, Address: 0x18bc64, Func Offset: 0x84
+	float py;
+	float pz;    
+	int ay;
+    int ret;
+
+    px = epw->px;
+    py = epw->py;
+    pz = epw->pz;
+    ay = epw->ay;
+    epw->px = pp->x;
+    epw->py = pp->y;
+    epw->pz = pp->z;
+    epw->ay = pp_r;
+    ret = bhSearchPlayer(epw, r);
+    epw->px = px;
+    epw->py = py;
+    epw->pz = pz;
+    epw->ay = ay;
+    return ret;
 }
