@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/en01b.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
+#include "../../../ps2/veronica/prog/rutchk.h"
 
 #pragma optimization_level 4
 
@@ -2547,39 +2548,37 @@ void bhEne26_EneSearch(BH_PWORK* epw)
 	// Func End, Address: 0x20c264, Func Offset: 0x184
 }
 */
-// 
-// Start address: 0x20c270
+
 void bhEne26_Brain00(BH_PWORK* epw)
 {
-	unsigned char RutID;
-	//_anon28 pos;
-	// Line 2126, Address: 0x20c270, Func Offset: 0
-	// Line 2131, Address: 0x20c27c, Func Offset: 0xc
-	// Line 2134, Address: 0x20c284, Func Offset: 0x14
-	// Line 2136, Address: 0x20c298, Func Offset: 0x28
-	// Line 2140, Address: 0x20c2dc, Func Offset: 0x6c
-	// Line 2141, Address: 0x20c2e0, Func Offset: 0x70
-	// Line 2140, Address: 0x20c2e4, Func Offset: 0x74
-	// Line 2141, Address: 0x20c2e8, Func Offset: 0x78
-	// Line 2144, Address: 0x20c2f0, Func Offset: 0x80
-	// Line 2141, Address: 0x20c2f4, Func Offset: 0x84
-	// Line 2144, Address: 0x20c2f8, Func Offset: 0x88
-	// Line 2145, Address: 0x20c308, Func Offset: 0x98
-	// Line 2146, Address: 0x20c30c, Func Offset: 0x9c
-	// Line 2150, Address: 0x20c314, Func Offset: 0xa4
-	// Line 2151, Address: 0x20c320, Func Offset: 0xb0
-	// Line 2150, Address: 0x20c324, Func Offset: 0xb4
-	// Line 2151, Address: 0x20c328, Func Offset: 0xb8
-	// Line 2152, Address: 0x20c334, Func Offset: 0xc4
-	// Line 2155, Address: 0x20c354, Func Offset: 0xe4
-	// Line 2156, Address: 0x20c36c, Func Offset: 0xfc
-	// Line 2157, Address: 0x20c378, Func Offset: 0x108
-	// Line 2158, Address: 0x20c384, Func Offset: 0x114
-	// Line 2159, Address: 0x20c38c, Func Offset: 0x11c
-	// Line 2163, Address: 0x20c394, Func Offset: 0x124
-	// Func End, Address: 0x20c3a4, Func Offset: 0x134
-    scePrintf("bhEne26_Brain00 - UNIMPLEMENTED!\n");
+    unsigned char rid;
+	NJS_POINT3 pos;
+
+    bhEne26_EneSearch(epw);
+    if (EXP0_I(0x40) & 0x400)
+    {
+        if ((EXP0_F(0x54) < 50.0f) && (EXP0_I(0x70) == 0) && (epw->flr_no == plp->flr_no))
+        {
+            EXP0_F(0x58) = plp->px;
+            EXP0_F(0x60) = plp->pz;
+            EXP0_UC(0x2A) = bhCheckRouteID((NJS_POINT3*) &epw->px);
+            EXP0_UC(0x2B) = 0;
+            return;            
+        }
+        
+        rid = (unsigned char) bhCheckRouteID((NJS_POINT3*) &epw->px);
+        EXP0_UC(0x2B)++;
+        if ((EXP0_UC(0x2A) == rid) || (EXP0_UC(0x2B) >= 255))
+        {
+            rid = bhCheckRoute((NJS_POINT3*) &epw->px, (NJS_POINT3*) &plp->px, &pos);
+            EXP0_F(0x58) = pos.x;
+            EXP0_F(0x60) = pos.z;
+            EXP0_UC(0x2A) = rid;
+            EXP0_UC(0x2B) = 0;
+        }
+    }
 }
+
 
 // 
 // Start address: 0x20c3b0
