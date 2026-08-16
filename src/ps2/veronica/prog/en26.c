@@ -1480,28 +1480,42 @@ BH_PWORK ene[0];
 float lcmat[16][0];
 _anon33 en01_BldTbl;*/
 
-// 
-// Start address: 0x2096d0
+// 100% matching!
 void bhEne26(BH_PWORK* epw)
 {
-	// Line 245, Address: 0x2096d0, Func Offset: 0
-	// Line 247, Address: 0x2096dc, Func Offset: 0xc
-	// Line 250, Address: 0x2096e4, Func Offset: 0x14
-	// Line 253, Address: 0x2096f4, Func Offset: 0x24
-	// Line 259, Address: 0x209704, Func Offset: 0x34
-	// Line 263, Address: 0x209710, Func Offset: 0x40
-	// Line 264, Address: 0x209730, Func Offset: 0x60
-	// Line 265, Address: 0x209750, Func Offset: 0x80
-	// Line 268, Address: 0x209770, Func Offset: 0xa0
-	// Line 271, Address: 0x20977c, Func Offset: 0xac
-	// Line 272, Address: 0x209794, Func Offset: 0xc4
-	// Line 275, Address: 0x2097a4, Func Offset: 0xd4
-	// Line 277, Address: 0x2097b0, Func Offset: 0xe0
-	// Func End, Address: 0x2097c0, Func Offset: 0xf0
-	scePrintf("bhEne26 - UNIMPLEMENTED!\n");
+    bhEne26_DmgCheck(epw);
+    bhEne26_MainLoop(epw, plp);
+
+    if (epw->flg & 4)
+    {
+        epw->flg = epw->flg & ~4;
+    }
+
+    if (EXP0_UC(0x2F) > 0)
+    {
+        EXP0_UC(0x2F)--;
+    }
+
+    if (EXP0_I(0x30) > 0)
+    {
+        EXP0_I(0x30)--;
+    }
+
+    if (EXP0_I(0x34) > 0)
+    {
+        EXP0_I(0x34)--;
+    }
+    bhEne26_CollCheck(epw);
+    
+    if (EXP0_I(0x40) & 0x80000)
+    {
+        bhEne26_PlayerLink(epw, plp);
+    }
+    
+    bhEne26_CalcEnemy(epw);
 }
 
-/*// 
+
 // Start address: 0x2097c0
 void bhEne26_DmgCheck(BH_PWORK* epw)
 {
@@ -1536,8 +1550,9 @@ void bhEne26_DmgCheck(BH_PWORK* epw)
 	// Line 369, Address: 0x2099f8, Func Offset: 0x238
 	// Line 371, Address: 0x209a08, Func Offset: 0x248
 	// Func End, Address: 0x209a18, Func Offset: 0x258
+    scePrintf("bhEne26_DmgCheck - UNIMPLEMENTED!\n");
 }
-
+/* 
 // 
 // Start address: 0x209a20
 void bhEne26_DamageAdd(BH_PWORK* epw, _anon25* wp_tbl)
@@ -1820,7 +1835,7 @@ void bhEne26_SetBlood(BH_PWORK* epw, _anon25* wp_tbl)
 	// Line 867, Address: 0x20a610, Func Offset: 0x320
 	// Func End, Address: 0x20a624, Func Offset: 0x334
 }
-
+*/
 // 
 // Start address: 0x20a630
 void bhEne26_MainLoop(BH_PWORK* epw, BH_PWORK* pl)
@@ -1832,8 +1847,9 @@ void bhEne26_MainLoop(BH_PWORK* epw, BH_PWORK* pl)
 	// Line 899, Address: 0x20a688, Func Offset: 0x58
 	// Line 927, Address: 0x20a694, Func Offset: 0x64
 	// Func End, Address: 0x20a6a8, Func Offset: 0x78
+    scePrintf("bhEne26_MainLoop - UNIMPLEMENTED!\n");
 }
-*/
+
 // 100 matching!
 void bhEne26_PlayerControl(BH_PWORK* epw, BH_PWORK* pl)
 {
@@ -2140,7 +2156,7 @@ void bhEne26_CollCheck(BH_PWORK* epw)
     }
 }
 
-/*
+
 // 
 // Start address: 0x20b2f0
 void bhEne26_CollCheckWall(BH_PWORK* epw)
@@ -2322,6 +2338,7 @@ void bhEne26_CollCheckWall(BH_PWORK* epw)
 	// Line 1663, Address: 0x20b9b8, Func Offset: 0x6c8
 	// Line 1666, Address: 0x20b9c8, Func Offset: 0x6d8
 	// Func End, Address: 0x20b9e8, Func Offset: 0x6f8
+    scePrintf("bhEne26_CollCheckWall - UNIMPLEMENTED!\n");
 }
 
 // 
@@ -2329,11 +2346,11 @@ void bhEne26_CollCheckWall(BH_PWORK* epw)
 void bhEne26_PlayerLink(BH_PWORK* epw, BH_PWORK* pl)
 {
 	int mtn_no;
-	_anon28 pd;
-	_anon28 ps;
-	_anon28 pos;
-	_anon21* ply_pos_p;
-	_anon21* ply_pos[16];
+	//_anon28 pd;
+	//_anon28 ps;
+	//_anon28 pos;
+	//_anon21* ply_pos_p;
+	//_anon21* ply_pos[16];
 	// Line 1685, Address: 0x20b9f0, Func Offset: 0
 	// Line 1686, Address: 0x20ba00, Func Offset: 0x10
 	// Line 1685, Address: 0x20ba08, Func Offset: 0x18
@@ -2373,8 +2390,8 @@ void bhEne26_PlayerLink(BH_PWORK* epw, BH_PWORK* pl)
 	// Line 1754, Address: 0x20bbb0, Func Offset: 0x1c0
 	// Line 1756, Address: 0x20bbc4, Func Offset: 0x1d4
 	// Func End, Address: 0x20bbdc, Func Offset: 0x1ec
+    scePrintf("bhEne26_PlayerLink - UNIMPLEMENTED!\n");
 }
-*/
 
 // 100% matching!
 void bhEne26_CalcEnemy(BH_PWORK* epw)
