@@ -1373,6 +1373,7 @@ void bhEne01_Dummy()
 	
 }
 
+// 100% matching!
 void bhEne01_Brain02B(BH_PWORK* epw)
 {
     unsigned char rid;
