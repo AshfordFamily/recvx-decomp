@@ -2336,36 +2336,33 @@ void bhEne26_PlayerLink(BH_PWORK* epw, BH_PWORK* pl)
 	// Line 1756, Address: 0x20bbc4, Func Offset: 0x1d4
 	// Func End, Address: 0x20bbdc, Func Offset: 0x1ec
 }
+*/
 
-// 
-// Start address: 0x20bbe0
+// 100% matching!
 void bhEne26_CalcEnemy(BH_PWORK* epw)
 {
-	_anon8* owk;
-	// Line 1773, Address: 0x20bbe0, Func Offset: 0
-	// Line 1777, Address: 0x20bbec, Func Offset: 0xc
-	// Line 1780, Address: 0x20bbf4, Func Offset: 0x14
-	// Line 1789, Address: 0x20bbf8, Func Offset: 0x18
-	// Line 1780, Address: 0x20bc00, Func Offset: 0x20
-	// Line 1781, Address: 0x20bc04, Func Offset: 0x24
-	// Line 1782, Address: 0x20bc0c, Func Offset: 0x2c
-	// Line 1783, Address: 0x20bc14, Func Offset: 0x34
-	// Line 1784, Address: 0x20bc1c, Func Offset: 0x3c
-	// Line 1785, Address: 0x20bc24, Func Offset: 0x44
-	// Line 1786, Address: 0x20bc2c, Func Offset: 0x4c
-	// Line 1787, Address: 0x20bc34, Func Offset: 0x54
-	// Line 1788, Address: 0x20bc3c, Func Offset: 0x5c
-	// Line 1789, Address: 0x20bc40, Func Offset: 0x60
-	// Line 1788, Address: 0x20bc44, Func Offset: 0x64
-	// Line 1789, Address: 0x20bc48, Func Offset: 0x68
-	// Line 1790, Address: 0x20bc58, Func Offset: 0x78
-	// Line 1791, Address: 0x20bc6c, Func Offset: 0x8c
-	// Line 1792, Address: 0x20bc80, Func Offset: 0xa0
-	// Line 1796, Address: 0x20bc84, Func Offset: 0xa4
-	// Line 1797, Address: 0x20bca0, Func Offset: 0xc0
-	// Func End, Address: 0x20bcb0, Func Offset: 0xd0
+    O_WORK* owk;
+    
+    bhCalcModel(epw);
+    owk = &epw->mlwP->owP[12];
+    epw->watr.c1.x = owk->mtx[12];
+    epw->watr.c1.y = owk->mtx[13];
+    epw->watr.c1.z = owk->mtx[14];
+    
+    owk = &epw->mlwP->owP[4];
+    epw->watr.c2.x = owk->mtx[12];
+    epw->watr.c2.y = owk->mtx[13];
+    epw->watr.c2.z = owk->mtx[14];
+    
+    owk = &epw->mlwP->owP[8];
+    epw->watr.c2.x = (epw->watr.c2.x + owk->mtx[12]) / 2.0f;
+    epw->watr.c2.y = (epw->watr.c2.y + owk->mtx[13]) / 2.0f;
+    epw->watr.c2.z = (epw->watr.c2.z + owk->mtx[14]) / 2.0f;
+    
+    epw->watr.r = 2.0f;    
+    epw->cah = epw->ah = epw->mlwP->owP[12].mtx[13] - epw->py;
 }
-
+/*
 // 
 // Start address: 0x20bcb0
 void bhEne26_Init(BH_PWORK* epw)
