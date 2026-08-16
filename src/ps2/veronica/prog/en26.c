@@ -3540,16 +3540,15 @@ void bhEne26_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
 	// Line 3528, Address: 0x20eaa0, Func Offset: 0xb40
 	// Func End, Address: 0x20eab8, Func Offset: 0xb58
 }
-
-// 
-// Start address: 0x20eac0
+*/
+// 100% matching!
 void bhEne26_Damage(BH_PWORK* epw)
 {
-	// Line 3547, Address: 0x20eac0, Func Offset: 0
-	// Line 3549, Address: 0x20ead0, Func Offset: 0x10
-	// Func End, Address: 0x20ead8, Func Offset: 0x18
+    EXP0_I(0x40) &= ~0x800;
+    bhEne26_DGType(epw);
 }
 
+/*
 // 
 // Start address: 0x20eae0
 void bhEne26_DGType(BH_PWORK* epw)
