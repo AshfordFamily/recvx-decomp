@@ -3583,53 +3583,81 @@ void bhEne26_DG01(void)
 {
 
 }
-/*
-// 
-// Start address: 0x20eb20
+
+// 100% matching!
 void bhEne26_DG02(BH_PWORK* epw)
 {
-	int frm;
-	// Line 3628, Address: 0x20eb20, Func Offset: 0
-	// Line 3631, Address: 0x20eb2c, Func Offset: 0xc
-	// Line 3634, Address: 0x20eb4c, Func Offset: 0x2c
-	// Line 3636, Address: 0x20eb60, Func Offset: 0x40
-	// Line 3638, Address: 0x20eb70, Func Offset: 0x50
-	// Line 3639, Address: 0x20eb94, Func Offset: 0x74
-	// Line 3642, Address: 0x20eb9c, Func Offset: 0x7c
-	// Line 3644, Address: 0x20ebc0, Func Offset: 0xa0
-	// Line 3647, Address: 0x20ebc8, Func Offset: 0xa8
-	// Line 3649, Address: 0x20ebd8, Func Offset: 0xb8
-	// Line 3650, Address: 0x20ebfc, Func Offset: 0xdc
-	// Line 3653, Address: 0x20ec04, Func Offset: 0xe4
-	// Line 3656, Address: 0x20ec2c, Func Offset: 0x10c
-	// Line 3659, Address: 0x20ec34, Func Offset: 0x114
-	// Line 3656, Address: 0x20ec38, Func Offset: 0x118
-	// Line 3659, Address: 0x20ec40, Func Offset: 0x120
-	// Line 3660, Address: 0x20ec50, Func Offset: 0x130
-	// Line 3661, Address: 0x20ec60, Func Offset: 0x140
-	// Line 3664, Address: 0x20ec6c, Func Offset: 0x14c
-	// Line 3666, Address: 0x20ec70, Func Offset: 0x150
-	// Line 3664, Address: 0x20ec74, Func Offset: 0x154
-	// Line 3666, Address: 0x20ec78, Func Offset: 0x158
-	// Line 3671, Address: 0x20ece4, Func Offset: 0x1c4
-	// Line 3675, Address: 0x20ed34, Func Offset: 0x214
-	// Line 3677, Address: 0x20ed3c, Func Offset: 0x21c
-	// Line 3676, Address: 0x20ed40, Func Offset: 0x220
-	// Line 3677, Address: 0x20ed44, Func Offset: 0x224
-	// Line 3679, Address: 0x20ed48, Func Offset: 0x228
-	// Line 3682, Address: 0x20ed50, Func Offset: 0x230
-	// Line 3683, Address: 0x20ed58, Func Offset: 0x238
-	// Line 3684, Address: 0x20ed5c, Func Offset: 0x23c
-	// Line 3685, Address: 0x20ed60, Func Offset: 0x240
-	// Line 3688, Address: 0x20ed64, Func Offset: 0x244
-	// Line 3691, Address: 0x20ed6c, Func Offset: 0x24c
-	// Line 3688, Address: 0x20ed70, Func Offset: 0x250
-	// Line 3691, Address: 0x20ed7c, Func Offset: 0x25c
-	// Line 3692, Address: 0x20ed8c, Func Offset: 0x26c
-	// Line 3696, Address: 0x20ed9c, Func Offset: 0x27c
-	// Func End, Address: 0x20edac, Func Offset: 0x28c
+    int frm;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        if (EXP0_I(0x40) & 0x2000)
+        {
+            if (epw->mtn_no == 0x10)
+            {                
+                bhEne_ChgMtn(epw, 27, 0, 5);
+                EXP0_I(0x40) &= ~0x3000000;
+            } 
+            else
+            {
+                bhEne_ChgMtn(epw, 5, 0, 5);
+                EXP0_I(0x40) &= ~0x3000000;
+            }
+        }
+        else
+        {
+            if (epw->mtn_no == 16)
+            {
+                bhEne_ChgMtn(epw, 28, 0, 5);
+                EXP0_I(0x40) &= ~0x3000000;
+            }
+            else
+            {
+                bhEne_ChgMtn(epw, 6, 0, 5);
+                EXP0_I(0x40) &= ~0x3000000;  
+            }
+  
+        }
+        
+        epw->flg |= 0x40000;
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 0x1;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+
+        if ((frm == 28 && epw->mtn_no == 5)  ||
+            (frm == 28 && epw->mtn_no == 27) ||
+            (frm == 30 && epw->mtn_no == 6)  ||
+            (frm == 30 && epw->mtn_no == 28))
+        {
+            if ((epw->flr_no == plp->flr_no &&
+                EXP0_F(0x54) > 15.0f &&
+                ikou3(epw, (NJS_POINT3*)&plp->px, 24576)))
+            {
+                epw->mode0 = 1;
+                epw->mode1 = 0;
+                epw->mode2 = 7;
+                epw->mode3 = 0;
+            }
+            else
+            {
+                epw->mode0 = 1;
+                epw->mode1 = 1;
+                epw->mode2 = 1;
+                epw->mode3 = 0;
+            }
+
+            EXP0_I(0x40) &= ~0x200;
+            EXP0_I(0x40) &= ~0xF;
+            EXP0_I(0x40) |= 0x1;
+        }
+        break;
+    }
 }
-*/
+
 // 100% matching!
 void bhEne26_DG03(BH_PWORK* epw)
 {
