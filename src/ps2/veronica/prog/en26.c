@@ -2788,41 +2788,46 @@ void bhEne26_MV02(BH_PWORK* epw)
         epw->ct3 = (rand() % 120) + 180;
     }
 }
-/*
-// 
-// Start address: 0x20cf00
+
+// 100% matching!
 void bhEne26_MV03(BH_PWORK* epw)
 {
+	O_WORK* owk;
 	int rot;
-	_anon8* owk;
-	// Line 2621, Address: 0x20cf00, Func Offset: 0
-	// Line 2626, Address: 0x20cf14, Func Offset: 0x14
-	// Line 2629, Address: 0x20cf34, Func Offset: 0x34
-	// Line 2631, Address: 0x20cf50, Func Offset: 0x50
-	// Line 2629, Address: 0x20cf54, Func Offset: 0x54
-	// Line 2630, Address: 0x20cf60, Func Offset: 0x60
-	// Line 2631, Address: 0x20cf64, Func Offset: 0x64
-	// Line 2632, Address: 0x20cf68, Func Offset: 0x68
-	// Line 2635, Address: 0x20cf74, Func Offset: 0x74
-	// Line 2636, Address: 0x20cf7c, Func Offset: 0x7c
-	// Line 2635, Address: 0x20cf84, Func Offset: 0x84
-	// Line 2636, Address: 0x20cf8c, Func Offset: 0x8c
-	// Line 2637, Address: 0x20cf94, Func Offset: 0x94
-	// Line 2639, Address: 0x20cfa0, Func Offset: 0xa0
-	// Line 2641, Address: 0x20cfb4, Func Offset: 0xb4
-	// Line 2647, Address: 0x20d010, Func Offset: 0x110
-	// Line 2646, Address: 0x20d014, Func Offset: 0x114
-	// Line 2647, Address: 0x20d018, Func Offset: 0x118
-	// Line 2649, Address: 0x20d01c, Func Offset: 0x11c
-	// Line 2653, Address: 0x20d024, Func Offset: 0x124
-	// Line 2652, Address: 0x20d028, Func Offset: 0x128
-	// Line 2653, Address: 0x20d02c, Func Offset: 0x12c
-	// Line 2654, Address: 0x20d030, Func Offset: 0x130
-	// Line 2657, Address: 0x20d034, Func Offset: 0x134
-	// Line 2660, Address: 0x20d040, Func Offset: 0x140
-	// Func End, Address: 0x20d058, Func Offset: 0x158
+    
+    switch (epw->mode3)
+    { 
+    case 0:
+        bhEne_ChgMtn(epw, 13, 0, 8);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->mtn_add = 0;
+        epw->ct0 = 6;
+        epw->mode3++;
+
+    case 1:
+        owk = plp->mlwP->owP;
+        rot = ikou3(epw, (NJS_POINT3*)&owk->mtx[12], 4096);
+        epw->ct0--;
+        if ((epw->ct0 <= 0) || (rot == 0))
+        {
+            if (!ikou3(epw, (NJS_POINT3*)&owk->mtx[12], 4096) && (EXP0_F(0x54) < 10.0f) && (plp->mode0 == 6) && (plp->hp < 0))
+            {                               
+                epw->mode1 = 0;
+                epw->mode2 = 16; 
+                epw->mode3 = 0;
+            } 
+            else
+            {
+                epw->mode1 = 0;
+                epw->mode2 = 5;
+                epw->mode3 = 0;
+            }            
+        }
+        epw->ay += rot;
+        break;
+    }
 }
-*/
+
 // 100% matching!
 void bhEne26_MV05(BH_PWORK* epw)
 {
