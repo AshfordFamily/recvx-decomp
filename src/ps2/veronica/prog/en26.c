@@ -3774,49 +3774,35 @@ void bhEne26_ExpHeadEffect(BH_PWORK* epw)
 	// Line 4205, Address: 0x20f77c, Func Offset: 0xec
 	// Func End, Address: 0x20f79c, Func Offset: 0x10c
 }
-
-// 
-// Start address: 0x20f7a0
+*/
+// 100% matching!
 void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
 {
-	int i;
-	_anon28 v;
-	_anon28 ofs;
-	// Line 4224, Address: 0x20f7a0, Func Offset: 0
-	// Line 4225, Address: 0x20f7c4, Func Offset: 0x24
-	// Line 4224, Address: 0x20f7cc, Func Offset: 0x2c
-	// Line 4225, Address: 0x20f7d4, Func Offset: 0x34
-	// Line 4288, Address: 0x20f7e4, Func Offset: 0x44
-	// Line 4225, Address: 0x20f7e8, Func Offset: 0x48
-	// Line 4290, Address: 0x20f7f0, Func Offset: 0x50
-	// Line 4293, Address: 0x20f7f8, Func Offset: 0x58
-	// Line 4295, Address: 0x20f800, Func Offset: 0x60
-	// Line 4297, Address: 0x20f804, Func Offset: 0x64
-	// Line 4298, Address: 0x20f81c, Func Offset: 0x7c
-	// Line 4297, Address: 0x20f820, Func Offset: 0x80
-	// Line 4298, Address: 0x20f824, Func Offset: 0x84
-	// Line 4299, Address: 0x20f834, Func Offset: 0x94
-	// Line 4300, Address: 0x20f850, Func Offset: 0xb0
-	// Line 4299, Address: 0x20f854, Func Offset: 0xb4
-	// Line 4300, Address: 0x20f858, Func Offset: 0xb8
-	// Line 4299, Address: 0x20f870, Func Offset: 0xd0
-	// Line 4300, Address: 0x20f874, Func Offset: 0xd4
-	// Line 4303, Address: 0x20f87c, Func Offset: 0xdc
-	// Line 4304, Address: 0x20f894, Func Offset: 0xf4
-	// Line 4303, Address: 0x20f898, Func Offset: 0xf8
-	// Line 4304, Address: 0x20f89c, Func Offset: 0xfc
-	// Line 4305, Address: 0x20f8a8, Func Offset: 0x108
-	// Line 4306, Address: 0x20f8c0, Func Offset: 0x120
-	// Line 4305, Address: 0x20f8c8, Func Offset: 0x128
-	// Line 4306, Address: 0x20f8cc, Func Offset: 0x12c
-	// Line 4305, Address: 0x20f8dc, Func Offset: 0x13c
-	// Line 4306, Address: 0x20f8e0, Func Offset: 0x140
-	// Line 4307, Address: 0x20f8ec, Func Offset: 0x14c
-	// Line 4311, Address: 0x20f8f0, Func Offset: 0x150
-	// Line 4313, Address: 0x20f900, Func Offset: 0x160
-	// Func End, Address: 0x20f928, Func Offset: 0x188
+    NJS_POINT3 ofs = { 0.0f, 1.0f, 0.0f };
+    NJS_VECTOR v;
+    int i;
+    int ang;
+      
+    for (i = 0, ang = NJM_DEG_ANG(45); i < 4; ang += NJM_DEG_ANG(90), i++)
+    {
+        ofs.y = -1.0f;
+        if (type == 0)
+        {
+            ofs.y = 0.0f;
+            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25)));
+            v.y = njSin(NJM_DEG_ANG(56.25));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25)));
+            bhEne_SetBlood3(epw, 12, &ofs, &v, 6, 8, 1, i);
+            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5)));
+            v.y = njSin(NJM_DEG_ANG(22.5));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5)));
+            bhEne_SetBlood3(epw, 12, &ofs, &v, 3, 8, 3, i);
+        }
+    }     
 }
-
+/*
 // 
 // Start address: 0x20f930
 void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
