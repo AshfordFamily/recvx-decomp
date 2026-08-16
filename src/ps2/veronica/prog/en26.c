@@ -4,6 +4,7 @@
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/en01b.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
 
 #pragma optimization_level 4
 
@@ -2456,34 +2457,30 @@ void bhEne26_Init(BH_PWORK* epw)
 	// Line 1925, Address: 0x20bf4c, Func Offset: 0x29c
 	// Func End, Address: 0x20bf5c, Func Offset: 0x2ac
 }
+*/
 
-// 
-// Start address: 0x20bf60
+// 100% matching!
 void bhEne26_Move(BH_PWORK* epw)
 {
-	_anon28 pos;
-	_anon8* owk;
-	// Line 1942, Address: 0x20bf60, Func Offset: 0
-	// Line 1947, Address: 0x20bf6c, Func Offset: 0xc
-	// Line 1950, Address: 0x20bf78, Func Offset: 0x18
-	// Line 1954, Address: 0x20bf7c, Func Offset: 0x1c
-	// Line 1947, Address: 0x20bf80, Func Offset: 0x20
-	// Line 1954, Address: 0x20bf84, Func Offset: 0x24
-	// Line 1947, Address: 0x20bf88, Func Offset: 0x28
-	// Line 1950, Address: 0x20bf90, Func Offset: 0x30
-	// Line 1951, Address: 0x20bf9c, Func Offset: 0x3c
-	// Line 1952, Address: 0x20bfa4, Func Offset: 0x44
-	// Line 1953, Address: 0x20bfac, Func Offset: 0x4c
-	// Line 1954, Address: 0x20bfb0, Func Offset: 0x50
-	// Line 1956, Address: 0x20bfbc, Func Offset: 0x5c
-	// Line 1954, Address: 0x20bfc0, Func Offset: 0x60
-	// Line 1956, Address: 0x20bfc4, Func Offset: 0x64
-	// Line 1959, Address: 0x20bfd0, Func Offset: 0x70
-	// Line 1961, Address: 0x20bfe0, Func Offset: 0x80
-	// Line 1962, Address: 0x20bfec, Func Offset: 0x8c
-	// Func End, Address: 0x20bffc, Func Offset: 0x9c
+	NJS_POINT3 pos;
+	O_WORK* owk;
+
+    EXP0_I(0x40) &= ~0x800;
+    
+    owk = plp->mlwP->owP;
+    pos.x = owk->mtx[12];
+    pos.y = plp->py;
+    pos.z = owk->mtx[14];
+    
+    EXP0_F(0x54) = njDistanceP2P(&pos,  (NJS_POINT3*)&epw->px);
+    if (epw->mode2 != 9)
+    {
+        EXP0_I(0x40) |= 0x800;
+    }
+    
+    bhEne26_MVType(epw);
 }
-*/
+
 // 100% matching!
 void bhEne26_MVType(BH_PWORK* epw)
 {
