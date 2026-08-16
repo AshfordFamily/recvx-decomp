@@ -3781,6 +3781,7 @@ void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
     NJS_POINT3 ofs = { 0.0f, 1.0f, 0.0f };
     NJS_VECTOR v;
     int i;
+    // not present in DWARF
     int ang;
       
     for (i = 0, ang = NJM_DEG_ANG(45); i < 4; ang += NJM_DEG_ANG(90), i++)
