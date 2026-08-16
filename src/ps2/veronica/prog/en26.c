@@ -3536,15 +3536,13 @@ void bhEne26_DGType(BH_PWORK* epw)
 	// Line 3569, Address: 0x20eae0, Func Offset: 0
 	// Func End, Address: 0x20eb00, Func Offset: 0x20
 }
-
-// 
-// Start address: 0x20eb00
-void bhEne26_DG00()
+*/
+// 100% matching!
+void bhEne26_DG00(void)
 {
-	// Line 3590, Address: 0x20eb00, Func Offset: 0
-	// Func End, Address: 0x20eb08, Func Offset: 0x8
-}
 
+}
+/*
 // 
 // Start address: 0x20eb10
 void bhEne26_DG01()
