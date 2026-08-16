@@ -2957,39 +2957,48 @@ void bhEne26_MV06(BH_PWORK* epw)
         } 
     }
 }
-/*
-// 
-// Start address: 0x20d5a0
+
+// 100% matching!
 void bhEne26_MV07(BH_PWORK* epw)
 {
-	int frm;
-	// Line 2869, Address: 0x20d5a0, Func Offset: 0
-	// Line 2875, Address: 0x20d5ac, Func Offset: 0xc
-	// Line 2878, Address: 0x20d5cc, Func Offset: 0x2c
-	// Line 2880, Address: 0x20d5e8, Func Offset: 0x48
-	// Line 2878, Address: 0x20d5ec, Func Offset: 0x4c
-	// Line 2880, Address: 0x20d5f8, Func Offset: 0x58
-	// Line 2881, Address: 0x20d614, Func Offset: 0x74
-	// Line 2883, Address: 0x20d61c, Func Offset: 0x7c
-	// Line 2881, Address: 0x20d620, Func Offset: 0x80
-	// Line 2883, Address: 0x20d62c, Func Offset: 0x8c
-	// Line 2886, Address: 0x20d63c, Func Offset: 0x9c
-	// Line 2887, Address: 0x20d660, Func Offset: 0xc0
-	// Line 2891, Address: 0x20d668, Func Offset: 0xc8
-	// Line 2892, Address: 0x20d69c, Func Offset: 0xfc
-	// Line 2895, Address: 0x20d6a8, Func Offset: 0x108
-	// Line 2896, Address: 0x20d6b8, Func Offset: 0x118
-	// Line 2899, Address: 0x20d6c4, Func Offset: 0x124
-	// Line 2900, Address: 0x20d6cc, Func Offset: 0x12c
-	// Line 2902, Address: 0x20d6e4, Func Offset: 0x144
-	// Line 2905, Address: 0x20d6f4, Func Offset: 0x154
-	// Line 2907, Address: 0x20d708, Func Offset: 0x168
-	// Line 2908, Address: 0x20d710, Func Offset: 0x170
-	// Line 2909, Address: 0x20d718, Func Offset: 0x178
-	// Line 2913, Address: 0x20d71c, Func Offset: 0x17c
-	// Func End, Address: 0x20d72c, Func Offset: 0x18c
+    int frm;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 17, 0, 8);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->ayp = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
+        epw->ayp = (unsigned short)(epw->ayp - epw->ay);
+        
+        if (epw->ayp < 0x8001)
+        {
+            epw->ayp /= 22;
+        } 
+        else
+        {
+            epw->ayp = (-(0x10000 - epw->ayp) / 22);
+            epw->mtn_md |= 2;
+        }
+        epw->flg |= 0x40000;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if ((frm >= 17) && (frm < 40))
+        {
+            epw->ay += epw->ayp;
+        }
+        if ((epw->frm_no / 65536) == 40)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
-*/
+
 // 100% matching!
 void bhEne26_MV16(BH_PWORK* epw)
 {
