@@ -3,9 +3,11 @@
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/en01.h"
 #include "../../../ps2/veronica/prog/en01b.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/rutchk.h"
+#include "../../../ps2/veronica/prog/hitchk.h"
 
 #pragma optimization_level 4
 
@@ -2069,41 +2071,58 @@ void bhEne26_SearchNeck(BH_PWORK* epw, BH_PWORK* pl)
         }    
     }
 }
-/*
-// 
-// Start address: 0x20b1b0
+
+// 100% matching!
 void bhEne26_CollCheck(BH_PWORK* epw)
 {
-	_anon34* hp;
-	_anon8* owk;
-	// Line 1443, Address: 0x20b1b0, Func Offset: 0
-	// Line 1448, Address: 0x20b1bc, Func Offset: 0xc
-	// Line 1450, Address: 0x20b1cc, Func Offset: 0x1c
-	// Line 1453, Address: 0x20b1d8, Func Offset: 0x28
-	// Line 1455, Address: 0x20b1ec, Func Offset: 0x3c
-	// Line 1456, Address: 0x20b1f8, Func Offset: 0x48
-	// Line 1459, Address: 0x20b200, Func Offset: 0x50
-	// Line 1461, Address: 0x20b20c, Func Offset: 0x5c
-	// Line 1462, Address: 0x20b210, Func Offset: 0x60
-	// Line 1461, Address: 0x20b214, Func Offset: 0x64
-	// Line 1462, Address: 0x20b218, Func Offset: 0x68
-	// Line 1463, Address: 0x20b224, Func Offset: 0x74
-	// Line 1465, Address: 0x20b234, Func Offset: 0x84
-	// Line 1468, Address: 0x20b23c, Func Offset: 0x8c
-	// Line 1469, Address: 0x20b240, Func Offset: 0x90
-	// Line 1470, Address: 0x20b244, Func Offset: 0x94
-	// Line 1472, Address: 0x20b248, Func Offset: 0x98
-	// Line 1475, Address: 0x20b25c, Func Offset: 0xac
-	// Line 1478, Address: 0x20b264, Func Offset: 0xb4
-	// Line 1483, Address: 0x20b26c, Func Offset: 0xbc
-	// Line 1487, Address: 0x20b278, Func Offset: 0xc8
-	// Line 1490, Address: 0x20b290, Func Offset: 0xe0
-	// Line 1491, Address: 0x20b2a0, Func Offset: 0xf0
-	// Line 1493, Address: 0x20b2b8, Func Offset: 0x108
-	// Line 1509, Address: 0x20b2d4, Func Offset: 0x124
-	// Func End, Address: 0x20b2e4, Func Offset: 0x134
+	O_WORK* owk;
+	ATR_WORK* hp;
+
+    if (!(epw->flg & 2))
+    {
+        if (epw->flg & 8)
+        {
+            if (EXP0_I(0x40) & 0x100)
+            {
+                bhEne01_CollCheckPush(epw, ene);
+            } 
+            else
+            {
+                if (epw->flg & 0x80)
+                {
+                    owk = epw->mlwP->owP;
+                    epw->aox = owk->mtx[12] - epw->px;
+                    epw->aoz = owk->mtx[14] - epw->pz;
+                    epw->aoy = 0.0f;
+                } 
+                else
+                {
+                    epw->aox = 0.0f;
+                    epw->aoy = 0.0f;
+                    epw->aoz = 0.0f;
+                }
+                if (!(EXP0_I(0x40) & 0x40))
+                {
+                    bhCheckPlayer(epw);
+                    bhCheckEnemies(epw);
+                }
+            }
+        }
+        bhEne26_CollCheckWall(epw);
+    }
+    
+    if (sys->st_flg & 0x100)
+    {
+        epw->mdflg &= ~0x40;
+        hp = bhCheckFloorEffect(epw->flr_no, epw->px, epw->pz);
+        if ((hp != NULL) && (hp->prm0 == 2))
+        {
+            epw->mdflg |= 0x40;
+        }
+    }
 }
 
+/*
 // 
 // Start address: 0x20b2f0
 void bhEne26_CollCheckWall(BH_PWORK* epw)
@@ -2578,7 +2597,6 @@ void bhEne26_Brain00(BH_PWORK* epw)
         }
     }
 }
-
 
 // 
 // Start address: 0x20c3b0
