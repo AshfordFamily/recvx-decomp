@@ -3251,43 +3251,58 @@ void bhEne01_PlayerControl(BH_PWORK* pl, BH_PWORK* epw)
 	}
 }
 
+// 100% matching!
 void bhEne01_SearchNeck(BH_PWORK* epw)
 {
-	NJS_CNK_OBJECT * obj;
-	struct BH_PWORK * epp;
+	NJS_CNK_OBJECT* obj;
+	BH_PWORK* epp;
 
-	epp = (struct BH_PWORK *)epw->lkwkp;
+	epp = (BH_PWORK*)epw->lkwkp;
 
-	if (epw->mode0 < 5) {
+	if (epw->mode0 < 5)
+    {
 		if (EXP0_I(0x40) & 0x80000000) {
-			if ((EPP_EXP0_I(0x40) & 0x1000) || (EXP0_I(0x40) & 0x1000)) {
-				epw->mlwP->objP[8].ang[1] = epw->wax;
-				epw->mlwP->objP[11].ang[1] = EXP0_I(0x50);
-			} else {
+			if ((EPP_EXP0_I(0x40) & 0x1000) || (EXP0_I(0x40) & 0x1000))
+            {
+                obj = &epw->mlwP->objP[8];
+				obj->ang[1] = epw->wax;
+                obj = &epw->mlwP->objP[11];
+				obj->ang[1] = EXP0_I(0x50);
+			} 
+            else
+            {
 				if ((((EPP_EXP0_I(0x40) & 0x800) || (EXP0_I(0x40) & 0x800)) &&
 					 ((EPP_EXP0_UC(0x28) & 0x40) || (EXP0_UC(0x28) & 0x40))) &&
-					(EXP0_F(0x54) < 35.0f)) {
+					(EXP0_F(0x54) < 35.0f))
+                {
 					obj = &epw->mlwP->objP[11];
 					obj->ang[1] = EXP0_I(0x50);
 					bhEne01_RotNeck(epw, 11, plp, 5);
 					EXP0_I(0x50) = obj->ang[1];
-				} else {
+				} 
+                else
+                {
 					obj = &epw->mlwP->objP[11];
 
-					if (EXP0_I(0x50) != 0) {
-						if (EXP0_I(0x50) < 0x8000) {
-							EXP0_I(0x50) -= 0x38E;
-							if (EXP0_I(0x50) < 0) {
+					if (EXP0_I(0x50) != 0)
+                    {
+						if (EXP0_I(0x50) < 32768)
+                        {
+							EXP0_I(0x50) -= 910;
+							if (EXP0_I(0x50) < 0)
+                            {
 								EXP0_I(0x50) = 0;
 							}
-						} else {
-							EXP0_I(0x50) += 0x38E;
-							if (EXP0_I(0x50) >= 0x10000) {
+						} 
+                        else
+                        {
+							EXP0_I(0x50) += 910;
+							if (EXP0_I(0x50) >= 65536)
+                            {
 								EXP0_I(0x50) = 0;
 							}
 						}
 					}
-
 					obj->ang[1] = EXP0_I(0x50);
 				}
 			}
