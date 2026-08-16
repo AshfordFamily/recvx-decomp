@@ -2609,46 +2609,43 @@ int bhEne26_ActionModeCheck(BH_PWORK* epw)
 	// Line 2285, Address: 0x20c760, Func Offset: 0x3b0
 	// Func End, Address: 0x20c774, Func Offset: 0x3c4
 }
-
-// 
-// Start address: 0x20c780
+*/
+#pragma divbyzerocheck on
+// 100% matching!
 void bhEne26_MV00(BH_PWORK* epw)
 {
-	int frm_no;
-	// Line 2306, Address: 0x20c780, Func Offset: 0
-	// Line 2309, Address: 0x20c794, Func Offset: 0x14
-	// Line 2312, Address: 0x20c7b4, Func Offset: 0x34
-	// Line 2313, Address: 0x20c7e4, Func Offset: 0x64
-	// Line 2312, Address: 0x20c7f0, Func Offset: 0x70
-	// Line 2313, Address: 0x20c7f4, Func Offset: 0x74
-	// Line 2315, Address: 0x20c808, Func Offset: 0x88
-	// Line 2313, Address: 0x20c80c, Func Offset: 0x8c
-	// Line 2314, Address: 0x20c818, Func Offset: 0x98
-	// Line 2315, Address: 0x20c81c, Func Offset: 0x9c
-	// Line 2317, Address: 0x20c824, Func Offset: 0xa4
-	// Line 2318, Address: 0x20c834, Func Offset: 0xb4
-	// Line 2320, Address: 0x20c838, Func Offset: 0xb8
-	// Line 2326, Address: 0x20c83c, Func Offset: 0xbc
-	// Line 2317, Address: 0x20c840, Func Offset: 0xc0
-	// Line 2326, Address: 0x20c844, Func Offset: 0xc4
-	// Line 2317, Address: 0x20c84c, Func Offset: 0xcc
-	// Line 2318, Address: 0x20c860, Func Offset: 0xe0
-	// Line 2322, Address: 0x20c864, Func Offset: 0xe4
-	// Line 2318, Address: 0x20c868, Func Offset: 0xe8
-	// Line 2320, Address: 0x20c874, Func Offset: 0xf4
-	// Line 2321, Address: 0x20c884, Func Offset: 0x104
-	// Line 2322, Address: 0x20c894, Func Offset: 0x114
-	// Line 2323, Address: 0x20c898, Func Offset: 0x118
-	// Line 2326, Address: 0x20c8a0, Func Offset: 0x120
-	// Line 2330, Address: 0x20c8a8, Func Offset: 0x128
-	// Line 2331, Address: 0x20c8b4, Func Offset: 0x134
-	// Line 2333, Address: 0x20c8d4, Func Offset: 0x154
-	// Line 2334, Address: 0x20c8dc, Func Offset: 0x15c
-	// Line 2335, Address: 0x20c8e0, Func Offset: 0x160
-	// Line 2339, Address: 0x20c8e4, Func Offset: 0x164
-	// Func End, Address: 0x20c8f8, Func Offset: 0x178
+    int frm_no;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        frm_no = (rand() % epw->mnwP[epw->mtn_no].frm_num) * 65536;
+        bhEne_ChgMtn(epw, 0, 0, 15);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->frm_no = frm_no;
+        epw->flg |= 0x40000;
+        epw->ct0 = ((rand() % 10) * 20) + 15;
+        EXP0_I(0x40) &= ~0x400;
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 1;
+        epw->mode1 = 1;
+        epw->mode3++;
+        bhEne26_SePlay(epw, 16847639);
+
+    case 1:
+        epw->ct0 -= 1;
+        if ((epw->ct0 <= 0) || (EXP0_I(0x40) & 0x400))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        } 
+        break;
+    }
 }
 
+#pragma divbyzerocheck off
+/*
 // 
 // Start address: 0x20c900
 void bhEne26_MV01(BH_PWORK* epw)
