@@ -3,6 +3,7 @@
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/en01b.h"
 
 #pragma optimization_level 4
 
@@ -1991,48 +1992,58 @@ void bhEne26_CheckMtnTbl(BH_PWORK* epw, int frm)
 	// Line 1272, Address: 0x20b018, Func Offset: 0x4a8
 	// Func End, Address: 0x20b03c, Func Offset: 0x4cc
 }
-
-// 
-// Start address: 0x20b040
+*/
+// 100% matching!
 void bhEne26_SearchNeck(BH_PWORK* epw, BH_PWORK* pl)
 {
-	npobj* obj;
-	// Line 1383, Address: 0x20b040, Func Offset: 0
-	// Line 1386, Address: 0x20b050, Func Offset: 0x10
-	// Line 1389, Address: 0x20b064, Func Offset: 0x24
-	// Line 1391, Address: 0x20b078, Func Offset: 0x38
-	// Line 1392, Address: 0x20b07c, Func Offset: 0x3c
-	// Line 1391, Address: 0x20b080, Func Offset: 0x40
-	// Line 1392, Address: 0x20b084, Func Offset: 0x44
-	// Line 1394, Address: 0x20b088, Func Offset: 0x48
-	// Line 1395, Address: 0x20b098, Func Offset: 0x58
-	// Line 1396, Address: 0x20b0a0, Func Offset: 0x60
-	// Line 1400, Address: 0x20b0dc, Func Offset: 0x9c
-	// Line 1401, Address: 0x20b0e0, Func Offset: 0xa0
-	// Line 1402, Address: 0x20b0e4, Func Offset: 0xa4
-	// Line 1400, Address: 0x20b0e8, Func Offset: 0xa8
-	// Line 1402, Address: 0x20b0ec, Func Offset: 0xac
-	// Line 1400, Address: 0x20b0f0, Func Offset: 0xb0
-	// Line 1402, Address: 0x20b0f4, Func Offset: 0xb4
-	// Line 1403, Address: 0x20b0fc, Func Offset: 0xbc
-	// Line 1404, Address: 0x20b104, Func Offset: 0xc4
-	// Line 1408, Address: 0x20b10c, Func Offset: 0xcc
-	// Line 1409, Address: 0x20b110, Func Offset: 0xd0
-	// Line 1408, Address: 0x20b118, Func Offset: 0xd8
-	// Line 1409, Address: 0x20b11c, Func Offset: 0xdc
-	// Line 1411, Address: 0x20b124, Func Offset: 0xe4
-	// Line 1413, Address: 0x20b134, Func Offset: 0xf4
-	// Line 1414, Address: 0x20b140, Func Offset: 0x100
-	// Line 1415, Address: 0x20b154, Func Offset: 0x114
-	// Line 1418, Address: 0x20b15c, Func Offset: 0x11c
-	// Line 1419, Address: 0x20b160, Func Offset: 0x120
-	// Line 1418, Address: 0x20b164, Func Offset: 0x124
-	// Line 1419, Address: 0x20b16c, Func Offset: 0x12c
-	// Line 1422, Address: 0x20b188, Func Offset: 0x148
-	// Line 1424, Address: 0x20b194, Func Offset: 0x154
-	// Func End, Address: 0x20b1a8, Func Offset: 0x168
-}
+    NJS_CNK_OBJECT* obj;
 
+    if (epw->mode0 < 5)
+    {
+        if (EXP0_I(0x40) & 0x1000)
+        {
+            obj = &epw->mlwP->objP[10];
+            obj->ang[1] = epw->wax;
+            obj = &epw->mlwP->objP[13];
+            obj->ang[1] = EXP0_I(0x50);            
+        } 
+        else
+        {
+            if ((EXP0_I(0x40) & 0x800) && (EXP0_UC(0x28) & 0x40) && (EXP0_F(0x54) < 35.0f)) 
+            {
+                obj = &epw->mlwP->objP[13];
+                obj->ang[1] = EXP0_I(0x50);
+                bhEne01_RotNeck(epw, 13, pl, 5);
+                EXP0_I(0x50) = obj->ang[1];
+            }
+            else
+            {
+                obj = &epw->mlwP->objP[13];
+                if (EXP0_I(0x50) != 0)
+                {
+                    if (EXP0_I(0x50) < 32768)
+                    {
+                        EXP0_I(0x50) -= 910;
+                        if (EXP0_I(0x50) < 0)
+                        {
+                            EXP0_I(0x50) = 0;
+                        }
+                    } 
+                    else
+                    {
+                        EXP0_I(0x50) += 910;
+                        if (EXP0_I(0x50) >= 65536)
+                        {
+                            EXP0_I(0x50) = 0;
+                        }
+                    }
+                }
+                obj->ang[1] = EXP0_I(0x50);  
+            }
+        }    
+    }
+}
+/*
 // 
 // Start address: 0x20b1b0
 void bhEne26_CollCheck(BH_PWORK* epw)
