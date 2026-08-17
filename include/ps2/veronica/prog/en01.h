@@ -127,6 +127,8 @@ int bhEne01_CutLeg(BH_PWORK* epw);
 void bhEne01_CutHead(BH_PWORK* epw);
 void bhEne01_FlyingCap(BH_PWORK* epw, int tbl_no);
 
+extern BP_WORK en01_BldTbl;
+extern BP_WORK en01_BldTbl2;
 extern int kaidan_ang[4];
 
 #endif
