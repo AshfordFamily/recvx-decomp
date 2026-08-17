@@ -3880,26 +3880,24 @@ void bhEne26_DG15(BH_PWORK* epw)
         break;
     }
 }
-/*
-// 
-// Start address: 0x20f190
-void bhEne26_Die(BH_PWORK* epw)
-{
-	// Line 3877, Address: 0x20f190, Func Offset: 0
-	// Line 3879, Address: 0x20f19c, Func Offset: 0xc
-	// Line 3881, Address: 0x20f1b0, Func Offset: 0x20
-	// Line 3886, Address: 0x20f1c0, Func Offset: 0x30
-	// Line 3887, Address: 0x20f1d4, Func Offset: 0x44
-	// Line 3889, Address: 0x20f1e8, Func Offset: 0x58
-	// Line 3890, Address: 0x20f1f4, Func Offset: 0x64
-	// Line 3893, Address: 0x20f20c, Func Offset: 0x7c
-	// Line 3894, Address: 0x20f214, Func Offset: 0x84
-	// Func End, Address: 0x20f224, Func Offset: 0x94
-}
-*/
 
 // 100% matching!
-void bhEne26_DDType(BH_PWORK *epw)
+void bhEne26_Die(BH_PWORK* epw)
+{
+    EXP0_I(0x40) &= ~0x800;
+    if (EXP0_I(0x38) != 0) {
+        if ((EXP0_I(0x3C) & 0x00FFFFFF) > 0)
+        {
+            EXP0_I(0x3C) += 0xFFFEFEFF;
+        }
+        epw->mdflg |= 0x400;
+        npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, EXP0_I(0x3C));
+    }
+    bhEne26_DDType(epw);
+}
+
+// 100% matching!
+void bhEne26_DDType(BH_PWORK* epw)
 {
   bhEne26_DieMode2[epw->mode2](epw);
 }
