@@ -1812,26 +1812,48 @@ struct _anon62
 	int add_hp;
 	int add_atk;
 };
+*/
 
-int En01_PlyMtn_OffsetTbl[4];*/
-const char en01_flipTree[19] = {
+
+int En01_PlyMtn_OffsetTbl[4] =
+{
+    0x190, 0x1A9, 0x1C2, 0x1A9
+};
+
+const char en01_flipTree[19] =
+{
     0, 1, 5, 6, 7, 2, 3, 4,
     8, 9, 10, 11, 15, 16, 17, 12,
     13, 14, -1
 };
 
-const char en01_flipTree2[11] = {
+const char en01_flipTree2[11] =
+{
     0, 1, 2, 3, 7, 8, 9, 4,
     5, 6, -1
 };
+
 /*_anon35 en01_mtn_tbl[26];
 _anon39 en01_mtn_tbl2[60];
 _anon39 en01_mtn_tbl3[16];
-char en01_tree[8][8];
+*/
+const char en01_tree[8][8] =
+{
+    { 0x00, 0x01, 0x05, 0x06, 0x07, 0xFF, 0x00, 0x00 },
+    { 0x00, 0x01, 0x02, 0x03, 0x04, 0xFF, 0x00, 0x00 },
+    { 0x00, 0x01, 0x08, 0x09, 0x0F, 0x10, 0x11, 0xFF },
+    { 0x00, 0x01, 0x08, 0x09, 0x0C, 0x0D, 0x0E, 0xFF },
+    { 0x08, 0x09, 0x0F, 0x10, 0x11, 0xFF, 0x00, 0x00 },
+    { 0x08, 0x09, 0x0C, 0x0D, 0x0E, 0xFF, 0x00, 0x00 },
+    { 0x00, 0x01, 0x05, 0x06, 0xFF, 0x00, 0x00, 0x00 },
+    { 0x00, 0x01, 0x08, 0x09, 0x0A, 0xFF, 0x00, 0x00 }
+};
+/*
 _anon20 En01_WpnDamageTbl[22];
 _anon59 CombWepTbl[21];
 _anon61 CombJointTbl[18];*/
-const int en01_hp_tbl[2][16] = {
+const int en01_hp_tbl[2][16] =
+{
     {  60,  60,  60,  60,  60,  90,  90,  90,  90,  90, 120, 120, 120, 120, 120, 120 },
     {  20,  20,  40,  40,  40,  40,  40,  40,  40,  40,  60,  60,  60,  60,  60,  60 }
 };
@@ -1915,16 +1937,61 @@ EGG_WORK zob_lkmtab = {
     0x0000,       /* aspd */
     {0, 0, 0, 0}  /* hide */
 };
-/*_anon46 en01_BldTbl;
-_anon46 en01_BldTbl2;*/
-char En01SdwTabW[5] = {
+
+BP_WORK en01_BldTbl =
+{
+    { 0.0f, 0.1f, 0.0f },             // off_pos (x, y, z)
+    0,                                // srd_dir
+    0.0f,                             // srd_pos
+    0.06f,                            // bld_spd
+    { 0.5f, 0.7f, 0.4f, 1.0f, 1.0f }, // srt_spd
+    { 1, 3, 8, 11, 15 }               // srt_dir
+};
+
+BP_WORK en01_BldTbl2 =
+{
+    { 0.0f, 0.1f, 0.0f },             // off_pos (x, y, z)
+    0,                                // srd_dir
+    0.0f,                             // srd_pos
+    0.07f,                            // bld_spd
+    { 1.0f, 0.2f, 0.5f, 0.8f, 0.0f }, // srt_spd
+    { 1, 4, 12, 15, 0 }               // srt_dir
+};
+
+char En01SdwTabW[5] =
+{
     0, 3, 4, 10, -1
 };
-char En01SdwTabB[3] = {
+
+char En01SdwTabB[3] =
+{
     8, 10, -1
 };
-/*int en01_walk_mtn[6];
-_anon15 en01prt_blood_tbl[18];
+
+BT_WORK en01prt_blood_tbl[18] =
+{
+    // lnk_obj,   x,      y,      z,     xlen,   ylen,   size,   len
+    {      0,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f }, // [0]
+    {      9,   0.0f,   2.0f,   1.8f,   2.0f,   2.0f,   5.0f,   1.5f }, // [1]
+    {      2,   0.0f,   0.0f,   1.8f,   2.0f,   2.0f,   5.0f,   1.5f }, // [2]
+    {      3,   0.0f,   2.0f,   1.0f,   1.0f,   2.0f,   5.0f,   1.5f }, // [3]
+    {      4,   0.0f,   2.0f,   1.0f,   1.0f,   2.0f,   5.0f,   1.5f }, // [4]
+    {      5,   0.0f,   0.0f,   1.8f,   2.0f,   2.0f,   5.0f,   1.5f }, // [5]
+    {      6,   0.0f,   2.0f,   1.0f,   1.0f,   2.0f,   5.0f,   1.5f }, // [6]
+    {      7,   0.0f,   2.0f,   1.0f,   1.0f,   2.0f,   5.0f,   1.5f }, // [7]
+    {      9,   0.0f,   2.0f,   1.8f,   2.0f,   2.0f,   5.0f,   1.5f }, // [8]
+    {      9,   0.0f,   3.0f,   1.8f,   2.0f,   2.0f,   5.0f,   1.5f }, // [9]
+    {      9,   0.0f,   3.5f,   1.8f,   2.0f,   1.0f,   5.0f,   1.5f }, // [10]
+    {      9,   0.0f,   3.5f,   1.8f,   2.0f,   1.0f,   5.0f,   1.5f }, // [11]
+    {     12,   0.0f,   0.0f,   0.5f,   0.2f,   0.5f,   5.0f,   1.5f }, // [12]
+    {     13,   0.0f,   1.0f,   0.3f,   0.2f,   1.0f,   5.0f,   1.5f }, // [13]
+    {     14,   0.0f,   1.0f,   0.3f,   0.2f,   1.0f,   5.0f,   1.5f }, // [14]
+    {     15,   0.0f,   0.0f,   0.5f,   0.2f,   0.5f,   5.0f,   1.5f }, // [15]
+    {     16,   0.0f,   1.0f,   0.3f,   0.2f,   1.0f,   5.0f,   1.5f }, // [16]
+    {     17,   0.0f,   1.0f,   0.3f,   0.2f,   1.0f,   5.0f,   1.5f }  // [17]
+};
+
+/*
 _anon8 chg_mtn_tbl[28];
 */
 
@@ -9064,44 +9131,36 @@ void bhEne01_WaterEffect(BH_PWORK* epw, int frm)
 	// Line 11226, Address: 0x187804, Func Offset: 0x1e4
 	// Func End, Address: 0x187828, Func Offset: 0x208
 }
+*/
 
-// 
-// Start address: 0x187830
+// 100% matching!
 void bhEne01_NeckBloodEffect(BH_PWORK* epw, int type)
 {
-	int i;
-	_anon11 v;
-	_anon11 ofs;
-	// Line 11245, Address: 0x187830, Func Offset: 0
-	// Line 11246, Address: 0x187854, Func Offset: 0x24
-	// Line 11245, Address: 0x18785c, Func Offset: 0x2c
-	// Line 11246, Address: 0x187864, Func Offset: 0x34
-	// Line 11346, Address: 0x187874, Func Offset: 0x44
-	// Line 11246, Address: 0x187878, Func Offset: 0x48
-	// Line 11348, Address: 0x187880, Func Offset: 0x50
-	// Line 11351, Address: 0x187888, Func Offset: 0x58
-	// Line 11353, Address: 0x187890, Func Offset: 0x60
-	// Line 11355, Address: 0x187894, Func Offset: 0x64
-	// Line 11356, Address: 0x1878ac, Func Offset: 0x7c
-	// Line 11355, Address: 0x1878b0, Func Offset: 0x80
-	// Line 11356, Address: 0x1878b4, Func Offset: 0x84
-	// Line 11357, Address: 0x1878c4, Func Offset: 0x94
-	// Line 11358, Address: 0x1878e0, Func Offset: 0xb0
-	// Line 11357, Address: 0x1878e4, Func Offset: 0xb4
-	// Line 11358, Address: 0x1878e8, Func Offset: 0xb8
-	// Line 11362, Address: 0x187918, Func Offset: 0xe8
-	// Line 11363, Address: 0x187930, Func Offset: 0x100
-	// Line 11362, Address: 0x187934, Func Offset: 0x104
-	// Line 11363, Address: 0x187938, Func Offset: 0x108
-	// Line 11364, Address: 0x187944, Func Offset: 0x114
-	// Line 11365, Address: 0x18795c, Func Offset: 0x12c
-	// Line 11364, Address: 0x187964, Func Offset: 0x134
-	// Line 11365, Address: 0x187968, Func Offset: 0x138
-	// Line 11367, Address: 0x187994, Func Offset: 0x164
-	// Line 11371, Address: 0x187998, Func Offset: 0x168
-	// Line 11403, Address: 0x1879a8, Func Offset: 0x178
-	// Func End, Address: 0x1879d0, Func Offset: 0x1a0
-}*/
+    NJS_POINT3 ofs = { 0.0f, 1.0f, 0.0f };
+    NJS_VECTOR v;
+    int i;
+    // not present in DWARF
+    int ang;
+      
+    for (i = 0, ang = NJM_DEG_ANG(45); i < 4; ang += NJM_DEG_ANG(90), i++)
+    {
+        ofs.y = -1.0f;
+        if (type == 0)
+        {
+            ofs.y = 0.0f;
+            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25)));
+            v.y = njSin(NJM_DEG_ANG(56.25));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25)));            
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 6, bhEne01_ChgTextID(epw, 6), 1, i);
+            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5)));
+            v.y = njSin(NJM_DEG_ANG(22.5));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5)));            
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 3, bhEne01_ChgTextID(epw, 6), 3, i);
+        }
+    }     
+}
 
 // 
 // Start address: 0x1879d0
