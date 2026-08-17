@@ -3235,16 +3235,13 @@ void bhEne26_MV16(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x20d840
+// 100% matching!
 void bhEne26_Nage(BH_PWORK* epw)
 {
-	// Line 2975, Address: 0x20d840, Func Offset: 0
-	// Line 2977, Address: 0x20d850, Func Offset: 0x10
-	// Func End, Address: 0x20d858, Func Offset: 0x18
-    scePrintf("bhEne26_Nage - UNIMPLEMENTED!\n");
+    EXP0_I(0x40) &= ~0x800;
+    bhEne26_NGType(epw);
 }
-/*
+
 // 
 // Start address: 0x20d860
 void bhEne26_NGType(BH_PWORK* epw)
@@ -3259,7 +3256,7 @@ void bhEne26_NGType(BH_PWORK* epw)
 	// Line 3013, Address: 0x20d8dc, Func Offset: 0x7c
 	// Func End, Address: 0x20d8ec, Func Offset: 0x8c
 }
-*/
+
 // 
 // Start address: 0x20d8f0
 void bhEne26_NG00(BH_PWORK* epw)
