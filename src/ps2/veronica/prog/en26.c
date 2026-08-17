@@ -3901,43 +3901,58 @@ void bhEne26_DDType(BH_PWORK* epw)
 	// Line 3913, Address: 0x20f230, Func Offset: 0
 	// Func End, Address: 0x20f250, Func Offset: 0x20
 }
-
-// 
-// Start address: 0x20f250
+*/
+// 100% matching!
 void bhEne26_DD00(BH_PWORK* epw)
 {
-	// Line 3932, Address: 0x20f250, Func Offset: 0
-	// Line 3933, Address: 0x20f25c, Func Offset: 0xc
-	// Line 3936, Address: 0x20f294, Func Offset: 0x44
-	// Line 3938, Address: 0x20f2a8, Func Offset: 0x58
-	// Line 3939, Address: 0x20f2cc, Func Offset: 0x7c
-	// Line 3942, Address: 0x20f2d4, Func Offset: 0x84
-	// Line 3944, Address: 0x20f2fc, Func Offset: 0xac
-	// Line 3945, Address: 0x20f300, Func Offset: 0xb0
-	// Line 3946, Address: 0x20f304, Func Offset: 0xb4
-	// Line 3945, Address: 0x20f308, Func Offset: 0xb8
-	// Line 3946, Address: 0x20f310, Func Offset: 0xc0
-	// Line 3950, Address: 0x20f31c, Func Offset: 0xcc
-	// Line 3953, Address: 0x20f32c, Func Offset: 0xdc
-	// Line 3950, Address: 0x20f33c, Func Offset: 0xec
-	// Line 3953, Address: 0x20f348, Func Offset: 0xf8
-	// Line 3955, Address: 0x20f354, Func Offset: 0x104
-	// Line 3958, Address: 0x20f360, Func Offset: 0x110
-	// Line 3960, Address: 0x20f370, Func Offset: 0x120
-	// Line 3961, Address: 0x20f378, Func Offset: 0x128
-	// Line 3963, Address: 0x20f380, Func Offset: 0x130
-	// Line 3966, Address: 0x20f388, Func Offset: 0x138
-	// Line 3968, Address: 0x20f3b8, Func Offset: 0x168
-	// Line 3970, Address: 0x20f3bc, Func Offset: 0x16c
-	// Line 3972, Address: 0x20f3cc, Func Offset: 0x17c
-	// Line 3973, Address: 0x20f3e8, Func Offset: 0x198
-	// Line 3972, Address: 0x20f3ec, Func Offset: 0x19c
-	// Line 3974, Address: 0x20f3f4, Func Offset: 0x1a4
-	// Line 3978, Address: 0x20f3fc, Func Offset: 0x1ac
-	// Line 3986, Address: 0x20f408, Func Offset: 0x1b8
-	// Func End, Address: 0x20f418, Func Offset: 0x1c8
+    switch (epw->mode3)
+    {
+    case 0:
+        if (!(EXP0_I(0x40) & 0x8000))
+        {
+            bhEne_ChgMtn(epw, 10, 0, 0);
+            EXP0_I(0x40) &= ~0x3000000;
+        } 
+        else
+        {
+            bhEne_ChgMtn(epw, 11, 0, 0);
+            EXP0_I(0x40) &= ~0x3000000;
+        }
+        
+        epw->mtn_add = 0;
+        epw->flg |= 2;
+        epw->flg &= ~0x128;
+        epw->ct0 = 0;
+        epw->ct1 = (rand() % 5) + 10;
+        bhSetBloodPoolLnk(epw, (NJS_POINT3*)&epw->px, epw->ay, &en01_BldTbl, 0);
+        epw->mode3++;
+
+    case 1:
+        if (--epw->ct0 < 0)
+        {
+            epw->mtn_add = 65536;
+            epw->mode3++;
+        }
+        break;
+    case 2:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mtn_add = 0;
+            if (epw->ct1-- > 0)
+            {
+                epw->ct0 = (rand() % 50) + 10;
+                epw->mode3 = 1;
+            } 
+            else
+            {
+                epw->mode3++;  
+            }          
+        }
+    case 3:
+        break;
+    }
 }
-*/
+
 // 
 // Start address: 0x20f420
 int bhEne26_EatCheck(BH_PWORK* epw, int rng, float dist, int mode)
