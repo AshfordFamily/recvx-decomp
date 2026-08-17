@@ -2641,48 +2641,61 @@ void bhEne26_MVType(BH_PWORK* epw)
     }
 }
 
-
-// 
-// Start address: 0x20c0e0
+// 100% matching!
 void bhEne26_EneSearch(BH_PWORK* epw)
 {
-	//_anon28 pos;
-	//_anon8* neck_owk;
-	//npobj* neck_obj;
-	// Line 2026, Address: 0x20c0e0, Func Offset: 0
-	// Line 2034, Address: 0x20c0ec, Func Offset: 0xc
-	// Line 2035, Address: 0x20c0f4, Func Offset: 0x14
-	// Line 2036, Address: 0x20c0f8, Func Offset: 0x18
-	// Line 2035, Address: 0x20c0fc, Func Offset: 0x1c
-	// Line 2036, Address: 0x20c100, Func Offset: 0x20
-	// Line 2037, Address: 0x20c104, Func Offset: 0x24
-	// Line 2038, Address: 0x20c108, Func Offset: 0x28
-	// Line 2041, Address: 0x20c110, Func Offset: 0x30
-	// Line 2043, Address: 0x20c128, Func Offset: 0x48
-	// Line 2066, Address: 0x20c14c, Func Offset: 0x6c
-	// Line 2069, Address: 0x20c15c, Func Offset: 0x7c
-	// Line 2072, Address: 0x20c174, Func Offset: 0x94
-	// Line 2073, Address: 0x20c180, Func Offset: 0xa0
-	// Line 2074, Address: 0x20c18c, Func Offset: 0xac
-	// Line 2077, Address: 0x20c194, Func Offset: 0xb4
-	// Line 2079, Address: 0x20c1a4, Func Offset: 0xc4
-	// Line 2083, Address: 0x20c1b0, Func Offset: 0xd0
-	// Line 2086, Address: 0x20c1c0, Func Offset: 0xe0
-	// Line 2088, Address: 0x20c1dc, Func Offset: 0xfc
-	// Line 2092, Address: 0x20c1e8, Func Offset: 0x108
-	// Line 2094, Address: 0x20c1fc, Func Offset: 0x11c
-	// Line 2095, Address: 0x20c200, Func Offset: 0x120
-	// Line 2094, Address: 0x20c204, Func Offset: 0x124
-	// Line 2095, Address: 0x20c20c, Func Offset: 0x12c
-	// Line 2096, Address: 0x20c210, Func Offset: 0x130
-	// Line 2099, Address: 0x20c218, Func Offset: 0x138
-	// Line 2101, Address: 0x20c228, Func Offset: 0x148
-	// Line 2104, Address: 0x20c240, Func Offset: 0x160
-	// Line 2109, Address: 0x20c254, Func Offset: 0x174
-	// Func End, Address: 0x20c264, Func Offset: 0x184
-    scePrintf("bhEne26_EneSearch - UNIMPLEMENTED!\n");
+    NJS_CNK_OBJECT* neck_obj;
+    O_WORK* neck_owk;
+    NJS_POINT3 pos;
+
+    neck_owk = &epw->mlwP->owP[13];
+    neck_obj = &epw->mlwP->objP[13];
+
+    pos.x = neck_owk->mtx[12];
+    pos.y = 0.0f;
+    pos.z = neck_owk->mtx[14];
+
+    if ((EXP0_UC(0x28) & 0x1F) < 31)
+    {
+        if (bhSearchPlayer2(epw, &pos, epw->ay + neck_obj->ang[1], 14563) != -1)
+        {
+            EXP0_UC(0x28) |= 0x20;
+        }
+        
+        if (EXP0_UC(0x28) & 0x20)
+        {
+            EXP0_UC(0x28) |= 0x40;
+            EXP0_UC(0x28) &= 0xDF;
+        } 
+        else if ((EXP0_UC(0x28) & 0x1F) == 30)
+        {
+            EXP0_UC(0x28) &= 0xBF;
+        }
+    }
+    
+    EXP0_UC(0x28)++;
+    if ((EXP0_UC(0x28) & 0x1F) >= 31)
+    {
+        EXP0_UC(0x28) &= 0xE0;
+    }
+
+    if (EXP0_UC(0x28) & 0x40)
+    {
+        EXP0_I(0x40) |= 0x400;
+        EXP0_UC(0x29) = 15;
+        return;
+    }
+    
+    if (EXP0_I(0x40) & 0x400)
+    {
+        if (--EXP0_UC(0x29) < 0)
+        {
+            EXP0_I(0x40) &= ~0x400;
+        }
+    }
 }
 
+// 100% matching!
 void bhEne26_Brain00(BH_PWORK* epw)
 {
     unsigned char rid;
