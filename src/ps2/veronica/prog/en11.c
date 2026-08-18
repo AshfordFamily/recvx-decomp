@@ -801,31 +801,25 @@ void bhEne11_MV09(BH_PWORK* epw)
     bhEne11_GoFoward(epw);
 }
 
-/*// 
-
-// 
-// Start address: 0x1d47c0
-void bhEne11_Nage()
+// 100% matching!
+void bhEne11_Nage() 
 {
-	// Line 982, Address: 0x1d47c0, Func Offset: 0
-	// Func End, Address: 0x1d47c8, Func Offset: 0x8
+
 }
 
-// 
-// Start address: 0x1d47d0
+// 100% matching!
 void bhEne11_Damage()
 {
-	// Line 993, Address: 0x1d47d0, Func Offset: 0
-	// Func End, Address: 0x1d47d8, Func Offset: 0x8
+
 }
 
-// 
-// Start address: 0x1d47e0
-void bhEne11_Die()
+// 100% matching!
+void bhEne11_Die() 
 {
-	// Line 1004, Address: 0x1d47e0, Func Offset: 0
-	// Func End, Address: 0x1d47e8, Func Offset: 0x8
+
 }
+
+/*// 
 
 // 
 // Start address: 0x1d47f0
