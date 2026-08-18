@@ -4,6 +4,7 @@
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
+#include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/main.h"
 
@@ -383,82 +384,98 @@ void bhEne11_MV02(BH_PWORK* epw)
     }
 }
 
+// 100% matching!
+void bhEne11_MV03(BH_PWORK* epw) 
+{
+    NJS_VECTOR v;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            switch (EXP0_I(0x5C))
+            {
+                case 0:
+                    epw->way = 0;
+                    epw->ct0 = 0;
+                    break;
+                
+                case 1:
+                    epw->way = -0x222;
+                    epw->ct0 = 0x1D;
+                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+                    break;
+                
+                case 2:
+                    epw->way = 0x38E;
+                    epw->ct0 = 0x23;
+                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+                    break;
+                
+                case 3:
+                    epw->way = 0x222;
+                    epw->ct0 = 0x1D;
+                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+            }
+            
+            epw->ct1 = 0x10;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->way);
+            
+            if (epw->ct0-- == 0)
+            {
+                epw->mode1 = 1;
+                epw->mode3 = 0;
+                
+                if (epw->type == 0) 
+                {
+                    epw->mode2 = 1;
+                }
+                else 
+                {
+                    epw->mode2 = 6;
+                }
+            }
+            
+            if (epw->type != 0)
+            {
+                switch (epw->type & 0xFFFF)
+                {
+                    case 1:
+                        v.x = 0;
+                        v.z = 16.0f;
+                        break;
+                    
+                    case 3:
+                        v.x = 0;
+                        v.z = -16.0f;
+                        break;
+                    
+                    case 2:
+                        v.x = 16.0f;
+                        v.z = 0;
+                        break;
+                    
+                    case 4:
+                        v.x = -16.0f;
+                        v.z = 0;
+                }
+                
+                v.y = -fabsf(plp->py - epw->py);
+                
+                bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+                
+                if (epw->ct1 != 0)
+                {
+                    epw->ct1--;
+                }
+            }
+    }
+}
+
 /*// 
-
-// 
-// Start address: 0x1d3b40
-void bhEne11_MV02(BH_PWORK* epw)
-{
-	// Line 502, Address: 0x1d3b40, Func Offset: 0
-	// Line 503, Address: 0x1d3b50, Func Offset: 0x10
-	// Line 506, Address: 0x1d3b70, Func Offset: 0x30
-	// Line 507, Address: 0x1d3b78, Func Offset: 0x38
-	// Line 508, Address: 0x1d3b7c, Func Offset: 0x3c
-	// Line 507, Address: 0x1d3b84, Func Offset: 0x44
-	// Line 508, Address: 0x1d3b8c, Func Offset: 0x4c
-	// Line 510, Address: 0x1d3b90, Func Offset: 0x50
-	// Line 512, Address: 0x1d3b9c, Func Offset: 0x5c
-	// Line 513, Address: 0x1d3bac, Func Offset: 0x6c
-	// Line 514, Address: 0x1d3bb4, Func Offset: 0x74
-	// Line 516, Address: 0x1d3bb8, Func Offset: 0x78
-	// Line 518, Address: 0x1d3bc4, Func Offset: 0x84
-	// Line 519, Address: 0x1d3bcc, Func Offset: 0x8c
-	// Line 524, Address: 0x1d3bd4, Func Offset: 0x94
-	// Line 525, Address: 0x1d3bfc, Func Offset: 0xbc
-	// Line 526, Address: 0x1d3c10, Func Offset: 0xd0
-	// Line 528, Address: 0x1d3c18, Func Offset: 0xd8
-	// Line 532, Address: 0x1d3c2c, Func Offset: 0xec
-	// Func End, Address: 0x1d3c3c, Func Offset: 0xfc
-}
-
-// 
-// Start address: 0x1d3c40
-void bhEne11_MV03(BH_PWORK* epw)
-{
-	_anon3 v;
-	// Line 543, Address: 0x1d3c40, Func Offset: 0
-	// Line 544, Address: 0x1d3c4c, Func Offset: 0xc
-	// Line 546, Address: 0x1d3c6c, Func Offset: 0x2c
-	// Line 548, Address: 0x1d3ca4, Func Offset: 0x64
-	// Line 550, Address: 0x1d3ca8, Func Offset: 0x68
-	// Line 552, Address: 0x1d3cb0, Func Offset: 0x70
-	// Line 553, Address: 0x1d3cb8, Func Offset: 0x78
-	// Line 556, Address: 0x1d3cc0, Func Offset: 0x80
-	// Line 557, Address: 0x1d3cd0, Func Offset: 0x90
-	// Line 559, Address: 0x1d3cd8, Func Offset: 0x98
-	// Line 560, Address: 0x1d3ce0, Func Offset: 0xa0
-	// Line 563, Address: 0x1d3ce8, Func Offset: 0xa8
-	// Line 564, Address: 0x1d3cf8, Func Offset: 0xb8
-	// Line 566, Address: 0x1d3d00, Func Offset: 0xc0
-	// Line 567, Address: 0x1d3d08, Func Offset: 0xc8
-	// Line 570, Address: 0x1d3d10, Func Offset: 0xd0
-	// Line 573, Address: 0x1d3d20, Func Offset: 0xe0
-	// Line 574, Address: 0x1d3d28, Func Offset: 0xe8
-	// Line 576, Address: 0x1d3d34, Func Offset: 0xf4
-	// Line 577, Address: 0x1d3d40, Func Offset: 0x100
-	// Line 578, Address: 0x1d3d50, Func Offset: 0x110
-	// Line 579, Address: 0x1d3d58, Func Offset: 0x118
-	// Line 581, Address: 0x1d3d5c, Func Offset: 0x11c
-	// Line 583, Address: 0x1d3d68, Func Offset: 0x128
-	// Line 584, Address: 0x1d3d70, Func Offset: 0x130
-	// Line 589, Address: 0x1d3d78, Func Offset: 0x138
-	// Line 592, Address: 0x1d3d84, Func Offset: 0x144
-	// Line 594, Address: 0x1d3dc0, Func Offset: 0x180
-	// Line 595, Address: 0x1d3dc4, Func Offset: 0x184
-	// Line 596, Address: 0x1d3dc8, Func Offset: 0x188
-	// Line 598, Address: 0x1d3dd0, Func Offset: 0x190
-	// Line 599, Address: 0x1d3dd4, Func Offset: 0x194
-	// Line 600, Address: 0x1d3dd8, Func Offset: 0x198
-	// Line 602, Address: 0x1d3de0, Func Offset: 0x1a0
-	// Line 604, Address: 0x1d3de8, Func Offset: 0x1a8
-	// Line 606, Address: 0x1d3df0, Func Offset: 0x1b0
-	// Line 607, Address: 0x1d3df8, Func Offset: 0x1b8
-	// Line 610, Address: 0x1d3dfc, Func Offset: 0x1bc
-	// Line 612, Address: 0x1d3e1c, Func Offset: 0x1dc
-	// Line 613, Address: 0x1d3e2c, Func Offset: 0x1ec
-	// Line 617, Address: 0x1d3e40, Func Offset: 0x200
-	// Func End, Address: 0x1d3e50, Func Offset: 0x210
-}
 
 // 
 // Start address: 0x1d3e50
