@@ -1,5 +1,6 @@
 #include "../../../ps2/veronica/prog/en11.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Spotter 
@@ -121,77 +122,84 @@ void bhEne11(BH_PWORK* epw)
     bhCalcModel(epw);
 }
 
-/*// 
-// Start address: 0x1d34f0
+// 100% matching!
 void bhEne11_Init(BH_PWORK* epw)
 {
-	int eff_id;
-	// Line 255, Address: 0x1d34f0, Func Offset: 0
-	// Line 259, Address: 0x1d34fc, Func Offset: 0xc
-	// Line 268, Address: 0x1d3504, Func Offset: 0x14
-	// Line 259, Address: 0x1d350c, Func Offset: 0x1c
-	// Line 263, Address: 0x1d3510, Func Offset: 0x20
-	// Line 259, Address: 0x1d3514, Func Offset: 0x24
-	// Line 264, Address: 0x1d3518, Func Offset: 0x28
-	// Line 265, Address: 0x1d351c, Func Offset: 0x2c
-	// Line 266, Address: 0x1d3520, Func Offset: 0x30
-	// Line 271, Address: 0x1d3524, Func Offset: 0x34
-	// Line 259, Address: 0x1d3528, Func Offset: 0x38
-	// Line 262, Address: 0x1d3530, Func Offset: 0x40
-	// Line 263, Address: 0x1d353c, Func Offset: 0x4c
-	// Line 264, Address: 0x1d3548, Func Offset: 0x58
-	// Line 265, Address: 0x1d354c, Func Offset: 0x5c
-	// Line 266, Address: 0x1d3550, Func Offset: 0x60
-	// Line 267, Address: 0x1d3554, Func Offset: 0x64
-	// Line 268, Address: 0x1d3558, Func Offset: 0x68
-	// Line 271, Address: 0x1d355c, Func Offset: 0x6c
-	// Line 272, Address: 0x1d3560, Func Offset: 0x70
-	// Line 273, Address: 0x1d3564, Func Offset: 0x74
-	// Line 274, Address: 0x1d3568, Func Offset: 0x78
-	// Line 277, Address: 0x1d356c, Func Offset: 0x7c
-	// Line 278, Address: 0x1d3578, Func Offset: 0x88
-	// Line 280, Address: 0x1d3588, Func Offset: 0x98
-	// Line 281, Address: 0x1d3590, Func Offset: 0xa0
-	// Line 283, Address: 0x1d359c, Func Offset: 0xac
-	// Line 284, Address: 0x1d35a8, Func Offset: 0xb8
-	// Line 285, Address: 0x1d35b4, Func Offset: 0xc4
-	// Line 287, Address: 0x1d35bc, Func Offset: 0xcc
-	// Line 288, Address: 0x1d35cc, Func Offset: 0xdc
-	// Line 289, Address: 0x1d35d8, Func Offset: 0xe8
-	// Line 291, Address: 0x1d35e4, Func Offset: 0xf4
-	// Line 294, Address: 0x1d35ec, Func Offset: 0xfc
-	// Line 295, Address: 0x1d35fc, Func Offset: 0x10c
-	// Line 296, Address: 0x1d3608, Func Offset: 0x118
-	// Line 307, Address: 0x1d360c, Func Offset: 0x11c
-	// Line 295, Address: 0x1d3610, Func Offset: 0x120
-	// Line 296, Address: 0x1d361c, Func Offset: 0x12c
-	// Line 307, Address: 0x1d3624, Func Offset: 0x134
-	// Line 296, Address: 0x1d362c, Func Offset: 0x13c
-	// Line 297, Address: 0x1d3638, Func Offset: 0x148
-	// Line 298, Address: 0x1d364c, Func Offset: 0x15c
-	// Line 299, Address: 0x1d3660, Func Offset: 0x170
-	// Line 300, Address: 0x1d3674, Func Offset: 0x184
-	// Line 301, Address: 0x1d3688, Func Offset: 0x198
-	// Line 302, Address: 0x1d369c, Func Offset: 0x1ac
-	// Line 303, Address: 0x1d36b0, Func Offset: 0x1c0
-	// Line 304, Address: 0x1d36c4, Func Offset: 0x1d4
-	// Line 305, Address: 0x1d36d8, Func Offset: 0x1e8
-	// Line 307, Address: 0x1d36ec, Func Offset: 0x1fc
-	// Line 308, Address: 0x1d3704, Func Offset: 0x214
-	// Line 309, Address: 0x1d370c, Func Offset: 0x21c
-	// Line 310, Address: 0x1d3734, Func Offset: 0x244
-	// Line 312, Address: 0x1d373c, Func Offset: 0x24c
-	// Line 314, Address: 0x1d3744, Func Offset: 0x254
-	// Line 315, Address: 0x1d3748, Func Offset: 0x258
-	// Line 319, Address: 0x1d3754, Func Offset: 0x264
-	// Line 320, Address: 0x1d375c, Func Offset: 0x26c
-	// Line 321, Address: 0x1d3764, Func Offset: 0x274
-	// Line 324, Address: 0x1d376c, Func Offset: 0x27c
-	// Line 327, Address: 0x1d3774, Func Offset: 0x284
-	// Line 328, Address: 0x1d3784, Func Offset: 0x294
-	// Func End, Address: 0x1d3794, Func Offset: 0x2a4
+    int eff_id;
+
+    sys->rm_flg &= ~1;
+    epw->flg |= 0x1848;
+    epw->flg &= ~6;
+    epw->ar = 3.5f;
+    epw->ah = 1.5f;
+    epw->car = 1.0f;
+    epw->cah = 1.0f;
+    epw->spd = 0.2f;
+    epw->mode0 = 1;
+    epw->mode1 = 1;
+    epw->mode2 = 0;
+    epw->mode3 = 0;
+    
+    if (epw->exp0 == NULL) 
+    {
+        epw->exp0 = bhEne_CallocWork(0x70, 8);
+    }
+    
+    njUnitMatrix((NJS_MATRIX *) &EXP0_F(0x0));
+    
+    if (epw->type == 0)
+    {
+        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->ay);
+        njRotateZ((NJS_MATRIX *) &EXP0_F(0x0), 0x8000);
+    }
+    else 
+    {
+        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), (epw->type - 1) << 0xE);
+        njRotateX((NJS_MATRIX *) &EXP0_F(0x0), 0x4000);
+        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->ay);
+    }
+    
+    EXP0_UC(0x56) = 0;
+    
+    if (*(O_WRK **)(epw->exp0 + 0x60) == NULL)
+    {
+        sys->ef.id = 0x105;
+        sys->ef.flg = 1;
+        sys->ef.type = 0;
+        sys->ef.mdlver = 0;
+        sys->ef.px = 0.0f;
+        sys->ef.py = 0.0f;
+        sys->ef.pz = 0.0f;
+        sys->ef.sx = 0.0f;
+        sys->ef.sy = 0.0f;
+        sys->ef.sz = 0.0f;
+        sys->ef.ay = 0;
+        
+        eff_id = bhSetEffectTb(&sys->ef, NULL, epw, 0);
+        
+        if (eff_id >= 0)
+        {
+            *(O_WRK **)(epw->exp0 + 0x60) = &eff[eff_id];
+            (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 0;
+            
+        }
+    }
+    else 
+    {
+        (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 0;
+        (*(O_WRK **)(epw->exp0 + 0x60))->ct2 = 0;
+    }
+    
+    epw->clp_jno[0] = 1;
+    epw->clp_jno[1] = 4;
+    epw->clp_jno[2] = -1;
+    
+    bhEne11_MoveNearWall(epw);
+    
+    epw->flg |= 0x80000;
 }
 
+/*// 
 // 
 // Start address: 0x1d37a0
 void bhEne11_Brain(BH_PWORK* epw)
