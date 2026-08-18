@@ -735,70 +735,73 @@ void bhEne11_MV08(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d4600
+// 100% matching!
 void bhEne11_MV09(BH_PWORK* epw)
 {
-	_anon18* owk;
-	// Line 906, Address: 0x1d4600, Func Offset: 0
-	// Line 910, Address: 0x1d460c, Func Offset: 0xc
-	// Line 911, Address: 0x1d4618, Func Offset: 0x18
-	// Line 910, Address: 0x1d461c, Func Offset: 0x1c
-	// Line 911, Address: 0x1d4620, Func Offset: 0x20
-	// Line 912, Address: 0x1d4628, Func Offset: 0x28
-	// Line 918, Address: 0x1d462c, Func Offset: 0x2c
-	// Line 912, Address: 0x1d4634, Func Offset: 0x34
-	// Line 913, Address: 0x1d4638, Func Offset: 0x38
-	// Line 914, Address: 0x1d4640, Func Offset: 0x40
-	// Line 917, Address: 0x1d4648, Func Offset: 0x48
-	// Line 918, Address: 0x1d464c, Func Offset: 0x4c
-	// Line 917, Address: 0x1d4650, Func Offset: 0x50
-	// Line 918, Address: 0x1d4654, Func Offset: 0x54
-	// Line 919, Address: 0x1d4668, Func Offset: 0x68
-	// Line 920, Address: 0x1d4680, Func Offset: 0x80
-	// Line 923, Address: 0x1d4698, Func Offset: 0x98
-	// Line 924, Address: 0x1d46a0, Func Offset: 0xa0
-	// Line 925, Address: 0x1d46ac, Func Offset: 0xac
-	// Line 926, Address: 0x1d46b4, Func Offset: 0xb4
-	// Line 929, Address: 0x1d46c0, Func Offset: 0xc0
-	// Line 930, Address: 0x1d46c8, Func Offset: 0xc8
-	// Line 931, Address: 0x1d46cc, Func Offset: 0xcc
-	// Line 932, Address: 0x1d46d0, Func Offset: 0xd0
-	// Line 933, Address: 0x1d46d4, Func Offset: 0xd4
-	// Line 937, Address: 0x1d46e8, Func Offset: 0xe8
-	// Line 942, Address: 0x1d46f0, Func Offset: 0xf0
-	// Line 937, Address: 0x1d46f4, Func Offset: 0xf4
-	// Line 939, Address: 0x1d4704, Func Offset: 0x104
-	// Line 942, Address: 0x1d4714, Func Offset: 0x114
-	// Line 945, Address: 0x1d471c, Func Offset: 0x11c
-	// Line 947, Address: 0x1d4728, Func Offset: 0x128
-	// Line 949, Address: 0x1d4730, Func Offset: 0x130
-	// Line 948, Address: 0x1d4734, Func Offset: 0x134
-	// Line 949, Address: 0x1d4738, Func Offset: 0x138
-	// Line 951, Address: 0x1d473c, Func Offset: 0x13c
-	// Line 950, Address: 0x1d4740, Func Offset: 0x140
-	// Line 951, Address: 0x1d4744, Func Offset: 0x144
-	// Line 952, Address: 0x1d4748, Func Offset: 0x148
-	// Line 954, Address: 0x1d4750, Func Offset: 0x150
-	// Line 956, Address: 0x1d4758, Func Offset: 0x158
-	// Line 958, Address: 0x1d4760, Func Offset: 0x160
-	// Line 957, Address: 0x1d4764, Func Offset: 0x164
-	// Line 958, Address: 0x1d4768, Func Offset: 0x168
-	// Line 960, Address: 0x1d476c, Func Offset: 0x16c
-	// Line 959, Address: 0x1d4770, Func Offset: 0x170
-	// Line 960, Address: 0x1d4774, Func Offset: 0x174
-	// Line 961, Address: 0x1d4778, Func Offset: 0x178
-	// Line 962, Address: 0x1d4780, Func Offset: 0x180
-	// Line 966, Address: 0x1d4784, Func Offset: 0x184
-	// Line 969, Address: 0x1d4790, Func Offset: 0x190
-	// Line 970, Address: 0x1d4798, Func Offset: 0x198
-	// Line 966, Address: 0x1d479c, Func Offset: 0x19c
-	// Line 970, Address: 0x1d47a4, Func Offset: 0x1a4
-	// Line 971, Address: 0x1d47ac, Func Offset: 0x1ac
-	// Func End, Address: 0x1d47bc, Func Offset: 0x1bc
+    O_WORK* owk;
+
+    owk = &epw->mlwP->owP[1];
+    njSetMatrix((NJS_MATRIX *)&EXP0_F(0x0), (NJS_MATRIX *)owk->mtx);
+    
+    EXP0_I(0x30) = 0;
+    EXP0_I(0x34) = 0;
+    EXP0_I(0x38) = 0;
+    
+    owk = epw->mlwP->owP;
+    
+    epw->px = owk->mtx[0xC] + (3.0f * EXP0_F(0x10));
+    epw->py = owk->mtx[0xD] + (3.0f * EXP0_F(0x14));
+    epw->pz = owk->mtx[0xE] + (3.0f * EXP0_F(0x18));
+    
+    owk = &epw->mlwP->owP[2];
+    owk->flg |= 2;
+    
+    owk = &epw->mlwP->owP[3];
+    owk->flg |= 2;
+    
+    epw->mnwP = epw->mnwPb;
+    epw->mtn_no = 0;
+    epw->mtn_add = 0;
+    epw->frm_no = 0;
+    
+    bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    
+    owk = &epw->mlwP->owP[2];
+    owk->flg &= ~2;
+    
+    owk = &epw->mlwP->owP[3];
+    owk->flg &= ~2;
+    
+    bhEne11_MoveNearWall(epw);
+    
+    if (epw->type == 0) 
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 1;
+        epw->mode2 = 4;
+        epw->mode3 = 1;
+        epw->ct0 = 0x96;
+        epw->ct1 = 0x20;
+        epw->ct2 = 0;
+    } 
+    else 
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 1;
+        epw->mode2 = 6;
+        epw->mode3 = 1;
+        epw->ct0 = 0x96;
+        epw->ct1 = 0x20;
+        epw->ct2 = 0;
+    }
+    
+    epw->flg &= 0xFFF7FFFF;
+    epw->spd = 0.2f;
+    
+    bhEne11_GoFoward(epw);
 }
+
+/*// 
 
 // 
 // Start address: 0x1d47c0
