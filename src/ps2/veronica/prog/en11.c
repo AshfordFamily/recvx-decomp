@@ -343,6 +343,46 @@ void bhEne11_MV01(BH_PWORK* epw)
     }
 }
 
+// 100% matching!
+void bhEne11_MV02(BH_PWORK* epw)
+{
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->ct0 = 0x63;
+            epw->mode3 += 1;
+            epw->spd = 0.2f;
+        
+            /* fallthrough */
+        case 1:
+            bhEne11_GoFoward(epw);
+            
+            if (epw->ct0-- == 0)
+            {
+                epw->mode1 = 1;
+                epw->mode3 = 0;
+                
+                if (epw->type == 0) 
+                {
+                    epw->mode2 = 1;
+                }
+                else 
+                {
+                    epw->mode2 = 6;
+                }
+            }
+            
+            if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
+            {
+                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+            }
+            else
+            {
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+            }
+    }
+}
+
 /*// 
 
 // 
