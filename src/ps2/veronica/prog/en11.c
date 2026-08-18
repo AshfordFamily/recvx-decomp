@@ -269,58 +269,81 @@ void bhEne11_MV00(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d3930
+// 100% matching!
 void bhEne11_MV01(BH_PWORK* epw)
 {
-	int ang;
-	_anon3 v;
-	// Line 422, Address: 0x1d3930, Func Offset: 0
-	// Line 423, Address: 0x1d3940, Func Offset: 0x10
-	// Line 425, Address: 0x1d3960, Func Offset: 0x30
-	// Line 426, Address: 0x1d3968, Func Offset: 0x38
-	// Line 427, Address: 0x1d3970, Func Offset: 0x40
-	// Line 431, Address: 0x1d3974, Func Offset: 0x44
-	// Line 433, Address: 0x1d3980, Func Offset: 0x50
-	// Line 435, Address: 0x1d398c, Func Offset: 0x5c
-	// Line 437, Address: 0x1d39a8, Func Offset: 0x78
-	// Line 444, Address: 0x1d39b4, Func Offset: 0x84
-	// Line 445, Address: 0x1d39c8, Func Offset: 0x98
-	// Line 446, Address: 0x1d39d8, Func Offset: 0xa8
-	// Line 445, Address: 0x1d39dc, Func Offset: 0xac
-	// Line 446, Address: 0x1d39e0, Func Offset: 0xb0
-	// Line 447, Address: 0x1d39f0, Func Offset: 0xc0
-	// Line 446, Address: 0x1d39f4, Func Offset: 0xc4
-	// Line 447, Address: 0x1d39f8, Func Offset: 0xc8
-	// Line 446, Address: 0x1d39fc, Func Offset: 0xcc
-	// Line 447, Address: 0x1d3a00, Func Offset: 0xd0
-	// Line 448, Address: 0x1d3a18, Func Offset: 0xe8
-	// Line 450, Address: 0x1d3a1c, Func Offset: 0xec
-	// Line 448, Address: 0x1d3a20, Func Offset: 0xf0
-	// Line 450, Address: 0x1d3a28, Func Offset: 0xf8
-	// Line 451, Address: 0x1d3a34, Func Offset: 0x104
-	// Line 454, Address: 0x1d3a48, Func Offset: 0x118
-	// Line 455, Address: 0x1d3a54, Func Offset: 0x124
-	// Line 456, Address: 0x1d3a64, Func Offset: 0x134
-	// Line 457, Address: 0x1d3a74, Func Offset: 0x144
-	// Line 459, Address: 0x1d3a84, Func Offset: 0x154
-	// Line 461, Address: 0x1d3a90, Func Offset: 0x160
-	// Line 462, Address: 0x1d3a98, Func Offset: 0x168
-	// Line 464, Address: 0x1d3aa0, Func Offset: 0x170
-	// Line 466, Address: 0x1d3aa8, Func Offset: 0x178
-	// Line 477, Address: 0x1d3ab0, Func Offset: 0x180
-	// Line 478, Address: 0x1d3ad8, Func Offset: 0x1a8
-	// Line 479, Address: 0x1d3aec, Func Offset: 0x1bc
-	// Line 481, Address: 0x1d3af4, Func Offset: 0x1c4
-	// Line 487, Address: 0x1d3b08, Func Offset: 0x1d8
-	// Line 488, Address: 0x1d3b18, Func Offset: 0x1e8
-	// Line 489, Address: 0x1d3b20, Func Offset: 0x1f0
-	// Line 490, Address: 0x1d3b28, Func Offset: 0x1f8
-	// Line 492, Address: 0x1d3b2c, Func Offset: 0x1fc
-	// Func End, Address: 0x1d3b40, Func Offset: 0x210
+    NJS_VECTOR v;
+    int ang;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->ct0 = 0x63;
+            epw->ct1 = 8;
+            epw->ct2 = 0;
+            epw->ct3 = 0;
+            bhEne11_LightControl(epw, 0);
+            epw->spd = 0.2f;
+            
+            epw->ay = bhArcTan2(-EXP0_F(0x28), -EXP0_F(0x20));
+            
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            ang = epw->ay + (epw->ct2 * 0x28F);
+            
+            v.x = 8.0f * njCos(ang);
+            v.z = 8.0f * njSin(ang);
+            v.y = -fabsf(plp->py - epw->py);
+            
+            epw->ct2++;
+            
+            bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+            
+            if (epw->ct1 != 0)
+            {
+                epw->ct1--;
+            }
+            
+            bhEne11_GoFoward(epw);
+            
+            if (epw->ct0-- == 0)
+            {
+                EXP0_I(0x5C) = bhEne11_SelectDir(epw);
+                
+                if (EXP0_I(0x5C) != 0)
+                {
+                    bhEne11_LightControl(epw, 1);
+                    epw->mode1 = 1;
+                    epw->mode2 = 3;
+                    epw->mode3 = 0;
+                }
+                else 
+                {
+                    epw->ct0 = 0x63;
+                }
+            }
+            
+            if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
+            {
+                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+            }
+            else 
+            {
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+            }
+    }
+    
+    if (EXP0_UC(0x56) != 0)
+    {
+        epw->mode1 = 1;
+        epw->mode2 = 7;
+        epw->mode3 = 0;
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d3b40
