@@ -122,13 +122,13 @@ void bhEne11(BH_PWORK* epw)
                 v.y = -fabsf(plp->py - epw->py);
         }
         
-        bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, 0);
+        bhEne11_CameraSet(epw, &v, 0);
     }
     
     bhEne11_CollisionWalls(epw);
     njUnitMatrix(epw->mtx);
     njTranslate(epw->mtx, epw->px, epw->py, epw->pz);
-    njMultiMatrix(epw->mtx, (NJS_MATRIX *) &EXP0_F(0x0));
+    njMultiMatrix(epw->mtx, (NJS_MATRIX *)&EXP0_F(0x0));
     bhCalcModel(epw);
 }
 
@@ -155,18 +155,18 @@ void bhEne11_Init(BH_PWORK* epw)
         epw->exp0 = bhEne_CallocWork(0x70, 8);
     }
     
-    njUnitMatrix((NJS_MATRIX *) &EXP0_F(0x0));
+    njUnitMatrix((NJS_MATRIX *)&EXP0_F(0x0));
     
     if (epw->type == 0)
     {
-        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->ay);
-        njRotateZ((NJS_MATRIX *) &EXP0_F(0x0), 0x8000);
+        njRotateY((NJS_MATRIX *)&EXP0_F(0x0), epw->ay);
+        njRotateZ((NJS_MATRIX *)&EXP0_F(0x0), 0x8000);
     }
     else 
     {
-        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), (epw->type - 1) << 0xE);
-        njRotateX((NJS_MATRIX *) &EXP0_F(0x0), 0x4000);
-        njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->ay);
+        njRotateY((NJS_MATRIX *)&EXP0_F(0x0), (epw->type - 1) << 0xE);
+        njRotateX((NJS_MATRIX *)&EXP0_F(0x0), 0x4000);
+        njRotateY((NJS_MATRIX *)&EXP0_F(0x0), epw->ay);
     }
     
     EXP0_UC(0x56) = 0;
@@ -305,7 +305,7 @@ void bhEne11_MV01(BH_PWORK* epw)
             
             epw->ct2++;
             
-            bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+            bhEne11_CameraSet(epw, &v, epw->ct1);
             
             if (epw->ct1 != 0)
             {
@@ -333,11 +333,11 @@ void bhEne11_MV01(BH_PWORK* epw)
             
             if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
             {
-                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
             else 
             {
-                bhEne_SetSEPan((int)epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
     }
     
@@ -380,11 +380,11 @@ void bhEne11_MV02(BH_PWORK* epw)
             
             if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
             {
-                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
             else
             {
-                bhEne_SetSEPan((int)epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
     }
 }
@@ -407,19 +407,19 @@ void bhEne11_MV03(BH_PWORK* epw)
                 case 1:
                     epw->way = -0x222;
                     epw->ct0 = 0x1D;
-                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+                    bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x12301);
                     break;
                 
                 case 2:
                     epw->way = 0x38E;
                     epw->ct0 = 0x23;
-                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+                    bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x12301);
                     break;
                 
                 case 3:
                     epw->way = 0x222;
                     epw->ct0 = 0x1D;
-                    bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x12301);
+                    bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x12301);
             }
             
             epw->ct1 = 0x10;
@@ -427,7 +427,7 @@ void bhEne11_MV03(BH_PWORK* epw)
         
             /* fallthrough */
         case 1:
-            njRotateY((NJS_MATRIX *) &EXP0_F(0x0), epw->way);
+            njRotateY((NJS_MATRIX *)&EXP0_F(0x0), epw->way);
             
             if (epw->ct0-- == 0)
             {
@@ -470,7 +470,7 @@ void bhEne11_MV03(BH_PWORK* epw)
                 
                 v.y = -fabsf(plp->py - epw->py);
                 
-                bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+                bhEne11_CameraSet(epw, &v, epw->ct1);
                 
                 if (epw->ct1 != 0)
                 {
@@ -507,7 +507,7 @@ void bhEne11_MV04(BH_PWORK* epw)
             
             epw->ct2++;
             
-            bhEne11_CameraSet(epw, (NJS_VECTOR *)&v, epw->ct1);
+            bhEne11_CameraSet(epw, &v, epw->ct1);
             
             if (epw->ct1 != 0)
             {
@@ -578,7 +578,7 @@ void bhEne11_MV05(BH_PWORK* epw)
             
             epw->ct2++;
             
-            bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+            bhEne11_CameraSet(epw, &v, epw->ct1);
             
             if (epw->ct1 != 0)
             {
@@ -606,11 +606,11 @@ void bhEne11_MV05(BH_PWORK* epw)
             
             if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
             {
-                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
             else 
             {
-                bhEne_SetSEPan((int) epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
             
             break;
@@ -671,7 +671,7 @@ void bhEne11_MV06(BH_PWORK* epw)
             
             epw->ct2++;
             
-            bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, epw->ct1);
+            bhEne11_CameraSet(epw, &v, epw->ct1);
             
             if (epw->ct1 != 0)
             {
@@ -699,11 +699,11 @@ void bhEne11_MV06(BH_PWORK* epw)
             
             if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
             {
-                bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
             else 
             {
-                bhEne_SetSEPan((int) epw, (NJS_VECTOR* ) &epw->px, 0x11300);
+                bhEne_SetSEPan((int) epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
     }
     
@@ -721,7 +721,7 @@ void bhEne11_MV07(BH_PWORK* epw)
     switch(epw->mode3)
     {
         case 0:
-            bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x2302);
+            bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x2302);
             epw->mode3++;
     }
 }
@@ -869,9 +869,9 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
     v.y = 1.0f;
     v.z = 0.0f;
     
-    njCalcVector((NJS_MATRIX *)&EXP0_F(0x0), (NJS_VECTOR* ) &v, (NJS_VECTOR* ) &v);
+    njCalcVector((NJS_MATRIX *)&EXP0_F(0x0), &v, &v);
     
-    switch (bhEne03_GetWallDir((NJS_VECTOR* ) &v)) 
+    switch (bhEne03_GetWallDir(&v)) 
     {
         case 0:
             p[0].x = epw->px - ar;
@@ -1013,7 +1013,7 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
 
             if (*(ATR_WORK **)(epw->exp0 + 0x58) != NULL)
             {
-                bhEne03_CollisionBoxEdge(*(ATR_WORK **)(epw->exp0 + 0x58), (NJS_VECTOR* ) &epw->px, epw->ar);
+                bhEne03_CollisionBoxEdge(*(ATR_WORK **)(epw->exp0 + 0x58), (NJS_VECTOR *)&epw->px, epw->ar);
                 break;
             }
         }
@@ -1094,13 +1094,13 @@ void bhEne11_MoveNearWall(BH_PWORK* epw)
     vec.z = 0;
     
     njSetMatrix(NULL, (NJS_MATRIX *)&EXP0_F(0x0));
-    njCalcVector(NULL, (NJS_VECTOR* ) &vec, &vd);
+    njCalcVector(NULL, &vec, &vd);
     
     pt.x = epw->px + vd.x;
     pt.y = epw->py + vd.y;
     pt.z = epw->pz + vd.z;
     
-    *(ATR_WORK **)(epw->exp0 + 0x58) = bhCollisionCheckLine((NJS_VECTOR* ) &epw->px, (NJS_VECTOR* ) &pt);
+    *(ATR_WORK **)(epw->exp0 + 0x58) = bhCollisionCheckLine((NJS_VECTOR *)&epw->px, &pt);
     
     if (*(ATR_WORK **)(epw->exp0 + 0x58) != NULL)
     {
@@ -1226,7 +1226,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
     {
         njSetMatrix(NULL, (NJS_MATRIX *)&EXP0_F(0x0));
         njInvertMatrix(NULL);
-        njCalcPoint(NULL, (NJS_VECTOR* ) &plp->px, &pos);
+        njCalcPoint(NULL, (NJS_VECTOR *)&plp->px, &pos);
         
         dir = (int)((bhArcTan2(-pos.x, -pos.z) & 0xFF) + 0x2000) >> 0xE;
     }
