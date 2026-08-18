@@ -231,19 +231,18 @@ void bhEne11_BR00(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d3850
-void bhEne11_Move(BH_PWORK* epw)
+// 100% matching!
+void bhEne11_Move(BH_PWORK* epw) 
 {
-	// Line 376, Address: 0x1d3850, Func Offset: 0
-	// Line 378, Address: 0x1d385c, Func Offset: 0xc
-	// Line 379, Address: 0x1d386c, Func Offset: 0x1c
-	// Line 382, Address: 0x1d3874, Func Offset: 0x24
-	// Line 383, Address: 0x1d3894, Func Offset: 0x44
-	// Func End, Address: 0x1d38a4, Func Offset: 0x54
+    if (epw->mode1 == 1) 
+    {
+        bhEne11_Brain(epw);
+    }
+    
+    bhEne11_MoveMode2[epw->mode2](epw);
 }
+
+/*// 
 
 // 
 // Start address: 0x1d38b0
