@@ -1,5 +1,6 @@
 #include "../../../ps2/veronica/prog/en11.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Spotter 
 
@@ -36,70 +37,88 @@ MoveMode2_proc bhEne11_MoveMode2[10] =
     bhEne11_MV09,
 };
 
-// 
-// Start address: 0x1d3240
+// 96.26% matching!
 void bhEne11(BH_PWORK* epw)
 {
-	int ang;
-	//_anon3 v;
-	unsigned int flg;
-	// Line 169, Address: 0x1d3240, Func Offset: 0
-	// Line 173, Address: 0x1d3254, Func Offset: 0x14
-	// Line 175, Address: 0x1d3274, Func Offset: 0x34
-	// Line 177, Address: 0x1d3284, Func Offset: 0x44
-	// Line 180, Address: 0x1d3290, Func Offset: 0x50
-	// Line 181, Address: 0x1d3294, Func Offset: 0x54
-	// Line 182, Address: 0x1d32a0, Func Offset: 0x60
-	// Line 183, Address: 0x1d32b4, Func Offset: 0x74
-	// Line 184, Address: 0x1d32bc, Func Offset: 0x7c
-	// Line 186, Address: 0x1d32c0, Func Offset: 0x80
-	// Line 187, Address: 0x1d32cc, Func Offset: 0x8c
-	// Line 189, Address: 0x1d32d4, Func Offset: 0x94
-	// Line 190, Address: 0x1d32e8, Func Offset: 0xa8
-	// Line 191, Address: 0x1d32ec, Func Offset: 0xac
-	// Line 192, Address: 0x1d32f0, Func Offset: 0xb0
-	// Line 193, Address: 0x1d32f4, Func Offset: 0xb4
-	// Line 195, Address: 0x1d3308, Func Offset: 0xc8
-	// Line 202, Address: 0x1d3314, Func Offset: 0xd4
-	// Line 195, Address: 0x1d3318, Func Offset: 0xd8
-	// Line 202, Address: 0x1d3320, Func Offset: 0xe0
-	// Line 204, Address: 0x1d3360, Func Offset: 0x120
-	// Line 205, Address: 0x1d337c, Func Offset: 0x13c
-	// Line 206, Address: 0x1d338c, Func Offset: 0x14c
-	// Line 205, Address: 0x1d3390, Func Offset: 0x150
-	// Line 206, Address: 0x1d3394, Func Offset: 0x154
-	// Line 207, Address: 0x1d33a4, Func Offset: 0x164
-	// Line 206, Address: 0x1d33a8, Func Offset: 0x168
-	// Line 207, Address: 0x1d33ac, Func Offset: 0x16c
-	// Line 206, Address: 0x1d33b0, Func Offset: 0x170
-	// Line 207, Address: 0x1d33b4, Func Offset: 0x174
-	// Line 208, Address: 0x1d33c8, Func Offset: 0x188
-	// Line 210, Address: 0x1d33d0, Func Offset: 0x190
-	// Line 211, Address: 0x1d33d4, Func Offset: 0x194
-	// Line 212, Address: 0x1d33dc, Func Offset: 0x19c
-	// Line 213, Address: 0x1d33f8, Func Offset: 0x1b8
-	// Line 215, Address: 0x1d3400, Func Offset: 0x1c0
-	// Line 216, Address: 0x1d3404, Func Offset: 0x1c4
-	// Line 217, Address: 0x1d340c, Func Offset: 0x1cc
-	// Line 218, Address: 0x1d3428, Func Offset: 0x1e8
-	// Line 220, Address: 0x1d3430, Func Offset: 0x1f0
-	// Line 222, Address: 0x1d3438, Func Offset: 0x1f8
-	// Line 221, Address: 0x1d3440, Func Offset: 0x200
-	// Line 222, Address: 0x1d3444, Func Offset: 0x204
-	// Line 223, Address: 0x1d3458, Func Offset: 0x218
-	// Line 225, Address: 0x1d3460, Func Offset: 0x220
-	// Line 227, Address: 0x1d3468, Func Offset: 0x228
-	// Line 226, Address: 0x1d3470, Func Offset: 0x230
-	// Line 227, Address: 0x1d3474, Func Offset: 0x234
-	// Line 230, Address: 0x1d348c, Func Offset: 0x24c
-	// Line 235, Address: 0x1d349c, Func Offset: 0x25c
-	// Line 238, Address: 0x1d34a8, Func Offset: 0x268
-	// Line 239, Address: 0x1d34b0, Func Offset: 0x270
-	// Line 240, Address: 0x1d34c4, Func Offset: 0x284
-	// Line 243, Address: 0x1d34d0, Func Offset: 0x290
-	// Line 245, Address: 0x1d34d8, Func Offset: 0x298
-	// Func End, Address: 0x1d34ec, Func Offset: 0x2ac
-	scePrintf("bhEne11 - UNIMPLEMENTED!\n");
+    unsigned int flg;
+    NJS_VECTOR v;
+    int ang;
+
+    bhEne11_Mode0[epw->mode0](epw);
+    
+    if (epw->mnwP != epw->mnwPb)
+    {
+        epw->az = 0;
+        epw->ay = 0;
+        epw->ax = 0;
+        
+        flg = epw->flg;
+        epw->flg &= ~0x1000;
+        
+        bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+        bhCalcModel(epw);
+        
+        epw->flg = flg;
+        epw->flg |= 0x80000;
+        return;
+    }
+    
+    if (epw->flg & 0x80000) 
+    {
+        epw->mtn_no = 0;
+        epw->mtn_add = 0;
+        epw->frm_no = 0;
+        
+        bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+        
+        epw->flg &= 0xFFF7FFFF;
+        
+        switch (epw->type)
+        {
+            case 0:
+                ang = bhArcTan2(-EXP0_F(0x28), -EXP0_F(0x20));
+                
+                v.x = 8.0f * njCos(ang);
+                v.z = 8.0f * njSin(ang);
+                v.y = -fabsf(plp->py - epw->py);
+                    
+                break;
+            
+            case 1:
+                v.x = 0.0f;
+                v.z = 16.0f;
+                v.y = -fabsf(plp->py - epw->py);
+                
+                break;
+            
+            case 3:
+                v.x = 0.0f;
+                v.z = -16.0f;
+                v.y = -fabsf(plp->py - epw->py);
+                
+                break;
+            
+            case 2:
+                v.x = 16.0f;
+                v.z = 0.0f;
+                v.y = -fabsf(plp->py - epw->py);
+                
+                break;
+            
+            case 4:
+                v.x = -16.0f;
+                v.z = 0.0f;
+                v.y = -fabsf(plp->py - epw->py);
+        }
+        
+        bhEne11_CameraSet(epw, (NJS_VECTOR* ) &v, 0);
+    }
+    
+    bhEne11_CollisionWalls(epw);
+    njUnitMatrix(epw->mtx);
+    njTranslate(epw->mtx, epw->px, epw->py, epw->pz);
+    njMultiMatrix(epw->mtx, (NJS_MATRIX *) &EXP0_F(0x0));
+    bhCalcModel(epw);
 }
 
 /*// 
