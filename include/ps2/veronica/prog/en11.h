@@ -24,7 +24,7 @@ void bhEne11_Die();
 void bhEne11_GoFoward(BH_PWORK* epw);
 void bhEne11_CollisionWalls(BH_PWORK* epw);
 int bhEne11_CollisionBoxEdge2(BH_PWORK* epw);
-/*void bhEne11_CameraSet(BH_PWORK* epw, _anon3* vec, int hcnt);*/
+void bhEne11_CameraSet(BH_PWORK* epw, NJS_VECTOR* vec, int hcnt);
 void bhEne11_MoveNearWall(BH_PWORK* epw);
 void bhEne11_LightControl(BH_PWORK* epw, int flg);
 int bhEne11_SelectDir(BH_PWORK* epw);
