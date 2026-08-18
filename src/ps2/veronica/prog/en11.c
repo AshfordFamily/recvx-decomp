@@ -819,46 +819,15 @@ void bhEne11_Die()
 
 }
 
+// 100% matching!
+void bhEne11_GoFoward(BH_PWORK* epw) 
+{
+    epw->px -= EXP0_F(0x20) * epw->spd;
+    epw->py -= EXP0_F(0x24) * epw->spd;
+    epw->pz -= EXP0_F(0x28) * epw->spd;
+}
+
 /*// 
-
-// 
-// Start address: 0x1d47f0
-void bhEne11_GoFoward(BH_PWORK* epw)
-{
-	// Line 1015, Address: 0x1d47f0, Func Offset: 0
-	// Line 1016, Address: 0x1d480c, Func Offset: 0x1c
-	// Line 1017, Address: 0x1d4828, Func Offset: 0x38
-	// Line 1018, Address: 0x1d4840, Func Offset: 0x50
-	// Func End, Address: 0x1d4848, Func Offset: 0x58
-}
-
-// 
-// Start address: 0x1d4850
-void bhEne11_CollisionWalls(BH_PWORK* epw)
-{
-	_anon3 vd;
-	_anon3 body;
-	// Line 1028, Address: 0x1d4850, Func Offset: 0
-	// Line 1029, Address: 0x1d485c, Func Offset: 0xc
-	// Line 1028, Address: 0x1d4860, Func Offset: 0x10
-	// Line 1029, Address: 0x1d4868, Func Offset: 0x18
-	// Line 1032, Address: 0x1d4884, Func Offset: 0x34
-	// Line 1034, Address: 0x1d4890, Func Offset: 0x40
-	// Line 1035, Address: 0x1d4898, Func Offset: 0x48
-	// Line 1036, Address: 0x1d489c, Func Offset: 0x4c
-	// Line 1037, Address: 0x1d48a0, Func Offset: 0x50
-	// Line 1034, Address: 0x1d48a4, Func Offset: 0x54
-	// Line 1035, Address: 0x1d48ac, Func Offset: 0x5c
-	// Line 1036, Address: 0x1d48bc, Func Offset: 0x6c
-	// Line 1037, Address: 0x1d48c8, Func Offset: 0x78
-	// Line 1040, Address: 0x1d48d0, Func Offset: 0x80
-	// Line 1041, Address: 0x1d48e0, Func Offset: 0x90
-	// Line 1044, Address: 0x1d48e8, Func Offset: 0x98
-	// Line 1045, Address: 0x1d48f8, Func Offset: 0xa8
-	// Line 1046, Address: 0x1d4908, Func Offset: 0xb8
-	// Line 1047, Address: 0x1d4918, Func Offset: 0xc8
-	// Func End, Address: 0x1d4930, Func Offset: 0xe0
-}
 
 // 
 // Start address: 0x1d4930
