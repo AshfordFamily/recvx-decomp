@@ -242,24 +242,34 @@ void bhEne11_Move(BH_PWORK* epw)
     bhEne11_MoveMode2[epw->mode2](epw);
 }
 
-/*// 
-
-// 
-// Start address: 0x1d38b0
-void bhEne11_MV00(BH_PWORK* epw)
+// 100% matching!
+void bhEne11_MV00(BH_PWORK* epw) 
 {
-	// Line 394, Address: 0x1d38b0, Func Offset: 0
-	// Line 397, Address: 0x1d38d0, Func Offset: 0x20
-	// Line 398, Address: 0x1d38d8, Func Offset: 0x28
-	// Line 400, Address: 0x1d38e4, Func Offset: 0x34
-	// Line 401, Address: 0x1d38f4, Func Offset: 0x44
-	// Line 402, Address: 0x1d38fc, Func Offset: 0x4c
-	// Line 404, Address: 0x1d3900, Func Offset: 0x50
-	// Line 406, Address: 0x1d390c, Func Offset: 0x5c
-	// Line 407, Address: 0x1d3914, Func Offset: 0x64
-	// Line 412, Address: 0x1d391c, Func Offset: 0x6c
-	// Func End, Address: 0x1d3924, Func Offset: 0x74
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->ct0 = 0x1E;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (epw->ct0-- == 0)
+            {
+                epw->mode1 = 1;
+                epw->mode3 = 0;
+                
+                if (epw->type == 0) 
+                {
+                    epw->mode2 = 1;
+                    return;
+                }
+                
+                epw->mode2 = 6;
+            }
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d3930
