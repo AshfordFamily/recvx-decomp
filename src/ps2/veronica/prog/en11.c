@@ -82,7 +82,7 @@ void bhEne11(BH_PWORK* epw)
         
         bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
         
-        epw->flg &= 0xFFF7FFFF;
+        epw->flg &= ~0x80000;
         
         switch (epw->type)
         {
@@ -92,34 +92,31 @@ void bhEne11(BH_PWORK* epw)
                 v.x = 8.0f * njCos(ang);
                 v.z = 8.0f * njSin(ang);
                 v.y = -fabsf(plp->py - epw->py);
-                    
                 break;
             
             case 1:
                 v.x = 0.0f;
                 v.z = 16.0f;
                 v.y = -fabsf(plp->py - epw->py);
-                
                 break;
             
             case 3:
                 v.x = 0.0f;
                 v.z = -16.0f;
                 v.y = -fabsf(plp->py - epw->py);
-                
                 break;
             
             case 2:
                 v.x = 16.0f;
                 v.z = 0.0f;
                 v.y = -fabsf(plp->py - epw->py);
-                
                 break;
             
             case 4:
                 v.x = -16.0f;
                 v.z = 0.0f;
                 v.y = -fabsf(plp->py - epw->py);
+                break;
         }
         
         bhEne11_CameraSet(epw, &v, 0);
@@ -267,11 +264,13 @@ void bhEne11_MV00(BH_PWORK* epw)
                 if (epw->type == 0) 
                 {
                     epw->mode2 = 1;
-                    return;
                 }
-                
-                epw->mode2 = 6;
+                else
+                {
+                    epw->mode2 = 6;
+                }
             }
+            break;
     }
 }
 
@@ -339,6 +338,7 @@ void bhEne11_MV01(BH_PWORK* epw)
             {
                 bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
+            break;
     }
     
     if (EXP0_UC(0x56) != 0)
@@ -386,6 +386,7 @@ void bhEne11_MV02(BH_PWORK* epw)
             {
                 bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
+            break;
     }
 }
 
@@ -420,6 +421,7 @@ void bhEne11_MV03(BH_PWORK* epw)
                     epw->way = 0x222;
                     epw->ct0 = 0x1D;
                     bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x12301);
+                    break;
             }
             
             epw->ct1 = 0x10;
@@ -446,7 +448,7 @@ void bhEne11_MV03(BH_PWORK* epw)
             
             if (epw->type != 0)
             {
-                switch (epw->type & 0xFFFF)
+                switch ((unsigned short)epw->type)
                 {
                     case 1:
                         v.x = 0;
@@ -477,6 +479,7 @@ void bhEne11_MV03(BH_PWORK* epw)
                     epw->ct1--;
                 }
             }
+            break;
     }
 }
 
@@ -541,6 +544,7 @@ void bhEne11_MV04(BH_PWORK* epw)
             {
                 bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
+            break;
     }
     
     if (EXP0_UC(0x56) != 0)
@@ -612,7 +616,6 @@ void bhEne11_MV05(BH_PWORK* epw)
             {
                 bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
-            
             break;
     }
     
@@ -665,6 +668,7 @@ void bhEne11_MV06(BH_PWORK* epw)
                 case 4:
                     v.x = -16.0f * njSin(ang);
                     v.z = 16.0f * njCos(ang);
+                    break;
             }
             
             v.y = -fabsf(plp->py - epw->py);
@@ -705,6 +709,7 @@ void bhEne11_MV06(BH_PWORK* epw)
             {
                 bhEne_SetSEPan((int) epw, (NJS_VECTOR *)&epw->px, 0x11300);
             }
+            break;
     }
     
     if (EXP0_UC(0x56) != 0)
@@ -723,6 +728,7 @@ void bhEne11_MV07(BH_PWORK* epw)
         case 0:
             bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x2302);
             epw->mode3++;
+            break;
     }
 }
 
@@ -735,6 +741,7 @@ void bhEne11_MV08(BH_PWORK* epw)
             epw->mode1 = 0;
             bhEne11_LightControl(epw, 1);
             epw->mode3++;
+            break;
     }
 }
 
@@ -798,7 +805,7 @@ void bhEne11_MV09(BH_PWORK* epw)
         epw->ct2 = 0;
     }
     
-    epw->flg &= 0xFFF7FFFF;
+    epw->flg &= ~0x80000;
     epw->spd = 0.2f;
     
     bhEne11_GoFoward(epw);
@@ -857,9 +864,9 @@ void bhEne11_CollisionWalls(BH_PWORK* epw)
 // 100% matching!
 void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
 {
-	NJS_POINT3 v;        // r29+0xE0
-    NJS_POINT3 p[4];     // r29+0x80
-    NJS_POINT3 p2[4];    // r29+0xB0
+	NJS_POINT3 v;
+    NJS_POINT3 p[4];
+    NJS_POINT3 p2[4];
     float ar;
     int i;
 
@@ -891,7 +898,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = 0.0f;
             v.y = -ar;
             v.z = 0.0f;
-            
             break;
         
         case 1:
@@ -912,7 +918,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = 0.0f;
             v.y = ar;
             v.z = 0.0f;
-
             break;
             
         case 4:
@@ -933,7 +938,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = ar;
             v.y = 0.0f;
             v.z = 0.0f;
-
             break;
         
         case 2:
@@ -954,7 +958,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = -ar;
             v.y = 0.0f;
             v.z = 0.0f;
-
             break;
             
         case 3:
@@ -975,7 +978,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = 0.0f;
             v.y = 0.0f;
             v.z = ar;
-
             break;
             
         case 5:
@@ -996,7 +998,6 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
             v.x = 0.0f;
             v.y = 0.0f;
             v.z = -ar;
-
             break;
             
     }
@@ -1168,7 +1169,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
         p3.y = p2.y - (2.0f * EXP0_F(0x14));
         p3.z = p2.z - (2.0f * EXP0_F(0x18));
         
-        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && !((p2.y - bhGetGroundPosition(&p2)) <= 10.0f)) 
+        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && ((p2.y - bhGetGroundPosition(&p2)) > 10.0f)) 
         {
             flg[0] = 1;
         }
@@ -1184,7 +1185,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
         p3.y = p2.y - (2.0f * EXP0_F(0x14));
         p3.z = p2.z - (2.0f * EXP0_F(0x18));
         
-        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && !((p2.y - bhGetGroundPosition(&p2)) <= 10.0f))
+        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && ((p2.y - bhGetGroundPosition(&p2)) > 10.0f))
         {
             flg[1] = 1;
         }
@@ -1200,7 +1201,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
         p3.y = p2.y - (2.0f * EXP0_F(0x14));
         p3.z = p2.z - (2.0f * EXP0_F(0x18));
         
-        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && !((p2.y - bhGetGroundPosition(&p2)) <= 10.0f)) 
+        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && ((p2.y - bhGetGroundPosition(&p2)) > 10.0f)) 
         {
             flg[2] = 1;
         }
@@ -1216,7 +1217,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
         p3.y = p2.y - (2.0f * EXP0_F(0x14));
         p3.z = p2.z - (2.0f * EXP0_F(0x18));
         
-        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && !((p2.y - bhGetGroundPosition(&p2)) <= 10.0f)) 
+        if ((bhCollisionCheckLine(&p2, &p3) != NULL) && ((p2.y - bhGetGroundPosition(&p2)) > 10.0f)) 
         {
             flg[3] = 1;
         }
@@ -1228,7 +1229,7 @@ int bhEne11_SelectDir(BH_PWORK* epw)
         njInvertMatrix(NULL);
         njCalcPoint(NULL, (NJS_VECTOR *)&plp->px, &pos);
         
-        dir = (int)((bhArcTan2(-pos.x, -pos.z) & 0xFF) + 0x2000) >> 0xE;
+        dir = dir = (int)((bhArcTan2(-pos.x, -pos.z) & 0xFF) + 0x2000) / 0x4000;
     }
     else 
     {
