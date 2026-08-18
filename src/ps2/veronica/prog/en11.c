@@ -205,23 +205,29 @@ void bhEne11_Brain(BH_PWORK* epw)
     bhEne11_BrainType[0](epw);
 }
 
-/*// 
-
-// 
-// Start address: 0x1d37b0
+// 100% matching!
 void bhEne11_BR00(BH_PWORK* epw)
 {
-	// Line 352, Address: 0x1d37b0, Func Offset: 0
-	// Line 354, Address: 0x1d37cc, Func Offset: 0x1c
-	// Line 356, Address: 0x1d37dc, Func Offset: 0x2c
-	// Line 357, Address: 0x1d37f4, Func Offset: 0x44
-	// Line 359, Address: 0x1d37fc, Func Offset: 0x4c
-	// Line 361, Address: 0x1d381c, Func Offset: 0x6c
-	// Line 362, Address: 0x1d3830, Func Offset: 0x80
-	// Line 363, Address: 0x1d3838, Func Offset: 0x88
-	// Line 366, Address: 0x1d3844, Func Offset: 0x94
-	// Func End, Address: 0x1d384c, Func Offset: 0x9c
+    if ((*(O_WRK **)(epw->exp0 + 0x60))->ct2 != 0)
+    {
+        EXP0_UC(0x56) = 1;
+    }
+    
+    if (EXP0_UC(0x56) != 0)
+    {
+        if (!(sys->st_flg & 0x2000))
+        {
+            sys->rm_flg |= 1;
+        }
+    } 
+    else if ((sys->rm_flg & 1) && ((*(O_WRK **)(epw->exp0 + 0x60))->mode0 == 2)) 
+    {
+        EXP0_UC(0x56) = 1;
+        (*(O_WRK **)(epw->exp0 + 0x60))->ct2 = 1;
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d3850
