@@ -1109,28 +1109,30 @@ void bhEne11_MoveNearWall(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1d5010
+// 100% matching!
 void bhEne11_LightControl(BH_PWORK* epw, int flg)
 {
-	// Line 1269, Address: 0x1d5010, Func Offset: 0
-	// Line 1272, Address: 0x1d5044, Func Offset: 0x34
-	// Line 1273, Address: 0x1d5048, Func Offset: 0x38
-	// Line 1272, Address: 0x1d504c, Func Offset: 0x3c
-	// Line 1273, Address: 0x1d5054, Func Offset: 0x44
-	// Line 1274, Address: 0x1d505c, Func Offset: 0x4c
-	// Line 1277, Address: 0x1d5064, Func Offset: 0x54
-	// Line 1278, Address: 0x1d506c, Func Offset: 0x5c
-	// Line 1281, Address: 0x1d5074, Func Offset: 0x64
-	// Line 1282, Address: 0x1d507c, Func Offset: 0x6c
-	// Line 1285, Address: 0x1d5084, Func Offset: 0x74
-	// Line 1286, Address: 0x1d508c, Func Offset: 0x7c
-	// Line 1285, Address: 0x1d5090, Func Offset: 0x80
-	// Line 1286, Address: 0x1d5098, Func Offset: 0x88
-	// Line 1287, Address: 0x1d50a4, Func Offset: 0x94
-	// Line 1290, Address: 0x1d50b0, Func Offset: 0xa0
-	// Func End, Address: 0x1d50b8, Func Offset: 0xa8
-	scePrintf("bhEne11_LightControl - UNIMPLEMENTED!\n");
+    switch (flg) 
+    {                          
+        case 0:
+            (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 1;
+            (*(O_WRK **)(epw->exp0 + 0x60))->axp = 0x38E;
+            break;
+            
+        case 1:
+            (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 3;
+            break;
+            
+        case 2:
+            (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 0;
+            break;
+            
+        case 3:
+            (*(O_WRK **)(epw->exp0 + 0x60))->mode0 = 2;
+            (*(O_WRK **)(epw->exp0 + 0x60))->ax = 0x38E;
+            (*(O_WRK **)(epw->exp0 + 0x60))->axp = 0x38E;
+            break;
+    }
 }
 
 /*// 
