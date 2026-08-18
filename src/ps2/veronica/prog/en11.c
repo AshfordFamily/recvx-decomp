@@ -199,14 +199,13 @@ void bhEne11_Init(BH_PWORK* epw)
     epw->flg |= 0x80000;
 }
 
-/*// 
-// 
-// Start address: 0x1d37a0
+// 100% matching!
 void bhEne11_Brain(BH_PWORK* epw)
 {
-	// Line 339, Address: 0x1d37a0, Func Offset: 0
-	// Func End, Address: 0x1d37b0, Func Offset: 0x10
+    bhEne11_BrainType[0](epw);
 }
+
+/*// 
 
 // 
 // Start address: 0x1d37b0
