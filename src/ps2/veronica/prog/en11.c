@@ -723,19 +723,19 @@ void bhEne11_MV07(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d45b0
-void bhEne11_MV08(BH_PWORK* epw)
+// 100% matching!
+void bhEne11_MV08(BH_PWORK* epw) 
 {
-	// Line 888, Address: 0x1d45b0, Func Offset: 0
-	// Line 889, Address: 0x1d45bc, Func Offset: 0xc
-	// Line 893, Address: 0x1d45d0, Func Offset: 0x20
-	// Line 894, Address: 0x1d45dc, Func Offset: 0x2c
-	// Line 896, Address: 0x1d45e8, Func Offset: 0x38
-	// Func End, Address: 0x1d45f8, Func Offset: 0x48
+    switch(epw->mode3)
+    {
+        case 0:
+            epw->mode1 = 0;
+            bhEne11_LightControl(epw, 1);
+            epw->mode3++;
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d4600
