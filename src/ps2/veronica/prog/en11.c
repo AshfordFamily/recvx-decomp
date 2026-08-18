@@ -1019,54 +1019,69 @@ void bhEne11_CollisionBoxEdge2(BH_PWORK* epw)
     }
 }
 
-/*// 
+#pragma divbyzerocheck on
 
-// 
-// Start address: 0x1d4da0
-void bhEne11_CameraSet(BH_PWORK* epw, _anon3* vec, int hcnt)
+// 100% matching!
+void bhEne11_CameraSet(BH_PWORK* epw, NJS_VECTOR* vec, int hcnt)
 {
-	int ay;
-	int ax;
-	int ang;
-	float out;
-	_anon3 ov;
-	_anon3 vb;
-	_anon3 v;
-	npobj* objP;
-	// Line 1184, Address: 0x1d4da0, Func Offset: 0
-	// Line 1190, Address: 0x1d4dbc, Func Offset: 0x1c
-	// Line 1191, Address: 0x1d4dd0, Func Offset: 0x30
-	// Line 1192, Address: 0x1d4dd8, Func Offset: 0x38
-	// Line 1193, Address: 0x1d4de8, Func Offset: 0x48
-	// Line 1195, Address: 0x1d4df0, Func Offset: 0x50
-	// Line 1196, Address: 0x1d4df8, Func Offset: 0x58
-	// Line 1199, Address: 0x1d4dfc, Func Offset: 0x5c
-	// Line 1201, Address: 0x1d4e00, Func Offset: 0x60
-	// Line 1196, Address: 0x1d4e04, Func Offset: 0x64
-	// Line 1197, Address: 0x1d4e08, Func Offset: 0x68
-	// Line 1198, Address: 0x1d4e0c, Func Offset: 0x6c
-	// Line 1196, Address: 0x1d4e10, Func Offset: 0x70
-	// Line 1201, Address: 0x1d4e14, Func Offset: 0x74
-	// Line 1202, Address: 0x1d4e1c, Func Offset: 0x7c
-	// Line 1204, Address: 0x1d4e28, Func Offset: 0x88
-	// Line 1205, Address: 0x1d4e34, Func Offset: 0x94
-	// Line 1208, Address: 0x1d4e44, Func Offset: 0xa4
-	// Line 1209, Address: 0x1d4e54, Func Offset: 0xb4
-	// Line 1210, Address: 0x1d4e60, Func Offset: 0xc0
-	// Line 1212, Address: 0x1d4e8c, Func Offset: 0xec
-	// Line 1213, Address: 0x1d4e94, Func Offset: 0xf4
-	// Line 1214, Address: 0x1d4ea4, Func Offset: 0x104
-	// Line 1217, Address: 0x1d4eb4, Func Offset: 0x114
-	// Line 1218, Address: 0x1d4ecc, Func Offset: 0x12c
-	// Line 1217, Address: 0x1d4ed4, Func Offset: 0x134
-	// Line 1218, Address: 0x1d4ed8, Func Offset: 0x138
-	// Line 1219, Address: 0x1d4ef4, Func Offset: 0x154
-	// Line 1222, Address: 0x1d4f00, Func Offset: 0x160
-	// Line 1223, Address: 0x1d4f08, Func Offset: 0x168
-	// Line 1226, Address: 0x1d4f0c, Func Offset: 0x16c
-	// Line 1227, Address: 0x1d4f10, Func Offset: 0x170
-	// Func End, Address: 0x1d4f2c, Func Offset: 0x18c
+	NJS_CNK_OBJECT *objP;
+    NJS_VECTOR v;
+    NJS_VECTOR vb;
+    NJS_VECTOR ov;
+    float out;
+    int ang;
+    int ax;
+    int ay;
+
+    njSetMatrix(NULL, (NJS_MATRIX *)&EXP0_F(0x0));
+    njInvertMatrix(NULL);
+    
+    njCalcVector(NULL, vec, &v);
+    
+    njUnitVector(&v);
+    
+    if (hcnt != 0) 
+    {
+        objP = &epw->mlwP->objP[2];
+        
+        vb.x = 0;
+        vb.y = 0;
+        vb.z = -1.0f;
+        
+        njUnitMatrix(NULL);
+        
+        njRotateEx(objP[0].ang, 0);
+        njRotateEx(objP[1].ang, 0);
+        
+        njCalcVector(NULL, &vb, &vb);
+        
+        out = njOuterProduct(&vb, &v, &ov);
+        
+        njUnitVector(&ov);
+        
+        ang = (int)(10430.381f * asinf(out)) / hcnt;
+        
+        njUnitMatrix(NULL);
+        njRotate(NULL, &ov, ang);
+        njCalcVector(NULL, &vb, &v);
+    }
+    
+    ax = bhArcTan2(-v.x, -v.z);
+    ay = bhArcTan2(v.y, njSqrt(v.x * v.x + v.z * v.z));
+    
+    if (ay < 0) 
+    {
+        ay = 0;
+    }
+    
+    objP = epw->mlwP->objP;
+    objP[2].ang[1] = ax;
+    objP[3].ang[0] = ay;
 }
+
+#pragma divbyzerocheck off
+
+/*// 
 
 // 
 // Start address: 0x1d4f30
