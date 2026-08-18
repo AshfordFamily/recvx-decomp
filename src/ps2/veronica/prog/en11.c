@@ -1081,38 +1081,33 @@ void bhEne11_CameraSet(BH_PWORK* epw, NJS_VECTOR* vec, int hcnt)
 
 #pragma divbyzerocheck off
 
-/*// 
-
-// 
-// Start address: 0x1d4f30
-void bhEne11_MoveNearWall(BH_PWORK* epw)
+// 100% matching!
+void bhEne11_MoveNearWall(BH_PWORK* epw) 
 {
-	_anon3 pt;
-	_anon3 vd;
-	_anon3 vec;
-	// Line 1237, Address: 0x1d4f30, Func Offset: 0
-	// Line 1242, Address: 0x1d4f44, Func Offset: 0x14
-	// Line 1241, Address: 0x1d4f48, Func Offset: 0x18
-	// Line 1242, Address: 0x1d4f4c, Func Offset: 0x1c
-	// Line 1243, Address: 0x1d4f54, Func Offset: 0x24
-	// Line 1244, Address: 0x1d4f58, Func Offset: 0x28
-	// Line 1245, Address: 0x1d4f68, Func Offset: 0x38
-	// Line 1247, Address: 0x1d4f78, Func Offset: 0x48
-	// Line 1248, Address: 0x1d4f80, Func Offset: 0x50
-	// Line 1249, Address: 0x1d4f88, Func Offset: 0x58
-	// Line 1247, Address: 0x1d4f8c, Func Offset: 0x5c
-	// Line 1251, Address: 0x1d4f90, Func Offset: 0x60
-	// Line 1247, Address: 0x1d4f98, Func Offset: 0x68
-	// Line 1248, Address: 0x1d4f9c, Func Offset: 0x6c
-	// Line 1249, Address: 0x1d4fa8, Func Offset: 0x78
-	// Line 1251, Address: 0x1d4fb4, Func Offset: 0x84
-	// Line 1252, Address: 0x1d4fc4, Func Offset: 0x94
-	// Line 1253, Address: 0x1d4fd4, Func Offset: 0xa4
-	// Line 1254, Address: 0x1d4fe0, Func Offset: 0xb0
-	// Line 1255, Address: 0x1d4fec, Func Offset: 0xbc
-	// Line 1257, Address: 0x1d4ff8, Func Offset: 0xc8
-	// Func End, Address: 0x1d5010, Func Offset: 0xe0
-}*/
+	NJS_VECTOR vec;
+    NJS_VECTOR vd;
+    NJS_VECTOR pt;
+
+    vec.x = 0;
+    vec.y = -999.0f;
+    vec.z = 0;
+    
+    njSetMatrix(NULL, (NJS_MATRIX *)&EXP0_F(0x0));
+    njCalcVector(NULL, (NJS_VECTOR* ) &vec, &vd);
+    
+    pt.x = epw->px + vd.x;
+    pt.y = epw->py + vd.y;
+    pt.z = epw->pz + vd.z;
+    
+    *(ATR_WORK **)(epw->exp0 + 0x58) = bhCollisionCheckLine((NJS_VECTOR* ) &epw->px, (NJS_VECTOR* ) &pt);
+    
+    if (*(ATR_WORK **)(epw->exp0 + 0x58) != NULL)
+    {
+        epw->px = epw->pxb = pt.x;
+        epw->py = epw->pyb = pt.y;
+        epw->pz = epw->pzb = pt.z;
+    }
+}
 
 // 
 // Start address: 0x1d5010
