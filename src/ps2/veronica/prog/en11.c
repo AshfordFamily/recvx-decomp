@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
+#include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/main.h"
 
@@ -475,58 +476,78 @@ void bhEne11_MV03(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d3e50
-void bhEne11_MV04(BH_PWORK* epw)
+// 100% matching!
+void bhEne11_MV04(BH_PWORK* epw) 
 {
-	float f;
-	_anon3 v;
-	// Line 627, Address: 0x1d3e50, Func Offset: 0
-	// Line 628, Address: 0x1d3e5c, Func Offset: 0xc
-	// Line 630, Address: 0x1d3e7c, Func Offset: 0x2c
-	// Line 631, Address: 0x1d3e84, Func Offset: 0x34
-	// Line 632, Address: 0x1d3e8c, Func Offset: 0x3c
-	// Line 636, Address: 0x1d3e90, Func Offset: 0x40
-	// Line 632, Address: 0x1d3e94, Func Offset: 0x44
-	// Line 636, Address: 0x1d3eac, Func Offset: 0x5c
-	// Line 637, Address: 0x1d3eb4, Func Offset: 0x64
-	// Line 639, Address: 0x1d3ec0, Func Offset: 0x70
-	// Line 644, Address: 0x1d3ecc, Func Offset: 0x7c
-	// Line 647, Address: 0x1d3ee4, Func Offset: 0x94
-	// Line 644, Address: 0x1d3ee8, Func Offset: 0x98
-	// Line 645, Address: 0x1d3eec, Func Offset: 0x9c
-	// Line 647, Address: 0x1d3ef0, Func Offset: 0xa0
-	// Line 644, Address: 0x1d3ef4, Func Offset: 0xa4
-	// Line 645, Address: 0x1d3ef8, Func Offset: 0xa8
-	// Line 646, Address: 0x1d3f08, Func Offset: 0xb8
-	// Line 647, Address: 0x1d3f1c, Func Offset: 0xcc
-	// Line 648, Address: 0x1d3f34, Func Offset: 0xe4
-	// Line 650, Address: 0x1d3f38, Func Offset: 0xe8
-	// Line 648, Address: 0x1d3f3c, Func Offset: 0xec
-	// Line 650, Address: 0x1d3f44, Func Offset: 0xf4
-	// Line 651, Address: 0x1d3f50, Func Offset: 0x100
-	// Line 654, Address: 0x1d3f64, Func Offset: 0x114
-	// Line 655, Address: 0x1d3f70, Func Offset: 0x120
-	// Line 656, Address: 0x1d3f80, Func Offset: 0x130
-	// Line 657, Address: 0x1d3f90, Func Offset: 0x140
-	// Line 659, Address: 0x1d3fa0, Func Offset: 0x150
-	// Line 661, Address: 0x1d3fac, Func Offset: 0x15c
-	// Line 662, Address: 0x1d3fb4, Func Offset: 0x164
-	// Line 664, Address: 0x1d3fbc, Func Offset: 0x16c
-	// Line 666, Address: 0x1d3fc4, Func Offset: 0x174
-	// Line 677, Address: 0x1d3fcc, Func Offset: 0x17c
-	// Line 678, Address: 0x1d3ff4, Func Offset: 0x1a4
-	// Line 679, Address: 0x1d4008, Func Offset: 0x1b8
-	// Line 681, Address: 0x1d4010, Func Offset: 0x1c0
-	// Line 687, Address: 0x1d4024, Func Offset: 0x1d4
-	// Line 688, Address: 0x1d4034, Func Offset: 0x1e4
-	// Line 689, Address: 0x1d403c, Func Offset: 0x1ec
-	// Line 690, Address: 0x1d4044, Func Offset: 0x1f4
-	// Line 692, Address: 0x1d4048, Func Offset: 0x1f8
-	// Func End, Address: 0x1d4058, Func Offset: 0x208
+    NJS_VECTOR v;
+    float f;
+
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->ct0 = 0x63;
+            epw->ct1 = 8;
+            epw->ct2 = EXP0_I(0x5C) * 0x19;
+            epw->ct3 = 0;
+            bhEne11_LightControl(epw, 0);
+            epw->spd = 0.2f;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            f = 16.0f + (16.0f * njSin(epw->ct2 * 0x28F));
+            
+            v.x = -EXP0_F(0x20) * f;
+            v.z = -EXP0_F(0x28) * f;
+            v.y = -fabsf(plp->py - epw->py);
+            
+            epw->ct2++;
+            
+            bhEne11_CameraSet(epw, (NJS_VECTOR *)&v, epw->ct1);
+            
+            if (epw->ct1 != 0)
+            {
+                epw->ct1--;
+            }
+            
+            bhEne11_GoFoward(epw);
+            
+            if (epw->ct0-- == 0)
+            {
+                EXP0_I(0x5C) = bhEne11_SelectDir(epw);
+                
+                if (EXP0_I(0x5C) != 0)
+                {
+                    bhEne11_LightControl(epw, 1);
+                    epw->mode1 = 1;
+                    epw->mode2 = 3;
+                    epw->mode3 = 0;
+                }
+                else 
+                {
+                    epw->ct0 = 0x63;
+                }
+            }
+            
+            if (ChechPlayEnemySe(sys->enow, 0x11300) == 0) 
+            {
+                bhEne_CallSE(epw, (NJS_VECTOR *)&epw->px, 0x11300);
+            }
+            else 
+            {
+                bhEne_SetSEPan((int)epw, (NJS_VECTOR *)&epw->px, 0x11300);
+            }
+    }
+    
+    if (EXP0_UC(0x56) != 0)
+    {
+        epw->mode1 = 1;
+        epw->mode2 = 7;
+        epw->mode3 = 0;
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d4060
