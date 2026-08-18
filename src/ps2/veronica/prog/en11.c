@@ -712,19 +712,18 @@ void bhEne11_MV06(BH_PWORK* epw)
     }
 }
 
-/*// 
-
-// 
-// Start address: 0x1d4560
+// 100% matching!
 void bhEne11_MV07(BH_PWORK* epw)
 {
-	// Line 872, Address: 0x1d4560, Func Offset: 0
-	// Line 873, Address: 0x1d456c, Func Offset: 0xc
-	// Line 875, Address: 0x1d4580, Func Offset: 0x20
-	// Line 876, Address: 0x1d458c, Func Offset: 0x2c
-	// Line 878, Address: 0x1d4598, Func Offset: 0x38
-	// Func End, Address: 0x1d45a8, Func Offset: 0x48
+    switch(epw->mode3)
+    {
+        case 0:
+            bhEne_CallSE(epw, (NJS_VECTOR* ) &epw->px, 0x2302);
+            epw->mode3++;
+    }
 }
+
+/*// 
 
 // 
 // Start address: 0x1d45b0
