@@ -1,6 +1,10 @@
 #include "../../../ps2/veronica/prog/en11.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/eneset.h"
+#include "../../../ps2/veronica/prog/effect.h"
+#include "../../../ps2/veronica/prog/Motion.h"
+#include "../../../ps2/veronica/prog/MdlPut.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/main.h"
 
 // ENEMY: Spotter 
@@ -38,7 +42,7 @@ MoveMode2_proc bhEne11_MoveMode2[10] =
     bhEne11_MV09,
 };
 
-// 96.26% matching!
+// 100% matching!
 void bhEne11(BH_PWORK* epw)
 {
     unsigned int flg;
@@ -175,7 +179,7 @@ void bhEne11_Init(BH_PWORK* epw)
         sys->ef.sz = 0.0f;
         sys->ef.ay = 0;
         
-        eff_id = bhSetEffectTb(&sys->ef, NULL, epw, 0);
+        eff_id = bhSetEffectTb(&sys->ef, NULL, (unsigned char *)epw, 0);
         
         if (eff_id >= 0)
         {
