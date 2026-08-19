@@ -755,15 +755,13 @@ void bhEne18_MV02(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1ef810
-void bhEne18_MV03()
+// 100% matching!
+void bhEne18_MV03() 
 {
-	// Line 924, Address: 0x1ef810, Func Offset: 0
-	// Func End, Address: 0x1ef818, Func Offset: 0x8
+
 }
+
+/*
 
 // 
 // Start address: 0x1ef820
