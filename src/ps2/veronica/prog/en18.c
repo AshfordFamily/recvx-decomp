@@ -937,23 +937,19 @@ void bhEne18_MV05(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1efd80
+// 100% matching!
 void bhEne18_Nage()
 {
-	// Line 1099, Address: 0x1efd80, Func Offset: 0
-	// Func End, Address: 0x1efd88, Func Offset: 0x8
+
 }
 
-// 
-// Start address: 0x1efd90
+// 100% matching!
 void bhEne18_Damage()
 {
-	// Line 1110, Address: 0x1efd90, Func Offset: 0
-	// Func End, Address: 0x1efd98, Func Offset: 0x8
+
 }
+
+/*
 
 // 
 // Start address: 0x1efda0
