@@ -949,22 +949,23 @@ void bhEne18_Damage()
 
 }
 
-/*
-
-// 
-// Start address: 0x1efda0
+// 100% matching!
 void bhEne18_Die(BH_PWORK* epw)
 {
-	// Line 1121, Address: 0x1efda0, Func Offset: 0
-	// Line 1125, Address: 0x1efda4, Func Offset: 0x4
-	// Line 1121, Address: 0x1efda8, Func Offset: 0x8
-	// Line 1123, Address: 0x1efdb0, Func Offset: 0x10
-	// Line 1124, Address: 0x1efdc0, Func Offset: 0x20
-	// Line 1125, Address: 0x1efdc4, Func Offset: 0x24
-	// Line 1126, Address: 0x1efdd0, Func Offset: 0x30
-	// Line 1127, Address: 0x1efde4, Func Offset: 0x44
-	// Func End, Address: 0x1efdec, Func Offset: 0x4c
+    epw->flg |= 2;
+    
+    epw->mlwP->objP = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x4);
+    
+    epw->shp_ct = 0.0f;
+    epw->mdflg &= ~2;
+    
+    if (*(ATR_WORK **)(epw->exp0 + 0x14) != NULL) 
+    {
+        (*(ATR_WORK **)(epw->exp0 + 0x14))->flg = 0;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1efdf0
