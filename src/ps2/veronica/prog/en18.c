@@ -12,7 +12,7 @@
 typedef void (*Mode0_proc)(BH_PWORK*);
 typedef void (*MoveMode2_proc)(BH_PWORK*);
 
-DMG_REACT DmgReact[21] =
+static DMG_REACT DmgReact[21] =
 {
     { {0, 1, 0}, {0, 0, 0}, 0 },
     { {0, 1, 0}, {0, 0, 0}, 0 },
@@ -652,7 +652,9 @@ void bhEne18_MV01(BH_PWORK* epw)
         
             /* fallthrough */
         case 1:
-            if (epw->shp_ct = bhEne_GetShapeCnt(HeartBeat, epw->ct0), epw->shp_ct < 1000.0f)
+            epw->shp_ct = bhEne_GetShapeCnt(SpawnAttacker, epw->ct0);
+            
+            if (epw->shp_ct < 1000.0f)
             {
                 epw->obj_a = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x4);
                 epw->obj_b = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x8);
@@ -707,7 +709,9 @@ void bhEne18_MV02(BH_PWORK* epw)
         
             /* fallthrough */
         case 1:
-            if (epw->shp_ct = bhEne_GetShapeCnt(SpawnAttacker, epw->ct0), epw->shp_ct < 1000.0f)
+            epw->shp_ct = bhEne_GetShapeCnt(SpawnAttacker, epw->ct0);
+            
+            if (epw->shp_ct < 1000.0f)
             {
                 epw->obj_a = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x4);
                 epw->obj_b = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x8);
@@ -1018,7 +1022,7 @@ int bhEne18_HitMark(BH_PWORK* epw)
             case 18:
             case 19:
             case 20:
-                bhEne_SetBloodEffectBurst(epw, DmgReact[epw->wpnr_no].type[range], epw->djnt_no, (NJS_VECTOR *)&epw->dpx, 1);
+                bhEne_SetBloodEffectBurst(epw, DmgReact[epw->wpnr_no].type[range], epw->djnt_no, (NJS_POINT3 *)&epw->dpx, 1);
                 break;
 
             default:
