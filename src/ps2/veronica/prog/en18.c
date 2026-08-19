@@ -639,30 +639,43 @@ void bhEne18_MV00(BH_PWORK* epw)
     }
 }
 
-/*
-
-// 
-// Start address: 0x1ef4b0
-void bhEne18_MV01(BH_PWORK* epw)
+// 100% matching!
+void bhEne18_MV01(BH_PWORK* epw) 
 {
-	// Line 788, Address: 0x1ef4b0, Func Offset: 0
-	// Line 789, Address: 0x1ef4c0, Func Offset: 0x10
-	// Line 791, Address: 0x1ef4e0, Func Offset: 0x30
-	// Line 792, Address: 0x1ef4ec, Func Offset: 0x3c
-	// Line 793, Address: 0x1ef4f0, Func Offset: 0x40
-	// Line 795, Address: 0x1ef4fc, Func Offset: 0x4c
-	// Line 796, Address: 0x1ef50c, Func Offset: 0x5c
-	// Line 797, Address: 0x1ef528, Func Offset: 0x78
-	// Line 798, Address: 0x1ef534, Func Offset: 0x84
-	// Line 799, Address: 0x1ef53c, Func Offset: 0x8c
-	// Line 800, Address: 0x1ef544, Func Offset: 0x94
-	// Line 801, Address: 0x1ef550, Func Offset: 0xa0
-	// Line 802, Address: 0x1ef55c, Func Offset: 0xac
-	// Line 805, Address: 0x1ef568, Func Offset: 0xb8
-	// Line 806, Address: 0x1ef574, Func Offset: 0xc4
-	// Line 809, Address: 0x1ef588, Func Offset: 0xd8
-	// Func End, Address: 0x1ef598, Func Offset: 0xe8
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->mdflg |= 2;
+            epw->ct0 = 0;
+            epw->mode3++;
+        
+            /* fallthrough */
+        case 1:
+            if (epw->shp_ct = bhEne_GetShapeCnt(HeartBeat, epw->ct0), epw->shp_ct < 1000.0f)
+            {
+                epw->obj_a = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x4);
+                epw->obj_b = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x8);
+            } 
+            else 
+            {
+                epw->obj_a = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x8);
+                epw->obj_b = *(NJS_CNK_OBJECT **)(epw->exp0 + 0xC);
+                
+                epw->shp_ct -= 1000.0f;
+            }
+            
+            epw->ct0++;
+            
+            if (epw->ct0 > 120) 
+            {
+                epw->ct0 = 0;
+            }
+            
+            break;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1ef5a0
