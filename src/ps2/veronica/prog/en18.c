@@ -623,22 +623,23 @@ void bhEne18_Move(BH_PWORK* epw)
     bhEne18_MoveMode2[epw->mode2](epw);
 }
 
-/*
-
-// 
-// Start address: 0x1ef460
+// 100% matching!
 void bhEne18_MV00(BH_PWORK* epw)
 {
-	// Line 770, Address: 0x1ef460, Func Offset: 0
-	// Line 772, Address: 0x1ef474, Func Offset: 0x14
-	// Line 774, Address: 0x1ef47c, Func Offset: 0x1c
-	// Line 772, Address: 0x1ef480, Func Offset: 0x20
-	// Line 773, Address: 0x1ef488, Func Offset: 0x28
-	// Line 774, Address: 0x1ef48c, Func Offset: 0x2c
-	// Line 775, Address: 0x1ef498, Func Offset: 0x38
-	// Line 778, Address: 0x1ef4a4, Func Offset: 0x44
-	// Func End, Address: 0x1ef4ac, Func Offset: 0x4c
+    switch (epw->mode3)
+    {
+        case 0:
+            epw->mlwP->objP = *(NJS_CNK_OBJECT **)(epw->exp0 + 0x4);
+        
+            epw->shp_ct = 0.0f;
+            epw->mdflg &= ~2;
+            epw->mode3++;
+            
+            break;
+    }
 }
+
+/*
 
 // 
 // Start address: 0x1ef4b0
