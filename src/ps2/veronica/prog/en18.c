@@ -350,19 +350,18 @@ MoveMode2_proc bhEne18_MoveMode2[6] =
     bhEne18_MV05
 };
 
-// 
-// Start address: 0x1eec00
+// 100% matching!
 void bhEne18(BH_PWORK* epw)
 {
-	// Line 476, Address: 0x1eec00, Func Offset: 0
-	// Line 478, Address: 0x1eec10, Func Offset: 0x10
-	// Line 481, Address: 0x1eec30, Func Offset: 0x30
-	// Line 482, Address: 0x1eec48, Func Offset: 0x48
-	// Line 483, Address: 0x1eec54, Func Offset: 0x54
-	// Line 487, Address: 0x1eec60, Func Offset: 0x60
-	// Line 488, Address: 0x1eec6c, Func Offset: 0x6c
-	// Func End, Address: 0x1eec7c, Func Offset: 0x7c
-	scePrintf("bhEne18 - UNIMPLEMENTED!\n");
+    bhEne18_Mode0[epw->mode0](epw);
+    
+    if (((BH_PWORK *)epw->lkwkp)->stflg & 0x01000000) 
+    {
+        epw->stflg |= 0x01000000;
+        (*(ATR_WORK **)(epw->exp0 + 0x14))->flg = 0;
+    }
+    
+    bhCalcModel(epw);
 }
 
 /*// 
