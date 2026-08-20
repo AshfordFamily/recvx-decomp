@@ -3979,53 +3979,74 @@ void bhEne26_DD00(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x20f420
+// 100% matching!
 int bhEne26_EatCheck(BH_PWORK* epw, int rng, float dist, int mode)
 {
-	float ds;
-	//_anon28 eps;
-	//_anon28 ps;
-	//_anon8* owk;
-	//_anon42 at;
-	// Line 4007, Address: 0x20f420, Func Offset: 0
-	// Line 4018, Address: 0x20f444, Func Offset: 0x24
-	// Line 4022, Address: 0x20f494, Func Offset: 0x74
-	// Line 4026, Address: 0x20f4a0, Func Offset: 0x80
-	// Line 4028, Address: 0x20f4a4, Func Offset: 0x84
-	// Line 4029, Address: 0x20f4a8, Func Offset: 0x88
-	// Line 4035, Address: 0x20f4ac, Func Offset: 0x8c
-	// Line 4026, Address: 0x20f4b0, Func Offset: 0x90
-	// Line 4035, Address: 0x20f4b4, Func Offset: 0x94
-	// Line 4027, Address: 0x20f4b8, Func Offset: 0x98
-	// Line 4028, Address: 0x20f4c0, Func Offset: 0xa0
-	// Line 4029, Address: 0x20f4c8, Func Offset: 0xa8
-	// Line 4031, Address: 0x20f4d0, Func Offset: 0xb0
-	// Line 4032, Address: 0x20f4d8, Func Offset: 0xb8
-	// Line 4033, Address: 0x20f4e0, Func Offset: 0xc0
-	// Line 4034, Address: 0x20f4e8, Func Offset: 0xc8
-	// Line 4035, Address: 0x20f4ec, Func Offset: 0xcc
-	// Line 4038, Address: 0x20f4f4, Func Offset: 0xd4
-	// Line 4041, Address: 0x20f51c, Func Offset: 0xfc
-	// Line 4046, Address: 0x20f578, Func Offset: 0x158
-	// Line 4051, Address: 0x20f580, Func Offset: 0x160
-	// Line 4054, Address: 0x20f5ac, Func Offset: 0x18c
-	// Line 4059, Address: 0x20f5b4, Func Offset: 0x194
-	// Line 4062, Address: 0x20f5b8, Func Offset: 0x198
-	// Line 4063, Address: 0x20f5bc, Func Offset: 0x19c
-	// Line 4059, Address: 0x20f5c4, Func Offset: 0x1a4
-	// Line 4060, Address: 0x20f5cc, Func Offset: 0x1ac
-	// Line 4061, Address: 0x20f5d0, Func Offset: 0x1b0
-	// Line 4063, Address: 0x20f5d4, Func Offset: 0x1b4
-	// Line 4064, Address: 0x20f5e0, Func Offset: 0x1c0
-	// Line 4071, Address: 0x20f5e8, Func Offset: 0x1c8
-	// Line 4073, Address: 0x20f604, Func Offset: 0x1e4
-	// Line 4078, Address: 0x20f654, Func Offset: 0x234
-	// Line 4084, Address: 0x20f65c, Func Offset: 0x23c
-	// Line 4085, Address: 0x20f660, Func Offset: 0x240
-	// Func End, Address: 0x20f688, Func Offset: 0x268
-    scePrintf("bhEne26_EatCheck - UNIMPLEMENTED!\n");
+    NJS_SPHERE at;
+    O_WORK* owk;
+    NJS_POINT3 ps;
+    NJS_POINT3 eps;
+    float ds;
+
+    if (EXP0_I(0x40) & 0x20000000 || plp->flg & 2 || plp->stflg & 0x80000000)
+    {
+        return 0;
+    }
+    
+    owk = &plp->mlwP->owP[3];
+    ps.x = owk->mtx[12];
+    ps.y = plp->py;
+    ps.z = owk->mtx[14];
+    owk = &epw->mlwP->owP[12];
+    eps.x = owk->mtx[12];
+    eps.y = plp->py;
+    eps.z = owk->mtx[14];
+
+    ds = njDistanceP2P(&ps, &eps);
+
+    switch (mode)
+    {
+    case 0:
+        if ((bhSearchPlayer2(epw,(NJS_POINT3*) &epw->px, epw->ay, rng) == -1) ||
+            (ds >= dist) ||
+            (plp->py != epw->py) ||
+            (plp->hp < 0))
+        {
+            break;
+        }
+            
+        return 1;
+
+    case 1:
+        if ((plp->py != epw->py) || (plp->hp < 0))
+        {
+            break;
+        }
+        
+        return 1;
+
+    case 2:
+        owk = &epw->mlwP->owP[12];
+        ps.x = 0.0f;
+        ps.y = 0.0f;
+        ps.z = -4.0f;
+        njCalcPoint((NJS_MATRIX*)owk->mtx, &ps, &at.c);
+        at.r = 1.0f;
+
+        if (!npCollisionCheckSC(&at, &plp->watr) ||
+           (plp->py != epw->py) ||
+           (plp->flg & 2) ||
+           (plp->stflg & 0x80000000) ||
+           (plp->hp < 0))
+        {
+            break;            
+        }
+        return 1;
+       
+    }
+    return 0;
 }
+
 /*
 // 
 // Start address: 0x20f690
