@@ -4047,35 +4047,32 @@ int bhEne26_EatCheck(BH_PWORK* epw, int rng, float dist, int mode)
     return 0;
 }
 
-/*
-// 
-// Start address: 0x20f690
+// 100% matching!
 void bhEne26_ExpHeadEffect(BH_PWORK* epw)
 {
+	NJS_VECTOR v;
+	NJS_POINT3 ps;
+	NJS_POINT3 pd;
+	O_WORK* owk;
+	int ang1;   
 	int i;
-	int ang1;
-	_anon8* owk;
-	_anon28 pd;
-	_anon28 ps;
-	_anon28 v;
-	// Line 4103, Address: 0x20f690, Func Offset: 0
-	// Line 4190, Address: 0x20f6b0, Func Offset: 0x20
-	// Line 4191, Address: 0x20f6b4, Func Offset: 0x24
-	// Line 4192, Address: 0x20f6bc, Func Offset: 0x2c
-	// Line 4190, Address: 0x20f6c4, Func Offset: 0x34
-	// Line 4191, Address: 0x20f6cc, Func Offset: 0x3c
-	// Line 4192, Address: 0x20f6d4, Func Offset: 0x44
-	// Line 4194, Address: 0x20f6e0, Func Offset: 0x50
-	// Line 4196, Address: 0x20f6e8, Func Offset: 0x58
-	// Line 4198, Address: 0x20f710, Func Offset: 0x80
-	// Line 4199, Address: 0x20f728, Func Offset: 0x98
-	// Line 4200, Address: 0x20f738, Func Offset: 0xa8
-	// Line 4201, Address: 0x20f750, Func Offset: 0xc0
-	// Line 4202, Address: 0x20f76c, Func Offset: 0xdc
-	// Line 4205, Address: 0x20f77c, Func Offset: 0xec
-	// Func End, Address: 0x20f79c, Func Offset: 0x10c
+
+	owk = &epw->mlwP->owP[12];
+	ps.x = 0.0f;
+	ps.y = 0.5f;
+	ps.z = -1.0f;
+	njCalcPoint(&owk->mtx, &ps, &pd);
+
+	for (i = 0; i < 4; i++)
+    {
+		ang1 = (int)(NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
+		v.x = -njSin(ang1) * njCos(NJM_DEG_ANG(22.5f));
+		v.y = njSin(NJM_DEG_ANG(22.5f));
+		v.z = -njCos(ang1) * njCos(NJM_DEG_ANG(22.5f));
+		bhEne_SetNikuhenEffect(epw, 0, &pd, &v, 7);
+	}
 }
-*/
+
 // 100% matching!
 void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
 {
@@ -4085,21 +4082,21 @@ void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
     // not present in DWARF
     int ang;
       
-    for (i = 0, ang = NJM_DEG_ANG(45); i < 4; ang += NJM_DEG_ANG(90), i++)
+    for (i = 0, ang = NJM_DEG_ANG(45.0f); i < 4; ang += NJM_DEG_ANG(90.0f), i++)
     {
         ofs.y = -1.0f;
         if (type == 0)
         {
             ofs.y = 0.0f;
             
-            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25)));
-            v.y = njSin(NJM_DEG_ANG(56.25));
-            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25)));
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25f)));
+            v.y = njSin(NJM_DEG_ANG(56.25f));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25f)));
             bhEne_SetBlood3(epw, 12, &ofs, &v, 6, 8, 1, i);
             
-            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5)));
-            v.y = njSin(NJM_DEG_ANG(22.5));
-            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5)));
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5f)));
+            v.y = njSin(NJM_DEG_ANG(22.5f));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5f)));
             bhEne_SetBlood3(epw, 12, &ofs, &v, 3, 8, 3, i);
         }
     }     
