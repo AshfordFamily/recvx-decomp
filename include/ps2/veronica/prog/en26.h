@@ -2,14 +2,26 @@
 #define _EN26_H_
 
 #include "types.h"
+#include "macros.h"
+
+typedef struct EN26_WPNDAMAGE_WORK
+{
+	int flg;
+	int nm_act;
+	int nm_blood;
+	int cb_act;
+	int cb_blood;
+	int dw_act;
+	int dw_blood;
+} EN26_WPNDAMAGE_WORK;
 
 void bhEne26(BH_PWORK* epw);
 void bhEne26_DmgCheck(BH_PWORK* epw);
-/*void bhEne26_DamageAdd(BH_PWORK* epw, _anon25* wp_tbl);*/
+void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl);
 void bhEne26_LinkFireEffect(BH_PWORK* epw, int type);
-/*void bhEne26_DmgCheckType00(BH_PWORK* epw, _anon25* wp_tbl);*/
+void bhEne26_DmgCheckType00(BH_PWORK* epw,  EN26_WPNDAMAGE_WORK* wp_tbl);
 int bhEne26_CheckExpHead(BH_PWORK* epw);
-/*void bhEne26_SetBlood(BH_PWORK* epw, _anon25* wp_tbl);*/
+void bhEne26_SetBlood(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl);
 void bhEne26_MainLoop(BH_PWORK* epw, BH_PWORK* pl);
 void bhEne26_PlayerControl(BH_PWORK* epw, BH_PWORK* pl);
 int bhEne26_SetMtn(BH_PWORK* epw);
