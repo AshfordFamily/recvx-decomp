@@ -1443,8 +1443,33 @@ const char en26_tree[8][8] =
     { 0x00, 0x01, 0x06, 0x07, 0xFF, 0x00, 0x00, 0x00 },
     { 0x00, 0x01, 0x0A, 0x0B, 0x0C, 0xFF, 0x00, 0x00 }
 };
+
+EN26_WPNDAMAGE_WORK En26_WpnDamageTbl[22] =
+{
+    {0x0000, 0, 0, 0, 0, 0, 0},
+    {0x0000, 0, 0, 0, 0, 0, 0},
+    {0x0C02, 0, 3, 2, 3, 5, 3},
+    {0x0FC2, 0, 7, 2, 3, 3, 3},
+    {0x0FC2, 0, 7, 2, 3, 3, 3},
+    {0x0FC2, 0, 7, 2, 3, 3, 3},
+    {0x0112, 2, 7, 2, 3, 3, 3},
+    {0x0112, 0, 1, 2, 3, 3, 3},
+    {0x0EC2, 0, 7, 2, 3, 5, 3},
+    {0x0FC2, 0, 7, 2, 3, 3, 3},
+    {0x0FC2, 4, 7, 2, 3, 3, 3},
+    {0x0039, 2, 9, 2, 9, 3, 9},
+    {0x0EC2, 0, 7, 2, 3, 5, 3},
+    {0x011D, 2, 3, 2, 3, 3, 3},
+    {0x111C, 2, 1, 2, 3, 3, 3}, 
+    {0xC100, 0, 1, 2, 3, 3, 3},
+    {0x511C, 0, 1, 2, 3, 3, 3},
+    {0x4000, 0, 1, 2, 3, 3, 3},
+    {0x6000, 2, 1, 2, 3, 3, 3},
+    {0x111C, 2, 1, 2, 3, 3, 3},
+    {0x6000, 2, 1, 2, 3, 3, 3},
+    {0x0FC2, 0, 1, 2, 3, 3, 3}
+};
 /*
-_anon25 En26_WpnDamageTbl[22];
 _anon44 CombWepTbl[21];
 _anon45 CombJointTbl[20];
 int en26_hp_tbl[16][2];
@@ -1863,80 +1888,116 @@ int bhEne26_CheckExpHead(BH_PWORK* epw)
     }
     return 0;
 }
-/*
-// 
-// Start address: 0x20a2f0
-void bhEne26_SetBlood(BH_PWORK* epw, _anon25* wp_tbl)
+
+// 100% matching!
+void bhEne26_SetBlood(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
 {
+	O_WORK* owk;
+	NJS_POINT3 ofp;    
 	int obj_no;
-	_anon28 ofp;
-	_anon8* owk;
-	// Line 750, Address: 0x20a2f0, Func Offset: 0
-	// Line 756, Address: 0x20a304, Func Offset: 0x14
-	// Line 760, Address: 0x20a318, Func Offset: 0x28
-	// Line 766, Address: 0x20a328, Func Offset: 0x38
-	// Line 770, Address: 0x20a350, Func Offset: 0x60
-	// Line 774, Address: 0x20a354, Func Offset: 0x64
-	// Line 770, Address: 0x20a360, Func Offset: 0x70
-	// Line 771, Address: 0x20a368, Func Offset: 0x78
-	// Line 772, Address: 0x20a374, Func Offset: 0x84
-	// Line 774, Address: 0x20a380, Func Offset: 0x90
-	// Line 777, Address: 0x20a38c, Func Offset: 0x9c
-	// Line 780, Address: 0x20a3a8, Func Offset: 0xb8
-	// Line 782, Address: 0x20a3c8, Func Offset: 0xd8
-	// Line 784, Address: 0x20a3d0, Func Offset: 0xe0
-	// Line 786, Address: 0x20a3ec, Func Offset: 0xfc
-	// Line 787, Address: 0x20a3f4, Func Offset: 0x104
-	// Line 788, Address: 0x20a3f8, Func Offset: 0x108
-	// Line 789, Address: 0x20a3fc, Func Offset: 0x10c
-	// Line 792, Address: 0x20a404, Func Offset: 0x114
-	// Line 793, Address: 0x20a40c, Func Offset: 0x11c
-	// Line 794, Address: 0x20a410, Func Offset: 0x120
-	// Line 793, Address: 0x20a414, Func Offset: 0x124
-	// Line 797, Address: 0x20a418, Func Offset: 0x128
-	// Line 799, Address: 0x20a428, Func Offset: 0x138
-	// Line 801, Address: 0x20a438, Func Offset: 0x148
-	// Line 802, Address: 0x20a44c, Func Offset: 0x15c
-	// Line 805, Address: 0x20a454, Func Offset: 0x164
-	// Line 809, Address: 0x20a468, Func Offset: 0x178
-	// Line 810, Address: 0x20a470, Func Offset: 0x180
-	// Line 811, Address: 0x20a478, Func Offset: 0x188
-	// Line 812, Address: 0x20a494, Func Offset: 0x1a4
-	// Line 815, Address: 0x20a49c, Func Offset: 0x1ac
-	// Line 818, Address: 0x20a4b0, Func Offset: 0x1c0
-	// Line 821, Address: 0x20a4b8, Func Offset: 0x1c8
-	// Line 823, Address: 0x20a4c8, Func Offset: 0x1d8
-	// Line 824, Address: 0x20a4e0, Func Offset: 0x1f0
-	// Line 826, Address: 0x20a4fc, Func Offset: 0x20c
-	// Line 827, Address: 0x20a504, Func Offset: 0x214
-	// Line 828, Address: 0x20a508, Func Offset: 0x218
-	// Line 829, Address: 0x20a50c, Func Offset: 0x21c
-	// Line 832, Address: 0x20a514, Func Offset: 0x224
-	// Line 833, Address: 0x20a51c, Func Offset: 0x22c
-	// Line 834, Address: 0x20a520, Func Offset: 0x230
-	// Line 833, Address: 0x20a524, Func Offset: 0x234
-	// Line 837, Address: 0x20a528, Func Offset: 0x238
-	// Line 839, Address: 0x20a538, Func Offset: 0x248
-	// Line 840, Address: 0x20a54c, Func Offset: 0x25c
-	// Line 843, Address: 0x20a554, Func Offset: 0x264
-	// Line 845, Address: 0x20a568, Func Offset: 0x278
-	// Line 849, Address: 0x20a570, Func Offset: 0x280
-	// Line 855, Address: 0x20a584, Func Offset: 0x294
-	// Line 861, Address: 0x20a5c4, Func Offset: 0x2d4
-	// Line 865, Address: 0x20a5cc, Func Offset: 0x2dc
-	// Line 861, Address: 0x20a5d4, Func Offset: 0x2e4
-	// Line 865, Address: 0x20a5e4, Func Offset: 0x2f4
-	// Line 861, Address: 0x20a5e8, Func Offset: 0x2f8
-	// Line 862, Address: 0x20a5ec, Func Offset: 0x2fc
-	// Line 865, Address: 0x20a5f0, Func Offset: 0x300
-	// Line 862, Address: 0x20a5f8, Func Offset: 0x308
-	// Line 863, Address: 0x20a5fc, Func Offset: 0x30c
-	// Line 864, Address: 0x20a604, Func Offset: 0x314
-	// Line 865, Address: 0x20a608, Func Offset: 0x318
-	// Line 867, Address: 0x20a610, Func Offset: 0x320
-	// Func End, Address: 0x20a624, Func Offset: 0x334
+
+    // not from DWARF
+    EN26_WPNDAMAGE_WORK* wp;
+    
+    wp = &wp_tbl[epw->wpnr_no];
+    if (!(wp->flg & 0x4000))
+    {
+        if ((epw->djnt_no == 11) || (epw->djnt_no == 1) || (epw->djnt_no == 10))
+        {
+            ofp.x = -epw->dvx;
+            ofp.y = -epw->dvy;
+            ofp.z = -epw->dvz;
+            bhLinkBlood(epw, epw->djnt_no, &ofp, 0.5f);
+        }
+        
+        if ((epw->comb_flg & 1) || (epw->hp < 0))
+        {
+            if ((EXP0_I(0x30) <= 0) && (EXP0_I(0x78) != -1))
+            {
+                EXP0_I(0x30) = 20;
+
+                if ((1 < epw->djnt_no) && (epw->djnt_no < 10))
+                {
+                    ofp.z = 0.0f;
+                    ofp.x = 0.0f;
+                    ofp.y = -2.0f;
+                    obj_no = 1;
+                } 
+                else
+                {
+                    ofp.z = 0.0f;
+                    ofp.x = 0.0f;
+                    ofp.y = 2.5f;
+                    obj_no = 0xB;
+                }
+
+                if (wp->cb_blood == 9)
+                {
+                    if (epw->comb_flg & 0x40)
+                    {
+                        bhEne_SetBlood4(epw, obj_no, &ofp, 8, 3);
+                    } 
+                    else
+                    {
+                        bhEne_SetBlood4(epw, obj_no, &ofp, 8, 1);
+                    }
+                    
+                    ofp.z = 0.0f;
+                    ofp.x = 0.0f;
+                    ofp.y = 2.5f;
+                    bhEne_SetBlood2(epw, 9, &ofp, plp->way);
+                } 
+                else
+                {
+                    bhEne_SetBlood4(epw, obj_no, &ofp, 8, 0);
+                }
+            }
+        }
+        else
+        {
+            if (wp->nm_blood == 9)
+            {
+                bhEne_SetBlood2(epw, 9, &ofp, plp->way);
+
+                if ((1 < epw->djnt_no) && (epw->djnt_no < 10))
+                {
+                    ofp.z = 0.0f;
+                    ofp.x = 0.0f;
+                    ofp.y = -2.0f;
+                    obj_no = 1;
+                } 
+                else
+                {
+                    ofp.z = 0.0f;
+                    ofp.x = 0.0f;
+                    ofp.y = 2.5f;
+                    obj_no = 0xB;
+                }
+                
+                if (epw->comb_flg & 0x40)
+                {
+                    bhEne_SetBlood4(epw, obj_no, &ofp, 8, 3);
+                } 
+                else
+                {
+                    bhEne_SetBlood4(epw, obj_no, &ofp, 8, 0);
+                }
+            } 
+            else
+            {
+                bhEne_SetBlood(epw, wp->nm_blood, en26prt_blood_tbl);
+            }
+        }
+    }
+    if ((wp->flg & 1) && !(epw->comb_flg & 0x40) && (EXP0_I(0x78) != -1) && (epw->hp < 0))
+    {
+        owk = &epw->mlwP->owP[epw->djnt_no];
+        ofp.x = owk->mtx[12];
+        ofp.y = owk->mtx[13];
+        ofp.z = owk->mtx[14];
+        bhEne_SetNikuhenEffect2(epw, 0, &ofp, 4, 7);
+    }
 }
-*/
 
 // 100% matching!
 void bhEne26_MainLoop(BH_PWORK* epw, BH_PWORK* pl)
