@@ -1321,11 +1321,7 @@ struct _anon36
 };
 
 */
-typedef struct KEFF
-{
-	int mtn_no;
-	short frm[4];
-} KEFF;
+
 /*
 
 struct _anon37
@@ -1594,7 +1590,14 @@ BT_WORK en26prt_blood_tbl[20] =
     {     19,   0.0f,   1.0f,   0.3f,   0.2f,   1.0f,   5.0f,   1.5f }  // [19]
 };
 
-KEFF en26_keff_tbl[5];
+EN26_KAMI_WORK en26_keff_tbl[5] =
+{
+    { 0x02, { 0x1C, 0x26, 0x3E, -1 } },
+    { 0x0C, { 0x18, 0x26, 0x3C, -1 } },
+    { 0x09, { 0x19, 0x2F, 0x42, -1 } },
+    { 0x0E, { 0x09, 0x20, -1, -1 } },
+    { -1, { -1, -1, -1, -1 } }
+};
 
 void (*bhEne26_Mode0[6])(BH_PWORK *) =
 {
@@ -4378,40 +4381,50 @@ void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
     }     
 }
 
-// 
-// Start address: 0x20f930
+// 100% matching!
+// I would like to find a better match tbh
 void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
 {
-	int j;
+	EN26_KAMI_WORK* keff;
+	NJS_POINT3 pd;
 	int i;
-	//_anon28 pd;
-	//_anon36* keff;
-	// Line 4330, Address: 0x20f930, Func Offset: 0
-	// Line 4331, Address: 0x20f93c, Func Offset: 0xc
-	// Line 4330, Address: 0x20f944, Func Offset: 0x14
-	// Line 4336, Address: 0x20f94c, Func Offset: 0x1c
-	// Line 4338, Address: 0x20f950, Func Offset: 0x20
-	// Line 4340, Address: 0x20f960, Func Offset: 0x30
-	// Line 4342, Address: 0x20f96c, Func Offset: 0x3c
-	// Line 4344, Address: 0x20f978, Func Offset: 0x48
-	// Line 4346, Address: 0x20f984, Func Offset: 0x54
-	// Line 4348, Address: 0x20f988, Func Offset: 0x58
-	// Line 4347, Address: 0x20f98c, Func Offset: 0x5c
-	// Line 4348, Address: 0x20f990, Func Offset: 0x60
-	// Line 4350, Address: 0x20f998, Func Offset: 0x68
-	// Line 4351, Address: 0x20f99c, Func Offset: 0x6c
-	// Line 4350, Address: 0x20f9a4, Func Offset: 0x74
-	// Line 4351, Address: 0x20f9a8, Func Offset: 0x78
-	// Line 4353, Address: 0x20f9b4, Func Offset: 0x84
-	// Line 4356, Address: 0x20f9bc, Func Offset: 0x8c
-	// Line 4357, Address: 0x20f9c4, Func Offset: 0x94
-	// Line 4359, Address: 0x20f9d8, Func Offset: 0xa8
-	// Line 4361, Address: 0x20f9e0, Func Offset: 0xb0
-	// Line 4362, Address: 0x20f9ec, Func Offset: 0xbc
-	// Line 4363, Address: 0x20f9f0, Func Offset: 0xc0
-	// Line 4364, Address: 0x20f9fc, Func Offset: 0xcc
-	// Func End, Address: 0x20fa10, Func Offset: 0xe0
-    scePrintf("bhEne26_KamiEffect - UNIMPLEMENTED!\n");
+	int j;
+
+	i = 0;
+	keff = en26_keff_tbl;
+	while (true) 
+	{
+		if (keff->mtn_no == -1)
+        {
+            return;
+        }
+			
+		if (epw->mtn_no == keff->mtn_no)
+		{
+            for (j = 0; j < 4; j++)
+            {
+                if (frm == keff->frm[j])
+                {
+                	pd.x = 0.0f;
+                	pd.y = 0.0f;
+                	pd.z = -1.8f;
+                
+                	epw->djnt_no = 13;
+                	bhEne_SetBlood2(epw, 1, &pd, 0);
+                
+                	if (j == 0)
+                	{
+                		epw->djnt_no = 13;
+                		bhEne_SetBlood2(epw, 4, &pd, epw->ay);
+                	}
+                
+                	return;
+                }
+            }
+		}
+		i++;
+		keff++;        
+	}
 }
 
 // 100% matching!
