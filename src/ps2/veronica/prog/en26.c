@@ -1523,8 +1523,25 @@ static COMBJOINT_WORK CombJointTbl[20] =
 
 /*
 int en26_hp_tbl[16][2];
-_anon3 en26_fire_tbl[14];
 */
+
+EN26_FIRE_WORK en26_fire_tbl[14] =
+{
+    { 0x0B, 2.5f, 1.0f, {  0.5f,  3.0f, -1.0f } },
+    { 0x0B, 1.5f, 1.0f, { -0.5f,  1.0f, -1.0f } },
+    { 0x0B, 4.0f, 1.0f, {  0.5f,  2.5f,  1.0f } },
+    { 0x0B, 2.0f, 1.0f, { -0.5f,  1.0f,  1.0f } },
+    { 0x0E, 2.5f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 0x0F, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 0x11, 2.0f, 1.0f, {  0.5f, -0.5f,  0.0f } },
+    { 0x11, 2.5f, 1.0f, { -1.0f,  0.0f,  0.0f } },
+    { 0x02, 1.5f, 2.0f, {  0.0f, -0.5f,  0.0f } },
+    { 0x03, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    { 0x04, 2.0f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    { 0x06, 3.0f, 1.0f, {  0.0f, -3.0f, -1.0f } },
+    { 0x08, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    { 0x09, 3.0f, 1.0f, {  0.0f, -2.0f,  0.5f } },
+};
 
 CPCL Ene26CapColTab[17] =
 {
@@ -1801,70 +1818,69 @@ void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
     scePrintf("bhEne26_DamageAdd - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x209c50
+// 100% matching!
 void bhEne26_LinkFireEffect(BH_PWORK* epw, int type)
 {
-	int flg;
-	int time;
-	int i;
-	int eno;
-	char* ftbl_p;
-	//_anon3* eff_p;
-	char fire_tbl[8][12];
-	// Line 468, Address: 0x209c50, Func Offset: 0
-	// Line 490, Address: 0x209c5c, Func Offset: 0xc
-	// Line 468, Address: 0x209c60, Func Offset: 0x10
-	// Line 490, Address: 0x209c6c, Func Offset: 0x1c
-	// Line 469, Address: 0x209c74, Func Offset: 0x24
-	// Line 468, Address: 0x209c7c, Func Offset: 0x2c
-	// Line 469, Address: 0x209c80, Func Offset: 0x30
-	// Line 493, Address: 0x209c98, Func Offset: 0x48
-	// Line 469, Address: 0x209ca0, Func Offset: 0x50
-	// Line 495, Address: 0x209cb8, Func Offset: 0x68
-	// Line 502, Address: 0x209cbc, Func Offset: 0x6c
-	// Line 469, Address: 0x209cc0, Func Offset: 0x70
-	// Line 493, Address: 0x209cc8, Func Offset: 0x78
-	// Line 494, Address: 0x209cd8, Func Offset: 0x88
-	// Line 495, Address: 0x209cec, Func Offset: 0x9c
-	// Line 496, Address: 0x209d00, Func Offset: 0xb0
-	// Line 497, Address: 0x209d14, Func Offset: 0xc4
-	// Line 498, Address: 0x209d28, Func Offset: 0xd8
-	// Line 499, Address: 0x209d3c, Func Offset: 0xec
-	// Line 500, Address: 0x209d50, Func Offset: 0x100
-	// Line 504, Address: 0x209d64, Func Offset: 0x114
-	// Line 507, Address: 0x209d70, Func Offset: 0x120
-	// Line 504, Address: 0x209d74, Func Offset: 0x124
-	// Line 507, Address: 0x209d80, Func Offset: 0x130
-	// Line 510, Address: 0x209d88, Func Offset: 0x138
-	// Line 509, Address: 0x209d8c, Func Offset: 0x13c
-	// Line 510, Address: 0x209d94, Func Offset: 0x144
-	// Line 512, Address: 0x209da8, Func Offset: 0x158
-	// Line 514, Address: 0x209db0, Func Offset: 0x160
-	// Line 515, Address: 0x209dbc, Func Offset: 0x16c
-	// Line 514, Address: 0x209dc0, Func Offset: 0x170
-	// Line 515, Address: 0x209dc4, Func Offset: 0x174
-	// Line 518, Address: 0x209dc8, Func Offset: 0x178
-	// Line 515, Address: 0x209dd0, Func Offset: 0x180
-	// Line 514, Address: 0x209dd4, Func Offset: 0x184
-	// Line 515, Address: 0x209dd8, Func Offset: 0x188
-	// Line 517, Address: 0x209df8, Func Offset: 0x1a8
-	// Line 518, Address: 0x209e0c, Func Offset: 0x1bc
-	// Line 519, Address: 0x209e28, Func Offset: 0x1d8
-	// Line 521, Address: 0x209e34, Func Offset: 0x1e4
-	// Line 522, Address: 0x209e5c, Func Offset: 0x20c
-	// Line 525, Address: 0x209e60, Func Offset: 0x210
-	// Line 526, Address: 0x209e6c, Func Offset: 0x21c
-	// Line 525, Address: 0x209e74, Func Offset: 0x224
-	// Line 526, Address: 0x209e80, Func Offset: 0x230
-	// Line 527, Address: 0x209e9c, Func Offset: 0x24c
-	// Line 529, Address: 0x209ea8, Func Offset: 0x258
-	// Line 530, Address: 0x209ed0, Func Offset: 0x280
-	// Line 533, Address: 0x209ed4, Func Offset: 0x284
-	// Line 535, Address: 0x209ed8, Func Offset: 0x288
-	// Line 536, Address: 0x209ee8, Func Offset: 0x298
-	// Func End, Address: 0x209f08, Func Offset: 0x2b8
-    scePrintf("bhEne26_LinkFireEffect - UNIMPLEMENTED!\n");
+    EN26_FIRE_WORK* eff_p;
+    char* ftbl_p;
+    int eno;
+    int i;   
+    int time;
+    int flg;  
+
+    char fire_tbl[12][8] =
+    {
+        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x06, 0x08, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0x09, 0xFF },
+        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x07, 0x0B, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x07, 0x0C, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x06, 0xFF, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0xFF, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x07, 0xFF, 0xFF }, 
+        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x07, 0xFF, 0xFF },
+        { 0x0B, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 
+        { 0x08, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+        { 0x09, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+        { 0x0A, 0x0C, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
+    };
+
+    sys->ef.id = 352;
+    sys->ef.type = 0;
+    sys->ef.flg = 1;
+    sys->ef.sz = 0.0f;
+    sys->ef.px = 0.0f;
+    sys->ef.py = 0.0f;
+    sys->ef.pz = 0.0f;
+    sys->ef.ay = 0;
+    
+    for (i = 0, ftbl_p = fire_tbl[type]; i < 8; i++, ftbl_p++)
+    {
+        eff_p = &en26_fire_tbl[*ftbl_p];
+        if (*ftbl_p != -1)
+        {
+            flg = 1 << *ftbl_p;
+            if (!(EXP0_I(0x38) & flg))
+            {
+                EXP0_I(0x38) |= flg;
+                time = rand() % 5;
+                sys->ef.sy = sys->ef.sx = eff_p->size;
+                sys->ef.type = 0;
+                eno = bhSetEffectTb(&sys->ef, &eff_p->ofs, (unsigned char*)epw, eff_p->obj);
+                if (eno != -1)
+                {
+                    eff[eno].zn = eff_p->len;
+                    eff[eno].ct3 = time;
+                }
+                sys->ef.type = 1;
+                eno = bhSetEffectTb(&sys->ef, &eff_p->ofs, (unsigned char*)epw, eff_p->obj);
+                if (eno != -1)
+                {
+                    eff[eno].zn = eff_p->len;
+                    eff[eno].ct3 = time;
+                }
+            }
+        }
+    } 
 }
 
 // 100% matching!
