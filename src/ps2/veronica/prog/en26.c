@@ -2644,57 +2644,75 @@ void bhEne26_CollCheckWall(BH_PWORK* epw)
     }    
 }
 
-
-// 
-// Start address: 0x20b9f0
+// 100% matching!
 void bhEne26_PlayerLink(BH_PWORK* epw, BH_PWORK* pl)
-{
-	int mtn_no;
-	//_anon28 pd;
-	//_anon28 ps;
-	//_anon28 pos;
-	//_anon21* ply_pos_p;
-	//_anon21* ply_pos[16];
-	// Line 1685, Address: 0x20b9f0, Func Offset: 0
-	// Line 1686, Address: 0x20ba00, Func Offset: 0x10
-	// Line 1685, Address: 0x20ba08, Func Offset: 0x18
-	// Line 1686, Address: 0x20ba10, Func Offset: 0x20
-	// Line 1713, Address: 0x20ba24, Func Offset: 0x34
-	// Line 1686, Address: 0x20ba28, Func Offset: 0x38
-	// Line 1713, Address: 0x20ba38, Func Offset: 0x48
-	// Line 1714, Address: 0x20ba40, Func Offset: 0x50
-	// Line 1715, Address: 0x20ba54, Func Offset: 0x64
-	// Line 1716, Address: 0x20ba68, Func Offset: 0x78
-	// Line 1717, Address: 0x20ba7c, Func Offset: 0x8c
-	// Line 1718, Address: 0x20ba84, Func Offset: 0x94
-	// Line 1719, Address: 0x20ba8c, Func Offset: 0x9c
-	// Line 1721, Address: 0x20baa0, Func Offset: 0xb0
-	// Line 1723, Address: 0x20bab0, Func Offset: 0xc0
-	// Line 1726, Address: 0x20bae0, Func Offset: 0xf0
-	// Line 1727, Address: 0x20bae8, Func Offset: 0xf8
-	// Line 1730, Address: 0x20baf4, Func Offset: 0x104
-	// Line 1731, Address: 0x20bafc, Func Offset: 0x10c
-	// Line 1734, Address: 0x20bb08, Func Offset: 0x118
-	// Line 1735, Address: 0x20bb10, Func Offset: 0x120
-	// Line 1737, Address: 0x20bb1c, Func Offset: 0x12c
-	// Line 1740, Address: 0x20bb20, Func Offset: 0x130
-	// Line 1741, Address: 0x20bb24, Func Offset: 0x134
-	// Line 1740, Address: 0x20bb28, Func Offset: 0x138
-	// Line 1747, Address: 0x20bb34, Func Offset: 0x144
-	// Line 1741, Address: 0x20bb38, Func Offset: 0x148
-	// Line 1743, Address: 0x20bb44, Func Offset: 0x154
-	// Line 1744, Address: 0x20bb4c, Func Offset: 0x15c
-	// Line 1745, Address: 0x20bb50, Func Offset: 0x160
-	// Line 1747, Address: 0x20bb54, Func Offset: 0x164
-	// Line 1748, Address: 0x20bb5c, Func Offset: 0x16c
-	// Line 1749, Address: 0x20bb70, Func Offset: 0x180
-	// Line 1750, Address: 0x20bb84, Func Offset: 0x194
-	// Line 1752, Address: 0x20bb94, Func Offset: 0x1a4
-	// Line 1753, Address: 0x20bb9c, Func Offset: 0x1ac
-	// Line 1754, Address: 0x20bbb0, Func Offset: 0x1c0
-	// Line 1756, Address: 0x20bbc4, Func Offset: 0x1d4
-	// Func End, Address: 0x20bbdc, Func Offset: 0x1ec
-    scePrintf("bhEne26_PlayerLink - UNIMPLEMENTED!\n");
+{	   
+	NJS_POINT2_XZ* ply_pos_p;
+	NJS_POINT3 pos;
+	NJS_POINT3 ps;
+	NJS_POINT3 pd;   
+    int mtn_no;
+          
+    NJS_POINT2_XZ* ply_pos[16] =
+    {
+        cl_mtn01_xz,
+        cl_mtn02_xz,
+        cl_mtn04_xz,
+        cl_mtn05_xz,
+        ch_mtn01_xz,
+        ch_mtn02_xz,
+        ch_mtn04_xz,
+        ch_mtn05_xz,
+        st_mtn01_xz,
+        st_mtn02_xz,
+        st_mtn04_xz,
+        st_mtn05_xz,
+        ch_mtn01_xz,
+        ch_mtn02_xz,
+        ch_mtn04_xz,
+        ch_mtn05_xz
+    };
+    
+    njUnitMatrix(NULL);
+    njTranslate(NULL, epw->px, epw->py, epw->pz);
+    njRotateXYZ(NULL, epw->ax, epw->ay, epw->az);
+    njCalcPoint(NULL, (NJS_POINT3*)(epw->exp0 + 0x64), &pd);
+    pl->px = pd.x;
+    pl->pz = pd.z;
+    pl->ay = (unsigned short)(epw->ay + epw->waxp);
+    if (pl->flg & 0x1000)
+    {
+		if (pl->mtn_no == (En26_PlyMtn_OffsetTbl[sys->ply_id] + 1)) 
+        {
+            mtn_no = 0;
+        }			
+		else if (pl->mtn_no == (En26_PlyMtn_OffsetTbl[sys->ply_id] + 2))
+        {
+            mtn_no = 1;
+        }			
+		else if (pl->mtn_no == (En26_PlyMtn_OffsetTbl[sys->ply_id] + 4))
+        {
+            mtn_no = 2;
+        }			
+		else if (pl->mtn_no == (En26_PlyMtn_OffsetTbl[sys->ply_id] + 5))
+        {
+            mtn_no = 3;
+        }
+			
+        ply_pos_p = ply_pos[(sys->ply_id * 4 + mtn_no)];
+        ply_pos_p += pl->frm_no / 65536;
+        
+        ps.x = ply_pos_p->x;
+        ps.y = 0.0f;
+        ps.z = ply_pos_p->z;
+        njUnitMatrix(NULL);
+        njTranslate(NULL, pl->px, pl->py, pl->pz);
+        njRotateXYZ(NULL, pl->ax, pl->ay, pl->az);
+        njCalcPoint(NULL, &ps, &pos);
+        njUnitMatrix(pl->mtx);
+        njTranslate(pl->mtx, pos.x, pos.y, pos.z);
+        njRotateXYZ(pl->mtx, pl->ax, pl->ayp, pl->az);
+    }
 }
 
 // 100% matching!
