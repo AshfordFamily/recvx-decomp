@@ -23,6 +23,37 @@ typedef struct EN26_FIRE_WORK
 	NJS_POINT3 ofs;
 } EN26_FIRE_WORK;
 
+typedef struct EN26_KAMI_WORK
+{
+	int mtn_no;
+	short frm[4];
+} EN26_KAMI_WORK;
+
+typedef struct EN26_FMTN_WORK
+{
+	int type;
+	int s_frm;
+	int e_frm;
+} EN26_FMTN_WORK;
+
+typedef struct EN26_ATB_WORK
+{
+	int frm;
+	unsigned int act;
+} EN26_ATB_WORK;
+
+typedef struct EN26_MTN_WORK
+{
+	int no;
+	EN26_FMTN_WORK fmtn[3];
+} EN26_MTN_WORK;
+
+typedef struct EN26_MTN2_WORK
+{
+	int no;
+	EN26_ATB_WORK atb[4];
+} EN26_MTN2_WORK;
+
 void bhEne26(BH_PWORK* epw);
 void bhEne26_DmgCheck(BH_PWORK* epw);
 void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl);
