@@ -15,6 +15,14 @@ typedef struct EN26_WPNDAMAGE_WORK
 	int dw_blood;
 } EN26_WPNDAMAGE_WORK;
 
+typedef struct EN26_FIRE_WORK
+{
+	int obj;
+	float size;
+	float len;
+	NJS_POINT3 ofs;
+} EN26_FIRE_WORK;
+
 void bhEne26(BH_PWORK* epw);
 void bhEne26_DmgCheck(BH_PWORK* epw);
 void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl);
