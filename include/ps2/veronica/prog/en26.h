@@ -61,7 +61,7 @@ void bhEne26_Die(BH_PWORK* epw);
 void bhEne26_DDType(BH_PWORK* epw);
 void bhEne26_DD00(BH_PWORK* epw);
 int bhEne26_EatCheck(BH_PWORK* epw, int rng, float dist, int mode);
-void bhEne26_ExpHeadEffect(BH_PWORK* epw);
+void bhEne26_ExpHeadEffect(BH_PWORK* epw, int unused); // different from DWARF
 void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type);
 void bhEne26_KamiEffect(BH_PWORK* epw, int frm);
 void bhEne26_SePlay(BH_PWORK* epw, int no);
