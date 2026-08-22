@@ -14,6 +14,7 @@
 #include "../../../ps2/veronica/prog/njplus.h"
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
 
 #pragma optimization_level 4
 
@@ -1401,7 +1402,7 @@ struct _anon43
 	float r;
 };
 
-struct _anon44
+struct _anon44 COMBWEP_WORK
 {
 	int crit;
 	int pt[3];
@@ -1469,9 +1470,57 @@ EN26_WPNDAMAGE_WORK En26_WpnDamageTbl[22] =
     {0x6000, 2, 1, 2, 3, 3, 3},
     {0x0FC2, 0, 1, 2, 3, 3, 3}
 };
+
+static COMBWEP_WORK CombWepTbl[21] =
+{
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x5A, { 0x0A, 0x00, 0x00 }, 0x5A, 0x05 },
+    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
+    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
+    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
+    { 0xB4, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x19, { 0x09, 0x05, 0x04 }, 0x00, 0x00 },
+    { 0x28, { 0x08, 0x05, 0x04 }, 0x28, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x64, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
+    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 }
+};
+
+static COMBJOINT_WORK CombJointTbl[20] =
+{
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 },
+    { 0x00, 0x00 }
+};
+
 /*
-_anon44 CombWepTbl[21];
-_anon45 CombJointTbl[20];
 int en26_hp_tbl[16][2];
 _anon3 en26_fire_tbl[14];
 */
@@ -1786,72 +1835,106 @@ void bhEne26_LinkFireEffect(BH_PWORK* epw, int type)
 	// Line 536, Address: 0x209ee8, Func Offset: 0x298
 	// Func End, Address: 0x209f08, Func Offset: 0x2b8
 }
-
-// 
-// Start address: 0x209f10
-void bhEne26_DmgCheckType00(BH_PWORK* epw, _anon25* wp_tbl)
-{
-	int act;
-	// Line 555, Address: 0x209f10, Func Offset: 0
-	// Line 558, Address: 0x209f24, Func Offset: 0x14
-	// Line 564, Address: 0x209f38, Func Offset: 0x28
-	// Line 561, Address: 0x209f3c, Func Offset: 0x2c
-	// Line 564, Address: 0x209f40, Func Offset: 0x30
-	// Line 567, Address: 0x209f64, Func Offset: 0x54
-	// Line 569, Address: 0x209f74, Func Offset: 0x64
-	// Line 571, Address: 0x209f7c, Func Offset: 0x6c
-	// Line 572, Address: 0x209f88, Func Offset: 0x78
-	// Line 573, Address: 0x209f94, Func Offset: 0x84
-	// Line 576, Address: 0x209f9c, Func Offset: 0x8c
-	// Line 591, Address: 0x209fac, Func Offset: 0x9c
-	// Line 594, Address: 0x209fb8, Func Offset: 0xa8
-	// Line 595, Address: 0x209fc0, Func Offset: 0xb0
-	// Line 596, Address: 0x209fc4, Func Offset: 0xb4
-	// Line 598, Address: 0x209fc8, Func Offset: 0xb8
-	// Line 599, Address: 0x209fd0, Func Offset: 0xc0
-	// Line 603, Address: 0x209fe0, Func Offset: 0xd0
-	// Line 601, Address: 0x209fe4, Func Offset: 0xd4
-	// Line 603, Address: 0x209fe8, Func Offset: 0xd8
-	// Line 604, Address: 0x209fec, Func Offset: 0xdc
-	// Line 605, Address: 0x209ff0, Func Offset: 0xe0
-	// Line 608, Address: 0x209ff4, Func Offset: 0xe4
-	// Line 613, Address: 0x209ffc, Func Offset: 0xec
-	// Line 615, Address: 0x20a004, Func Offset: 0xf4
-	// Line 617, Address: 0x20a020, Func Offset: 0x110
-	// Line 618, Address: 0x20a02c, Func Offset: 0x11c
-	// Line 620, Address: 0x20a030, Func Offset: 0x120
-	// Line 621, Address: 0x20a038, Func Offset: 0x128
-	// Line 623, Address: 0x20a044, Func Offset: 0x134
-	// Line 624, Address: 0x20a04c, Func Offset: 0x13c
-	// Line 625, Address: 0x20a050, Func Offset: 0x140
-	// Line 627, Address: 0x20a054, Func Offset: 0x144
-	// Line 628, Address: 0x20a05c, Func Offset: 0x14c
-	// Line 630, Address: 0x20a068, Func Offset: 0x158
-	// Line 631, Address: 0x20a070, Func Offset: 0x160
-	// Line 632, Address: 0x20a074, Func Offset: 0x164
-	// Line 634, Address: 0x20a078, Func Offset: 0x168
-	// Line 635, Address: 0x20a080, Func Offset: 0x170
-	// Line 637, Address: 0x20a08c, Func Offset: 0x17c
-	// Line 638, Address: 0x20a094, Func Offset: 0x184
-	// Line 639, Address: 0x20a098, Func Offset: 0x188
-	// Line 641, Address: 0x20a09c, Func Offset: 0x18c
-	// Line 642, Address: 0x20a0a4, Func Offset: 0x194
-	// Line 644, Address: 0x20a0b0, Func Offset: 0x1a0
-	// Line 645, Address: 0x20a0b4, Func Offset: 0x1a4
-	// Line 646, Address: 0x20a0b8, Func Offset: 0x1a8
-	// Line 649, Address: 0x20a0bc, Func Offset: 0x1ac
-	// Line 654, Address: 0x20a100, Func Offset: 0x1f0
-	// Line 655, Address: 0x20a104, Func Offset: 0x1f4
-	// Line 658, Address: 0x20a10c, Func Offset: 0x1fc
-	// Line 660, Address: 0x20a11c, Func Offset: 0x20c
-	// Line 661, Address: 0x20a12c, Func Offset: 0x21c
-	// Line 663, Address: 0x20a168, Func Offset: 0x258
-	// Line 664, Address: 0x20a16c, Func Offset: 0x25c
-	// Line 667, Address: 0x20a174, Func Offset: 0x264
-	// Line 671, Address: 0x20a17c, Func Offset: 0x26c
-	// Func End, Address: 0x20a194, Func Offset: 0x284
-}
 */
+
+// 100% matching!
+void bhEne26_DmgCheckType00(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
+{
+    int act;
+
+    // not present in DWARF
+    EN26_WPNDAMAGE_WORK* wp;
+    
+    wp = &wp_tbl[epw->wpnr_no];
+    act = wp->nm_act;
+    if ((wp->flg & 0x10) && !(EXP0_I(0x40) & 0x440000) && (bhEne26_CheckExpHead(epw) != 0))
+    {
+        epw->hp = -1;
+        bhEne26_ExpHeadEffect(epw, 0);
+        bhEne26_NeckBloodEffect(epw, 0);
+        EXP0_I(0x78) = -1;
+        bhEne26_SePlay(epw, 4869);
+    }
+    
+    if (epw->hp < 0)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode3 = 0;
+        act = wp->dw_act;
+    } 
+    else if (epw->comb_flg & 1)
+    {
+        epw->comb_pnt = 0;
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode3 = 0;
+        act = wp->cb_act;
+    }
+    
+    if (act == 0)
+    {
+        if (!(EXP0_I(0x40) & 0x8000000))
+        {
+            EXP0_I(0x40) |= 0x8000000;
+            EXP0_UC(0x2C) = 0;
+        }
+    }
+    else if (act == 1)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 1;
+        epw->mode3 = 0;
+    }
+    else if (act == 2)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 2;
+        epw->mode3 = 0;
+    }
+    else if (act == 5)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode2 = 3;
+        epw->mode3 = 0;
+    }
+    else if (act == 3)
+    {
+        epw->mode0 = 3;
+        epw->mode1 = 0;
+        epw->mode3 = 0;
+
+        if ((wp->flg & 0x100) && (epw->hp > 0))
+        {
+            if (rand() % 10 >= 3)
+            {
+                epw->mode2 = 2;
+                return;
+            }
+        }
+
+        if (epw->comb_flg & 4)
+        {
+            if (wp->flg & 0x200)
+            {
+                epw->mode2 = (rand() % 3 == 0) ? 3 : 4;
+            } 
+            else
+            {
+                epw->mode2 = 4;
+            }
+        } 
+        else
+        {
+            epw->mode2 = 3;
+        }
+
+    }
+}
+
 // 100% matching!
 int bhEne26_CheckExpHead(BH_PWORK* epw)
 {
@@ -1928,7 +2011,7 @@ void bhEne26_SetBlood(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
                     ofp.z = 0.0f;
                     ofp.x = 0.0f;
                     ofp.y = 2.5f;
-                    obj_no = 0xB;
+                    obj_no = 11;
                 }
 
                 if (wp->cb_blood == 9)
@@ -1971,7 +2054,7 @@ void bhEne26_SetBlood(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
                     ofp.z = 0.0f;
                     ofp.x = 0.0f;
                     ofp.y = 2.5f;
-                    obj_no = 0xB;
+                    obj_no = 11;
                 }
                 
                 if (epw->comb_flg & 0x40)
@@ -3481,7 +3564,7 @@ void bhEne26_NG00(BH_PWORK* epw)
             {
                 epw->spd = 0.05f;
             }
-            bhAddSpeed(epw, 0x8000);
+            bhAddSpeed(epw, 32768);
             epw->ct0++;            
         }
         
@@ -4163,7 +4246,7 @@ int bhEne26_EatCheck(BH_PWORK* epw, int rng, float dist, int mode)
 }
 
 // 100% matching!
-void bhEne26_ExpHeadEffect(BH_PWORK* epw)
+void bhEne26_ExpHeadEffect(BH_PWORK* epw, int unused)
 {
 	NJS_VECTOR v;
 	NJS_POINT3 ps;
