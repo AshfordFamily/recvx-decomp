@@ -15,6 +15,7 @@
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
+#include "../../../ps2/veronica/prog/player.h"
 
 #pragma optimization_level 4
 
@@ -1690,47 +1691,75 @@ void bhEne26(BH_PWORK* epw)
     bhEne26_CalcEnemy(epw);
 }
 
-
-// Start address: 0x2097c0
+// 100% matching!
 void bhEne26_DmgCheck(BH_PWORK* epw)
 {
-	int ang;
-	// Line 294, Address: 0x2097c0, Func Offset: 0
-	// Line 300, Address: 0x2097cc, Func Offset: 0xc
-	// Line 303, Address: 0x2097e8, Func Offset: 0x28
-	// Line 305, Address: 0x2097fc, Func Offset: 0x3c
-	// Line 307, Address: 0x209808, Func Offset: 0x48
-	// Line 317, Address: 0x20988c, Func Offset: 0xcc
-	// Line 320, Address: 0x20989c, Func Offset: 0xdc
-	// Line 324, Address: 0x2098e4, Func Offset: 0x124
-	// Line 328, Address: 0x2098ec, Func Offset: 0x12c
-	// Line 331, Address: 0x209900, Func Offset: 0x140
-	// Line 334, Address: 0x209908, Func Offset: 0x148
-	// Line 337, Address: 0x209918, Func Offset: 0x158
-	// Line 338, Address: 0x209924, Func Offset: 0x164
-	// Line 341, Address: 0x20992c, Func Offset: 0x16c
-	// Line 345, Address: 0x209940, Func Offset: 0x180
-	// Line 346, Address: 0x209960, Func Offset: 0x1a0
-	// Line 347, Address: 0x209964, Func Offset: 0x1a4
-	// Line 346, Address: 0x209968, Func Offset: 0x1a8
-	// Line 347, Address: 0x209970, Func Offset: 0x1b0
-	// Line 349, Address: 0x20997c, Func Offset: 0x1bc
-	// Line 350, Address: 0x209988, Func Offset: 0x1c8
-	// Line 353, Address: 0x209990, Func Offset: 0x1d0
-	// Line 357, Address: 0x2099a4, Func Offset: 0x1e4
-	// Line 360, Address: 0x2099b4, Func Offset: 0x1f4
-	// Line 362, Address: 0x2099c8, Func Offset: 0x208
-	// Line 363, Address: 0x2099d4, Func Offset: 0x214
-	// Line 365, Address: 0x2099ec, Func Offset: 0x22c
-	// Line 369, Address: 0x2099f8, Func Offset: 0x238
-	// Line 371, Address: 0x209a08, Func Offset: 0x248
-	// Func End, Address: 0x209a18, Func Offset: 0x258
-    scePrintf("bhEne26_DmgCheck - UNIMPLEMENTED!\n");
+    int ang;
+
+    if ((epw->flg & 0x4) && !(epw->flg & 0x2) && (bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl), (epw->total_dam != 0)))         
+    {    
+        if ((EXP0_I(0x44) & 0x40) &&
+        (epw->flr_no <= plp->flr_no) &&
+        !(WpnTab[epw->wpnr_no].flg & 0x20) &&
+        !(WpnTab[epw->wpnr_no].flg & 0x20000000) &&
+        (plp->at_flg & 0x2))
+        {
+            return;
+        }
+
+        bhEne26_DamageAdd(epw, En26_WpnDamageTbl);
+    
+        if ((epw->mode0 >= 3) ||
+            (EXP0_I(0x40) & 0x80) ||
+            (EXP0_I(0x40) & 0x40000) && (epw->mode0 == 1) && (epw->mode3 == 0))
+        {
+            return;
+        }
+   
+        EXP0_I(0x40) |= 0x200400;
+        EXP0_I(0x48) = 0;
+    
+        if (epw->comb_flg & 4)
+        {
+            EXP0_I(0x40) |= 0x2000;
+        } 
+        else
+        {
+            EXP0_I(0x40) &= ~0x2000;
+        }
+    
+        ang = njArcTan2(epw->dvx, epw->dvz);
+    
+        if ((unsigned short)(ang - epw->ay) <= NJM_DEG_ANG(180.0f))
+        {
+            EXP0_I(0x44) |= 0x20;
+        } 
+        else
+        {
+            EXP0_I(0x44) &= ~0x20;
+        }
+    
+        bhEne26_DmgCheckType00(epw, En26_WpnDamageTbl);
+        
+        if (EXP0_I(0x78) != -1)
+        {
+            if (epw->hp < 0)
+            {
+                bhEne26_SePlay(epw, 16786197);
+            } 
+            else
+            {
+                bhEne26_SePlay(epw, 16786196);
+            }
+        }
+        bhEne26_SetBlood(epw, En26_WpnDamageTbl);
+    } 
 }
-/* 
+
+
 // 
 // Start address: 0x209a20
-void bhEne26_DamageAdd(BH_PWORK* epw, _anon25* wp_tbl)
+void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
 {
 	int i;
 	int low_flg;
@@ -1769,6 +1798,7 @@ void bhEne26_DamageAdd(BH_PWORK* epw, _anon25* wp_tbl)
 	// Line 445, Address: 0x209c14, Func Offset: 0x1f4
 	// Line 447, Address: 0x209c2c, Func Offset: 0x20c
 	// Func End, Address: 0x209c44, Func Offset: 0x224
+    scePrintf("bhEne26_DamageAdd - UNIMPLEMENTED!\n");
 }
 
 // 
@@ -1780,7 +1810,7 @@ void bhEne26_LinkFireEffect(BH_PWORK* epw, int type)
 	int i;
 	int eno;
 	char* ftbl_p;
-	_anon3* eff_p;
+	//_anon3* eff_p;
 	char fire_tbl[8][12];
 	// Line 468, Address: 0x209c50, Func Offset: 0
 	// Line 490, Address: 0x209c5c, Func Offset: 0xc
@@ -1834,8 +1864,8 @@ void bhEne26_LinkFireEffect(BH_PWORK* epw, int type)
 	// Line 535, Address: 0x209ed8, Func Offset: 0x288
 	// Line 536, Address: 0x209ee8, Func Offset: 0x298
 	// Func End, Address: 0x209f08, Func Offset: 0x2b8
+    scePrintf("bhEne26_LinkFireEffect - UNIMPLEMENTED!\n");
 }
-*/
 
 // 100% matching!
 void bhEne26_DmgCheckType00(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
