@@ -430,73 +430,73 @@ EN26_WPNDAMAGE_WORK En26_WpnDamageTbl[22] =
 
 static COMBWEP_WORK CombWepTbl[21] =
 {
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x5A, { 0x0A, 0x00, 0x00 }, 0x5A, 0x05 },
-    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
-    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
-    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x19, { 0x09, 0x05, 0x04 }, 0x3C, 0x00 },
-    { 0xB4, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x19, { 0x09, 0x05, 0x04 }, 0x00, 0x00 },
-    { 0x28, { 0x08, 0x05, 0x04 }, 0x28, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x64, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 },
-    { 0x00, { 0x00, 0x00, 0x00 }, 0x00, 0x00 }
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 90, { 10, 0, 0 }, 90, 5 },
+    { 25, { 9, 5, 4 }, 60, 0 },
+    { 25, { 9, 5, 4 }, 60, 0 },
+    { 25, { 9, 5, 4 }, 60, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 25, { 9, 5, 4 }, 60, 0 },
+    { 180, { 0, 0, 0 }, 0, 0 },
+    { 25, { 9, 5, 4 }, 0, 0 },
+    { 40, { 8, 5, 4 }, 40, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 100, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 },
+    { 0, { 0, 0, 0 }, 0, 0 }
 };
 
 static COMBJOINT_WORK CombJointTbl[20] =
 {
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 },
-    { 0x00, 0x00 }
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 }
 };
 
-/*
-int en26_hp_tbl[16][2];
-*/
+
+// int en26_hp_tbl[16][2]; // unused
+
 
 EN26_FIRE_WORK en26_fire_tbl[14] =
 {
-    { 0x0B, 2.5f, 1.0f, {  0.5f,  3.0f, -1.0f } },
-    { 0x0B, 1.5f, 1.0f, { -0.5f,  1.0f, -1.0f } },
-    { 0x0B, 4.0f, 1.0f, {  0.5f,  2.5f,  1.0f } },
-    { 0x0B, 2.0f, 1.0f, { -0.5f,  1.0f,  1.0f } },
-    { 0x0E, 2.5f, 1.0f, {  0.0f,  0.0f,  0.0f } },
-    { 0x0F, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } },
-    { 0x11, 2.0f, 1.0f, {  0.5f, -0.5f,  0.0f } },
-    { 0x11, 2.5f, 1.0f, { -1.0f,  0.0f,  0.0f } },
-    { 0x02, 1.5f, 2.0f, {  0.0f, -0.5f,  0.0f } },
-    { 0x03, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
-    { 0x04, 2.0f, 1.5f, {  0.0f,  0.0f,  0.0f } },
-    { 0x06, 3.0f, 1.0f, {  0.0f, -3.0f, -1.0f } },
-    { 0x08, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
-    { 0x09, 3.0f, 1.0f, {  0.0f, -2.0f,  0.5f } },
+    { 11, 2.5f, 1.0f, {  0.5f,  3.0f, -1.0f } },
+    { 11, 1.5f, 1.0f, { -0.5f,  1.0f, -1.0f } },
+    { 11, 4.0f, 1.0f, {  0.5f,  2.5f,  1.0f } },
+    { 11, 2.0f, 1.0f, { -0.5f,  1.0f,  1.0f } },
+    { 14, 2.5f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 15, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 17, 2.0f, 1.0f, {  0.5f, -0.5f,  0.0f } },
+    { 17, 2.5f, 1.0f, { -1.0f,  0.0f,  0.0f } },
+    {  2, 1.5f, 2.0f, {  0.0f, -0.5f,  0.0f } },
+    {  3, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    {  4, 2.0f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    {  6, 3.0f, 1.0f, {  0.0f, -3.0f, -1.0f } },
+    {  8, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    {  9, 3.0f, 1.0f, {  0.0f, -2.0f,  0.5f } },
 };
 
 CPCL Ene26CapColTab[17] =
@@ -522,9 +522,8 @@ CPCL Ene26CapColTab[17] =
 
 char En26SdwTab[5] =
 {
-    0x00, 0x03, 0x04, 0x0C, 0xFF
+    0, 3, 4, 12, 255
 };
-
 BT_WORK en26prt_blood_tbl[20] =
 {
     // lnk_obj,   x,      y,      z,     xlen,   ylen,   size,   len
@@ -552,10 +551,10 @@ BT_WORK en26prt_blood_tbl[20] =
 
 EN26_KAMI_WORK en26_keff_tbl[5] =
 {
-    { 0x02, { 0x1C, 0x26, 0x3E, -1 } },
-    { 0x0C, { 0x18, 0x26, 0x3C, -1 } },
-    { 0x09, { 0x19, 0x2F, 0x42, -1 } },
-    { 0x0E, { 0x09, 0x20, -1, -1 } },
+    {  2, { 28, 38, 62, -1 } },
+    { 12, { 24, 38, 60, -1 } },
+    {  9, { 25, 47, 66, -1 } },
+    { 14, {  9, 32, -1, -1 } },
     { -1, { -1, -1, -1, -1 } }
 };
 
@@ -664,67 +663,71 @@ void bhEne26(BH_PWORK* epw)
 void bhEne26_DmgCheck(BH_PWORK* epw)
 {
     int ang;
-
-    if ((epw->flg & 0x4) && !(epw->flg & 0x2) && (bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl), (epw->total_dam != 0)))         
+    
+    if ((epw->flg & 0x4) && !(epw->flg & 0x2))        
     {    
-        if ((EXP0_I(0x44) & 0x40) &&
-        (epw->flr_no <= plp->flr_no) &&
-        !(WpnTab[epw->wpnr_no].flg & 0x20) &&
-        !(WpnTab[epw->wpnr_no].flg & 0x20000000) &&
-        (plp->at_flg & 0x2))
-        {
-            return;
-        }
-
-        bhEne26_DamageAdd(epw, En26_WpnDamageTbl);
-    
-        if ((epw->mode0 >= 3) ||
-            (EXP0_I(0x40) & 0x80) ||
-            (EXP0_I(0x40) & 0x40000) && (epw->mode0 == 1) && (epw->mode3 == 0))
-        {
-            return;
-        }
-   
-        EXP0_I(0x40) |= 0x200400;
-        EXP0_I(0x48) = 0;
-    
-        if (epw->comb_flg & 4)
-        {
-            EXP0_I(0x40) |= 0x2000;
-        } 
-        else
-        {
-            EXP0_I(0x40) &= ~0x2000;
-        }
-    
-        ang = njArcTan2(epw->dvx, epw->dvz);
-    
-        if ((unsigned short)(ang - epw->ay) <= NJM_DEG_ANG(180.0f))
-        {
-            EXP0_I(0x44) |= 0x20;
-        } 
-        else
-        {
-            EXP0_I(0x44) &= ~0x20;
-        }
-    
-        bhEne26_DmgCheckType00(epw, En26_WpnDamageTbl);
+        bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
         
-        if (EXP0_I(0x78) != -1)
+        if (epw->total_dam != 0)
         {
-            if (epw->hp < 0)
+            if ((EXP0_I(0x44) & 0x40) &&
+                (epw->flr_no <= plp->flr_no) &&
+                !(WpnTab[epw->wpnr_no].flg & 0x20) &&
+                !(WpnTab[epw->wpnr_no].flg & 0x20000000) &&
+                (plp->at_flg & 0x2))
             {
-                bhEne26_SePlay(epw, 16786197);
+                return;
+            }
+    
+            bhEne26_DamageAdd(epw, En26_WpnDamageTbl);
+        
+            if ((epw->mode0 >= 3) ||
+                (EXP0_I(0x40) & 0x80) ||
+                (EXP0_I(0x40) & 0x40000) && (epw->mode0 == 1) && (epw->mode3 == 0))
+            {
+                return;
+            }
+       
+            EXP0_I(0x40) |= 0x200400;
+            EXP0_I(0x48) = 0;
+        
+            if (epw->comb_flg & 4)
+            {
+                EXP0_I(0x40) |= 0x2000;
             } 
             else
             {
-                bhEne26_SePlay(epw, 16786196);
+                EXP0_I(0x40) &= ~0x2000;
             }
+        
+            ang = njArcTan2(epw->dvx, epw->dvz);
+        
+            if ((unsigned short)(ang - epw->ay) <= NJM_DEG_ANG(180.0f))
+            {
+                EXP0_I(0x44) |= 0x20;
+            } 
+            else
+            {
+                EXP0_I(0x44) &= ~0x20;
+            }
+        
+            bhEne26_DmgCheckType00(epw, En26_WpnDamageTbl);
+            
+            if (EXP0_I(0x78) != -1)
+            {
+                if (epw->hp < 0)
+                {
+                    bhEne26_SePlay(epw, 16786197);
+                } 
+                else
+                {
+                    bhEne26_SePlay(epw, 16786196);
+                }
+            }
+            bhEne26_SetBlood(epw, En26_WpnDamageTbl);
         }
-        bhEne26_SetBlood(epw, En26_WpnDamageTbl);
     } 
 }
-
 // 100% matching!
 void bhEne26_DamageAdd(BH_PWORK* epw, EN26_WPNDAMAGE_WORK* wp_tbl)
 {
@@ -796,18 +799,18 @@ void bhEne26_LinkFireEffect(BH_PWORK* epw, int type)
 
     char fire_tbl[12][8] =
     {
-        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x06, 0x08, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0x09, 0xFF },
-        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x07, 0x0B, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x07, 0x0C, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x06, 0xFF, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0xFF, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x04, 0x07, 0xFF, 0xFF }, 
-        { 0x00, 0x01, 0x02, 0x03, 0x05, 0x07, 0xFF, 0xFF },
-        { 0x0B, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 
-        { 0x08, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-        { 0x09, 0x0A, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-        { 0x0A, 0x0C, 0x0D, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
+        {  0,  1,  2,  3,  4,  6,  8, 255 }, 
+        {  0,  1,  2,  3,  5,  6,  9, 255 },
+        {  0,  1,  2,  3,  4,  7, 11, 255 }, 
+        {  0,  1,  2,  3,  5,  7, 12, 255 }, 
+        {  0,  1,  2,  3,  4,  6, 255, 255 }, 
+        {  0,  1,  2,  3,  5,  6, 255, 255 }, 
+        {  0,  1,  2,  3,  4,  7, 255, 255 }, 
+        {  0,  1,  2,  3,  5,  7, 255, 255 },
+        { 11, 10, 13, 255, 255, 255, 255, 255 }, 
+        {  8, 10, 13, 255, 255, 255, 255, 255 },
+        {  9, 10, 13, 255, 255, 255, 255, 255 },
+        { 10, 12, 13, 255, 255, 255, 255, 255 }
     };
 
     sys->ef.id = 352;
@@ -1192,15 +1195,13 @@ int bhEne26_SetMtn(BH_PWORK* epw)
     if (EXP0_I(0x40) & 0x1000000)
     {
         obj = epw->mlwP->objP;
-        obj->pos[2] = 0.0f;
-        obj->pos[0] = 0.0f;
+        obj->pos[0] = obj->pos[2] = 0.0f;
         bhEne_GetTranslateMtn(epw, frm, 0);
     } 
     else if (EXP0_I(0x40) & 0x2000000)
     {
         obj = epw->mlwP->objP;
-        obj->pos[2] = 0.0f;
-        obj->pos[0] = 0.0f;
+        obj->pos[0] = obj->pos[2] = 0.0f;
         bhEne_GetTranslateMtn2(epw, frm, 0);
         bhAddSpeed(epw, 0);
     }
@@ -1512,13 +1513,13 @@ void bhEne26_CollCheck(BH_PWORK* epw)
 // 99.92% matching
 void bhEne26_CollCheckWall(BH_PWORK* epw)
 {
-    NJS_POINT3 ps; // r29+0x60    
-    NJS_POINT3 ops; // r29+0x70    
-    NJS_POINT3 pd; // r29+0x80
-    NJS_POINT3 ps2; // r29+0x90
-    NJS_POINT3 ops2; // r29+0xA0    
-    NJS_POINT3 pd2; // r29+0xB0    
-    O_WORK* owk; // r2
+    NJS_POINT3 ps; 
+    NJS_POINT3 ops;  
+    NJS_POINT3 pd;
+    NJS_POINT3 ps2;
+    NJS_POINT3 ops2;    
+    NJS_POINT3 pd2;   
+    O_WORK* owk;
 
     // not present in DWARF
     int t;
@@ -1767,10 +1768,6 @@ void bhEne26_CalcEnemy(BH_PWORK* epw)
     epw->cah = epw->ah = epw->mlwP->owP[12].mtx[13] - epw->py;
 }
 
-#pragma mpwc_relax     on
-// this was needed for bhSetShadow(En26SdwTab,(unsigned char *)epw, 1.0f, 6.0f, 5.0f, 5.0f);
-// but apparently it matches even without it? I will leave it on for now
-
 // 100% matching!
 void bhEne26_Init(BH_PWORK* epw)
 {
@@ -1858,8 +1855,6 @@ void bhEne26_Init(BH_PWORK* epw)
     epw->mode3 = 0;
     epw->mlwP->owP[10].flg |= 2;
 }
-
-#pragma mpwc_relax     off
 
 // 100% matching!
 void bhEne26_Move(BH_PWORK* epw)
@@ -2463,13 +2458,13 @@ void bhEne26_MV07(BH_PWORK* epw)
         epw->ayp = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
         epw->ayp = (unsigned short)(epw->ayp - epw->ay);
         
-        if (epw->ayp < 0x8001)
+        if (epw->ayp < 32769)
         {
             epw->ayp /= 22;
         } 
         else
         {
-            epw->ayp = (-(0x10000 - epw->ayp) / 22);
+            epw->ayp = (-(65536 - epw->ayp) / 22);
             epw->mtn_md |= 2;
         }
         epw->flg |= 0x40000;
@@ -2481,6 +2476,7 @@ void bhEne26_MV07(BH_PWORK* epw)
         {
             epw->ay += epw->ayp;
         }
+
         if ((epw->frm_no / 65536) == 40)
         {
             epw->mode1 = 1;
@@ -2543,11 +2539,11 @@ void bhEne26_NGType(BH_PWORK* epw)
 // 99.95% matching
 void bhEne26_NG00(BH_PWORK* epw)
 {
-    BH_PWORK* pl; // r16
-    O_WORK* owk; // r3
-    NJS_POINT3 ps; // r29+0x40
-    int ang; // r18    
-    int frm; // r3
+    BH_PWORK* pl;
+    O_WORK* owk;
+    NJS_POINT3 ps;
+    int ang;    
+    int frm;
 
     pl = plp;
 
@@ -3128,7 +3124,7 @@ void bhEne26_DG04(BH_PWORK* epw)
         epw->flg |= 0x40000;
         if (!(EXP0_I(0x40) & 0x200))
         {
-            epw->ayp = (int)(10430.381f * atan2f(epw->dvx, epw->dvz));
+            epw->ayp = (10430.381f * atan2f(epw->dvx, epw->dvz));
         }
         epw->mode3++;
 
@@ -3137,7 +3133,8 @@ void bhEne26_DG04(BH_PWORK* epw)
         frm = epw->frm_no / 65536;        
         if (!(EXP0_I(0x40) & 0x200))
         {
-            if (frm < 10) {
+            if (frm < 10)
+            {
                 ang = (unsigned short)(epw->ayp - epw->ay);
                 if (ang > NJM_DEG_ANG(180.0f))
                 {
@@ -3352,7 +3349,7 @@ void bhEne26_ExpHeadEffect(BH_PWORK* epw, int unused)
 
 	for (i = 0; i < 4; i++)
     {
-		ang1 = (int)(NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
+		ang1 = (NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
 		v.x = -njSin(ang1) * njCos(NJM_DEG_ANG(22.5f));
 		v.y = njSin(NJM_DEG_ANG(22.5f));
 		v.z = -njCos(ang1) * njCos(NJM_DEG_ANG(22.5f));
