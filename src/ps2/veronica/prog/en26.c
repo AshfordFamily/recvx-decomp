@@ -1119,8 +1119,7 @@ int bhEne26_SetMtn(BH_PWORK* epw)
         { -0x800, -0xA00, -0x1000, -0xE00, -0xC00, -0x800, -0x400, -0x200 },
         { 0x800, 0xA00, 0x1000, 0xE00, 0xC00, 0x800, 0x400, 0x200 },
         { -0x800, -0xA00, -0x1000, -0xE00, -0xC00, -0x800, -0x400, -0x200 }
-    }; // @ 0x00320850
-
+    };
     NJS_CNK_OBJECT* obj;
     int ret;
     int frm;
@@ -1169,7 +1168,7 @@ int bhEne26_SetMtn(BH_PWORK* epw)
         }
     }
     
-    ret = bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    ret = bhSetMotion(epw, (int)epw->mtn_add, epw->mtn_md, epw->mtn_tp);
     
     if ((EXP0_I(0x44) & 0x80) && (epw->mtn_no == 25))
     {
@@ -1834,11 +1833,11 @@ void bhEne26_Init(BH_PWORK* epw)
         epw->flg |= 0x800;
     }
     
-    if ((EXP0_I(0x3C) & 0x00FFFFFF) == 0)
+    if ((EXP0_I(0x3C) & 0xFFFFFF) == 0)
     {
         epw->mdflg &= ~0x400;
         EXP0_I(0x3C) = 0xFFB2B2B2U;
-        npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, EXP0_I(0x3C));
+        npSetAllMatColor(epw->mlwP->objP, epw->mlwP->obj_num, (int)EXP0_I(0x3C));
     }
     
     epw->clp_jno[0] = 13;
@@ -1851,7 +1850,7 @@ void bhEne26_Init(BH_PWORK* epw)
     epw->lok_jno = 12;
     epw->comb_flg |= 2;
     bhClrUseKaidanFlag(epw);
-    bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    bhSetMotion(epw, (int)epw->mtn_add, epw->mtn_md, epw->mtn_tp);
     bhEne26_CalcEnemy(epw);
     epw->mode0 = 1;
     epw->mode1 = 0;
@@ -3391,7 +3390,6 @@ void bhEne26_NeckBloodEffect(BH_PWORK* epw, int type)
 }
 
 // 100% matching!
-// I would like to find a better match tbh
 void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
 {
 	EN26_KAMI_WORK* keff;
@@ -3401,7 +3399,8 @@ void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
 
 	i = 0;
 	keff = en26_keff_tbl;
-	while (true) 
+    
+	for (i = 0; TRUE; i++, keff++) 
 	{
 		if (keff->mtn_no == -1)
         {
@@ -3431,8 +3430,6 @@ void bhEne26_KamiEffect(BH_PWORK* epw, int frm)
                 }
             }
 		}
-		i++;
-		keff++;        
 	}
 }
 
