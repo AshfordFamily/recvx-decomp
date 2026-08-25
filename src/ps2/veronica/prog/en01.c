@@ -1814,7 +1814,23 @@ NJS_POINT2_XZ st_mtn05_xz[50] = {
     { -0.00016399999731220305f, 0.1508370041847229f },
     { -4.5000000682193786e-05f, 0.040839001536369324f },
 };
-/*_anon17 en01_keff_tbl[11];
+
+EN01_KAMI_WORK en01_keff_tbl[11] =
+{
+    {   8, { 28, 38, 62, -1 } },
+    {  85, { 24, 38, 60, -1 } },
+    { 120, { 28, 38, 62, -1 } },
+    { 121, { 24, 38, 60, -1 } },
+    {   9, { 27, 45, 63, -1 } },
+    {  43, { 27, 45, 63, -1 } },
+    {  86, { 27, 45, 63, -1 } },
+    {  34, { 25, 47, 66, -1 } },
+    {  46, {  9, 32, -1, -1 } },
+    { 111, { -1,  9, 30, -1 } },
+    {  -1, { -1, -1, -1, -1 } }
+};
+
+/*
 _anon32 en01_weff_tbl[18];*/
 
 const float en01_kamikami[71] =
@@ -8448,42 +8464,50 @@ void bhEne01_CheckMtnTbl(BH_PWORK* epw, int frm)
     }
 }
 
-/*
-// 
-// Start address: 0x187540
+// 100% matching!
 void bhEne01_KamiEffect(BH_PWORK* epw, int frm)
 {
-	int j;
+	EN01_KAMI_WORK* keff;
+	NJS_POINT3 pd;
 	int i;
-	_anon11 pd;
-	_anon17* keff;
-	// Line 11115, Address: 0x187540, Func Offset: 0
-	// Line 11116, Address: 0x18754c, Func Offset: 0xc
-	// Line 11115, Address: 0x187554, Func Offset: 0x14
-	// Line 11121, Address: 0x18755c, Func Offset: 0x1c
-	// Line 11123, Address: 0x187560, Func Offset: 0x20
-	// Line 11125, Address: 0x187570, Func Offset: 0x30
-	// Line 11127, Address: 0x18757c, Func Offset: 0x3c
-	// Line 11129, Address: 0x187588, Func Offset: 0x48
-	// Line 11131, Address: 0x187594, Func Offset: 0x54
-	// Line 11133, Address: 0x187598, Func Offset: 0x58
-	// Line 11132, Address: 0x18759c, Func Offset: 0x5c
-	// Line 11133, Address: 0x1875a0, Func Offset: 0x60
-	// Line 11135, Address: 0x1875a8, Func Offset: 0x68
-	// Line 11136, Address: 0x1875ac, Func Offset: 0x6c
-	// Line 11135, Address: 0x1875b4, Func Offset: 0x74
-	// Line 11136, Address: 0x1875b8, Func Offset: 0x78
-	// Line 11138, Address: 0x1875c4, Func Offset: 0x84
-	// Line 11141, Address: 0x1875cc, Func Offset: 0x8c
-	// Line 11142, Address: 0x1875d4, Func Offset: 0x94
-	// Line 11144, Address: 0x1875e8, Func Offset: 0xa8
-	// Line 11146, Address: 0x1875f0, Func Offset: 0xb0
-	// Line 11147, Address: 0x1875fc, Func Offset: 0xbc
-	// Line 11148, Address: 0x187600, Func Offset: 0xc0
-	// Line 11149, Address: 0x18760c, Func Offset: 0xcc
-	// Func End, Address: 0x187620, Func Offset: 0xe0
+	int j;
+
+	keff = en01_keff_tbl;
+    
+	for (i = 0; TRUE; i++, keff++) 
+	{
+		if (keff->mtn_no == -1)
+        {
+            return;
+        }
+			
+		if (epw->mtn_no == keff->mtn_no)
+		{
+            for (j = 0; j < 4; j++)
+            {
+                if (frm == keff->frm[j])
+                {
+                	pd.x = 0.0f;
+                	pd.y = 0.0f;
+                	pd.z = -1.8f;
+                
+                	epw->djnt_no = 11;
+                	bhEne_SetBlood2(epw, 1, &pd, 0);
+                
+                	if (j == 0)
+                	{
+                		epw->djnt_no = 11;
+                		bhEne_SetBlood2(epw, 4, &pd, epw->ay);
+                	}
+                
+                	return;
+                }
+            }
+		}
+	}
 }
 
+/*
 // 
 // Start address: 0x187620
 void bhEne01_WaterEffect(BH_PWORK* epw, int frm)
