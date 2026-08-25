@@ -8524,26 +8524,31 @@ int bhEne01_KaidanCheck(BH_PWORK* epw)
 	// Func End, Address: 0x18a298, Func Offset: 0x1b8
 }
 
-// 
-// Start address: 0x18a2a0
+// 100% matching!
 int bhEne01_CutLeg(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_CutLeg - UNIMPLEMENTED!\n");
-	// Line 13212, Address: 0x18a2a0, Func Offset: 0
-	// Line 13216, Address: 0x18a2ac, Func Offset: 0xc
-	// Line 13218, Address: 0x18a2c8, Func Offset: 0x28
-	// Line 13236, Address: 0x18a2d8, Func Offset: 0x38
-	// Line 13237, Address: 0x18a2e0, Func Offset: 0x40
-	// Line 13248, Address: 0x18a2e8, Func Offset: 0x48
-	// Line 13249, Address: 0x18a2f8, Func Offset: 0x58
-	// Line 13275, Address: 0x18a300, Func Offset: 0x60
-	// Line 13294, Address: 0x18a310, Func Offset: 0x70
-	// Line 13295, Address: 0x18a318, Func Offset: 0x78
-	// Line 13306, Address: 0x18a320, Func Offset: 0x80
-	// Line 13307, Address: 0x18a330, Func Offset: 0x90
-	// Line 13332, Address: 0x18a338, Func Offset: 0x98
-	// Line 13333, Address: 0x18a33c, Func Offset: 0x9c
-	// Func End, Address: 0x18a34c, Func Offset: 0xac
+    if (EXP0_I(0x44) & 8)
+    {
+        return 0;
+    }
+    
+    if (EXP0_I(0x88) >= 50)
+    {
+        EXP0_I(0x88) = -1;
+        bhEne01_ExpLegEffect(epw, 6);
+        bhEne01_SePlay(epw, (NJS_POINT3*) &epw->px, 4869);
+        return 1;
+    }
+    
+    if (EXP0_I(0x8C) >= 50)
+    {
+        EXP0_I(0x8C) = -1;
+        bhEne01_ExpLegEffect(epw, 3);
+        bhEne01_SePlay(epw, (NJS_POINT3*) &epw->px, 4869);
+        return 1;
+    }
+    
+    return 0;
 }
 
 // 100% matching!
