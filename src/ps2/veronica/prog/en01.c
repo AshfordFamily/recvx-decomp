@@ -36,10 +36,910 @@ const char en01_flipTree2[11] =
     5, 6, -1
 };
 
-/*_anon35 en01_mtn_tbl[26];
-_anon39 en01_mtn_tbl2[60];
-_anon39 en01_mtn_tbl3[16];
-*/
+EN01_MTN_WORK en01_mtn_tbl[26] =
+{
+    {
+        0,
+        {
+            { 8, 0, 10},
+            { 7, 11, 43},
+            { 8, 44, 59}
+        }
+    },
+    {
+        40,
+        {
+            { 8, 0, 7},
+            { 7, 8, 44},
+            { 8, 45, 59}
+        }
+    },
+    {
+        41,
+        {
+            { 8, 0, 9},
+            { 7, 10, 46},
+            { 8, 47, 77}
+        }
+    },
+    {
+        31,
+        {
+            { 8, 0, 9},
+            { 7, 10, 29},
+            { 8, 30, 43}
+        }
+    },
+    {
+        117,
+        {
+            { 8, 0, 9},
+            { 7, 10, 29},
+            { 8, 30, 43}
+        }
+    },
+    {
+        125,
+        {
+            { 8, 0, 12},
+            { 7, 13, 28},
+            { 8, 29, 35}
+        }
+    },
+    {
+        127,
+        {
+            { 0, 0, 15},
+            { 8, 16, 26},
+            { 0, 27, 60}
+        }
+    },
+    {
+        2,
+        {
+            { 1, 0, 69},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        49,
+        {
+            { 1, 0, 69},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        11,
+        {
+            { 7, 0, 14},
+            { 7, 15, 33},
+            { -1, 0, 0}
+        }
+    },
+    {
+        12,
+        {
+            { 1, 0, 16},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        13,
+        {
+            { 6, 0, 49},
+            { 1, 50, 80},
+            { -1, 0, 0}
+        }
+    },
+    {
+        14,
+        {
+            { 1, 38, 80},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        52,
+        {
+            { 0, 31, 44},
+            { 1, 45, 70},
+            { -1, 0, 0}
+        }
+    },
+    {
+        55,
+        {
+            { 1, 30, 65},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        16,
+        {
+            { 0, 0, 7},
+            { 8, 8, 18},
+            { 0, 19, 40}
+        }
+    },
+    {
+        17,
+        {
+            { 1, 0, 11},
+            { 0, 12, 17},
+            { 1, 18, 39}
+        }
+    },
+    {
+        18,
+        {
+            { 1, 0, 26},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        19,
+        {
+            { 1, 0, 37},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        44,
+        {
+            { 8, 0, 13},
+            { 7, 15, 23},
+            { -1, 0, 0}
+        }
+    },
+    {
+        45,
+        {
+            { 7, 3, 14},
+            { 8, 15, 28},
+            { -1, 0, 0}
+        }
+    },
+    {
+        66,
+        {
+            { 1, 0, 44},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        7,
+        {
+            { 0, 0, 17},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        96,
+        {
+            { 7, 0, 15},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        10,
+        {
+            { 0, 0, 38},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    },
+    {
+        -1,
+        {
+            { -1, 0, 0},
+            { -1, 0, 0},
+            { -1, 0, 0}
+        }
+    }
+};
+
+EN01_MTN2_WORK en01_mtn_tbl2[60] =
+{
+    {
+        49,
+        {
+            { 0, 16847639},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        0,
+        {
+            { 12, 70415},
+            { 45, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        40,
+        {
+            { 9, 70415},
+            { 46, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        41,
+        {
+            { 11, 70415},
+            { 48, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        31,
+        {
+            { 11, 70415},
+            { 31, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        117,
+        {
+            { 11, 70415},
+            { 31, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        125,
+        {
+            { 14, 70415},
+            { 30, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        11,
+        {
+            { 16, 8963},
+            { 35, 8963},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        12,
+        {
+            { 17, 8963},
+            { 26, 8963},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        13,
+        {
+            { 5, 70415},
+            { 51, 70415},
+            { 78, 70415},
+            { -1, 0}
+        }
+    },
+    {
+        14,
+        {
+            { 9, 70415},
+            { 40, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        16,
+        {
+            { 11, 70415},
+            { 18, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        17,
+        {
+            { 14, 70415},
+            { 22, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        44,
+        {
+            { 15, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        45,
+        {
+            { 5, 70415},
+            { 16, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        50,
+        {
+            { 0, 4873},
+            { 8, 16782090},
+            { 22, 8963},
+            { -1, 0}
+        }
+    },
+    {
+        123,
+        {
+            { 0, 70415},
+            { 32, 8963},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        53,
+        {
+            { 0, 4873},
+            { 17, 8963},
+            { 43, 16782090},
+            { -1, 0}
+        }
+    },
+    {
+        48,
+        {
+            { 0, 4873},
+            { 14, 8963},
+            { 30, 16782090},
+            { 50, 8963}
+        }
+    },
+    {
+        127,
+        {
+            { 11, 70415},
+            { 40, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        124,
+        {
+            { 0, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        52,
+        {
+            { 9, 70415},
+            { 30, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        55,
+        {
+            { 21, 70415},
+            { 60, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        33,
+        {
+            { 0, 16782102},
+            { 15, 8963},
+            { 21, 8963},
+            { -1, 0}
+        }
+    },
+    {
+        8,
+        {
+            { 2, 16782102},
+            { 24, 8960},
+            { 38, 8960},
+            { 60, 8960}
+        }
+    },
+    {
+        85,
+        {
+            { 24, 8960},
+            { 38, 8960},
+            { 60, 8960},
+            { -1, 0}
+        }
+    },
+    {
+        120,
+        {
+            { 2, 16782102},
+            { 24, 8960},
+            { 38, 8960},
+            { 60, 8960}
+        }
+    },
+    {
+        121,
+        {
+            { 24, 8960},
+            { 38, 8960},
+            { 60, 8960},
+            { -1, 0}
+        }
+    },
+    {
+        9,
+        {
+            { 11, 16782102},
+            { 27, 8960},
+            { 45, 8960},
+            { 63, 8960}
+        }
+    },
+    {
+        43,
+        {
+            { 11, 16782102},
+            { 27, 8960},
+            { 45, 8960},
+            { 63, 8960}
+        }
+    },
+    {
+        86,
+        {
+            { 27, 8960},
+            { 45, 8960},
+            { 63, 8960},
+            { -1, 0}
+        }
+    },
+    {
+        7,
+        {
+            { 17, 16786196},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        34,
+        {
+            { 25, 8960},
+            { 47, 8960},
+            { 66, 8960},
+            { -1, 0}
+        }
+    },
+    {
+        46,
+        {
+            { 7, 8960},
+            { 30, 8960},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        111,
+        {
+            { 9, 8960},
+            { 30, 8960},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        98,
+        {
+            { 44, 70415},
+            { 73, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        99,
+        {
+            { 4, 4876},
+            { 15, 16786197},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        100,
+        {
+            { 4, 4876},
+            { 15, 16786197},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        201,
+        {
+            { 10, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        232,
+        {
+            { 15, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        42,
+        {
+            { 15, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        27,
+        {
+            { 67, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        28,
+        {
+            { 65, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        25,
+        {
+            { 60, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        26,
+        {
+            { 67, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        10,
+        {
+            { 15, 8962},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        58,
+        {
+            { 18, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        56,
+        {
+            { 28, 70415},
+            { 65, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        60,
+        {
+            { 29, 70415},
+            { 62, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        59,
+        {
+            { 22, 70415},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        57,
+        {
+            { 28, 70415},
+            { 63, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        61,
+        {
+            { 29, 70415},
+            { 56, 70415},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        64,
+        {
+            { 0, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        75,
+        {
+            { 0, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        95,
+        {
+            { 16, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        96,
+        {
+            { 19, 8963},
+            { 22, 8963},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        63,
+        {
+            { 19, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        65,
+        {
+            { 0, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        76,
+        {
+            { 0, 8963},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        -1,
+        {
+            { -1, 0},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    }
+};
+
+EN01_MTN2_WORK en01_mtn_tbl3[16] =
+{
+    {
+        8,
+        {
+            { 8, 0},
+            { 24, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        85,
+        {
+            { 7, 0},
+            { 24, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        120,
+        {
+            { 8, 0},
+            { 24, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        121,
+        {
+            { 7, 0},
+            { 24, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        9,
+        {
+            { 20, 0},
+            { 40, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        43,
+        {
+            { 20, 0},
+            { 40, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        86,
+        {
+            { 2, 0},
+            { 40, 0},
+            { 60, 0},
+            { -1, 0}
+        }
+    },
+    {
+        36,
+        {
+            { 23, 1},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        6,
+        {
+            { 23, 1},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        35,
+        {
+            { 36, 1},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        5,
+        {
+            { 36, 1},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        7,
+        {
+            { 13, 1},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        34,
+        {
+            { 25, 0},
+            { 47, 0},
+            { 66, 0},
+            { -1, 0}
+        }
+    },
+    {
+        46,
+        {
+            { 7, 0},
+            { 30, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        111,
+        {
+            { 7, 0},
+            { 30, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    },
+    {
+        -1,
+        {
+            { -1, 0},
+            { -1, 0},
+            { -1, 0},
+            { -1, 0}
+        }
+    }
+};
+
 const char en01_tree[8][8] =
 {
     { 0, 1, 5, 6, 7, 255, 0, 0 },
@@ -7280,145 +8180,267 @@ int bhEne01_SetMtn(BH_PWORK* epw)
 	// Func End, Address: 0x186de8, Func Offset: 0x548
 }
 
-/*// 
-// Start address: 0x186df0
+// 100% matching!
 void bhEne01_CheckMtnTbl(BH_PWORK* epw, int frm)
 {
-	int i;
-	_anon11 vec2;
-	_anon11 vec1;
-	_anon11 vec;
-	BH_PWORK* epp;
-	_anon39* mtbl3;
-	_anon39* mtbl2;
-	_anon35* mtbl;
-	// Line 10881, Address: 0x186df0, Func Offset: 0
-	// Line 10882, Address: 0x186e08, Func Offset: 0x18
-	// Line 10883, Address: 0x186e10, Func Offset: 0x20
-	// Line 10884, Address: 0x186e18, Func Offset: 0x28
-	// Line 10881, Address: 0x186e20, Func Offset: 0x30
-	// Line 10886, Address: 0x186e28, Func Offset: 0x38
-	// Line 10885, Address: 0x186e30, Func Offset: 0x40
-	// Line 10886, Address: 0x186e34, Func Offset: 0x44
-	// Line 10887, Address: 0x186e44, Func Offset: 0x54
-	// Line 10886, Address: 0x186e50, Func Offset: 0x60
-	// Line 10888, Address: 0x186e54, Func Offset: 0x64
-	// Line 10886, Address: 0x186e58, Func Offset: 0x68
-	// Line 10888, Address: 0x186e5c, Func Offset: 0x6c
-	// Line 10887, Address: 0x186e60, Func Offset: 0x70
-	// Line 10891, Address: 0x186e6c, Func Offset: 0x7c
-	// Line 10887, Address: 0x186e70, Func Offset: 0x80
-	// Line 10888, Address: 0x186e78, Func Offset: 0x88
-	// Line 10891, Address: 0x186e8c, Func Offset: 0x9c
-	// Line 10894, Address: 0x186ea8, Func Offset: 0xb8
-	// Line 10896, Address: 0x186ebc, Func Offset: 0xcc
-	// Line 10899, Address: 0x186ec4, Func Offset: 0xd4
-	// Line 10901, Address: 0x186ed4, Func Offset: 0xe4
-	// Line 10903, Address: 0x186ee8, Func Offset: 0xf8
-	// Line 10905, Address: 0x186ef8, Func Offset: 0x108
-	// Line 10906, Address: 0x186f10, Func Offset: 0x120
-	// Line 10907, Address: 0x186f20, Func Offset: 0x130
-	// Line 10908, Address: 0x186f2c, Func Offset: 0x13c
-	// Line 10911, Address: 0x186f34, Func Offset: 0x144
-	// Line 10912, Address: 0x186f4c, Func Offset: 0x15c
-	// Line 10913, Address: 0x186f5c, Func Offset: 0x16c
-	// Line 10916, Address: 0x186f68, Func Offset: 0x178
-	// Line 10920, Address: 0x186f70, Func Offset: 0x180
-	// Line 10922, Address: 0x186f78, Func Offset: 0x188
-	// Line 10928, Address: 0x186f80, Func Offset: 0x190
-	// Line 10924, Address: 0x186f88, Func Offset: 0x198
-	// Line 10928, Address: 0x186fb8, Func Offset: 0x1c8
-	// Line 10931, Address: 0x186fd8, Func Offset: 0x1e8
-	// Line 10932, Address: 0x186fe8, Func Offset: 0x1f8
-	// Line 10934, Address: 0x187008, Func Offset: 0x218
-	// Line 10935, Address: 0x187020, Func Offset: 0x230
-	// Line 10936, Address: 0x187030, Func Offset: 0x240
-	// Line 10937, Address: 0x18703c, Func Offset: 0x24c
-	// Line 10940, Address: 0x187044, Func Offset: 0x254
-	// Line 10941, Address: 0x187054, Func Offset: 0x264
-	// Line 10943, Address: 0x187074, Func Offset: 0x284
-	// Line 10944, Address: 0x187090, Func Offset: 0x2a0
-	// Line 10945, Address: 0x1870a0, Func Offset: 0x2b0
-	// Line 10946, Address: 0x1870ac, Func Offset: 0x2bc
-	// Line 10949, Address: 0x1870b4, Func Offset: 0x2c4
-	// Line 10950, Address: 0x1870cc, Func Offset: 0x2dc
-	// Line 10951, Address: 0x1870dc, Func Offset: 0x2ec
-	// Line 10952, Address: 0x1870e8, Func Offset: 0x2f8
-	// Line 10955, Address: 0x1870f0, Func Offset: 0x300
-	// Line 10956, Address: 0x187108, Func Offset: 0x318
-	// Line 10957, Address: 0x187118, Func Offset: 0x328
-	// Line 10958, Address: 0x187124, Func Offset: 0x334
-	// Line 10961, Address: 0x18712c, Func Offset: 0x33c
-	// Line 10962, Address: 0x187144, Func Offset: 0x354
-	// Line 10963, Address: 0x187154, Func Offset: 0x364
-	// Line 10964, Address: 0x187160, Func Offset: 0x370
-	// Line 10967, Address: 0x187168, Func Offset: 0x378
-	// Line 10968, Address: 0x187178, Func Offset: 0x388
-	// Line 10970, Address: 0x187198, Func Offset: 0x3a8
-	// Line 10972, Address: 0x1871b0, Func Offset: 0x3c0
-	// Line 10974, Address: 0x1871c0, Func Offset: 0x3d0
-	// Line 10975, Address: 0x1871e0, Func Offset: 0x3f0
-	// Line 10976, Address: 0x1871f0, Func Offset: 0x400
-	// Line 10979, Address: 0x1871f8, Func Offset: 0x408
-	// Line 10980, Address: 0x187208, Func Offset: 0x418
-	// Line 10982, Address: 0x187214, Func Offset: 0x424
-	// Line 10985, Address: 0x18721c, Func Offset: 0x42c
-	// Line 10986, Address: 0x18722c, Func Offset: 0x43c
-	// Line 10988, Address: 0x18724c, Func Offset: 0x45c
-	// Line 10989, Address: 0x187268, Func Offset: 0x478
-	// Line 10991, Address: 0x187278, Func Offset: 0x488
-	// Line 10992, Address: 0x187298, Func Offset: 0x4a8
-	// Line 10993, Address: 0x1872a8, Func Offset: 0x4b8
-	// Line 10996, Address: 0x1872b0, Func Offset: 0x4c0
-	// Line 10997, Address: 0x1872c0, Func Offset: 0x4d0
-	// Line 10999, Address: 0x1872cc, Func Offset: 0x4dc
-	// Line 11002, Address: 0x1872d4, Func Offset: 0x4e4
-	// Line 11004, Address: 0x1872e4, Func Offset: 0x4f4
-	// Line 11005, Address: 0x1872fc, Func Offset: 0x50c
-	// Line 11006, Address: 0x18730c, Func Offset: 0x51c
-	// Line 11007, Address: 0x187318, Func Offset: 0x528
-	// Line 11013, Address: 0x187320, Func Offset: 0x530
-	// Line 11015, Address: 0x187330, Func Offset: 0x540
-	// Line 11016, Address: 0x187348, Func Offset: 0x558
-	// Line 11017, Address: 0x187358, Func Offset: 0x568
-	// Line 11018, Address: 0x187364, Func Offset: 0x574
-	// Line 11024, Address: 0x18736c, Func Offset: 0x57c
-	// Line 11026, Address: 0x18737c, Func Offset: 0x58c
-	// Line 11027, Address: 0x187394, Func Offset: 0x5a4
-	// Line 11028, Address: 0x1873a4, Func Offset: 0x5b4
-	// Line 11029, Address: 0x1873b0, Func Offset: 0x5c0
-	// Line 11035, Address: 0x1873b8, Func Offset: 0x5c8
-	// Line 11037, Address: 0x1873c8, Func Offset: 0x5d8
-	// Line 11038, Address: 0x1873e0, Func Offset: 0x5f0
-	// Line 11039, Address: 0x1873f0, Func Offset: 0x600
-	// Line 11040, Address: 0x1873fc, Func Offset: 0x60c
-	// Line 11048, Address: 0x187404, Func Offset: 0x614
-	// Line 11049, Address: 0x187414, Func Offset: 0x624
-	// Line 11050, Address: 0x187418, Func Offset: 0x628
-	// Line 11051, Address: 0x18741c, Func Offset: 0x62c
-	// Line 11056, Address: 0x187430, Func Offset: 0x640
-	// Line 11058, Address: 0x187438, Func Offset: 0x648
-	// Line 11060, Address: 0x187444, Func Offset: 0x654
-	// Line 11062, Address: 0x187450, Func Offset: 0x660
-	// Line 11064, Address: 0x187460, Func Offset: 0x670
-	// Line 11066, Address: 0x187468, Func Offset: 0x678
-	// Line 11068, Address: 0x187478, Func Offset: 0x688
-	// Line 11070, Address: 0x187488, Func Offset: 0x698
-	// Line 11071, Address: 0x18748c, Func Offset: 0x69c
-	// Line 11074, Address: 0x1874a0, Func Offset: 0x6b0
-	// Line 11077, Address: 0x1874b0, Func Offset: 0x6c0
-	// Line 11079, Address: 0x1874b8, Func Offset: 0x6c8
-	// Line 11081, Address: 0x1874c4, Func Offset: 0x6d4
-	// Line 11083, Address: 0x1874d0, Func Offset: 0x6e0
-	// Line 11085, Address: 0x1874e0, Func Offset: 0x6f0
-	// Line 11087, Address: 0x1874e8, Func Offset: 0x6f8
-	// Line 11089, Address: 0x1874f0, Func Offset: 0x700
-	// Line 11091, Address: 0x187500, Func Offset: 0x710
-	// Line 11092, Address: 0x187504, Func Offset: 0x714
-	// Line 11094, Address: 0x187518, Func Offset: 0x728
-	// Func End, Address: 0x18753c, Func Offset: 0x74c
+	EN01_MTN_WORK* mtbl;
+	EN01_MTN2_WORK* mtbl2;
+	EN01_MTN2_WORK* mtbl3;
+    BH_PWORK* epp;
+    int i;   
+  
+    mtbl = en01_mtn_tbl;
+    mtbl2 = en01_mtn_tbl2;
+    mtbl3 = en01_mtn_tbl3;
+    epp = (BH_PWORK*)epw->lkwkp;
+ 
+    {
+        NJS_VECTOR vec = {0.0f, 0.0f, 0.0f};
+	    NJS_VECTOR vec1 = {0.0f, 0.0f, 0.0f};
+	    NJS_VECTOR vec2 = {0.0f, -1.0f, -1.9f};  
+
+        if (sys->rmthp != epw->mnwP)
+        {
+            if (epw->flg & 0x40000)
+            {
+                while (mtbl->no != -1)
+                {                    
+                    if (epw->mtn_no == 2)
+                    {
+                        if (epw->flg & 0x40000)
+                        {
+                            if (epw->flg & 0x80000) 
+                            {
+                                bhCalcFixOffset(epw, en01_tree[0], &vec1, &vec);
+                                epw->px -= vec.x;
+                                epw->pz -= vec.z;
+                                break;
+                            } 
+                            else
+                            {
+                                bhCalcFixOffset(epw, en01_tree[1], &vec1, &vec);
+                                epw->px -= vec.x;
+                                epw->pz -= vec.z;
+                                break;
+                            }
+                            
+                        } 
+                        else
+                        {
+                            break;
+                        }                            
+                    } 
+                    else
+                    {
+                        if (mtbl->no == epw->mtn_no)
+                        {
+                            for (i = 0; i < 3; i++)
+                            {
+                                if ((mtbl->fmtn[i].type != -1) &&
+                                    (frm >= mtbl->fmtn[i].s_frm) &&
+                                    (frm <= mtbl->fmtn[i].e_frm))
+                                {
+                                    switch (mtbl->fmtn[i].type)
+                                    {
+                                    case 0:
+                                        if (epw->mtn_md & 2)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[1], &vec1, &vec);
+                                        }
+                                        else
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[0], &vec1, &vec);
+                                        }
+                                        epw->px -= vec.x;
+                                        epw->pz -= vec.z;
+                                        break;
+                    
+                                    case 1:
+                                        if (epw->mtn_md & 2)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[0], &vec1, &vec);
+                                        }
+                                        else
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[1], &vec1, &vec);
+                                        }
+                                        epw->px -= vec.x;
+                                        epw->pz -= vec.z;
+                                        break;
+                                        
+                                    case 2:
+                                        bhCalcFixOffset(epw, en01_tree[2], &vec1, &vec);
+                                        epw->px -= vec.x;
+                                        epw->pz -= vec.z;
+                                        break;
+                                        
+                                    case 3:
+                                        bhCalcFixOffset(epw, en01_tree[3], &vec1, &vec);
+                                        epw->px -= vec.x;
+                                        epw->pz -= vec.z;
+                                        break;
+                                        
+                                    case 6:
+                                        bhCalcFixOffset(epw, en01_tree[6], &vec1, &vec);
+                                        epw->px -= vec.x;
+                                        epw->pz -= vec.z;
+                                        break;   
+                                        
+                                    case 7:
+                                        if (epw->mtn_md & 2)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[1], &vec2, &vec);
+                                        }
+                                        else
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[0], &vec2, &vec);
+                                        }
+                                        
+                                        if (epw->mtn_no == 125)
+                                        {
+                                            epw->px -= 1.2f * vec.x;
+                                            epw->pz -= 1.2f * vec.z;
+                                        } 
+                                        else
+                                        {
+                                            epw->px -= vec.x;
+                                            epw->pz -= vec.z;
+                                        }                                        
+                                        break;
+                    
+                                    case 8:
+                                        if (epw->mtn_md & 2)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[0], &vec2, &vec);
+                                        }
+                                        else
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[1], &vec2, &vec);
+                                        }
+                                        
+                                        if (epw->mtn_no == 125)
+                                        {
+                                            epw->px -= 1.2f * vec.x;
+                                            epw->pz -= 1.2f * vec.z;
+                                        } 
+                                        else
+                                        {
+                                            epw->px -= vec.x;
+                                            epw->pz -= vec.z;
+                                        }                                          
+                                        break;
+                                        
+                                    case 10:
+                                        if (EXP0_I(0x80) >= 0)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[4], &vec1, &vec);
+                                            epw->px -= vec.x;
+                                            epw->pz -= vec.z;
+                                        } 
+                                        else 
+                                        {
+                                            continue;
+                                        }
+                                        break;
+                                        
+                                    case 11:
+                                        if (EXP0_I(0x84) >= 0)
+                                        {
+                                            bhCalcFixOffset(epw, en01_tree[5], &vec1, &vec);
+                                            epw->px -= vec.x;
+                                            epw->pz -= vec.z;
+                                        } 
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                        break;
+                                        
+                                    case 12:
+                                        if (EXP0_I(0x80) >= 0)
+                                        {
+                                            bhCalcFixOffset(epp, en01_tree[2], &vec1, &vec);
+                                            epp->px -= vec.x;
+                                            epp->pz -= vec.z;
+                                        } 
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                        break; 
+                                        
+                                    case 13:
+                                        if (EXP0_I(0x84) >= 0)
+                                        {
+                                            bhCalcFixOffset(epp, en01_tree[3], &vec1, &vec);
+                                            epp->px -= vec.x;
+                                            epp->pz -= vec.z;
+                                        } 
+                                        else
+                                        {
+                                            continue;
+                                        }                                    
+                                    }                                     
+                                    break;
+                                }
+                            }
+                        }                    
+                        mtbl++;                    
+                    }
+                }
+            }
+            
+            while (mtbl2->no != -1) 
+            {
+                if (mtbl2->no == epw->mtn_no)
+                {
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (mtbl2->atb[i].frm != -1) 
+                        {
+                            if (mtbl2->atb[i].frm == frm) 
+                            {
+                                bhEne01_SePlay(epw, (NJS_POINT3*)&epw->px,mtbl2->atb[i].act);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        } 
+                    }
+                }                
+                mtbl2++;
+            }
+            
+            if (epw->mode0 < 5)
+            {
+                while (mtbl3->no != -1)
+                {                    
+                    if (mtbl3->no == epw->mtn_no) 
+                    {
+                        for (i = 0; i < 4; i++)
+                        {
+                            if (mtbl3->atb[i].frm != -1)
+                            {
+                                if (mtbl3->atb[i].frm == frm) 
+                                {
+                                    bhEne_SetVibration(mtbl3->atb[i].act);
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            } 
+                        }
+                    }
+                    mtbl3++;                              
+                }   
+            }
+        }
+    }
 }
 
+/*
 // 
 // Start address: 0x187540
 void bhEne01_KamiEffect(BH_PWORK* epw, int frm)
@@ -8536,7 +9558,7 @@ int bhEne01_CutLeg(BH_PWORK* epw)
     {
         EXP0_I(0x88) = -1;
         bhEne01_ExpLegEffect(epw, 6);
-        bhEne01_SePlay(epw, (NJS_POINT3*) &epw->px, 4869);
+        bhEne01_SePlay(epw, (NJS_POINT3*)&epw->px, 4869);
         return 1;
     }
     
@@ -8544,7 +9566,7 @@ int bhEne01_CutLeg(BH_PWORK* epw)
     {
         EXP0_I(0x8C) = -1;
         bhEne01_ExpLegEffect(epw, 3);
-        bhEne01_SePlay(epw, (NJS_POINT3*) &epw->px, 4869);
+        bhEne01_SePlay(epw, (NJS_POINT3*)&epw->px, 4869);
         return 1;
     }
     
