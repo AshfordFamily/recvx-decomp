@@ -3984,37 +3984,38 @@ void bhEne01_Brain00(BH_PWORK* epw)
 	// Line 3614, Address: 0x17a724, Func Offset: 0x1e4
 	// Func End, Address: 0x17a734, Func Offset: 0x1f4
 }
+*/
 
-// 
-// Start address: 0x17a740
+// 100% matching!
 void bhEne01_Brain02(BH_PWORK* epw)
 {
-	_anon11 pos;
-	_anon11 ppos;
+	O_WORK* owk;
 	unsigned char rid;
-	_anon2* owk;
-	// Line 3630, Address: 0x17a740, Func Offset: 0
-	// Line 3639, Address: 0x17a750, Func Offset: 0x10
-	// Line 3641, Address: 0x17a758, Func Offset: 0x18
-	// Line 3643, Address: 0x17a76c, Func Offset: 0x2c
-	// Line 3646, Address: 0x17a774, Func Offset: 0x34
-	// Line 3649, Address: 0x17a778, Func Offset: 0x38
-	// Line 3643, Address: 0x17a780, Func Offset: 0x40
-	// Line 3649, Address: 0x17a784, Func Offset: 0x44
-	// Line 3643, Address: 0x17a788, Func Offset: 0x48
-	// Line 3644, Address: 0x17a78c, Func Offset: 0x4c
-	// Line 3645, Address: 0x17a794, Func Offset: 0x54
-	// Line 3646, Address: 0x17a79c, Func Offset: 0x5c
-	// Line 3649, Address: 0x17a7a0, Func Offset: 0x60
-	// Line 3651, Address: 0x17a7b8, Func Offset: 0x78
-	// Line 3652, Address: 0x17a7c4, Func Offset: 0x84
-	// Line 3653, Address: 0x17a7cc, Func Offset: 0x8c
-	// Line 3657, Address: 0x17a7d4, Func Offset: 0x94
-	// Line 3658, Address: 0x17a7e0, Func Offset: 0xa0
-	// Line 3661, Address: 0x17a7ec, Func Offset: 0xac
-	// Func End, Address: 0x17a800, Func Offset: 0xc0
-}
+	NJS_POINT3 ppos;    
+    NJS_POINT3 pos;
 
+    bhEne01_EneSearch(epw);
+    if (EXP0_I(0x40) & 0x400)
+    {
+        owk = plp->mlwP->owP;
+        ppos.x = owk->mtx[12];
+        ppos.y = plp->py;
+        ppos.z = owk->mtx[14];
+        rid = bhCheckRoute((NJS_POINT3*)&epw->px, (NJS_POINT3*)&ppos, &pos);
+        if (rid != 0xFF)
+        {
+            EXP0_F(0x58) = pos.x;
+            EXP0_F(0x60) = pos.z;
+        } 
+        else
+        {
+            EXP0_F(0x58) = ppos.x;
+            EXP0_F(0x60) = ppos.z;
+        }
+
+    }
+}
+/*
 // 
 // Start address: 0x17a800
 int bhEne01_ActionModeCheck(BH_PWORK* epw)
