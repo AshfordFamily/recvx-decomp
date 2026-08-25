@@ -7920,26 +7920,30 @@ void bhEne01_DD00(BH_PWORK* epw)
 	// Func End, Address: 0x18615c, Func Offset: 0x61c
 }
 
-// 
-// Start address: 0x186160
+// 100% matching!
 void bhEne01_DD01(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 10394, Address: 0x186160, Func Offset: 0
-	// Line 10395, Address: 0x18616c, Func Offset: 0xc
-	// Line 10396, Address: 0x186174, Func Offset: 0x14
-	// Line 10399, Address: 0x186194, Func Offset: 0x34
-	// Line 10400, Address: 0x186198, Func Offset: 0x38
-	// Line 10399, Address: 0x18619c, Func Offset: 0x3c
-	// Line 10400, Address: 0x1861a4, Func Offset: 0x44
-	// Line 10403, Address: 0x1861ac, Func Offset: 0x4c
-	// Line 10405, Address: 0x1861b4, Func Offset: 0x54
-	// Line 10406, Address: 0x1861c0, Func Offset: 0x60
-	// Line 10410, Address: 0x1861cc, Func Offset: 0x6c
-	// Line 10412, Address: 0x1861e0, Func Offset: 0x80
-	// Line 10414, Address: 0x1861fc, Func Offset: 0x9c
-	// Line 10421, Address: 0x186208, Func Offset: 0xa8
-	// Func End, Address: 0x186218, Func Offset: 0xb8
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg |= 2;
+        epw->flg &= ~0x28;
+        if (cepw != NULL)
+        {
+            *(int*)cepw |= 2;
+            *(int*)cepw &= ~0x28;
+        }
+        if (!(epw->stflg & 0x100000))
+        {
+            bhSetBloodPoolLnk(epw, (NJS_POINT3*)&epw->px, epw->ay, &en01_BldTbl, 0);
+        }
+        epw->mode3++;
+
+    case 1:
+        break;
+    }
 }
 
 // 
@@ -8006,23 +8010,27 @@ void bhEne01_DD02(BH_PWORK* epw)
 	// Func End, Address: 0x1865c4, Func Offset: 0x3a4
 }
 
-// 
-// Start address: 0x1865d0
+// 100% matching!
 void bhEne01_DD03(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 10551, Address: 0x1865d0, Func Offset: 0
-	// Line 10554, Address: 0x1865f0, Func Offset: 0x20
-	// Line 10555, Address: 0x1865f4, Func Offset: 0x24
-	// Line 10554, Address: 0x1865f8, Func Offset: 0x28
-	// Line 10555, Address: 0x186600, Func Offset: 0x30
-	// Line 10558, Address: 0x186608, Func Offset: 0x38
-	// Line 10560, Address: 0x186610, Func Offset: 0x40
-	// Line 10561, Address: 0x18661c, Func Offset: 0x4c
-	// Line 10563, Address: 0x186628, Func Offset: 0x58
-	// Line 10564, Address: 0x186640, Func Offset: 0x70
-	// Line 10571, Address: 0x18664c, Func Offset: 0x7c
-	// Func End, Address: 0x186654, Func Offset: 0x84
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg |= 2;
+        epw->flg &= ~0x28;
+        if (cepw != NULL)
+        {
+            *(int*)cepw |= 2;
+            *(int*)cepw &= ~0x28;
+        }
+        epw->py += -100.0f;
+        epw->mode3++;
+
+    case 1:
+        break;
+    }
 }
 
 // 
