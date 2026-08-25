@@ -9539,43 +9539,61 @@ int bhEne01_WormCheck(BH_PWORK* epw)
 	// Func End, Address: 0x18a0dc, Func Offset: 0x29c
 }
 
-// 
-// Start address: 0x18a0e0
+// 100% matching!
 int bhEne01_KaidanCheck(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_KaidanCheck - UNIMPLEMENTED!\n");
-	// int idx;
-	// int i;
-	// BH_PWORK* ep;
-	// _anon0* hp;
-	// Line 13021, Address: 0x18a0e0, Func Offset: 0
-	// Line 13027, Address: 0x18a0f0, Func Offset: 0x10
-	// Line 13023, Address: 0x18a0f8, Func Offset: 0x18
-	// Line 13027, Address: 0x18a100, Func Offset: 0x20
-	// Line 13030, Address: 0x18a124, Func Offset: 0x44
-	// Line 13035, Address: 0x18a130, Func Offset: 0x50
-	// Line 13037, Address: 0x18a154, Func Offset: 0x74
-	// Line 13044, Address: 0x18a19c, Func Offset: 0xbc
-	// Line 13046, Address: 0x18a1ac, Func Offset: 0xcc
-	// Line 13049, Address: 0x18a1b4, Func Offset: 0xd4
-	// Line 13052, Address: 0x18a1cc, Func Offset: 0xec
-	// Line 13054, Address: 0x18a1e8, Func Offset: 0x108
-	// Line 13056, Address: 0x18a200, Func Offset: 0x120
-	// Line 13059, Address: 0x18a20c, Func Offset: 0x12c
-	// Line 13062, Address: 0x18a228, Func Offset: 0x148
-	// Line 13063, Address: 0x18a22c, Func Offset: 0x14c
-	// Line 13062, Address: 0x18a230, Func Offset: 0x150
-	// Line 13063, Address: 0x18a234, Func Offset: 0x154
-	// Line 13064, Address: 0x18a240, Func Offset: 0x160
-	// Line 13070, Address: 0x18a248, Func Offset: 0x168
-	// Line 13073, Address: 0x18a264, Func Offset: 0x184
-	// Line 13074, Address: 0x18a268, Func Offset: 0x188
-	// Line 13073, Address: 0x18a26c, Func Offset: 0x18c
-	// Line 13074, Address: 0x18a270, Func Offset: 0x190
-	// Line 13075, Address: 0x18a27c, Func Offset: 0x19c
-	// Line 13079, Address: 0x18a284, Func Offset: 0x1a4
-	// Line 13080, Address: 0x18a288, Func Offset: 0x1a8
-	// Func End, Address: 0x18a298, Func Offset: 0x1b8
+	ATR_WORK* hp;
+	BH_PWORK* ep;   
+    int i;
+	int idx;
+
+    ep = ene;
+    if ((plp->stflg & 0x80000000) || (plp->flg & 4))
+    {
+        return 0;
+    }
+    
+    for (i = 0; i < sys->ewk_n; i++, ep++)
+    {
+        if (ep->id == 1 &&
+            (ep->flg & 1) &&
+            !(ep->flg & 2) &&
+            !(ep->flg & 0x80) &&
+            ep->exp0 != NULL &&
+            ep != epw)
+        {
+            if (EP_EXP0_I(0x40) & 0x400000)
+            {
+                return 0;
+            }
+        }
+    }
+ 
+    hp = bhKaidanAtrCheck(epw, 1.0f, &idx);
+    if (hp != NULL) 
+    {
+        if (hp->prm2 < 4)
+        {
+            return 0;
+        }
+        if (hp->prm0 == 0)
+        {
+            if (plp->flr_no > epw->flr_no)
+            {
+                *(ATR_WORK **)(epw->exp0 + 0x74) = hp;
+                bhSetUseKaidanFlag(epw, hp, idx);
+                return 1;
+            }
+        } 
+        else if (plp->flr_no < epw->flr_no)
+        {
+            *(ATR_WORK **)(epw->exp0 + 0x74) = hp;
+            bhSetUseKaidanFlag(epw, hp, idx);
+            return 1;
+        }
+    }
+
+	return 0;
 }
 
 // 100% matching!
