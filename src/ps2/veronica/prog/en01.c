@@ -6542,68 +6542,127 @@ void bhEne01_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
     scePrintf("bhEne01_PlyDG01 - UNIMPLEMENTED!\n");
 }
 
-//
-// Start address: 0x182020
+// 100% matching!
 void bhEne01_EnemyPushChk(BH_PWORK* epw, int mode)
 {
-	int hit;
-	int i;
-	//_anon11 vec;
-	BH_PWORK* pl;
-	BH_PWORK* ep;
-	// Line 7992, Address: 0x182020, Func Offset: 0
-	// Line 7994, Address: 0x182040, Func Offset: 0x20
-	// Line 7993, Address: 0x182048, Func Offset: 0x28
-	// Line 8000, Address: 0x182058, Func Offset: 0x38
-	// Line 8002, Address: 0x182060, Func Offset: 0x40
-	// Line 8014, Address: 0x182148, Func Offset: 0x128
-	// Line 8017, Address: 0x182174, Func Offset: 0x154
-	// Line 8019, Address: 0x182178, Func Offset: 0x158
-	// Line 8022, Address: 0x1821a0, Func Offset: 0x180
-	// Line 8023, Address: 0x1821b0, Func Offset: 0x190
-	// Line 8024, Address: 0x1821b4, Func Offset: 0x194
-	// Line 8027, Address: 0x1821c4, Func Offset: 0x1a4
-	// Line 8030, Address: 0x1821d8, Func Offset: 0x1b8
-	// Line 8031, Address: 0x1821dc, Func Offset: 0x1bc
-	// Line 8030, Address: 0x1821e0, Func Offset: 0x1c0
-	// Line 8032, Address: 0x1821e8, Func Offset: 0x1c8
-	// Line 8036, Address: 0x1821f0, Func Offset: 0x1d0
-	// Line 8037, Address: 0x1821f8, Func Offset: 0x1d8
-	// Line 8036, Address: 0x1821fc, Func Offset: 0x1dc
-	// Line 8041, Address: 0x182208, Func Offset: 0x1e8
-	// Line 8042, Address: 0x182210, Func Offset: 0x1f0
-	// Line 8043, Address: 0x182214, Func Offset: 0x1f4
-	// Line 8044, Address: 0x182218, Func Offset: 0x1f8
-	// Line 8045, Address: 0x182224, Func Offset: 0x204
-	// Line 8048, Address: 0x182228, Func Offset: 0x208
-	// Line 8051, Address: 0x18223c, Func Offset: 0x21c
-	// Line 8053, Address: 0x182250, Func Offset: 0x230
-	// Line 8056, Address: 0x182260, Func Offset: 0x240
-	// Line 8057, Address: 0x182264, Func Offset: 0x244
-	// Line 8060, Address: 0x18226c, Func Offset: 0x24c
-	// Line 8061, Address: 0x18227c, Func Offset: 0x25c
-	// Line 8064, Address: 0x18228c, Func Offset: 0x26c
-	// Line 8065, Address: 0x182294, Func Offset: 0x274
-	// Line 8067, Address: 0x1822a0, Func Offset: 0x280
-	// Line 8069, Address: 0x1822a4, Func Offset: 0x284
-	// Line 8072, Address: 0x1822ac, Func Offset: 0x28c
-	// Line 8074, Address: 0x1822b0, Func Offset: 0x290
-	// Line 8078, Address: 0x1822b8, Func Offset: 0x298
-	// Line 8080, Address: 0x1822cc, Func Offset: 0x2ac
-	// Line 8081, Address: 0x1822d0, Func Offset: 0x2b0
-	// Line 8084, Address: 0x1822d8, Func Offset: 0x2b8
-	// Line 8087, Address: 0x1822e8, Func Offset: 0x2c8
-	// Line 8088, Address: 0x1822ec, Func Offset: 0x2cc
-	// Line 8091, Address: 0x1822f4, Func Offset: 0x2d4
-	// Line 8092, Address: 0x182304, Func Offset: 0x2e4
-	// Line 8095, Address: 0x182314, Func Offset: 0x2f4
-	// Line 8096, Address: 0x18231c, Func Offset: 0x2fc
-	// Line 8098, Address: 0x182328, Func Offset: 0x308
-	// Line 8103, Address: 0x182330, Func Offset: 0x310
-	// Line 8106, Address: 0x182340, Func Offset: 0x320
-	// Line 8107, Address: 0x182368, Func Offset: 0x348
-	// Func End, Address: 0x18238c, Func Offset: 0x36c
-    scePrintf("bhEne01_EnemyPushChk - UNIMPLEMENTED!\n");
+    BH_PWORK* ep;
+    BH_PWORK* pl;
+    NJS_VECTOR vec;
+    int i;
+    int hit;
+
+    pl = plp;
+    ep = ene;
+
+    for (i = 0; i < sys->ewk_n; i++, ep++)
+    {
+        if (ep->id == 1 || ep->id == 26) 
+        {
+            if ((ep->flg & 1) && !(ep->flg & 2) && !(ep->flg & 0x80) && (ep != epw))
+            {
+                if ((ep->type != 2) && (ep->type != 3) && (ep->type != 6) && (ep->type != 7) && (ep->type != 9) && (ep->type != 10) && (ep->mode0 == 1))
+                {
+                    if (ep->exp0 != NULL)
+                    {
+                        if (!(EP_EXP0_I(0x40) & 0x400000) && !(EP_EXP0_I(0x40) & 0x40000) && !(EP_EXP0_I(0x40) & 0x200))
+                        {
+                            if (mode == 1 && (rand() % 3) != 0)
+                            {
+                                return;
+                            }
+
+                            if (njDistanceP2P((NJS_POINT3*)&pl->px, (NJS_POINT3*)&ep->px) < 10.0f)
+                            {
+                                vec.x = ep->px - pl->px;
+                                vec.y = 0.0f;
+                                vec.z = ep->pz - pl->pz;
+
+                                if (bhDGCdirCheck(&vec, ep->ay) == 0)
+                                {
+                                    hit = 1;
+                                    EP_EXP0_I(0x40) |= 0x2000;
+                                } 
+                                else
+                                {
+                                    hit = 0;
+                                    EP_EXP0_I(0x40) &= ~0x2000;
+                                }
+
+                                ep->mode0 = 3;
+                                ep->mode1 = 0;
+                                ep->mode3 = 0;
+
+                                if (epw->exp1 != NULL)
+                                {
+                                    EPW_EXP1_UC(0xC) = 3; 
+                                }
+
+                                if (bhDGCdirCheck(&vec, pl->ay) != 0)
+                                {
+                                    if (EXP0_I(0x40) & 0x4000)
+                                    {
+                                        if (ep->id == 26)
+                                        {
+                                            ep->mode2 = 2;
+                                        } 
+                                        else
+                                        {
+                                            ep->dvx = -njSin(ep->ay);
+                                            ep->dvz = -njCos(ep->ay);
+                                            ep->dvy = 0.0f;
+
+                                            if (hit != 0)
+                                            {
+                                                ep->mode2 = 4;
+                                            } 
+                                            else
+                                            {
+                                                ep->mode2 = 3;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ep->mode2 = 2;
+                                    }
+                                } 
+                                else
+                                {
+                                    if (EXP0_I(0x40) & 0x4000)
+                                    {
+                                        ep->mode2 = 2;
+                                    }
+                                    else
+                                    {
+                                        if (ep->id == 26)
+                                        {
+                                            ep->mode2 = 2;
+                                        }
+                                        else
+                                        {
+                                            ep->dvx = -njSin(ep->ay);
+                                            ep->dvz = -njCos(ep->ay);
+                                            ep->dvy = 0.0f;
+
+                                            if (hit != 0)
+                                            {
+                                                ep->mode2 = 4;
+                                            } 
+                                            else
+                                            {
+                                                ep->mode2 = 3;
+                                            }
+                                        }
+                                    }
+                                }
+                                EP_EXP0_I(0x40) |= 0x200;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // 100% matching!
