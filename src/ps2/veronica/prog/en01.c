@@ -4182,58 +4182,75 @@ void bhEne01_MVType02(BH_PWORK* epw)
 	// Func End, Address: 0x17b098, Func Offset: 0x178
 }
 
-/*// 
-// Start address: 0x17b0a0
+#pragma divbyzerocheck on
+
 void bhEne01_MV00(BH_PWORK* epw)
 {
+    BH_PWORK* cepw;
 	int frm_no;
-	BH_PWORK* cepw;
-	// Line 4075, Address: 0x17b0a0, Func Offset: 0
-	// Line 4076, Address: 0x17b0b4, Func Offset: 0x14
-	// Line 4079, Address: 0x17b0bc, Func Offset: 0x1c
-	// Line 4082, Address: 0x17b0f4, Func Offset: 0x54
-	// Line 4083, Address: 0x17b124, Func Offset: 0x84
-	// Line 4082, Address: 0x17b130, Func Offset: 0x90
-	// Line 4083, Address: 0x17b134, Func Offset: 0x94
-	// Line 4085, Address: 0x17b154, Func Offset: 0xb4
-	// Line 4087, Address: 0x17b15c, Func Offset: 0xbc
-	// Line 4088, Address: 0x17b188, Func Offset: 0xe8
-	// Line 4090, Address: 0x17b190, Func Offset: 0xf0
-	// Line 4092, Address: 0x17b19c, Func Offset: 0xfc
-	// Line 4093, Address: 0x17b1ac, Func Offset: 0x10c
-	// Line 4092, Address: 0x17b1b4, Func Offset: 0x114
-	// Line 4095, Address: 0x17b1b8, Func Offset: 0x118
-	// Line 4092, Address: 0x17b1bc, Func Offset: 0x11c
-	// Line 4093, Address: 0x17b1d0, Func Offset: 0x130
-	// Line 4097, Address: 0x17b1d4, Func Offset: 0x134
-	// Line 4093, Address: 0x17b1d8, Func Offset: 0x138
-	// Line 4095, Address: 0x17b1e4, Func Offset: 0x144
-	// Line 4096, Address: 0x17b1f4, Func Offset: 0x154
-	// Line 4099, Address: 0x17b204, Func Offset: 0x164
-	// Line 4100, Address: 0x17b228, Func Offset: 0x188
-	// Line 4116, Address: 0x17b234, Func Offset: 0x194
-	// Line 4117, Address: 0x17b240, Func Offset: 0x1a0
-	// Line 4120, Address: 0x17b270, Func Offset: 0x1d0
-	// Line 4121, Address: 0x17b278, Func Offset: 0x1d8
-	// Line 4124, Address: 0x17b27c, Func Offset: 0x1dc
-	// Line 4127, Address: 0x17b284, Func Offset: 0x1e4
-	// Line 4128, Address: 0x17b288, Func Offset: 0x1e8
-	// Line 4127, Address: 0x17b28c, Func Offset: 0x1ec
-	// Line 4128, Address: 0x17b298, Func Offset: 0x1f8
-	// Line 4131, Address: 0x17b2b8, Func Offset: 0x218
-	// Line 4132, Address: 0x17b2c0, Func Offset: 0x220
-	// Line 4134, Address: 0x17b2c8, Func Offset: 0x228
-	// Line 4137, Address: 0x17b2d0, Func Offset: 0x230
-	// Line 4138, Address: 0x17b2e0, Func Offset: 0x240
-	// Line 4141, Address: 0x17b300, Func Offset: 0x260
-	// Line 4142, Address: 0x17b308, Func Offset: 0x268
-	// Line 4148, Address: 0x17b310, Func Offset: 0x270
-	// Line 4150, Address: 0x17b320, Func Offset: 0x280
-	// Line 4151, Address: 0x17b334, Func Offset: 0x294
-	// Line 4153, Address: 0x17b358, Func Offset: 0x2b8
-	// Func End, Address: 0x17b370, Func Offset: 0x2d0
+
+    cepw = (BH_PWORK*)epw->exp1;
+    switch (epw->mode3)
+    {
+    case 0:
+        frm_no = (rand() % epw->mnwP[epw->mtn_no].frm_num) * 65536;
+        bhEne_ChgMtn(epw, 2, 0, 15);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->frm_no = frm_no;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 202, 0, 15);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+            cepw->frm_no = epw->frm_no;
+        }
+        epw->flg |= 0x40000;
+        epw->ct0 = ((rand() % 10) * 20) + 15;
+        EXP0_I(0x40) &= ~0x400;
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 1;
+        epw->mode1 = 1;
+        epw->ct3 = (rand() % 110) + 10;
+        epw->mode3++;
+
+    case 1:
+        epw->ct0--;
+        if (((epw->ct0 <= 0) || (EXP0_I(0x40) & 0x400)) && (epw->type != 8))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        } 
+        break;
+
+    case 2:
+        CEPW_EXP0_I(0x50) += 128;
+        if (((unsigned short)(CEPW_EXP0_I(0x50) - 9102)) < 47332)
+        {
+            CEPW_EXP0_I(0x50) = 9102;
+            epw->mode3++;
+        }
+        break;
+        
+    case 3:
+        CEPW_EXP0_I(0x50) -= 128;
+        if (18204 < ((unsigned short)(CEPW_EXP0_I(0x50) + 9102)))
+        {
+            CEPW_EXP0_I(0x50) = 56434;
+            epw->mode3 = 2;
+        }
+        break;                
+    }
+
+    if (--epw->ct3 < 0)
+    {
+        bhEne01_SePlay(epw, (NJS_VECTOR*)&epw->px, 16847639);
+        epw->ct3 = (rand() % 120) + 180;
+    }
 }
 
+#pragma divbyzerocheck off
+
+/*
 // 
 // Start address: 0x17b370
 void bhEne01_MV01(BH_PWORK* epw)
