@@ -6709,38 +6709,53 @@ void bhEne01_DGType02(BH_PWORK* epw)
 	bhEne01_DamageMode2W[epw->mode2 + 10](epw);
 }
 
-// 
-// Start address: 0x1823d0
+// 100% matching!
 void bhEne01_DG00(BH_PWORK* epw)
 {
-	int mtn_no2;
+    BH_PWORK* cepw;   	
 	int mtn_no1;
-	BH_PWORK* cepw;
-	// Line 8166, Address: 0x1823d0, Func Offset: 0
-	// Line 8167, Address: 0x1823e4, Func Offset: 0x14
-	// Line 8171, Address: 0x1823ec, Func Offset: 0x1c
-	// Line 8174, Address: 0x18240c, Func Offset: 0x3c
-	// Line 8176, Address: 0x182420, Func Offset: 0x50
-	// Line 8178, Address: 0x182424, Func Offset: 0x54
-	// Line 8181, Address: 0x18242c, Func Offset: 0x5c
-	// Line 8182, Address: 0x182430, Func Offset: 0x60
-	// Line 8185, Address: 0x182434, Func Offset: 0x64
-	// Line 8186, Address: 0x182450, Func Offset: 0x80
-	// Line 8185, Address: 0x182454, Func Offset: 0x84
-	// Line 8186, Address: 0x182460, Func Offset: 0x90
-	// Line 8187, Address: 0x182468, Func Offset: 0x98
-	// Line 8189, Address: 0x182470, Func Offset: 0xa0
-	// Line 8191, Address: 0x18249c, Func Offset: 0xcc
-	// Line 8195, Address: 0x1824a8, Func Offset: 0xd8
-	// Line 8197, Address: 0x1824d8, Func Offset: 0x108
-	// Line 8199, Address: 0x1824e0, Func Offset: 0x110
-	// Line 8198, Address: 0x1824e4, Func Offset: 0x114
-	// Line 8199, Address: 0x1824e8, Func Offset: 0x118
-	// Line 8201, Address: 0x1824ec, Func Offset: 0x11c
-	// Line 8203, Address: 0x1824f4, Func Offset: 0x124
-	// Line 8211, Address: 0x1824fc, Func Offset: 0x12c
-	// Func End, Address: 0x182514, Func Offset: 0x144
-    
+	int mtn_no2;
+
+    cepw = (BH_PWORK*)epw->exp1;
+
+    switch (epw->mode3)
+    {
+    case 0:        
+        if (EXP0_I(0x40) & 0x2000)
+        {
+            mtn_no1 = 20;
+            mtn_no2 = 220;
+        } 
+        else
+        {
+            mtn_no1 = 21;
+            mtn_no2 = 221;
+        }
+        
+        bhEne_ChgMtn(epw, mtn_no1, 0, 10);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->flg |= 0x40000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, mtn_no2, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        }
+        epw->mode3++;
+
+    case 1:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 2))
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 0;
+            epw->mode2 = 3;
+            epw->mode3 = 0;
+            if (cepw != NULL)
+            {
+                *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+            }
+        }
+        break;
+    }
 }
 
 // 
