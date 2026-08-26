@@ -10,6 +10,7 @@
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
+#include "../../../ps2/veronica/prog/rutchk.h"
 
 #pragma	optimization_level 4
 
@@ -3949,59 +3950,64 @@ void bhEne01_EneSearch(BH_PWORK* epw)
         }
     }
 }
-/*
-// 
-// Start address: 0x17a540
+
+// 100% matching!
 void bhEne01_Brain00(BH_PWORK* epw)
 {
-	unsigned char RutID;
-	_anon11 pos;
-	// Line 3532, Address: 0x17a540, Func Offset: 0
-	// Line 3537, Address: 0x17a54c, Func Offset: 0xc
-	// Line 3539, Address: 0x17a554, Func Offset: 0x14
-	// Line 3542, Address: 0x17a564, Func Offset: 0x24
-	// Line 3544, Address: 0x17a578, Func Offset: 0x38
-	// Line 3548, Address: 0x17a5bc, Func Offset: 0x7c
-	// Line 3549, Address: 0x17a5c0, Func Offset: 0x80
-	// Line 3548, Address: 0x17a5c4, Func Offset: 0x84
-	// Line 3549, Address: 0x17a5c8, Func Offset: 0x88
-	// Line 3552, Address: 0x17a5d0, Func Offset: 0x90
-	// Line 3549, Address: 0x17a5d4, Func Offset: 0x94
-	// Line 3552, Address: 0x17a5d8, Func Offset: 0x98
-	// Line 3553, Address: 0x17a5e8, Func Offset: 0xa8
-	// Line 3554, Address: 0x17a5ec, Func Offset: 0xac
-	// Line 3558, Address: 0x17a5f4, Func Offset: 0xb4
-	// Line 3559, Address: 0x17a600, Func Offset: 0xc0
-	// Line 3558, Address: 0x17a604, Func Offset: 0xc4
-	// Line 3559, Address: 0x17a608, Func Offset: 0xc8
-	// Line 3560, Address: 0x17a614, Func Offset: 0xd4
-	// Line 3563, Address: 0x17a634, Func Offset: 0xf4
-	// Line 3564, Address: 0x17a64c, Func Offset: 0x10c
-	// Line 3565, Address: 0x17a658, Func Offset: 0x118
-	// Line 3566, Address: 0x17a664, Func Offset: 0x124
-	// Line 3567, Address: 0x17a66c, Func Offset: 0x12c
-	// Line 3571, Address: 0x17a670, Func Offset: 0x130
-	// Line 3574, Address: 0x17a678, Func Offset: 0x138
-	// Line 3575, Address: 0x17a690, Func Offset: 0x150
-	// Line 3576, Address: 0x17a69c, Func Offset: 0x15c
-	// Line 3577, Address: 0x17a6a8, Func Offset: 0x168
-	// Line 3578, Address: 0x17a6b0, Func Offset: 0x170
-	// Line 3593, Address: 0x17a6b8, Func Offset: 0x178
-	// Line 3595, Address: 0x17a6cc, Func Offset: 0x18c
-	// Line 3598, Address: 0x17a6e0, Func Offset: 0x1a0
-	// Line 3597, Address: 0x17a6e4, Func Offset: 0x1a4
-	// Line 3598, Address: 0x17a6e8, Func Offset: 0x1a8
-	// Line 3599, Address: 0x17a6ec, Func Offset: 0x1ac
-	// Line 3602, Address: 0x17a6f0, Func Offset: 0x1b0
-	// Line 3603, Address: 0x17a700, Func Offset: 0x1c0
-	// Line 3607, Address: 0x17a708, Func Offset: 0x1c8
-	// Line 3610, Address: 0x17a710, Func Offset: 0x1d0
-	// Line 3607, Address: 0x17a714, Func Offset: 0x1d4
-	// Line 3610, Address: 0x17a71c, Func Offset: 0x1dc
-	// Line 3614, Address: 0x17a724, Func Offset: 0x1e4
-	// Func End, Address: 0x17a734, Func Offset: 0x1f4
+    NJS_POINT3 pos;
+    unsigned char RutID;
+
+    bhEne01_EneSearch(epw);
+    if (epw->type != 5)
+    {
+        if (EXP0_I(0x40) & 0x400)
+        {
+            if ((EXP0_F(0x54) < 50.0f) && (EXP0_I(0x70) == 0) && (epw->flr_no == plp->flr_no))
+            {
+                EXP0_F(0x58) = plp->px;
+                EXP0_F(0x60) = plp->pz;
+                EXP0_UC(0x2A) = bhCheckRouteID((NJS_POINT3*)&epw->px);
+                EXP0_UC(0x2B) = 0;             
+            } 
+            else
+            {
+                RutID = (unsigned char) bhCheckRouteID((NJS_POINT3*)&epw->px);
+                EXP0_UC(0x2B)++;
+                if ((EXP0_UC(0x2A) == RutID) || (EXP0_UC(0x2B) >= 255))
+                {
+                    RutID = bhCheckRoute((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px, &pos);
+                    EXP0_F(0x58) = pos.x;
+                    EXP0_F(0x60) = pos.z;
+                    EXP0_UC(0x2A) = RutID;
+                    EXP0_UC(0x2B) = 0;
+                }
+            }            
+        }
+    } 
+    else
+    {
+        RutID = bhCheckRoute((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px, &pos);
+        EXP0_F(0x58) = pos.x;
+        EXP0_F(0x60) = pos.z;
+        EXP0_UC(0x2A) = RutID;
+        EXP0_UC(0x2B) = 0;
+    }
+    
+    if (bhEne01_KaidanCheck(epw) != 0)
+    {
+        if (!(epw->flg & 0x200000))
+        {
+            epw->mode1 = 0;
+            epw->mode2 = 8;
+            epw->mode3 = 0;
+            EXP0_I(0x40) |= 0x400000;
+            return;
+        }
+        EXP0_I(0x40) &= ~0x400;
+        bhClrUseKaidanFlag(epw);
+    }
 }
-*/
+
 
 // 100% matching!
 void bhEne01_Brain02(BH_PWORK* epw)
