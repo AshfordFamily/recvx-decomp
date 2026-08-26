@@ -991,6 +991,7 @@ CPCL Ene01CapColTabA[17] =
     {  6,  7,  8 },
     {  0,  0,  0 }
 };
+
 CPCL Ene01CapColTabB[12] = 
 {
     {  9,  9, 18 },
@@ -1006,6 +1007,7 @@ CPCL Ene01CapColTabB[12] =
     { 16, 17,  5 },
     {  0,  0,  0 }
 };
+
 EN01_PERSONAL_TYPE en01_PersonalType[27] = 
 {
     {  30.0f,  70.0f, 14563,   0,   0 },
@@ -1036,26 +1038,32 @@ EN01_PERSONAL_TYPE en01_PersonalType[27] =
     {  30.0f,  70.0f, 14563,  20,  10 },
     {  20.0f,  50.0f, 10922,  30,   0 }
 };
+
 EGG_WORK zob_lkmtab = 
 {
     0x81, 1, 0, 0, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, { 0, 0, 0, 0 } 
 };
+
 BP_WORK en01_BldTbl =
 {
     { 0.0f, 0.1f, 0.0f }, 0, 0.0f, 0.06f, { 0.5f, 0.7f, 0.4f, 1.0f, 1.0f }, { 1, 3, 8, 11, 15 }               
 };
+
 BP_WORK en01_BldTbl2 =
 {
     { 0.0f, 0.1f, 0.0f }, 0, 0.0f, 0.07f, { 1.0f, 0.2f, 0.5f, 0.8f, 0.0f }, { 1, 4, 12, 15, 0 }               
 };
+
 char En01SdwTabW[5] =
 {
     0, 3, 4, 10, -1
 };
+
 char En01SdwTabB[3] =
 {
     8, 10, -1
 };
+
 int en01_walk_mtn[6] = 
 { 
 	0, 200, 40, 240, 41, 241 
@@ -8150,49 +8158,86 @@ void bhEne01_DD03(BH_PWORK* epw)
     }
 }
 
-// 
-/*// Start address: 0x186660
+// 100% matching!
 void bhEne01_ChgWalkMtn(BH_PWORK* epw)
 {
-	int mtn_no2;
-	int mtn_no1;
-	int frm;
 	BH_PWORK* cepw;
-	// Line 10588, Address: 0x186660, Func Offset: 0
-	// Line 10593, Address: 0x186678, Func Offset: 0x18
-	// Line 10589, Address: 0x18667c, Func Offset: 0x1c
-	// Line 10593, Address: 0x186680, Func Offset: 0x20
-	// Line 10595, Address: 0x18668c, Func Offset: 0x2c
-	// Line 10597, Address: 0x18669c, Func Offset: 0x3c
-	// Line 10599, Address: 0x1866b8, Func Offset: 0x58
-	// Line 10606, Address: 0x1866c0, Func Offset: 0x60
-	// Line 10608, Address: 0x1866cc, Func Offset: 0x6c
-	// Line 10610, Address: 0x1866dc, Func Offset: 0x7c
-	// Line 10612, Address: 0x1866f8, Func Offset: 0x98
-	// Line 10621, Address: 0x186700, Func Offset: 0xa0
-	// Line 10625, Address: 0x18671c, Func Offset: 0xbc
-	// Line 10626, Address: 0x186730, Func Offset: 0xd0
-	// Line 10630, Address: 0x186734, Func Offset: 0xd4
-	// Line 10633, Address: 0x18673c, Func Offset: 0xdc
-	// Line 10634, Address: 0x186748, Func Offset: 0xe8
-	// Line 10633, Address: 0x186750, Func Offset: 0xf0
-	// Line 10634, Address: 0x18675c, Func Offset: 0xfc
-	// Line 10633, Address: 0x186760, Func Offset: 0x100
-	// Line 10634, Address: 0x186764, Func Offset: 0x104
-	// Line 10639, Address: 0x18676c, Func Offset: 0x10c
-	// Line 10643, Address: 0x1867a0, Func Offset: 0x140
-	// Line 10644, Address: 0x1867c8, Func Offset: 0x168
-	// Line 10646, Address: 0x1867d0, Func Offset: 0x170
-	// Line 10648, Address: 0x1867dc, Func Offset: 0x17c
-	// Line 10649, Address: 0x186804, Func Offset: 0x1a4
-	// Line 10650, Address: 0x18680c, Func Offset: 0x1ac
-	// Line 10652, Address: 0x186814, Func Offset: 0x1b4
-	// Line 10653, Address: 0x186838, Func Offset: 0x1d8
-	// Line 10656, Address: 0x186840, Func Offset: 0x1e0
-	// Line 10659, Address: 0x18686c, Func Offset: 0x20c
-	// Line 10660, Address: 0x18687c, Func Offset: 0x21c
-	// Func End, Address: 0x186898, Func Offset: 0x238
-}*/
+	int frm;
+	int mtn_no1;   
+  	int mtn_no2;
+
+    cepw = (BH_PWORK*)epw->exp1;
+    if (epw->mtn_no == 117)
+    {
+        if (cepw->mtn_no == 317)
+        {
+            mtn_no1 = en01_walk_mtn[EXP0_I(0xA0)];
+            mtn_no2 = 119;
+        } 
+        else
+        {
+			mtn_no1 = 117;
+			mtn_no2 = 317;            
+        }
+    } 
+    else 
+    {
+        if (epw->mtn_no == 125)
+        {            
+            if (cepw->mtn_no == 325)
+            {
+                mtn_no1 = en01_walk_mtn[EXP0_I(0xA0)];
+                mtn_no2 = 119;
+            }
+            else
+            {
+                mtn_no1 = 125;
+                mtn_no2 = 325; 
+            }
+        } 
+        else if ((cepw->mtn_no == 200) || ((cepw->mtn_no == 240) || (cepw->mtn_no == 241)))
+        {
+            if (EXP0_I(0x44) & 0x80)
+            {
+                mtn_no1 = 125;
+            } 
+            else
+            {
+                mtn_no1 = 117;               
+            }
+            mtn_no2 = 118;
+        } 
+        else
+        {
+            mtn_no1 = en01_walk_mtn[EXP0_I(0xA0)];
+            mtn_no2 = en01_walk_mtn[EXP0_I(0xA0) + 1];
+        }
+        
+    }
+
+    frm = bhGetFrameNum(epw->mnwP[epw->mtn_no].frm_num, epw->mnwP[mtn_no1].frm_num, epw->frm_no) * 65536;
+    bhEne_ChgMtn(epw, mtn_no1, frm, 20);
+    EXP0_I(0x40) &= ~0x3000000;
+    if (cepw != NULL)
+    {
+        if (mtn_no2 == 118)
+        {
+            bhEne_ChgMtn(cepw, mtn_no2, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        } 
+        else if (mtn_no2 == 119)
+        {
+            bhEne_ChgMtn(cepw, mtn_no2, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        } 
+        else
+        {
+            bhEne_ChgMtn(cepw, mtn_no2, epw->frm_no, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        }
+    }
+    epw->flg |= 0x40000;
+}
 
 // 
 // Start address: 0x1868a0
