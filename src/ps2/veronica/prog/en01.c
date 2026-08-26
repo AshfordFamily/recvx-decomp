@@ -11,6 +11,7 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/rutchk.h"
+#include "../../../ps2/veronica/prog/ps2_NaMath.h"
 
 #pragma	optimization_level 4
 
@@ -8821,27 +8822,22 @@ void bhEne01_ExpHeadEffect2(BH_PWORK* epw, int type)
 	// Func End, Address: 0x187f48, Func Offset: 0x168
 }*/
 
-// 
-// Start address: 0x187f50
-void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_POINT3* ps, int n)
+// 99.51% matching
+void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_VECTOR* ps, int n)
 {
-	int i;
-	int ang1;
-	//_anon11 v;
-	// Line 11775, Address: 0x187f50, Func Offset: 0
-	// Line 11780, Address: 0x187f70, Func Offset: 0x20
-	// Line 11782, Address: 0x187f90, Func Offset: 0x40
-	// Line 11780, Address: 0x187f94, Func Offset: 0x44
-	// Line 11782, Address: 0x187f98, Func Offset: 0x48
-	// Line 11784, Address: 0x187fa0, Func Offset: 0x50
-	// Line 11785, Address: 0x187fa4, Func Offset: 0x54
-	// Line 11786, Address: 0x187fbc, Func Offset: 0x6c
-	// Line 11787, Address: 0x187fcc, Func Offset: 0x7c
-	// Line 11788, Address: 0x187fe4, Func Offset: 0x94
-	// Line 11789, Address: 0x18800c, Func Offset: 0xbc
-	// Line 11790, Address: 0x188020, Func Offset: 0xd0
-	// Func End, Address: 0x188044, Func Offset: 0xf4
-	scePrintf("bhEne01_NikuhenEffect - UNIMPLEMENTED!\n");
+	NJS_VECTOR v;
+	int ang1;    
+    int i;
+
+    ang1 = (NJM_DEG_ANG(45.0f) + epw->py);
+    for (i = 0; i < n; i++)
+    {       
+        ang1 += NJM_DEG_ANG(90.0f);
+		v.x = -njSin(ang1) * njCos(NJM_DEG_ANG(22.5f));
+		v.y = njSin(NJM_DEG_ANG(22.5f));
+		v.z = -njCos(ang1) * njCos(NJM_DEG_ANG(22.5f));
+        bhEne_SetNikuhenEffect(epw, 0, ps, &v, bhEne01_ChgTextID(epw, 5));            
+    }        
 }
 
 /*// 
