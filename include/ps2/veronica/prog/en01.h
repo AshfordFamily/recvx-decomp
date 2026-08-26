@@ -4,7 +4,8 @@
 #include "types.h"
 #include "macros.h"
 
-typedef struct {
+typedef struct EN01_PERSONAL_TYPE
+{
 	// total size: 0x14
     float adist; // offset 0x0, size 0x4
     float ndist; // offset 0x4, size 0x4
@@ -12,6 +13,42 @@ typedef struct {
     int add_hp;  // offset 0xC, size 0x4
     int add_atk; // offset 0x10, size 0x4
 } EN01_PERSONAL_TYPE;
+
+typedef struct EN01_FMTN_WORK
+{
+    // total size: 0xC
+	int type;   // offset 0x0, size 0x4
+	int s_frm;  // offset 0x4, size 0x4
+	int e_frm;  // offset 0x8, size 0x4
+} EN01_FMTN_WORK;
+
+typedef struct EN01_ATB_WORK
+{
+    // total size: 0x8
+	int frm;            // offset 0x0, size 0x4
+	unsigned int act;   // offset 0x4, size 0x4
+} EN01_ATB_WORK;
+
+typedef struct EN01_MTN_WORK
+{
+    // total size: 0x28
+	int no;                 // offset 0x0, size 0x4
+	EN01_FMTN_WORK fmtn[3]; // offset 0x4, size 0x24
+} EN01_MTN_WORK;
+
+typedef struct EN01_MTN2_WORK
+{
+    // total size: 0x24
+	int no;                 // offset 0x0, size 0x4
+	EN01_ATB_WORK atb[4];   // offset 0x4, size 0x20
+} EN01_MTN2_WORK;
+
+typedef struct EN01_KAMI_WORK
+{
+    // total size: 0xC
+    int mtn_no;     // offset 0x0, size 0x4
+    short frm[4];   // offset 0x4, size 0x8
+} EN01_KAMI_WORK;
 
 void bhEne01_DmgCheckTypeDmmy();
 void bhEne01(BH_PWORK* epw);
