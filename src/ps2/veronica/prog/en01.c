@@ -7402,49 +7402,51 @@ void bhEne01_DG04(BH_PWORK* epw)
 	// Func End, Address: 0x1838c4, Func Offset: 0x8e4
 }
 
-// 
-// Start address: 0x1838d0
+// 100% matching!
 void bhEne01_DG05(BH_PWORK* epw)
-{
-	// _anon1* opp;
+{    
 	BH_PWORK* cepw;
-	// Line 8963, Address: 0x1838d0, Func Offset: 0
-	// Line 8967, Address: 0x1838e4, Func Offset: 0x14
-	// Line 8965, Address: 0x1838e8, Func Offset: 0x18
-	// Line 8964, Address: 0x1838f0, Func Offset: 0x20
-	// Line 8967, Address: 0x1838f4, Func Offset: 0x24
-	// Line 8970, Address: 0x183910, Func Offset: 0x40
-	// Line 8974, Address: 0x18392c, Func Offset: 0x5c
-	// Line 8977, Address: 0x183930, Func Offset: 0x60
-	// Line 8970, Address: 0x183934, Func Offset: 0x64
-	// Line 8980, Address: 0x183938, Func Offset: 0x68
-	// Line 8982, Address: 0x18393c, Func Offset: 0x6c
-	// Line 8970, Address: 0x183940, Func Offset: 0x70
-	// Line 8973, Address: 0x183948, Func Offset: 0x78
-	// Line 8974, Address: 0x183968, Func Offset: 0x98
-	// Line 8977, Address: 0x18396c, Func Offset: 0x9c
-	// Line 8979, Address: 0x183978, Func Offset: 0xa8
-	// Line 8980, Address: 0x183980, Func Offset: 0xb0
-	// Line 8981, Address: 0x183990, Func Offset: 0xc0
-	// Line 8982, Address: 0x1839a0, Func Offset: 0xd0
-	// Line 8983, Address: 0x1839ac, Func Offset: 0xdc
-	// Line 8986, Address: 0x1839b4, Func Offset: 0xe4
-	// Line 8987, Address: 0x1839c8, Func Offset: 0xf8
-	// Line 8989, Address: 0x1839cc, Func Offset: 0xfc
-	// Line 8990, Address: 0x1839d4, Func Offset: 0x104
-	// Line 8991, Address: 0x1839d8, Func Offset: 0x108
-	// Line 8993, Address: 0x1839ec, Func Offset: 0x11c
-	// Line 8996, Address: 0x1839f8, Func Offset: 0x128
-	// Line 8998, Address: 0x183a28, Func Offset: 0x158
-	// Line 9000, Address: 0x183a30, Func Offset: 0x160
-	// Line 8999, Address: 0x183a34, Func Offset: 0x164
-	// Line 9000, Address: 0x183a38, Func Offset: 0x168
-	// Line 9002, Address: 0x183a3c, Func Offset: 0x16c
-	// Line 9001, Address: 0x183a40, Func Offset: 0x170
-	// Line 9002, Address: 0x183a44, Func Offset: 0x174
-	// Line 9003, Address: 0x183a48, Func Offset: 0x178
-	// Line 9008, Address: 0x183a4c, Func Offset: 0x17c
-	// Func End, Address: 0x183a64, Func Offset: 0x194
+    O_WRK* opp;
+
+    opp = eff;
+    cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 24, 2293760, 0);
+        EXP0_I(0x40) &= ~0x3000000;
+        opp += EXP0_I(0x24);
+        opp->jno[3] = -1;
+        epw->flg &= ~8;
+        EXP0_I(0x7C) = -1;
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 5;
+        EXP0_I(0x40) |= 0x40000000;
+        if (cepw != NULL)
+        {
+            if (epw->stflg & 0x100000)
+            {
+                cepw->hp = -1;
+            }
+            cepw->mode2 = 5;
+            cepw->mode3 = 0;
+            CEPW_EXP0_I(0x40) |= 0x40000000;
+        }
+        epw->mode3++;
+
+    case 1:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 2))
+        {
+            epw->hp = -1;
+            epw->mtn_add = 0;
+            epw->mode0 = 4;
+            epw->mode1 = 0;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
 // 
