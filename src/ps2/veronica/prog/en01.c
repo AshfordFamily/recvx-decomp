@@ -4934,86 +4934,123 @@ void bhEne01_MV04(BH_PWORK* epw)
     scePrintf("bhEne01_MV04 - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x17d300
+// 100% matching!
 void bhEne01_MV05(BH_PWORK* epw)
 {
-	int frm;
-	float hit;
-	BH_PWORK* pl;
 	BH_PWORK* cepw;
-	// Line 5345, Address: 0x17d300, Func Offset: 0
-	// Line 5348, Address: 0x17d31c, Func Offset: 0x1c
-	// Line 5354, Address: 0x17d320, Func Offset: 0x20
-	// Line 5346, Address: 0x17d324, Func Offset: 0x24
-	// Line 5348, Address: 0x17d328, Func Offset: 0x28
-	// Line 5354, Address: 0x17d32c, Func Offset: 0x2c
-	// Line 5358, Address: 0x17d354, Func Offset: 0x54
-	// Line 5359, Address: 0x17d38c, Func Offset: 0x8c
-	// Line 5361, Address: 0x17d394, Func Offset: 0x94
-	// Line 5363, Address: 0x17d3d4, Func Offset: 0xd4
-	// Line 5365, Address: 0x17d3f4, Func Offset: 0xf4
-	// Line 5370, Address: 0x17d3f8, Func Offset: 0xf8
-	// Line 5365, Address: 0x17d408, Func Offset: 0x108
-	// Line 5366, Address: 0x17d40c, Func Offset: 0x10c
-	// Line 5367, Address: 0x17d418, Func Offset: 0x118
-	// Line 5370, Address: 0x17d420, Func Offset: 0x120
-	// Line 5371, Address: 0x17d428, Func Offset: 0x128
-	// Line 5374, Address: 0x17d434, Func Offset: 0x134
-	// Line 5376, Address: 0x17d43c, Func Offset: 0x13c
-	// Line 5379, Address: 0x17d448, Func Offset: 0x148
-	// Line 5383, Address: 0x17d474, Func Offset: 0x174
-	// Line 5382, Address: 0x17d478, Func Offset: 0x178
-	// Line 5383, Address: 0x17d47c, Func Offset: 0x17c
-	// Line 5385, Address: 0x17d490, Func Offset: 0x190
-	// Line 5389, Address: 0x17d4c8, Func Offset: 0x1c8
-	// Line 5395, Address: 0x17d4d8, Func Offset: 0x1d8
-	// Line 5398, Address: 0x17d4dc, Func Offset: 0x1dc
-	// Line 5389, Address: 0x17d4e0, Func Offset: 0x1e0
-	// Line 5400, Address: 0x17d4e4, Func Offset: 0x1e4
-	// Line 5403, Address: 0x17d4e8, Func Offset: 0x1e8
-	// Line 5389, Address: 0x17d4ec, Func Offset: 0x1ec
-	// Line 5390, Address: 0x17d4f4, Func Offset: 0x1f4
-	// Line 5395, Address: 0x17d504, Func Offset: 0x204
-	// Line 5398, Address: 0x17d510, Func Offset: 0x210
-	// Line 5399, Address: 0x17d514, Func Offset: 0x214
-	// Line 5400, Address: 0x17d518, Func Offset: 0x218
-	// Line 5403, Address: 0x17d528, Func Offset: 0x228
-	// Line 5406, Address: 0x17d540, Func Offset: 0x240
-	// Line 5407, Address: 0x17d54c, Func Offset: 0x24c
-	// Line 5411, Address: 0x17d554, Func Offset: 0x254
-	// Line 5414, Address: 0x17d568, Func Offset: 0x268
-	// Line 5416, Address: 0x17d58c, Func Offset: 0x28c
-	// Line 5417, Address: 0x17d5b4, Func Offset: 0x2b4
-	// Line 5419, Address: 0x17d5bc, Func Offset: 0x2bc
-	// Line 5421, Address: 0x17d5e4, Func Offset: 0x2e4
-	// Line 5424, Address: 0x17d5ec, Func Offset: 0x2ec
-	// Line 5425, Address: 0x17d614, Func Offset: 0x314
-	// Line 5427, Address: 0x17d61c, Func Offset: 0x31c
-	// Line 5431, Address: 0x17d648, Func Offset: 0x348
-	// Line 5434, Address: 0x17d660, Func Offset: 0x360
-	// Line 5438, Address: 0x17d668, Func Offset: 0x368
-	// Line 5434, Address: 0x17d66c, Func Offset: 0x36c
-	// Line 5435, Address: 0x17d678, Func Offset: 0x378
-	// Line 5438, Address: 0x17d688, Func Offset: 0x388
-	// Line 5439, Address: 0x17d68c, Func Offset: 0x38c
-	// Line 5440, Address: 0x17d690, Func Offset: 0x390
-	// Line 5442, Address: 0x17d694, Func Offset: 0x394
-	// Line 5444, Address: 0x17d69c, Func Offset: 0x39c
-	// Line 5446, Address: 0x17d6a4, Func Offset: 0x3a4
-	// Line 5447, Address: 0x17d6ac, Func Offset: 0x3ac
-	// Line 5452, Address: 0x17d6b4, Func Offset: 0x3b4
-	// Line 5454, Address: 0x17d6d8, Func Offset: 0x3d8
-	// Line 5456, Address: 0x17d6e0, Func Offset: 0x3e0
-	// Line 5461, Address: 0x17d6e8, Func Offset: 0x3e8
-	// Line 5463, Address: 0x17d718, Func Offset: 0x418
-	// Line 5464, Address: 0x17d720, Func Offset: 0x420
-	// Line 5465, Address: 0x17d724, Func Offset: 0x424
-	// Line 5468, Address: 0x17d728, Func Offset: 0x428
-	// Line 5470, Address: 0x17d730, Func Offset: 0x430
-	// Line 5475, Address: 0x17d738, Func Offset: 0x438
-	// Func End, Address: 0x17d758, Func Offset: 0x458
-    scePrintf("bhEne01_MV05 - UNIMPLEMENTED!\n");
+	BH_PWORK* pl;
+	float hit;    
+	int frm;
+
+    cepw = (BH_PWORK*)epw->exp1;
+    pl = plp;
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 122, 0, 8);
+        EXP0_I(0x40) &= ~0x2000000;
+        EXP0_I(0x40) |= 0x1000000;
+        
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 322, 0, 8);
+            CEPW_EXP0_I(0x40) &= ~0x2000000;
+            CEPW_EXP0_I(0x40) |= 0x1000000;
+        }
+        
+        epw->ay = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
+        EXP0_F(0x68) = 0.0f;
+        EXP0_F(0x64)= epw->px;
+        EXP0_F(0x6C) = epw->pz;
+        bhEne01_SePlay(epw, (NJS_POINT3*)&epw->px, 16782102);
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if (frm < 13)
+        {
+            epw->ay += ikou3(epw, (NJS_POINT3*)&plp->mlwP->owP->mtx[12], 1536);
+        }
+        
+        hit = 0.0f;
+        if (frm >= 8)
+        {
+            if ((frm < 13) && !(plp->flg & 4) && (bhEne01_EatCheck(epw, 3640, 5.5f, 0) != 0))
+            {
+                plp->flg |= 0x10004;
+                EXP0_I(0x40) |= 0x80;
+                epw->flg &= ~0x40;
+                *(int*)&pl->mode0 = 4;
+                pl->mode3 = 4;
+                EXP0_I(0x40) |= 0x20000;
+                
+                if (bhCdirCheck(plp->ay, epw->ay) == 0)
+                {
+                    EXP0_I(0x40) |= 0x4000;
+                } 
+                else
+                {
+                    EXP0_I(0x40) &= ~0x4000;
+                }
+                
+                if (sys->ply_id == 1 || sys->ply_id == 3)
+                {
+                    bhEne_ChgMtn(epw, 121, 0, 5);
+                    EXP0_I(0x40) &= ~0x3000000;
+                    
+                    if (cepw != NULL)
+                    {
+                        bhEne_ChgMtn(cepw, 321, 0, 5);
+                        CEPW_EXP0_I(0x40) &= ~0x3000000;
+                    }
+                }
+                else
+                {
+                    bhEne_ChgMtn(epw, 85, 0, 5);
+                    EXP0_I(0x40) &= ~0x3000000;
+                    
+                    if (cepw != NULL)
+                    {
+                        bhEne_ChgMtn(cepw, 285, 0, 5);
+                        CEPW_EXP0_I(0x40) &= ~0x3000000;
+                    }
+                }
+                
+                epw->ay = NitenDir_ck(epw->px, epw->pz, pl->px, pl->pz);
+                EXP0_I(0x40) &= ~0xF;
+                EXP0_I(0x40) |= 5;
+                epw->mode0 = 2;
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 2;
+                if (cepw != NULL)
+                {
+                    *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+                }
+                epw->ct0 = 75;
+                hit = 1.0f;
+            }
+        }
+        if ((frm == 12) && (hit == 0.0f))
+        {
+            epw->mode3++;
+        }
+        break;
+        
+    case 2:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+            if (cepw != NULL)
+            {
+                *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+            }
+        }
+        break;
+    }
 }
 
 // 100% matching!
