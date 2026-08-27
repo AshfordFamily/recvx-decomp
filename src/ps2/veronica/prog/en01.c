@@ -2596,76 +2596,94 @@ void bhEne01_SearchNeck(BH_PWORK* epw)
 	}
 }
 
-// 
-// Start address: 0x1770a0
+// 100% matching!
 void bhEne01_PlayerLink(BH_PWORK* ply, BH_PWORK* epw)
 {
-	int mtn_no;
-	scePrintf("bhEne01_PlayerLink - UNIMPLEMENTED!\n");
-	//_anon11 pd;
-	//_anon11 ps;
-	//_anon11 opos;
-	//_anon11 pos;
-	//_anon29* ply_pos_p;
-	//_anon29* ply_pos[16];
-	// Line 1404, Address: 0x1770a0, Func Offset: 0
-	// Line 1405, Address: 0x1770b8, Func Offset: 0x18
-	// Line 1404, Address: 0x1770bc, Func Offset: 0x1c
-	// Line 1405, Address: 0x1770c0, Func Offset: 0x20
-	// Line 1404, Address: 0x1770c4, Func Offset: 0x24
-	// Line 1405, Address: 0x1770cc, Func Offset: 0x2c
-	// Line 1433, Address: 0x1770e0, Func Offset: 0x40
-	// Line 1405, Address: 0x1770e4, Func Offset: 0x44
-	// Line 1433, Address: 0x1770f4, Func Offset: 0x54
-	// Line 1434, Address: 0x1770fc, Func Offset: 0x5c
-	// Line 1435, Address: 0x177110, Func Offset: 0x70
-	// Line 1436, Address: 0x177124, Func Offset: 0x84
-	// Line 1437, Address: 0x177138, Func Offset: 0x98
-	// Line 1438, Address: 0x17713c, Func Offset: 0x9c
-	// Line 1441, Address: 0x177140, Func Offset: 0xa0
-	// Line 1437, Address: 0x177148, Func Offset: 0xa8
-	// Line 1438, Address: 0x17714c, Func Offset: 0xac
-	// Line 1442, Address: 0x177150, Func Offset: 0xb0
-	// Line 1438, Address: 0x177154, Func Offset: 0xb4
-	// Line 1439, Address: 0x177158, Func Offset: 0xb8
-	// Line 1441, Address: 0x17716c, Func Offset: 0xcc
-	// Line 1442, Address: 0x177178, Func Offset: 0xd8
-	// Line 1444, Address: 0x177184, Func Offset: 0xe4
-	// Line 1446, Address: 0x177194, Func Offset: 0xf4
-	// Line 1449, Address: 0x1771c4, Func Offset: 0x124
-	// Line 1450, Address: 0x1771cc, Func Offset: 0x12c
-	// Line 1453, Address: 0x1771d8, Func Offset: 0x138
-	// Line 1454, Address: 0x1771e0, Func Offset: 0x140
-	// Line 1457, Address: 0x1771ec, Func Offset: 0x14c
-	// Line 1458, Address: 0x1771f4, Func Offset: 0x154
-	// Line 1460, Address: 0x177200, Func Offset: 0x160
-	// Line 1463, Address: 0x177204, Func Offset: 0x164
-	// Line 1464, Address: 0x177208, Func Offset: 0x168
-	// Line 1463, Address: 0x17720c, Func Offset: 0x16c
-	// Line 1470, Address: 0x177218, Func Offset: 0x178
-	// Line 1464, Address: 0x17721c, Func Offset: 0x17c
-	// Line 1466, Address: 0x177228, Func Offset: 0x188
-	// Line 1467, Address: 0x177230, Func Offset: 0x190
-	// Line 1468, Address: 0x177234, Func Offset: 0x194
-	// Line 1470, Address: 0x177238, Func Offset: 0x198
-	// Line 1471, Address: 0x177240, Func Offset: 0x1a0
-	// Line 1472, Address: 0x177254, Func Offset: 0x1b4
-	// Line 1473, Address: 0x177268, Func Offset: 0x1c8
-	// Line 1475, Address: 0x177278, Func Offset: 0x1d8
-	// Line 1476, Address: 0x177280, Func Offset: 0x1e0
-	// Line 1477, Address: 0x177294, Func Offset: 0x1f4
-	// Line 1478, Address: 0x1772a8, Func Offset: 0x208
-	// Line 1481, Address: 0x1772b0, Func Offset: 0x210
-	// Line 1482, Address: 0x1772bc, Func Offset: 0x21c
-	// Line 1483, Address: 0x1772d0, Func Offset: 0x230
-	// Line 1484, Address: 0x1772e4, Func Offset: 0x244
-	// Line 1494, Address: 0x1772f4, Func Offset: 0x254
-	// Line 1495, Address: 0x177310, Func Offset: 0x270
-	// Line 1496, Address: 0x177320, Func Offset: 0x280
-	// Line 1497, Address: 0x177330, Func Offset: 0x290
-	// Line 1498, Address: 0x177340, Func Offset: 0x2a0
-	// Func End, Address: 0x177364, Func Offset: 0x2c4
-	scePrintf("bhEne01_PlayerLink - UNIMPLEMENTED!\n");
+    NJS_POINT2_XZ* ply_pos_p; 
+    NJS_POINT3 pos;
+    NJS_POINT3 opos;
+    NJS_POINT3 ps;
+    NJS_POINT3 pd; 
+    int mtn_no;
+
+    NJS_POINT2_XZ* ply_pos[16] =
+    {
+        cl_mtn01_xz,
+        cl_mtn02_xz,
+        cl_mtn04_xz,
+        cl_mtn05_xz,
+        ch_mtn01_xz,
+        ch_mtn02_xz,
+        ch_mtn04_xz,
+        ch_mtn05_xz,
+        st_mtn01_xz,
+        st_mtn02_xz,
+        st_mtn04_xz,
+        st_mtn05_xz,
+        ch_mtn01_xz,
+        ch_mtn02_xz,
+        ch_mtn04_xz,
+        ch_mtn05_xz
+    };
+    
+    njUnitMatrix(NULL);
+    njTranslate(NULL, epw->px, epw->py, epw->pz);
+    njRotateXYZ(NULL, epw->ax, epw->ay, epw->az);
+    njCalcPoint(NULL, (NJS_POINT3*)(epw->exp0 + 0x64), &pd);
+    ply->px = pd.x;
+    ply->pz = pd.z;
+    ply->ay = (unsigned short)(epw->ay + epw->waxp);
+    ps.z = 0;
+    ps.y = 0;
+    ps.x = 0;
+    njCalcPoint(ply->mtx, (NJS_POINT3*)&ps, &opos);
+    
+    if (ply->flg & 0x1000)
+    {
+		if (ply->mtn_no == (En01_PlyMtn_OffsetTbl[sys->ply_id] + 1)) 
+        {
+            mtn_no = 0;
+        }			
+		else if (ply->mtn_no == (En01_PlyMtn_OffsetTbl[sys->ply_id] + 2))
+        {
+            mtn_no = 1;
+        }			
+		else if (ply->mtn_no == (En01_PlyMtn_OffsetTbl[sys->ply_id] + 4))
+        {
+            mtn_no = 2;
+        }			
+		else if (ply->mtn_no == (En01_PlyMtn_OffsetTbl[sys->ply_id] + 5))
+        {
+            mtn_no = 3;
+        }
+        
+        ply_pos_p = ply_pos[(sys->ply_id * 4 + mtn_no)];
+        ply_pos_p += ply->frm_no / 65536;
+        
+        ps.x = ply_pos_p->x;
+        ps.y = 0.0f;
+        ps.z = ply_pos_p->z;
+        
+        njUnitMatrix(NULL);
+        njTranslate(NULL, ply->px, ply->py, ply->pz);
+        njRotateXYZ(NULL, ply->ax, ply->ay, ply->az);
+        njCalcPoint(NULL, &ps, &pos);
+        njUnitMatrix(ply->mtx);
+        njTranslate(ply->mtx, pos.x, pos.y, pos.z);
+        njRotateXYZ(ply->mtx, ply->ax, ply->ayp, ply->az);
+    } 
+    else
+    {
+        njUnitMatrix(NULL);
+        njTranslate(NULL, ply->px, ply->py, ply->pz);
+        njRotateXYZ(NULL, ply->ax, ply->ay, ply->az);
+        njCalcPoint(NULL, &ps, &pos);
+    }
+    
+    bhEne_CollisionCheckWall2(ply, &pos, &opos, &pd, ply->ar, ply->ah);
+    epw->px += pd.x;
+    epw->py += pd.y;
+    epw->pz += pd.z;
 }
 
 // 100% matched!
