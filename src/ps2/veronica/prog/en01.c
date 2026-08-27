@@ -3264,34 +3264,51 @@ void bhEne01_DamageAdd(BH_PWORK* epw)
 	// Func End, Address: 0x178c70, Func Offset: 0x290
 }
 
-// 
-// Start address: 0x178c70
+// 100% matching!
 void bhEne01_PartsDamageCheck(BH_PWORK* epw)
 {
-	int tmp;
-	int* d;
-	// Line 2525, Address: 0x178c70, Func Offset: 0
-	// Line 2530, Address: 0x178c84, Func Offset: 0x14
-	// Line 2532, Address: 0x178c98, Func Offset: 0x28
-	// Line 2533, Address: 0x178cac, Func Offset: 0x3c
-	// Line 2535, Address: 0x178ccc, Func Offset: 0x5c
-	// Line 2536, Address: 0x178ce0, Func Offset: 0x70
-	// Line 2538, Address: 0x178d00, Func Offset: 0x90
-	// Line 2539, Address: 0x178d14, Func Offset: 0xa4
-	// Line 2541, Address: 0x178d34, Func Offset: 0xc4
-	// Line 2543, Address: 0x178d48, Func Offset: 0xd8
-	// Line 2544, Address: 0x178d54, Func Offset: 0xe4
-	// Line 2543, Address: 0x178d58, Func Offset: 0xe8
-	// Line 2544, Address: 0x178d60, Func Offset: 0xf0
-	// Line 2545, Address: 0x178d64, Func Offset: 0xf4
-	// Line 2548, Address: 0x178d7c, Func Offset: 0x10c
-	// Line 2550, Address: 0x178d90, Func Offset: 0x120
-	// Line 2551, Address: 0x178da0, Func Offset: 0x130
-	// Line 2550, Address: 0x178da4, Func Offset: 0x134
-	// Line 2551, Address: 0x178da8, Func Offset: 0x138
-	// Line 2552, Address: 0x178dac, Func Offset: 0x13c
-	// Line 2554, Address: 0x178dc4, Func Offset: 0x154
-	// Func End, Address: 0x178dcc, Func Offset: 0x15c
+    int* d;
+    int tmp;
+
+    EXP0_I(0x44) &= ~4;
+    EXP0_I(0x78) += epw->dam[11];
+
+    d = epw->dam;
+
+    if (EXP0_I(0x80) >= 0)
+    {
+        EXP0_I(0x80) += d[15] + d[16] + d[17];
+    }
+
+    if (EXP0_I(0x84) >= 0)
+    {
+        EXP0_I(0x84) += d[12] + d[13] + d[14];
+    }
+
+    if (EXP0_I(0x7C) >= 0)
+    {
+        EXP0_I(0x7C) += d[1] + d[8] + d[9];
+    }
+
+    if (EXP0_I(0x88) >= 0)
+    {
+        tmp = d[5] + d[6] + d[7];
+        EXP0_I(0x88) += tmp;
+        if (tmp > 0)
+        {
+            EXP0_I(0x44) |= 4;
+        }
+    }
+
+    if (EXP0_I(0x8C) >= 0) 
+    {
+        tmp = d[2] + d[3] + d[4];
+        EXP0_I(0x8C) += tmp;
+        if (tmp > 0)
+        {
+            EXP0_I(0x44) |= 4;
+        }
+    }
 }
 
 // 
