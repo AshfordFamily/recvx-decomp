@@ -5365,46 +5365,61 @@ void bhEne01_MV08(BH_PWORK* epw)
     scePrintf("bhEne01_MV08 - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x17e430
+// 100% matching!
 void bhEne01_MV09(BH_PWORK* epw)
 {
-	int frm;
-	BH_PWORK* cepw;
-	// Line 5963, Address: 0x17e430, Func Offset: 0
-	// Line 5967, Address: 0x17e440, Func Offset: 0x10
-	// Line 5964, Address: 0x17e444, Func Offset: 0x14
-	// Line 5967, Address: 0x17e448, Func Offset: 0x18
-	// Line 5970, Address: 0x17e470, Func Offset: 0x40
-	// Line 5971, Address: 0x17e48c, Func Offset: 0x5c
-	// Line 5970, Address: 0x17e490, Func Offset: 0x60
-	// Line 5971, Address: 0x17e49c, Func Offset: 0x6c
-	// Line 5972, Address: 0x17e4a4, Func Offset: 0x74
-	// Line 5974, Address: 0x17e4ac, Func Offset: 0x7c
-	// Line 5976, Address: 0x17e4d8, Func Offset: 0xa8
-	// Line 5977, Address: 0x17e4dc, Func Offset: 0xac
-	// Line 5980, Address: 0x17e4e8, Func Offset: 0xb8
-	// Line 5981, Address: 0x17e4f0, Func Offset: 0xc0
-	// Line 5984, Address: 0x17e508, Func Offset: 0xd8
-	// Line 5985, Address: 0x17e528, Func Offset: 0xf8
-	// Line 5987, Address: 0x17e534, Func Offset: 0x104
-	// Line 5989, Address: 0x17e540, Func Offset: 0x110
-	// Line 5991, Address: 0x17e554, Func Offset: 0x124
-	// Line 5992, Address: 0x17e574, Func Offset: 0x144
-	// Line 5991, Address: 0x17e578, Func Offset: 0x148
-	// Line 5992, Address: 0x17e584, Func Offset: 0x154
-	// Line 5993, Address: 0x17e58c, Func Offset: 0x15c
-	// Line 5994, Address: 0x17e594, Func Offset: 0x164
-	// Line 5995, Address: 0x17e5c0, Func Offset: 0x190
-	// Line 5996, Address: 0x17e5e4, Func Offset: 0x1b4
-	// Line 5998, Address: 0x17e5ec, Func Offset: 0x1bc
-	// Line 6001, Address: 0x17e5f4, Func Offset: 0x1c4
-	// Line 6003, Address: 0x17e604, Func Offset: 0x1d4
-	// Line 6004, Address: 0x17e60c, Func Offset: 0x1dc
-	// Line 6005, Address: 0x17e610, Func Offset: 0x1e0
-	// Line 6009, Address: 0x17e614, Func Offset: 0x1e4
-	// Func End, Address: 0x17e628, Func Offset: 0x1f8
-    scePrintf("bhEne01_MV09 - UNIMPLEMENTED!\n");
+    BH_PWORK* cepw;
+    int frm;
+
+    cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    { 
+    case 0:
+        bhEne_ChgMtn(epw, 10, 0, 10);
+        EXP0_I(0x40) &= ~0x3000000;
+        epw->flg |= 0x40000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 210, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        }
+        epw->ct0 = 0;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if ((frm >= 14) && (frm < 25)) {
+            if ((epw->ct0 % 2) == 0)
+            {
+                bhEne01_PoisonEffect(epw, 1);
+            }
+            epw->ct0++;
+        }
+        if (epw->flg & 0x2000000)
+        {
+            bhEne_ChgMtn(epw, 2, 0, 10);
+            EXP0_I(0x40) &= ~0x3000000;
+            epw->flg |= 0x40000;
+            if (cepw != NULL)
+            {
+                bhEne_ChgMtn(cepw, 202, 0, 10);
+                CEPW_EXP0_I(0x40) &= ~0x3000000;
+            }
+            epw->ct0 = (rand() % 16) + 20;
+            epw->mode3++;
+        }
+        break;
+        
+    case 2:
+        if (--epw->ct0 < 0)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
 // 99.77% matching
