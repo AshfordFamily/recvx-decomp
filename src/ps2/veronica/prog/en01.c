@@ -5454,45 +5454,67 @@ void bhEne01_MV10(BH_PWORK* epw)
     }
 }
 
-
-// 
-// Start address: 0x17e790
+// 100% matching!
 void bhEne01_MV11(BH_PWORK* epw)
 {
-	int r;
 	BH_PWORK* cepw;
-	// Line 6078, Address: 0x17e790, Func Offset: 0
-	// Line 6082, Address: 0x17e7a0, Func Offset: 0x10
-	// Line 6079, Address: 0x17e7a4, Func Offset: 0x14
-	// Line 6082, Address: 0x17e7a8, Func Offset: 0x18
-	// Line 6085, Address: 0x17e7c4, Func Offset: 0x34
-	// Line 6086, Address: 0x17e7f8, Func Offset: 0x68
-	// Line 6088, Address: 0x17e800, Func Offset: 0x70
-	// Line 6091, Address: 0x17e840, Func Offset: 0xb0
-	// Line 6090, Address: 0x17e844, Func Offset: 0xb4
-	// Line 6091, Address: 0x17e848, Func Offset: 0xb8
-	// Line 6093, Address: 0x17e84c, Func Offset: 0xbc
-	// Line 6095, Address: 0x17e860, Func Offset: 0xd0
-	// Line 6096, Address: 0x17e884, Func Offset: 0xf4
-	// Line 6099, Address: 0x17e888, Func Offset: 0xf8
-	// Line 6100, Address: 0x17e8a4, Func Offset: 0x114
-	// Line 6101, Address: 0x17e8c4, Func Offset: 0x134
-	// Line 6100, Address: 0x17e8c8, Func Offset: 0x138
-	// Line 6101, Address: 0x17e8cc, Func Offset: 0x13c
-	// Line 6103, Address: 0x17e8f0, Func Offset: 0x160
-	// Line 6106, Address: 0x17e8fc, Func Offset: 0x16c
-	// Line 6108, Address: 0x17e910, Func Offset: 0x180
-	// Line 6110, Address: 0x17e930, Func Offset: 0x1a0
-	// Line 6115, Address: 0x17e990, Func Offset: 0x200
-	// Line 6116, Address: 0x17e994, Func Offset: 0x204
-	// Line 6119, Address: 0x17e998, Func Offset: 0x208
-	// Line 6123, Address: 0x17e9a0, Func Offset: 0x210
-	// Line 6125, Address: 0x17e9e8, Func Offset: 0x258
-	// Line 6126, Address: 0x17e9f0, Func Offset: 0x260
-	// Line 6127, Address: 0x17e9f8, Func Offset: 0x268
-	// Line 6132, Address: 0x17e9fc, Func Offset: 0x26c
-	// Func End, Address: 0x17ea10, Func Offset: 0x280
-    scePrintf("bhEne01_MV11 - UNIMPLEMENTED!\n");
+	int r;
+
+    cepw = (BH_PWORK*)epw->exp1; 
+    
+    switch (epw->mode3)
+    { 
+    case 0:
+        bhEne_ChgMtn(epw, 1, 0, 10);
+        EXP0_I(0x40) &= ~0x1000000;
+        EXP0_I(0x40) |= 0x2000000;
+        
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 201, 0, 10);
+            CEPW_EXP0_I(0x40) &= ~0x1000000;
+            CEPW_EXP0_I(0x40) |= 0x2000000;
+        }
+        
+        epw->spd = 0.0f;
+        epw->way = 256;
+        
+        if (!(EXP0_I(0x40) & 0x400))
+        {
+            r = rand();
+            epw->ct0 = (r % 128) + 300;
+            epw->ct1 = 0;
+            epw->ct2 = 0;
+            
+            r = rand() % 65536;
+            EXP0_F(0x58) = epw->px - njSin(r) * 5.0f;
+            EXP0_F(0x60) = epw->pz - njCos(r) * 5.0f;
+        }
+        epw->mode3++;
+
+    case 1:
+        if (!(EXP0_I(0x40) & 0x400))
+        {
+            if (epw->flg & 0x2000000)
+            {
+                epw->ct2++;
+            }
+            
+            if ((epw->ct2 == 5) || ((epw->ct2 > 1) && ((EXP0_F(0x58) - epw->px) < 0.5f)) && ((EXP0_F(0x60) - epw->pz) < 0.5f))
+            {
+                epw->mode1 = 0;
+                epw->mode2 = 0;
+                epw->mode3 = 0;
+            }
+        } 
+        else if ((epw->flg & 0x2000000) && (EXP0_F(0x54) < en01_PersonalType[EXP0_I(0x4C)].adist))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
 // 100% matching!
