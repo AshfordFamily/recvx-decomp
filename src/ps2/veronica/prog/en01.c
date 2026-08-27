@@ -9239,48 +9239,41 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
 	// Line 12125, Address: 0x188b20, Func Offset: 0x660
 	// Func End, Address: 0x188b54, Func Offset: 0x694
 }
-
-// 
-// Start address: 0x188b60
+*/
+// 100% matching!
 void bhEne01_PoisonEffect(BH_PWORK* epw, int num)
 {
+	NJS_POINT3 ps;
+	O_WORK* owk;
+ 	int eno;   
 	int i;
-	int eno;
-	_anon2* owk;
-	_anon11 ps;
-	// Line 12143, Address: 0x188b60, Func Offset: 0
-	// Line 12148, Address: 0x188b7c, Func Offset: 0x1c
-	// Line 12149, Address: 0x188b8c, Func Offset: 0x2c
-	// Line 12148, Address: 0x188b90, Func Offset: 0x30
-	// Line 12149, Address: 0x188b9c, Func Offset: 0x3c
-	// Line 12153, Address: 0x188ba8, Func Offset: 0x48
-	// Line 12154, Address: 0x188bac, Func Offset: 0x4c
-	// Line 12149, Address: 0x188bb0, Func Offset: 0x50
-	// Line 12152, Address: 0x188bbc, Func Offset: 0x5c
-	// Line 12154, Address: 0x188bc0, Func Offset: 0x60
-	// Line 12152, Address: 0x188bc8, Func Offset: 0x68
-	// Line 12154, Address: 0x188bcc, Func Offset: 0x6c
-	// Line 12152, Address: 0x188bd8, Func Offset: 0x78
-	// Line 12153, Address: 0x188bdc, Func Offset: 0x7c
-	// Line 12154, Address: 0x188be4, Func Offset: 0x84
-	// Line 12156, Address: 0x188bf0, Func Offset: 0x90
-	// Line 12157, Address: 0x188c08, Func Offset: 0xa8
-	// Line 12158, Address: 0x188c1c, Func Offset: 0xbc
-	// Line 12161, Address: 0x188c30, Func Offset: 0xd0
-	// Line 12163, Address: 0x188c48, Func Offset: 0xe8
-	// Line 12166, Address: 0x188c58, Func Offset: 0xf8
-	// Line 12167, Address: 0x188c7c, Func Offset: 0x11c
-	// Line 12169, Address: 0x188c88, Func Offset: 0x128
-	// Line 12171, Address: 0x188cac, Func Offset: 0x14c
-	// Line 12169, Address: 0x188cb4, Func Offset: 0x154
-	// Line 12170, Address: 0x188cbc, Func Offset: 0x15c
-	// Line 12171, Address: 0x188cc4, Func Offset: 0x164
-	// Line 12172, Address: 0x188cd0, Func Offset: 0x170
-	// Line 12173, Address: 0x188cd4, Func Offset: 0x174
-	// Line 12175, Address: 0x188cd8, Func Offset: 0x178
-	// Line 12176, Address: 0x188ce8, Func Offset: 0x188
-	// Func End, Address: 0x188d08, Func Offset: 0x1a8
-}*/
+
+    sys->ef.id = 350;
+    sys->ef.flg = 1;
+    owk = &epw->mlwP->owP[11];
+    ps.x = 0.0f;
+    ps.y = 0.0f;
+    ps.z = -1.0f;
+    
+    njCalcPoint(&owk->mtx, &ps, (NJS_POINT3*)&sys->ef.px);
+    sys->ef.sx = 3.5f;
+    sys->ef.sy = 3.5f;
+    sys->ef.sz = 3.5f;
+    sys->ef.ay = epw->ay;
+
+    for (i = 0; i < num; i++)
+    {
+        eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        if (eno != -1)
+        {            
+            eff[eno].stflg |= 0x20;
+            eff[eno].txp[0] = epw->mlwP->texP;
+            eff[eno].tex_id = bhEne01_ChgTextID(epw, 7);
+            eff[eno].ct3 = i * 3;
+            eff[eno].lkwkp = (unsigned char*)epw;
+        }
+    }
+}
 
 // 
 // Start address: 0x188d10
