@@ -5102,43 +5102,56 @@ void bhEne01_MV06(BH_PWORK* epw)
     }
 }
 
-
-// 
-// Start address: 0x17d900
+// 100% matching!
 void bhEne01_MV07(BH_PWORK* epw)
 {
-	int frm;
-	BH_PWORK* cepw;
-	// Line 5560, Address: 0x17d900, Func Offset: 0
-	// Line 5567, Address: 0x17d910, Func Offset: 0x10
-	// Line 5561, Address: 0x17d914, Func Offset: 0x14
-	// Line 5567, Address: 0x17d918, Func Offset: 0x18
-	// Line 5570, Address: 0x17d934, Func Offset: 0x34
-	// Line 5571, Address: 0x17d958, Func Offset: 0x58
-	// Line 5573, Address: 0x17d960, Func Offset: 0x60
-	// Line 5576, Address: 0x17d98c, Func Offset: 0x8c
-	// Line 5577, Address: 0x17d9ac, Func Offset: 0xac
-	// Line 5579, Address: 0x17d9b4, Func Offset: 0xb4
-	// Line 5577, Address: 0x17d9b8, Func Offset: 0xb8
-	// Line 5579, Address: 0x17d9c4, Func Offset: 0xc4
-	// Line 5582, Address: 0x17d9d4, Func Offset: 0xd4
-	// Line 5583, Address: 0x17d9f8, Func Offset: 0xf8
-	// Line 5587, Address: 0x17da00, Func Offset: 0x100
-	// Line 5588, Address: 0x17da34, Func Offset: 0x134
-	// Line 5589, Address: 0x17da3c, Func Offset: 0x13c
-	// Line 5590, Address: 0x17da44, Func Offset: 0x144
-	// Line 5593, Address: 0x17da50, Func Offset: 0x150
-	// Line 5594, Address: 0x17da60, Func Offset: 0x160
-	// Line 5597, Address: 0x17da6c, Func Offset: 0x16c
-	// Line 5598, Address: 0x17da74, Func Offset: 0x174
-	// Line 5600, Address: 0x17da8c, Func Offset: 0x18c
-	// Line 5603, Address: 0x17da9c, Func Offset: 0x19c
-	// Line 5605, Address: 0x17dab0, Func Offset: 0x1b0
-	// Line 5606, Address: 0x17dab8, Func Offset: 0x1b8
-	// Line 5607, Address: 0x17dabc, Func Offset: 0x1bc
-	// Line 5611, Address: 0x17dac0, Func Offset: 0x1c0
-	// Func End, Address: 0x17dad4, Func Offset: 0x1d4
-    scePrintf("bhEne01_MV07 - UNIMPLEMENTED!\n");
+    BH_PWORK* cepw;
+    int frm;
+
+    cepw = (BH_PWORK*)epw->exp1;
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 127, 0, 8);
+        EXP0_I(0x40) &= ~0x3000000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 327, 0, 8);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+        }
+        epw->ayp = NitenDir_ck(epw->px, epw->pz, plp->px, plp->pz);
+        epw->ayp = (unsigned short)(epw->ayp - epw->ay);
+        if (epw->ayp < 0x8001)
+        {
+            epw->ayp /= 22;
+        } 
+        else
+        {
+            epw->ayp = -(0x10000 - epw->ayp) / 22;
+            epw->mtn_md |= 2;
+            if (cepw != NULL)
+            {
+                cepw->mtn_md |= 2;
+            }
+        }
+        epw->flg |= 0x40000;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if ((frm >= 17) && (frm < 40))
+        {
+            epw->ay += epw->ayp;
+        }
+        
+        if ((epw->frm_no / 65536) == 40)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 1;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
 // 
