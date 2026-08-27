@@ -4,6 +4,7 @@
 #include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/effect.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
+#include "../../../ps2/veronica/prog/hitchkl.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/njplus.h"
 #include "../../../ps2/veronica/prog/player.h"
@@ -9636,45 +9637,38 @@ int bhEne01_FastWalkCheck(BH_PWORK* epw)
 	return 0;
 }
 
-/*// 
-// Start address: 0x1895d0
-int bhEne01_ZulzulCheck(BH_PWORK* epw, int ang, float len, _anon11* get_pos, int* wang)
+// 100% matching!
+int bhEne01_ZulzulCheck(BH_PWORK* epw, int ang, float len, NJS_VECTOR* get_pos, int* wang)
 {
-	// _anon11 v;
-	// _anon11 pd;
-	// _anon11 ps;
-	// _anon0* hp;
-	// Line 12585, Address: 0x1895d0, Func Offset: 0
-	// Line 12590, Address: 0x1895f4, Func Offset: 0x24
-	// Line 12592, Address: 0x189600, Func Offset: 0x30
-	// Line 12590, Address: 0x18960c, Func Offset: 0x3c
-	// Line 12591, Address: 0x189624, Func Offset: 0x54
-	// Line 12592, Address: 0x18962c, Func Offset: 0x5c
-	// Line 12593, Address: 0x189634, Func Offset: 0x64
-	// Line 12594, Address: 0x189654, Func Offset: 0x84
-	// Line 12595, Address: 0x18966c, Func Offset: 0x9c
-	// Line 12594, Address: 0x189670, Func Offset: 0xa0
-	// Line 12595, Address: 0x189674, Func Offset: 0xa4
-	// Line 12594, Address: 0x189678, Func Offset: 0xa8
-	// Line 12595, Address: 0x18967c, Func Offset: 0xac
-	// Line 12597, Address: 0x189684, Func Offset: 0xb4
-	// Line 12599, Address: 0x18968c, Func Offset: 0xbc
-	// Line 12602, Address: 0x18969c, Func Offset: 0xcc
-	// Line 12604, Address: 0x1896a4, Func Offset: 0xd4
-	// Line 12605, Address: 0x1896c8, Func Offset: 0xf8
-	// Line 12606, Address: 0x1896d0, Func Offset: 0x100
-	// Line 12605, Address: 0x1896d4, Func Offset: 0x104
-	// Line 12606, Address: 0x1896e8, Func Offset: 0x118
-	// Line 12608, Address: 0x189704, Func Offset: 0x134
-	// Line 12609, Address: 0x189738, Func Offset: 0x168
-	// Line 12611, Address: 0x189760, Func Offset: 0x190
-	// Line 12609, Address: 0x189764, Func Offset: 0x194
-	// Line 12610, Address: 0x189770, Func Offset: 0x1a0
-	// Line 12611, Address: 0x189774, Func Offset: 0x1a4
-	// Line 12614, Address: 0x18977c, Func Offset: 0x1ac
-	// Line 12615, Address: 0x189780, Func Offset: 0x1b0
-	// Func End, Address: 0x1897a8, Func Offset: 0x1d8
-}*/
+    ATR_WORK* hp;
+    NJS_POINT3 ps;
+    NJS_POINT3 pd;   
+    NJS_VECTOR v;
+
+    ps.y = pd.y = 5.0f + epw->py;
+    ps.x = epw->px;
+    ps.z = epw->pz;
+    pd.x = ps.x - (len * njSin((unsigned short)(epw->ay + ang)));
+    pd.z = ps.z - (len * njCos((unsigned short)(epw->ay + ang)));
+    
+    hp = bhCollisionCheckLine(&ps, &pd);
+    if ((hp != NULL) && !(hp->attr & 8))
+    {
+        bhGetHitCollisionNormal(&v);
+        *wang = (10430.381f * atan2f(v.x, v.z));
+        *wang = (unsigned short)(((unsigned short)(*wang + ang)) - epw->ay);
+        if (*wang > NJM_DEG_ANG(180.0f))
+        {
+            *wang -= NJM_DEG_ANG(360.0f);
+        }
+        
+        get_pos->x = pd.x - (ps.x - (1.5f * njSin((unsigned short)(epw->ay + NJM_DEG_ANG(180.0f)))));
+        get_pos->z = pd.z - (ps.z - (1.5f * njCos((unsigned short)(epw->ay + NJM_DEG_ANG(180.0f)))));
+        get_pos->y = epw->py;
+        return 1;
+    }
+    return 0;
+}
 
 // 100% matching!
 int bhEne01_GakeotiCheck(BH_PWORK* epw)
