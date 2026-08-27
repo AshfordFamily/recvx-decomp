@@ -8221,58 +8221,89 @@ void bhEne01_DG15(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x185880
+// 100% matching!
 void bhEne01_DG16(BH_PWORK* epw)
 {
-	int ang;
-	int mtn_no2;
-	int mtn_no1;
-	int frm;
 	BH_PWORK* cepw;
-	// Line 10071, Address: 0x185880, Func Offset: 0
-	// Line 10072, Address: 0x185898, Func Offset: 0x18
-	// Line 10076, Address: 0x1858a0, Func Offset: 0x20
-	// Line 10079, Address: 0x1858c0, Func Offset: 0x40
-	// Line 10083, Address: 0x1858d4, Func Offset: 0x54
-	// Line 10081, Address: 0x1858dc, Func Offset: 0x5c
-	// Line 10083, Address: 0x1858e0, Func Offset: 0x60
-	// Line 10084, Address: 0x1858fc, Func Offset: 0x7c
-	// Line 10087, Address: 0x185904, Func Offset: 0x84
-	// Line 10088, Address: 0x185908, Func Offset: 0x88
-	// Line 10091, Address: 0x18590c, Func Offset: 0x8c
-	// Line 10092, Address: 0x185948, Func Offset: 0xc8
-	// Line 10094, Address: 0x185950, Func Offset: 0xd0
-	// Line 10098, Address: 0x185990, Func Offset: 0x110
-	// Line 10099, Address: 0x1859a4, Func Offset: 0x124
-	// Line 10101, Address: 0x1859b4, Func Offset: 0x134
-	// Line 10105, Address: 0x1859c0, Func Offset: 0x140
-	// Line 10104, Address: 0x1859c4, Func Offset: 0x144
-	// Line 10105, Address: 0x1859c8, Func Offset: 0x148
-	// Line 10107, Address: 0x1859d8, Func Offset: 0x158
-	// Line 10109, Address: 0x1859e4, Func Offset: 0x164
-	// Line 10110, Address: 0x1859ec, Func Offset: 0x16c
-	// Line 10109, Address: 0x1859f0, Func Offset: 0x170
-	// Line 10110, Address: 0x1859f8, Func Offset: 0x178
-	// Line 10111, Address: 0x185a0c, Func Offset: 0x18c
-	// Line 10116, Address: 0x185a1c, Func Offset: 0x19c
-	// Line 10118, Address: 0x185a30, Func Offset: 0x1b0
-	// Line 10119, Address: 0x185a48, Func Offset: 0x1c8
-	// Line 10122, Address: 0x185a50, Func Offset: 0x1d0
-	// Line 10126, Address: 0x185a68, Func Offset: 0x1e8
-	// Line 10129, Address: 0x185a90, Func Offset: 0x210
-	// Line 10130, Address: 0x185a98, Func Offset: 0x218
-	// Line 10133, Address: 0x185a9c, Func Offset: 0x21c
-	// Line 10135, Address: 0x185aa4, Func Offset: 0x224
-	// Line 10134, Address: 0x185aa8, Func Offset: 0x228
-	// Line 10135, Address: 0x185aac, Func Offset: 0x22c
-	// Line 10136, Address: 0x185ab0, Func Offset: 0x230
-	// Line 10137, Address: 0x185ab4, Func Offset: 0x234
-	// Line 10138, Address: 0x185ac8, Func Offset: 0x248
-	// Line 10140, Address: 0x185ad4, Func Offset: 0x254
-	// Line 10142, Address: 0x185adc, Func Offset: 0x25c
-	// Line 10149, Address: 0x185ae4, Func Offset: 0x264
-	// Func End, Address: 0x185b00, Func Offset: 0x280
+	int frm;
+ 	int mtn_no1; 
+ 	int mtn_no2;   
+	int ang;
+
+    cepw = (BH_PWORK*)epw->exp1;
+
+    switch (epw->mode3)
+    {
+    case 0:        
+        if (EXP0_I(0x40) & 0x2000)
+        {
+            mtn_no1 = 129;
+            mtn_no2 = 329;
+            epw->ayp = (10430.381f * atan2f(epw->dvx, epw->dvz));
+        } 
+        else
+        {
+            mtn_no1 = 130;
+            mtn_no2 = 330;
+        }
+        
+        bhEne_ChgMtn(epw, mtn_no1, 0, 5);
+        
+        EXP0_I(0x40) &= ~0x2000000;
+        EXP0_I(0x40) |= 0x1000000;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, mtn_no2, 0, 5);
+            CEPW_EXP0_I(0x40) &= ~0x2000000;
+            CEPW_EXP0_I(0x40) |= 0x1000000;
+        }
+        EXP0_I(0x40) &= ~0xF;
+        EXP0_I(0x40) |= 6;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if ((EXP0_I(0x40) & 0x2000) && (frm < 8))
+        {
+            ang = (unsigned short)(epw->ayp - epw->ay);
+            if (ang > NJM_DEG_ANG(180.0f))
+            {
+                ang -= NJM_DEG_ANG(360.0f); 
+            }
+            epw->ay += (ang / 2);
+        }
+        
+        if (EXP0_I(0x40) & 0x2000)
+        {
+            if (frm == 2) 
+            {
+                bhEne01_FlyingCap(epw, 3);
+            }
+        } 
+        else if (frm == 5)
+        {
+            bhEne01_FlyingCap(epw, 2);
+        }
+        if (frm == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mtn_add = 0;
+            if (cepw != NULL)
+            {
+                cepw->mtn_add = 0;
+            }
+            epw->mode0 = 1;
+            epw->mode1 = 0;
+            epw->mode2 = 4;
+            epw->mode3 = 0;
+            EXP0_I(0x40) |= 0x40000;
+            EXP0_I(0x44) |= 0x40;
+            if (cepw != NULL)
+            {
+                *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+            }
+        }
+        break;
+    }
 }
 
 // 100% matching!
