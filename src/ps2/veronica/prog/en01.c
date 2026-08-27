@@ -8935,92 +8935,84 @@ void bhEne01_NeckBloodEffect(BH_PWORK* epw, int type)
     // not present in DWARF
     int ang;
       
-    for (i = 0, ang = NJM_DEG_ANG(45); i < 4; ang += NJM_DEG_ANG(90), i++)
+    for (i = 0, ang = NJM_DEG_ANG(45.0f); i < 4; ang += NJM_DEG_ANG(90.0f), i++)
     {
         ofs.y = -1.0f;
         if (type == 0)
         {
             ofs.y = 0.0f;
             
-            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25)));
-            v.y = njSin(NJM_DEG_ANG(56.25));
-            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25)));            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(56.25f)));
+            v.y = njSin(NJM_DEG_ANG(56.25f));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(56.25f)));            
             bhEne_SetBlood3(epw, 10, &ofs, &v, 6, bhEne01_ChgTextID(epw, 6), 1, i);
             
-            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5)));
-            v.y = njSin(NJM_DEG_ANG(22.5));
-            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5)));            
+            v.x = -(njSin(ang) * njCos(NJM_DEG_ANG(22.5f)));
+            v.y = njSin(NJM_DEG_ANG(22.5f));
+            v.z = -(njCos(ang) * njCos(NJM_DEG_ANG(22.5f)));            
             bhEne_SetBlood3(epw, 10, &ofs, &v, 3, bhEne01_ChgTextID(epw, 6), 3, i);
         }
     }     
 }
 
-// 
-// Start address: 0x1879d0
+// 100% matching!
 void bhEne01_NeckBloodEffect2(BH_PWORK* epw, int type)
 {
+	NJS_POINT3 ofs = { 0.0f, 0.0f, 0.0f };
+	NJS_VECTOR v;
+	int ang1;    
 	int i;
-	int ang1;
-	//_anon11 v;
-	//_anon11 ofs;
-	// Line 11421, Address: 0x1879d0, Func Offset: 0
-	// Line 11422, Address: 0x1879f0, Func Offset: 0x20
-	// Line 11421, Address: 0x1879f8, Func Offset: 0x28
-	// Line 11422, Address: 0x187a00, Func Offset: 0x30
-	// Line 11428, Address: 0x187a10, Func Offset: 0x40
-	// Line 11431, Address: 0x187a38, Func Offset: 0x68
-	// Line 11432, Address: 0x187a3c, Func Offset: 0x6c
-	// Line 11431, Address: 0x187a40, Func Offset: 0x70
-	// Line 11435, Address: 0x187a44, Func Offset: 0x74
-	// Line 11436, Address: 0x187a48, Func Offset: 0x78
-	// Line 11438, Address: 0x187a54, Func Offset: 0x84
-	// Line 11439, Address: 0x187a6c, Func Offset: 0x9c
-	// Line 11438, Address: 0x187a70, Func Offset: 0xa0
-	// Line 11439, Address: 0x187a74, Func Offset: 0xa4
-	// Line 11440, Address: 0x187a84, Func Offset: 0xb4
-	// Line 11441, Address: 0x187aa0, Func Offset: 0xd0
-	// Line 11440, Address: 0x187aa4, Func Offset: 0xd4
-	// Line 11441, Address: 0x187aa8, Func Offset: 0xd8
-	// Line 11446, Address: 0x187ad8, Func Offset: 0x108
-	// Line 11447, Address: 0x187af4, Func Offset: 0x124
-	// Line 11446, Address: 0x187af8, Func Offset: 0x128
-	// Line 11447, Address: 0x187afc, Func Offset: 0x12c
-	// Line 11448, Address: 0x187b08, Func Offset: 0x138
-	// Line 11449, Address: 0x187b20, Func Offset: 0x150
-	// Line 11448, Address: 0x187b28, Func Offset: 0x158
-	// Line 11449, Address: 0x187b2c, Func Offset: 0x15c
-	// Line 11451, Address: 0x187b58, Func Offset: 0x188
-	// Line 11452, Address: 0x187b68, Func Offset: 0x198
-	// Line 11455, Address: 0x187b70, Func Offset: 0x1a0
-	// Line 11457, Address: 0x187b74, Func Offset: 0x1a4
-	// Line 11455, Address: 0x187b78, Func Offset: 0x1a8
-	// Line 11459, Address: 0x187b7c, Func Offset: 0x1ac
-	// Line 11460, Address: 0x187b80, Func Offset: 0x1b0
-	// Line 11461, Address: 0x187b98, Func Offset: 0x1c8
-	// Line 11460, Address: 0x187b9c, Func Offset: 0x1cc
-	// Line 11461, Address: 0x187ba0, Func Offset: 0x1d0
-	// Line 11462, Address: 0x187bac, Func Offset: 0x1dc
-	// Line 11463, Address: 0x187bc4, Func Offset: 0x1f4
-	// Line 11462, Address: 0x187bcc, Func Offset: 0x1fc
-	// Line 11463, Address: 0x187bd0, Func Offset: 0x200
-	// Line 11465, Address: 0x187bfc, Func Offset: 0x22c
-	// Line 11466, Address: 0x187c0c, Func Offset: 0x23c
-	// Line 11469, Address: 0x187c14, Func Offset: 0x244
-	// Line 11471, Address: 0x187c18, Func Offset: 0x248
-	// Line 11469, Address: 0x187c1c, Func Offset: 0x24c
-	// Line 11473, Address: 0x187c20, Func Offset: 0x250
-	// Line 11474, Address: 0x187c24, Func Offset: 0x254
-	// Line 11475, Address: 0x187c3c, Func Offset: 0x26c
-	// Line 11474, Address: 0x187c40, Func Offset: 0x270
-	// Line 11475, Address: 0x187c44, Func Offset: 0x274
-	// Line 11476, Address: 0x187c50, Func Offset: 0x280
-	// Line 11477, Address: 0x187c68, Func Offset: 0x298
-	// Line 11476, Address: 0x187c70, Func Offset: 0x2a0
-	// Line 11477, Address: 0x187c74, Func Offset: 0x2a4
-	// Line 11479, Address: 0x187ca0, Func Offset: 0x2d0
-	// Line 11482, Address: 0x187cb0, Func Offset: 0x2e0
-	// Func End, Address: 0x187cd8, Func Offset: 0x308
-	scePrintf("bhEne01_NeckBloodEffect2 - UNIMPLEMENTED!\n");
+        
+    switch (type)
+    {
+    case 0:
+        ang1 = epw->ay + NJM_DEG_ANG(45.0f);
+        for (i = 0; i < 4; i++)
+        {
+            ang1 += NJM_DEG_ANG(90.0f);
+  
+            ofs.y = -1.0f;
+            v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(84.375f)));
+            v.y = njSin(NJM_DEG_ANG(84.375f));
+            v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(84.375f)));
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 8, bhEne01_ChgTextID(epw, 6), 0, i);
+        
+            ofs.y = 0.0f;
+            v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+            v.y = njSin(NJM_DEG_ANG(22.5f));
+            v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 3, bhEne01_ChgTextID(epw, 6), 3, i);
+        }
+        break;
+        
+    case 1:
+        ang1 = epw->ay + NJM_DEG_ANG(45.0f);
+        for (i = 0; i < 4; i++)
+        {
+            ang1 += NJM_DEG_ANG(90.0f);
+            
+            v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(56.25f)));
+            v.y = njSin(NJM_DEG_ANG(56.25f));
+            v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(56.25f)));
+            
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 4, bhEne01_ChgTextID(epw, 6), 1, i);
+        }
+        break;
+        
+    case 2:
+        ang1 = epw->ay + NJM_DEG_ANG(45.0f);
+        for (i = 0; i < 4; i++)
+        {
+            ang1 += NJM_DEG_ANG(90.0f);
+            
+            v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(33.75f)));
+            v.y = njSin(NJM_DEG_ANG(33.75f));
+            v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(33.75f)));
+            
+            bhEne_SetBlood3(epw, 10, &ofs, &v, 4, bhEne01_ChgTextID(epw, 6), 2, i);
+        }
+        break;
+    }
 }
 
 // 100% matching!
