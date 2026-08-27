@@ -4194,39 +4194,56 @@ void bhEne01_MVType00(BH_PWORK* epw)
     bhEne01_MoveMode2W[epw->mode2](epw);   
 }
 
-// 
-// Start address: 0x17af20
+// 100% matching!
 void bhEne01_MVType02(BH_PWORK* epw)
 {
-	BH_PWORK* cepw;
-	// Line 4007, Address: 0x17af20, Func Offset: 0
-	// Line 4009, Address: 0x17af30, Func Offset: 0x10
-	// Line 4008, Address: 0x17af3c, Func Offset: 0x1c
-	// Line 4009, Address: 0x17af40, Func Offset: 0x20
-	// Line 4011, Address: 0x17af5c, Func Offset: 0x3c
-	// Line 4012, Address: 0x17af6c, Func Offset: 0x4c
-	// Line 4015, Address: 0x17af74, Func Offset: 0x54
-	// Line 4019, Address: 0x17af8c, Func Offset: 0x6c
-	// Line 4022, Address: 0x17af9c, Func Offset: 0x7c
-	// Line 4023, Address: 0x17afac, Func Offset: 0x8c
-	// Line 4026, Address: 0x17afb4, Func Offset: 0x94
-	// Line 4029, Address: 0x17afcc, Func Offset: 0xac
-	// Line 4034, Address: 0x17aff4, Func Offset: 0xd4
-	// Line 4036, Address: 0x17b014, Func Offset: 0xf4
-	// Line 4037, Address: 0x17b01c, Func Offset: 0xfc
-	// Line 4038, Address: 0x17b020, Func Offset: 0x100
-	// Line 4040, Address: 0x17b024, Func Offset: 0x104
-	// Line 4042, Address: 0x17b02c, Func Offset: 0x10c
-	// Line 4045, Address: 0x17b034, Func Offset: 0x114
-	// Line 4046, Address: 0x17b050, Func Offset: 0x130
-	// Line 4047, Address: 0x17b05c, Func Offset: 0x13c
-	// Line 4053, Address: 0x17b064, Func Offset: 0x144
-	// Line 4054, Address: 0x17b084, Func Offset: 0x164
-	// Func End, Address: 0x17b098, Func Offset: 0x178
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;
+    
+    if (bhEne_EnemyAtariCheck((NJS_POINT3*)&plp->px, plp->flr_no, epw->id, 0) != NULL)
+    {
+        EXP0_I(0x40) |= 0x20000000;
+    } 
+    else
+    {
+        EXP0_I(0x40) &= ~0x20000000;
+    }
+
+    if (epw->type != 9)
+    {
+        if (epw->mode1 & 1)
+        {
+            bhEne01_Brain02(epw);
+        }
+
+        if (!(plp->flg & 4))
+        {
+            if ((epw->mode2 == 0) || (epw->mode2 == 4) || (epw->mode2 == 1) || (epw->mode2 == 2))
+            {
+                if (bhEne01_EatCheck(epw, 2730, 5.5f, 0) != 0)
+                {
+                    epw->mode0 = 2;
+                    epw->mode1 = 0;
+                    epw->mode2 = 2;
+                    epw->mode3 = 0;
+
+                    if (cepw != NULL)
+                    {
+                        *(int*)&cepw->mode0 = *(int*)&epw->mode0;
+                    }
+
+                    plp->flg |= 0x10004;
+                    EXP0_I(0x40) |= 0x80;
+                    return;
+                }
+            }
+        }
+    }
+    bhEne01_MoveMode2W[epw->mode2 + 10](epw);
 }
 
 #pragma divbyzerocheck on
 
+// 100% matching!
 void bhEne01_MV00(BH_PWORK* epw)
 {
     BH_PWORK* cepw;
