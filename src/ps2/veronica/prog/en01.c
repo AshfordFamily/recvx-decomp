@@ -8945,43 +8945,32 @@ void bhEne01_ExpHeadEffect(BH_PWORK* epw)
 	}
 }
 
-/* 
-// 
-// Start address: 0x187de0
+// 100% matching!
 void bhEne01_ExpHeadEffect2(BH_PWORK* epw, int type)
 {
+    O_WORK* owk;
+	NJS_POINT3 ps;    
 	int eno;
-	_anon11 ps;
-	_anon2* owk;
-	// Line 11652, Address: 0x187de0, Func Offset: 0
-	// Line 11653, Address: 0x187df0, Func Offset: 0x10
-	// Line 11658, Address: 0x187df4, Func Offset: 0x14
-	// Line 11657, Address: 0x187e04, Func Offset: 0x24
-	// Line 11653, Address: 0x187e08, Func Offset: 0x28
-	// Line 11657, Address: 0x187e0c, Func Offset: 0x2c
-	// Line 11658, Address: 0x187e10, Func Offset: 0x30
-	// Line 11657, Address: 0x187e20, Func Offset: 0x40
-	// Line 11653, Address: 0x187e28, Func Offset: 0x48
-	// Line 11658, Address: 0x187e2c, Func Offset: 0x4c
-	// Line 11660, Address: 0x187e38, Func Offset: 0x58
-	// Line 11661, Address: 0x187e44, Func Offset: 0x64
-	// Line 11665, Address: 0x187e48, Func Offset: 0x68
-	// Line 11660, Address: 0x187e4c, Func Offset: 0x6c
-	// Line 11661, Address: 0x187e58, Func Offset: 0x78
-	// Line 11665, Address: 0x187e60, Func Offset: 0x80
-	// Line 11661, Address: 0x187e68, Func Offset: 0x88
-	// Line 11662, Address: 0x187e74, Func Offset: 0x94
-	// Line 11663, Address: 0x187e88, Func Offset: 0xa8
-	// Line 11664, Address: 0x187e9c, Func Offset: 0xbc
-	// Line 11665, Address: 0x187eb0, Func Offset: 0xd0
-	// Line 11666, Address: 0x187ec8, Func Offset: 0xe8
-	// Line 11668, Address: 0x187ed4, Func Offset: 0xf4
-	// Line 11669, Address: 0x187ef8, Func Offset: 0x118
-	// Line 11670, Address: 0x187f0c, Func Offset: 0x12c
-	// Line 11671, Address: 0x187f20, Func Offset: 0x140
-	// Line 11673, Address: 0x187f34, Func Offset: 0x154
-	// Func End, Address: 0x187f48, Func Offset: 0x168
-}*/
+
+    owk = &epw->mlwP->owP[10];
+    ps.x = 0.0f;
+    ps.y = 0.5f;
+    ps.z = -1.0f;
+    njCalcPoint(&owk->mtx, &ps, (NJS_POINT3*)&sys->ef.px);
+    sys->ef.flg = 1;
+    sys->ef.id = 356;
+    sys->ef.type = type;
+    sys->ef.ay = 0;
+    sys->ef.mdlver = 0;
+    eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+    if (eno != -1)
+    {
+        eff[eno].lkwkp = (unsigned char*)epw;
+        eff[eno].xn = epw->dvx;
+        eff[eno].yn = epw->dvy;
+        eff[eno].zn = epw->dvz;      
+    }
+}
 
 // 99.51% matching
 void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_VECTOR* ps, int n)
