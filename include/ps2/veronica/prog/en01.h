@@ -14,6 +14,15 @@ typedef struct EN01_PERSONAL_TYPE
     int add_atk; // offset 0x10, size 0x4
 } EN01_PERSONAL_TYPE;
 
+typedef struct EN01_FIRE_WORK
+{
+    // total size: 0x18
+    int obj;        // offset 0x0, size 0x4
+    float size;     // offset 0x4, size 0x4
+    float len;      // offset 0x8, size 0x4
+	NJS_POINT3 ofs; // offset 0xC, size 0xC
+} EN01_FIRE_WORK;
+
 typedef struct EN01_FMTN_WORK
 {
     // total size: 0xC
