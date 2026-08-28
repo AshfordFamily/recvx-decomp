@@ -11,6 +11,7 @@
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/rutchk.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 
@@ -968,10 +969,71 @@ WPNDAMAGE_WORK En01_WpnDamageTbl[22] =
     {  0xFC2, 0, 1, 3, 3 }  
 };
 
-/*
-_anon59 CombWepTbl[21];
-_anon61 CombJointTbl[18];*/
-/*_anon34 en01_fire_tbl[14];*/
+static COMBWEP_WORK CombWepTbl[21] =
+{
+    { 0,   { 0, 0, 0 },  0,  0 }, 
+    { 0,   { 0, 0, 0 },  0,  0 }, 
+    { 90,  { 10, 0, 0 }, 90, 5 },
+    { 25,  { 9, 5, 4 },  60, 0 },
+    { 25,  { 9, 5, 4 },  60, 0 },
+    { 25,  { 9, 5, 4 },  60, 0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 25,  { 9, 5, 4 },  60, 0 },
+    { 180, { 10, 8, 5 }, 40, 0 },
+    { 25,  { 9, 5, 4 },  0,  0 },
+    { 50,  { 7, 5, 2 },  40, 0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 100, { 10, 8, 5 }, 80, 0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 },
+    { 0,   { 0, 0, 0 },  0,  0 }
+};
+
+static COMBJOINT_WORK CombJointTbl[18] =
+{
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 },
+    { 0, 0 }
+};
+
+EN01_FIRE_WORK en01_fire_tbl[14] =
+{
+    {  9, 2.5f, 1.0f, {  0.5f,  3.0f, -1.0f } },
+    {  9, 1.5f, 1.0f, { -0.5f,  1.0f, -1.0f } },
+    {  9, 4.0f, 1.0f, {  0.5f,  2.5f,  1.0f } },
+    {  9, 2.0f, 1.0f, { -0.5f,  1.0f,  1.0f } },
+    { 12, 2.5f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 13, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } },
+    { 15, 2.0f, 1.0f, {  0.5f, -0.5f,  0.0f } },
+    { 15, 2.5f, 1.0f, { -1.0f,  0.0f,  0.0f } }, 
+    {  2, 1.5f, 1.5f, {  0.0f, -0.5f,  0.0f } },
+    {  3, 2.5f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    {  4, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } }, 
+    {  5, 3.0f, 1.5f, {  0.0f, -1.0f,  0.0f } }, 
+    {  6, 2.0f, 1.5f, {  0.0f,  0.0f,  0.0f } },
+    {  7, 2.0f, 1.0f, {  0.0f,  0.0f,  0.0f } }
+};
+
 CPCL Ene01CapColTabA[17] = 
 {
     {  1,  9, 16 },
@@ -3207,61 +3269,86 @@ void bhEne01_DmgCheckType02(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1789e0
+// 100% matching!
 void bhEne01_DamageAdd(BH_PWORK* epw)
 {
-	// int i;
-	// int low_flg;
-	// int* d;
-	// BH_PWORK* epp2;
-	// BH_PWORK* epp;
-	// BH_PWORK* cepw;
-	// WPNDAMAGE_WORK* wp_tbl;
-	// Line 2419, Address: 0x1789e0, Func Offset: 0
-	// Line 2421, Address: 0x1789f8, Func Offset: 0x18
-	// Line 2420, Address: 0x1789fc, Func Offset: 0x1c
-	// Line 2431, Address: 0x178a08, Func Offset: 0x28
-	// Line 2433, Address: 0x178a10, Func Offset: 0x30
-	// Line 2434, Address: 0x178a1c, Func Offset: 0x3c
-	// Line 2443, Address: 0x178a2c, Func Offset: 0x4c
-	// Line 2436, Address: 0x178a30, Func Offset: 0x50
-	// Line 2443, Address: 0x178a34, Func Offset: 0x54
-	// Line 2437, Address: 0x178a38, Func Offset: 0x58
-	// Line 2443, Address: 0x178a3c, Func Offset: 0x5c
-	// Line 2436, Address: 0x178a40, Func Offset: 0x60
-	// Line 2443, Address: 0x178a4c, Func Offset: 0x6c
-	// Line 2445, Address: 0x178a64, Func Offset: 0x84
-	// Line 2447, Address: 0x178a74, Func Offset: 0x94
-	// Line 2449, Address: 0x178a80, Func Offset: 0xa0
-	// Line 2450, Address: 0x178a84, Func Offset: 0xa4
-	// Line 2452, Address: 0x178a88, Func Offset: 0xa8
-	// Line 2457, Address: 0x178ab0, Func Offset: 0xd0
-	// Line 2459, Address: 0x178ab4, Func Offset: 0xd4
-	// Line 2460, Address: 0x178ab8, Func Offset: 0xd8
-	// Line 2463, Address: 0x178ad4, Func Offset: 0xf4
-	// Line 2465, Address: 0x178ae4, Func Offset: 0x104
-	// Line 2467, Address: 0x178af4, Func Offset: 0x114
-	// Line 2468, Address: 0x178b08, Func Offset: 0x128
-	// Line 2473, Address: 0x178b14, Func Offset: 0x134
-	// Line 2477, Address: 0x178b30, Func Offset: 0x150
-	// Line 2479, Address: 0x178b3c, Func Offset: 0x15c
-	// Line 2481, Address: 0x178b64, Func Offset: 0x184
-	// Line 2482, Address: 0x178b68, Func Offset: 0x188
-	// Line 2481, Address: 0x178b6c, Func Offset: 0x18c
-	// Line 2482, Address: 0x178b74, Func Offset: 0x194
-	// Line 2483, Address: 0x178b7c, Func Offset: 0x19c
-	// Line 2485, Address: 0x178b94, Func Offset: 0x1b4
-	// Line 2489, Address: 0x178ba4, Func Offset: 0x1c4
-	// Line 2491, Address: 0x178bb4, Func Offset: 0x1d4
-	// Line 2492, Address: 0x178bc0, Func Offset: 0x1e0
-	// Line 2495, Address: 0x178bd8, Func Offset: 0x1f8
-	// Line 2498, Address: 0x178be0, Func Offset: 0x200
-	// Line 2499, Address: 0x178be8, Func Offset: 0x208
-	// Line 2501, Address: 0x178c18, Func Offset: 0x238
-	// Line 2503, Address: 0x178c40, Func Offset: 0x260
-	// Line 2505, Address: 0x178c54, Func Offset: 0x274
-	// Func End, Address: 0x178c70, Func Offset: 0x290
+	WPNDAMAGE_WORK* wp_tbl;
+	BH_PWORK* cepw;
+	BH_PWORK* epp;
+	BH_PWORK* epp2;
+	int* d;
+	int low_flg;    
+    int i;
+    
+    cepw = (BH_PWORK*)epw->exp1;
+    wp_tbl = En01_WpnDamageTbl;    
+    low_flg = 0;
+    bhEne01_PartsDamageCheck(epw);
+    
+    epw->hp -= epw->total_dam;
+    if (cepw != NULL)
+    {
+        cepw->hp = epw->hp;
+    }
+    
+    d = &epw->dam[1];
+    wp_tbl += epw->comb_wep;
+    
+    if (EXP0_I(0x40) & 0x80000000)
+    {
+        epp = (BH_PWORK*)epw->lkwkp;
+    } 
+    else
+    {
+        epp = epw;
+    }
+    
+    for (i = 1; i < (int)epw->mlwP->obj_num; i++, d++)
+    {
+        if (*d > 0)
+        {
+            epw->djnt_no = i;
+            epp->djnt_no = i;    
+            if (epw->djnt_no == 3 || epw->djnt_no == 4 ||
+                epw->djnt_no == 6 || epw->djnt_no == 7)
+            {
+                low_flg = 1;
+            }
+        }
+    }
+   
+    if ((wp_tbl->flg & 0x8000) && (EXP0_I(0x34) <= 0))
+    {
+        bhEne_SetSanEffect(epw, epw->djnt_no, en01prt_blood_tbl);
+        EXP0_I(0x34) = 10;
+    }
+
+    if ((wp_tbl->flg & 0x1000) || (wp_tbl->flg & 0x2000))
+    {
+        if (wp_tbl->flg & 0x2000)
+        {
+            bhEne01_LinkFireEffect(epp, (rand() % 4) + 4);
+            epp->mdflg |= 0x400;
+            EPP_EXP0_I(0x3C) = 0xFF000000;
+            npSetAllMatColor(epp->mlwP->objP, epp->mlwP->obj_num, EPP_EXP0_I(0x3C));
+            epp2 = (BH_PWORK*)*(int*)((char*)epw->exp0 + 0x14);
+            if ((epp2 != NULL) && (epp2->flg & 0x80))
+            {
+                epp2->mdflg |= 0x400;
+                npSetAllMatColor(epp2->mlwP->objP, epp2->mlwP->obj_num, EPP_EXP0_I(0x3C));
+            }
+        } 
+        else if (low_flg == 0)
+        {
+            bhEne01_LinkFireEffect(epp, (rand() % 4) + 4);
+        }
+        else
+        {
+            bhEne01_LinkFireEffect(epp, (rand() % 4) + 8);
+        }
+        
+        EXP0_I(0x40) |= 0x10000;
+    }
 }
 
 // 100% matching!
