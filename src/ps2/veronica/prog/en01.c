@@ -9835,68 +9835,90 @@ void bhEne01_DD01(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x186220
+// 100% matching!
 void bhEne01_DD02(BH_PWORK* epw)
 {
-	// _anon11 gpos;
-	// _anon50 line;
-	// _anon2* owk;
-	// Line 10442, Address: 0x186220, Func Offset: 0
-	// Line 10447, Address: 0x186230, Func Offset: 0x10
-	// Line 10450, Address: 0x186274, Func Offset: 0x54
-	// Line 10451, Address: 0x186278, Func Offset: 0x58
-	// Line 10457, Address: 0x18627c, Func Offset: 0x5c
-	// Line 10460, Address: 0x186280, Func Offset: 0x60
-	// Line 10450, Address: 0x186284, Func Offset: 0x64
-	// Line 10451, Address: 0x18628c, Func Offset: 0x6c
-	// Line 10453, Address: 0x186298, Func Offset: 0x78
-	// Line 10455, Address: 0x1862a0, Func Offset: 0x80
-	// Line 10456, Address: 0x1862a8, Func Offset: 0x88
-	// Line 10457, Address: 0x1862b0, Func Offset: 0x90
-	// Line 10460, Address: 0x1862b8, Func Offset: 0x98
-	// Line 10462, Address: 0x1862c8, Func Offset: 0xa8
-	// Line 10465, Address: 0x1862e0, Func Offset: 0xc0
-	// Line 10467, Address: 0x186308, Func Offset: 0xe8
-	// Line 10471, Address: 0x18630c, Func Offset: 0xec
-	// Line 10475, Address: 0x186314, Func Offset: 0xf4
-	// Line 10467, Address: 0x18631c, Func Offset: 0xfc
-	// Line 10468, Address: 0x186320, Func Offset: 0x100
-	// Line 10469, Address: 0x186328, Func Offset: 0x108
-	// Line 10470, Address: 0x186330, Func Offset: 0x110
-	// Line 10471, Address: 0x186334, Func Offset: 0x114
-	// Line 10475, Address: 0x186338, Func Offset: 0x118
-	// Line 10476, Address: 0x186340, Func Offset: 0x120
-	// Line 10478, Address: 0x186350, Func Offset: 0x130
-	// Line 10479, Address: 0x186368, Func Offset: 0x148
-	// Line 10480, Address: 0x18636c, Func Offset: 0x14c
-	// Line 10481, Address: 0x186388, Func Offset: 0x168
-	// Line 10480, Address: 0x18638c, Func Offset: 0x16c
-	// Line 10482, Address: 0x186394, Func Offset: 0x174
-	// Line 10485, Address: 0x18639c, Func Offset: 0x17c
-	// Line 10487, Address: 0x1863a4, Func Offset: 0x184
-	// Line 10490, Address: 0x1863ac, Func Offset: 0x18c
-	// Line 10492, Address: 0x1863bc, Func Offset: 0x19c
-	// Line 10493, Address: 0x1863c4, Func Offset: 0x1a4
-	// Line 10494, Address: 0x1863c8, Func Offset: 0x1a8
-	// Line 10496, Address: 0x1863d0, Func Offset: 0x1b0
-	// Line 10499, Address: 0x1863d8, Func Offset: 0x1b8
-	// Line 10500, Address: 0x186414, Func Offset: 0x1f4
-	// Line 10502, Address: 0x186420, Func Offset: 0x200
-	// Line 10504, Address: 0x186438, Func Offset: 0x218
-	// Line 10505, Address: 0x186478, Func Offset: 0x258
-	// Line 10506, Address: 0x18647c, Func Offset: 0x25c
-	// Line 10507, Address: 0x186484, Func Offset: 0x264
-	// Line 10509, Address: 0x18648c, Func Offset: 0x26c
-	// Line 10512, Address: 0x186494, Func Offset: 0x274
-	// Line 10513, Address: 0x1864e8, Func Offset: 0x2c8
-	// Line 10515, Address: 0x1864f4, Func Offset: 0x2d4
-	// Line 10517, Address: 0x18650c, Func Offset: 0x2ec
-	// Line 10519, Address: 0x186560, Func Offset: 0x340
-	// Line 10520, Address: 0x1865a4, Func Offset: 0x384
-	// Line 10521, Address: 0x1865a8, Func Offset: 0x388
-	// Line 10525, Address: 0x1865b0, Func Offset: 0x390
-	// Func End, Address: 0x1865c4, Func Offset: 0x3a4
+	O_WORK* owk;  
+    NJS_LINE line;
+	NJS_POINT3 gpos;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg |= 2;
+        epw->flg &= ~0x28;
+        owk = epw->mlwP->owP;
+        gpos.x = owk[1].mtx[12];
+        gpos.z = owk[1].mtx[14];
+        gpos.y = epw->py;
+        if (!(epw->stflg & 0x100000))
+        {
+            bhSetBloodPoolLnk(epw,  &gpos, epw->ay, &en01_BldTbl, 0);
+        }
+        
+        if (!(EXP0_I(0x40) & 0x100000) && (epw->stflg & 0x100000))
+        {
+            line.px = epw->px;
+            line.py = epw->py;
+            line.pz = epw->pz;
+            line.vx = 0.0f;
+            line.vy = 18.2f;
+            line.vz = 0.0f;
+            bhCheckL2Water(&line, &gpos);
+            if (&gpos == NULL)
+            {
+                gpos.y = 0.0f;
+            }
+            epw->xn = gpos.y - 1.0f;
+            epw->yn = epw->py;
+            epw->ct0 = (rand() % 30) + 60;
+            epw->mode3 = 2;
+            break;
+        }
+        epw->mode3++;
+        break;
+        
+    case 1:
+        break;
+        
+    case 2:
+        if (--epw->ct0 < 0)
+        {
+            EXP0_F(0x94) = 0.0f;
+            epw->ct0 = 0;
+            epw->mode3++;            
+        }
+        break;
+
+    case 3:
+        epw->py = epw->yn + ((0.001f * (epw->ct0 * epw->ct0)) / 2.0f);
+        epw->ct0++;
+        if (epw->xn < epw->py)
+        {
+            EXP0_F(0x94) = (-0.001f *  epw->ct0) * 0.5;
+            epw->ct0 = 0;
+            epw->py = epw->xn;
+            epw->mode3++;
+        }
+        break;
+        
+    case 4:
+        epw->py = epw->xn + (EXP0_F(0x94) * epw->ct0) + ((0.001f * (epw->ct0 * epw->ct0)) / 2.0f);
+        epw->ct0++;
+        if (epw->xn < epw->py)
+        {
+
+            EXP0_F(0x94) = -((EXP0_F(0x94) - (-0.001f * epw->ct0)) * 0.5);
+ 
+            if (EXP0_F(0x94) > -0.04)
+            {
+                EXP0_F(0x94) = -0.04;
+            }
+            epw->ct0 = 0;
+            epw->py = epw->xn;
+        }
+        break;
+    }
 }
 
 // 100% matching!
