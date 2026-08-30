@@ -11631,37 +11631,36 @@ void bhEne01_CutHead(BH_PWORK* epw, int unused)
     EXP0_I(0x78) = -1;
 }
 
-// 
-// Start address: 0x18a360
+// 100% matching!
 void bhEne01_FlyingCap(BH_PWORK* epw, int tbl_no)
 {
-	scePrintf("bhEne01_FlyingCap - UNIMPLEMENTED!\n");
-	// npobj* obj;
-	// BH_PWORK* sepw;
-	// _anon58* ftbl;
-	// _anon58 fly_tbl[5];
-	// Line 13390, Address: 0x18a360, Func Offset: 0
-	// Line 13391, Address: 0x18a36c, Func Offset: 0xc
-	// Line 13390, Address: 0x18a37c, Func Offset: 0x1c
-	// Line 13391, Address: 0x18a384, Func Offset: 0x24
-	// Line 13404, Address: 0x18a3ac, Func Offset: 0x4c
-	// Line 13408, Address: 0x18a3b4, Func Offset: 0x54
-	// Line 13412, Address: 0x18a3bc, Func Offset: 0x5c
-	// Line 13410, Address: 0x18a3c0, Func Offset: 0x60
-	// Line 13413, Address: 0x18a3c8, Func Offset: 0x68
-	// Line 13410, Address: 0x18a3cc, Func Offset: 0x6c
-	// Line 13412, Address: 0x18a3d4, Func Offset: 0x74
-	// Line 13413, Address: 0x18a3d8, Func Offset: 0x78
-	// Line 13415, Address: 0x18a3e4, Func Offset: 0x84
-	// Line 13418, Address: 0x18a3f8, Func Offset: 0x98
-	// Line 13419, Address: 0x18a410, Func Offset: 0xb0
-	// Line 13420, Address: 0x18a418, Func Offset: 0xb8
-	// Line 13421, Address: 0x18a420, Func Offset: 0xc0
-	// Line 13422, Address: 0x18a428, Func Offset: 0xc8
-	// Line 13423, Address: 0x18a434, Func Offset: 0xd4
-	// Line 13424, Address: 0x18a438, Func Offset: 0xd8
-	// Line 13423, Address: 0x18a43c, Func Offset: 0xdc
-	// Line 13424, Address: 0x18a440, Func Offset: 0xe0
-	// Line 13425, Address: 0x18a444, Func Offset: 0xe4
-	// Func End, Address: 0x18a458, Func Offset: 0xf8
+	EN01_FLYINGCAP_WORK fly_tbl[5] =
+	{
+		{ 0x0000, 0x0000, -0x800, 0.1f, 1.0f },
+		{ 0x8000, 0x1C00,  0x800, 0.5f, 0.0f },
+		{ 0x0000, 0x1000, -0x800, 0.4f, 1.0f },
+		{ 0x8000, 0x1C00,  0x800, 0.5f, 0.0f },
+		{ 0x8000, 0x1800,  0x800, 0.6f, 0.0f }
+	};
+	EN01_FLYINGCAP_WORK* ftbl = fly_tbl;
+	BH_PWORK* sepw;
+	NJS_CNK_OBJECT* obj;
+
+	sepw = *(BH_PWORK**)(epw->exp0 + 0x14);
+	if (sepw != NULL)
+    {
+		obj = epw->mlwP->objP;
+        ftbl += tbl_no;
+
+		sepw->flg &= ~0x80;
+		sepw->mlwP->owP->flg |= 3;
+
+		sepw->way = ftbl->angY + (epw->ay + obj[10].ang[1]);
+		sepw->wax = ftbl->rspd;
+		sepw->dpx = ftbl->v;
+		sepw->waz = ftbl->angZ;
+		sepw->waxp = ftbl->point;
+		sepw->flr_no = epw->flr_no;
+		sepw->mode0 = 3;
+	}
 }
