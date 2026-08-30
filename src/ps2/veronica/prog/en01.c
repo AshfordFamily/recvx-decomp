@@ -4843,78 +4843,93 @@ void bhEne01_MV02(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x17c040
+// 100% matching!
 void bhEne01_MV03(BH_PWORK* epw)
 {
-	//_anon11 ofp;
-	BH_PWORK* epp;
-	int rot;
-	//_anon2* owk;
 	BH_PWORK* cepw;
-	// Line 4552, Address: 0x17c040, Func Offset: 0
-	// Line 4558, Address: 0x17c058, Func Offset: 0x18
-	// Line 4553, Address: 0x17c05c, Func Offset: 0x1c
-	// Line 4558, Address: 0x17c060, Func Offset: 0x20
-	// Line 4561, Address: 0x17c07c, Func Offset: 0x3c
-	// Line 4563, Address: 0x17c0a4, Func Offset: 0x64
-	// Line 4565, Address: 0x17c0ac, Func Offset: 0x6c
-	// Line 4566, Address: 0x17c0d8, Func Offset: 0x98
-	// Line 4568, Address: 0x17c0dc, Func Offset: 0x9c
-	// Line 4569, Address: 0x17c0e4, Func Offset: 0xa4
-	// Line 4572, Address: 0x17c0f0, Func Offset: 0xb0
-	// Line 4573, Address: 0x17c0f8, Func Offset: 0xb8
-	// Line 4572, Address: 0x17c100, Func Offset: 0xc0
-	// Line 4573, Address: 0x17c108, Func Offset: 0xc8
-	// Line 4574, Address: 0x17c110, Func Offset: 0xd0
-	// Line 4575, Address: 0x17c11c, Func Offset: 0xdc
-	// Line 4577, Address: 0x17c130, Func Offset: 0xf0
-	// Line 4610, Address: 0x17c140, Func Offset: 0x100
-	// Line 4612, Address: 0x17c148, Func Offset: 0x108
-	// Line 4611, Address: 0x17c14c, Func Offset: 0x10c
-	// Line 4612, Address: 0x17c150, Func Offset: 0x110
-	// Line 4613, Address: 0x17c154, Func Offset: 0x114
-	// Line 4614, Address: 0x17c158, Func Offset: 0x118
-	// Line 4618, Address: 0x17c15c, Func Offset: 0x11c
-	// Line 4614, Address: 0x17c168, Func Offset: 0x128
-	// Line 4618, Address: 0x17c174, Func Offset: 0x134
-	// Line 4620, Address: 0x17c184, Func Offset: 0x144
-	// Line 4621, Address: 0x17c19c, Func Offset: 0x15c
-	// Line 4622, Address: 0x17c1a0, Func Offset: 0x160
-	// Line 4624, Address: 0x17c1b4, Func Offset: 0x174
-	// Line 4622, Address: 0x17c1b8, Func Offset: 0x178
-	// Line 4624, Address: 0x17c1bc, Func Offset: 0x17c
-	// Line 4627, Address: 0x17c1dc, Func Offset: 0x19c
-	// Line 4628, Address: 0x17c1e0, Func Offset: 0x1a0
-	// Line 4627, Address: 0x17c1e8, Func Offset: 0x1a8
-	// Line 4628, Address: 0x17c1ec, Func Offset: 0x1ac
-	// Line 4653, Address: 0x17c20c, Func Offset: 0x1cc
-	// Line 4656, Address: 0x17c21c, Func Offset: 0x1dc
-	// Line 4660, Address: 0x17c224, Func Offset: 0x1e4
-	// Line 4665, Address: 0x17c228, Func Offset: 0x1e8
-	// Line 4656, Address: 0x17c22c, Func Offset: 0x1ec
-	// Line 4658, Address: 0x17c238, Func Offset: 0x1f8
-	// Line 4660, Address: 0x17c240, Func Offset: 0x200
-	// Line 4661, Address: 0x17c24c, Func Offset: 0x20c
-	// Line 4662, Address: 0x17c254, Func Offset: 0x214
-	// Line 4663, Address: 0x17c25c, Func Offset: 0x21c
-	// Line 4664, Address: 0x17c264, Func Offset: 0x224
-	// Line 4665, Address: 0x17c26c, Func Offset: 0x22c
-	// Line 4666, Address: 0x17c270, Func Offset: 0x230
-	// Line 4668, Address: 0x17c274, Func Offset: 0x234
-	// Line 4671, Address: 0x17c27c, Func Offset: 0x23c
-	// Line 4677, Address: 0x17c2d8, Func Offset: 0x298
-	// Line 4676, Address: 0x17c2dc, Func Offset: 0x29c
-	// Line 4677, Address: 0x17c2e0, Func Offset: 0x2a0
-	// Line 4679, Address: 0x17c2e4, Func Offset: 0x2a4
-	// Line 4683, Address: 0x17c2ec, Func Offset: 0x2ac
-	// Line 4682, Address: 0x17c2f0, Func Offset: 0x2b0
-	// Line 4683, Address: 0x17c2f4, Func Offset: 0x2b4
-	// Line 4684, Address: 0x17c2f8, Func Offset: 0x2b8
-	// Line 4688, Address: 0x17c2fc, Func Offset: 0x2bc
-	// Line 4691, Address: 0x17c308, Func Offset: 0x2c8
-	// Func End, Address: 0x17c324, Func Offset: 0x2e4
-    scePrintf("bhEne01_MV03 - UNIMPLEMENTED!\n");
+	O_WORK* owk;
+ 	int rot;   
+	BH_PWORK* epp;     
+
+    cepw = (BH_PWORK*)epw->exp1;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 44, 0, 8);
+        EXP0_I(0x40) &= ~0x3000000;
+        
+        epw->mtn_add = 0;
+        if (cepw != NULL)
+        {
+            bhEne_ChgMtn(cepw, 244, 0, 8);
+            CEPW_EXP0_I(0x40) &= ~0x3000000;
+            cepw->mtn_add = 0;
+        }
+        epw->ct0 = 6;
+        epw->mode3++;
+
+    case 1:
+        owk = plp->mlwP->owP;
+        rot = ikou3(epw, (NJS_POINT3*) &owk->mtx[12], 4096);
+        epw->ct0--;        
+        if ((epw->ct0 <= 0) || (rot == 0))
+        {
+            if (bhEne01_WormCheck(epw) != 0)
+            {                
+                epw->mode0 = 3;
+                epw->mode1 = 0;
+                epw->mode2 = 2;
+                epw->mode3 = 0;
+                EXP0_I(0x40) |= 0x2000;
+                
+                {
+                    NJS_POINT3 ofp = { 0.0f, 0.0f, 0.0f };    
+                    epw->dvx = -njSin(epw->ay + NJM_DEG_ANG(180.0f));
+                    epw->dvy = 0.0f;
+                    epw->dvz = -njCos(epw->ay + NJM_DEG_ANG(180.0f));
+                    bhEne_SetBlood4(epw, 9, &ofp, bhEne01_ChgTextID(epw, 6), 0);
+                    owk = &epw->mlwP->owP[9];
+                    bhEne_SetNikuhenEffect2(epw, 0, (NJS_POINT3*)&owk->mtx[12], 4, bhEne01_ChgTextID(epw, 5));
+                }
+                
+                if (cepw != NULL)
+                {
+                    cepw->mode0 = 3;
+                }
+                
+                plp->flg |= 4;
+                epp = *(BH_PWORK**)(epw->exp0 + 0x18);
+                epp->flg |= 0x100000;
+                epp->px = epw->px;
+                epp->py = epw->py;
+                epp->pz = epw->pz;
+                epp->ay = epw->ay;
+                epp->mode2 = 1;
+                epp->mode3 = 0;
+                epp->mode1 = 0;
+            } 
+            else
+            {
+                if ((ikou3(epw, (NJS_POINT3*)&owk->mtx[12], 4096) == 0) &&
+                    (EXP0_F(0x54) < 10.0f) && (plp->mode0 == 6) && (plp->hp < 0))
+                {
+                    epw->mode1 = 0;
+                    epw->mode2 = 16;
+                    epw->mode3 = 0;
+                }
+                else
+                {
+                    epw->mode1 = 0;
+                    epw->mode2 = 5;
+                    epw->mode3 = 0;
+                }
+                
+            }
+        }
+        epw->ay += rot;
+
+    }
 }
 
 // 
