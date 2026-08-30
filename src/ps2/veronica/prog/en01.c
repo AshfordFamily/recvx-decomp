@@ -10660,58 +10660,79 @@ int bhEne01_DansaCheck(BH_PWORK* epw, int ang, float ofs_z)
     return 0;
 }
 
-// 
-// Start address: 0x189930
+// 100% matching!
 int bhEne01_PoisonCheck(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_PoisonCheck - UNIMPLEMENTED!\n");
-	// int i;
-	// BH_PWORK* ep;
-	// _anon0* hp;
-	// _anon11 pos2;
-	// _anon11 pos;
-	// Line 12707, Address: 0x189930, Func Offset: 0
-	// Line 12714, Address: 0x189940, Func Offset: 0x10
-	// Line 12717, Address: 0x189958, Func Offset: 0x28
-	// Line 12716, Address: 0x189964, Func Offset: 0x34
-	// Line 12717, Address: 0x18996c, Func Offset: 0x3c
-	// Line 12719, Address: 0x18997c, Func Offset: 0x4c
-	// Line 12724, Address: 0x1899b0, Func Offset: 0x80
-	// Line 12726, Address: 0x1899b8, Func Offset: 0x88
-	// Line 12727, Address: 0x1899cc, Func Offset: 0x9c
-	// Line 12730, Address: 0x1899d0, Func Offset: 0xa0
-	// Line 12735, Address: 0x189a2c, Func Offset: 0xfc
-	// Line 12737, Address: 0x189a44, Func Offset: 0x114
-	// Line 12741, Address: 0x189a7c, Func Offset: 0x14c
-	// Line 12742, Address: 0x189a80, Func Offset: 0x150
-	// Line 12747, Address: 0x189a88, Func Offset: 0x158
-	// Line 12741, Address: 0x189a90, Func Offset: 0x160
-	// Line 12742, Address: 0x189a94, Func Offset: 0x164
-	// Line 12743, Address: 0x189aa0, Func Offset: 0x170
-	// Line 12744, Address: 0x189aa8, Func Offset: 0x178
-	// Line 12745, Address: 0x189ab0, Func Offset: 0x180
-	// Line 12746, Address: 0x189abc, Func Offset: 0x18c
-	// Line 12747, Address: 0x189ac0, Func Offset: 0x190
-	// Line 12750, Address: 0x189ad0, Func Offset: 0x1a0
-	// Line 12755, Address: 0x189ad8, Func Offset: 0x1a8
-	// Line 12757, Address: 0x189b00, Func Offset: 0x1d0
-	// Line 12764, Address: 0x189b0c, Func Offset: 0x1dc
-	// Line 12767, Address: 0x189b2c, Func Offset: 0x1fc
-	// Line 12768, Address: 0x189b30, Func Offset: 0x200
-	// Line 12773, Address: 0x189b38, Func Offset: 0x208
-	// Line 12767, Address: 0x189b40, Func Offset: 0x210
-	// Line 12768, Address: 0x189b44, Func Offset: 0x214
-	// Line 12769, Address: 0x189b50, Func Offset: 0x220
-	// Line 12770, Address: 0x189b58, Func Offset: 0x228
-	// Line 12771, Address: 0x189b60, Func Offset: 0x230
-	// Line 12772, Address: 0x189b68, Func Offset: 0x238
-	// Line 12773, Address: 0x189b6c, Func Offset: 0x23c
-	// Line 12776, Address: 0x189b7c, Func Offset: 0x24c
-	// Line 12781, Address: 0x189b84, Func Offset: 0x254
-	// Line 12783, Address: 0x189bac, Func Offset: 0x27c
-	// Line 12789, Address: 0x189bb8, Func Offset: 0x288
-	// Line 12790, Address: 0x189bbc, Func Offset: 0x28c
-	// Func End, Address: 0x189bcc, Func Offset: 0x29c
+    NJS_POINT3 pos;
+    NJS_POINT3 pos2;
+    ATR_WORK* hp;
+    BH_PWORK* ep;   
+    int i;
+
+    if (sys->ply_id == 1)
+    {
+        ep = ene;
+        for (i = 0; i < sys->ewk_n; i++, ep++)
+        {
+            if ((ep->id == 35) && ((ep->flg & 1) && !(ep->flg & 2) && (ep->flg & 0x100000)))
+            {
+                return 0;            
+            } 
+        }
+    }
+    
+    if (!(plp->flg & 4))
+    {
+        if (!(plp->stflg & 0x80000000) && !(EXP0_I(0x40) & 0x400000) && (ikou3(epw, (NJS_POINT3*)&plp->px, 4096) == 0))
+        {
+            if (epw->flr_no == plp->flr_no)
+            {
+                if ((EXP0_I(0x40) & 0x20000000) && (EXP0_F(0x54) < 9.0f))
+                {
+                    pos.x = epw->px;
+                    pos.y = 0.5f + epw->py;
+                    pos.z = epw->pz;
+                    pos2.x = plp->px;
+                    pos2.y = 0.5f + plp->py;
+                    pos2.z = plp->pz;
+                    
+                    hp = bhCollisionCheckLine(&pos, &pos2);
+                    if (hp == NULL)
+                    {
+                        return 1;
+                    }
+
+                    if ((hp->type == 1) || (hp->type == 3) || (hp->type == 5))
+                    {
+                        return 1;
+                    }
+                } 
+                
+            } 
+            else if (EXP0_F(0x54) < 13.0f)
+            {
+                pos.x = epw->px;
+                pos.y = 10.0f + epw->py;
+                pos.z = epw->pz;
+                pos2.x = plp->px;
+                pos2.y = plp->py;
+                pos2.z = plp->pz;
+                
+                hp = bhCollisionCheckLine(&pos, &pos2);
+                if (hp == NULL)
+                {
+                    return 1;
+                }
+
+                if ((hp->type == 1) || (hp->type == 3) || (hp->type == 5))
+                {
+                    return 1;
+                }
+            } 
+        } 
+    }
+    
+    return 0;    
 }
 
 // 100% matching!
