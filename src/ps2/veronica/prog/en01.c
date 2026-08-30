@@ -10767,38 +10767,77 @@ int bhEne01_EatCheck(BH_PWORK* epw, int rng, float dist, int mode)
     return 0;
 }
 
-// 
-// Start address: 0x189e40
+// 100% matching!
 int bhEne01_WormCheck(BH_PWORK* epw)
 {
-	scePrintf("bhEne01_WormCheck - UNIMPLEMENTED!\n");
-	// int i;
-	// BH_PWORK* ep;
-	// BH_PWORK* epp;
-	// Line 12942, Address: 0x189e40, Func Offset: 0
-	// Line 12949, Address: 0x189e4c, Func Offset: 0xc
-	// Line 12943, Address: 0x189e58, Func Offset: 0x18
-	// Line 12944, Address: 0x189e5c, Func Offset: 0x1c
-	// Line 12949, Address: 0x189e60, Func Offset: 0x20
-	// Line 12943, Address: 0x189e68, Func Offset: 0x28
-	// Line 12949, Address: 0x189e6c, Func Offset: 0x2c
-	// Line 12955, Address: 0x189ed0, Func Offset: 0x90
-	// Line 12959, Address: 0x189edc, Func Offset: 0x9c
-	// Line 12962, Address: 0x189eec, Func Offset: 0xac
-	// Line 12965, Address: 0x189f04, Func Offset: 0xc4
-	// Line 12967, Address: 0x189f20, Func Offset: 0xe0
-	// Line 12972, Address: 0x189f54, Func Offset: 0x114
-	// Line 12974, Address: 0x189f5c, Func Offset: 0x11c
-	// Line 12977, Address: 0x189f74, Func Offset: 0x134
-	// Line 12979, Address: 0x189f84, Func Offset: 0x144
-	// Line 12986, Address: 0x189fcc, Func Offset: 0x18c
-	// Line 12988, Address: 0x189fdc, Func Offset: 0x19c
-	// Line 12991, Address: 0x189fe4, Func Offset: 0x1a4
-	// Line 12993, Address: 0x189ffc, Func Offset: 0x1bc
-	// Line 13001, Address: 0x18a0c0, Func Offset: 0x280
-	// Line 13003, Address: 0x18a0c8, Func Offset: 0x288
-	// Line 13004, Address: 0x18a0cc, Func Offset: 0x28c
-	// Func End, Address: 0x18a0dc, Func Offset: 0x29c
+    BH_PWORK* epp;
+    BH_PWORK* ep;
+    int i;
+
+    epp = *(BH_PWORK**)(epw->exp0 + 0x18);
+    ep = ene;
+    
+    if ((sys->ply_id != 1 )||
+        (plp->stflg & 0x80000000) ||
+        (plp->flg & 4) ||
+        (EXP0_I(0x40) & 0x20000000) ||
+        (epw->mdlver != 21 && epw->mdlver != 22))
+    {
+        return 0;
+    }
+
+    if (epp == NULL)
+    {
+        return 0;
+    }
+    
+    if (epp->flg & 2)
+    {
+        return 0;
+    }
+    
+    for (i = 0; i < sys->ewk_n; i++, ep++)
+    {
+        if (ep->id == 35)
+        {
+            if ((ep->flg & 1) &&
+                !(ep->flg & 2) &&
+                (ep->flg & 0x100000))
+            {
+                return 0;
+            }
+        }
+    }
+
+    for (i = 0; i < sys->ewk_n; i++, ep++)
+    {
+        if (ep->id == 1)
+        {
+            if ((ep->flg & 1) &&
+                !(ep->flg & 2) && 
+                !(ep->flg & 0x80) &&
+                (ep->exp0 != NULL) &&
+                (ep != epw) &&
+                (EP_EXP0_I(0x40) & 0x400000))
+            {
+                return 0;
+            }
+        }
+    }
+
+    if ((EXP0_F(0x54) >= 10.0f) &&
+        ((EXP0_F(0x54) <= 15.0f) &&
+        (ikou3(epw, (NJS_POINT3*)&plp->px, 8192) == 0) &&
+        ((unsigned short)(plp->ay - epw->ay + NJM_DEG_ANG(45.0f)) < NJM_DEG_ANG(90.0f)) &&
+        (plp->py == epw->py) &&
+        !(plp->flg & 2) &&
+        !(plp->stflg & 0x80000000) &&
+        (plp->hp >= 0)))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 // 100% matching!
