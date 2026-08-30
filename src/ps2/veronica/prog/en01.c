@@ -2069,8 +2069,153 @@ EN01_KAMI_WORK en01_keff_tbl[11] =
     {  -1, { -1, -1, -1, -1 } }
 };
 
-/*
-_anon32 en01_weff_tbl[18];*/
+EN01_WATER_WORK en01_weff_tbl[18] =
+{
+    {
+        33,
+        {
+            { 12, 15, 9,  1.0f,  0.0f },
+            { 12, 15, 9, -1.0f,  0.0f },
+            { 14, 15, 11, 0.0f,  0.0f }
+        }
+    },
+    {
+        122,
+        {
+            { 5,  12, 4, 0.0f, 0.0f },
+            { 11, 12, 7, 0.0f, 0.0f },
+            { 23, 10, 4, 0.0f, 0.0f }
+        }
+    },
+    {
+        127,
+        {
+            { 25, 10, 4, 0.0f, 0.0f },
+            { 36, 10, 7, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        0,
+        {
+            { 8, 10, 7, 0.0f, 0.0f },
+            { 41, 10, 4, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        40,
+        {
+            { 5, 10, 7, 0.0f, 0.0f },
+            { 42, 10, 4, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        41,
+        {
+            { 6, 10, 7, 0.0f, 0.0f },
+            { 44, 10, 4, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        117,
+        {
+            { 6, 12, 7, 0.0f, 0.0f },
+            { 27, 12, 4, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        125,
+        {
+            { 10, 12, 7, 0.0f, 0.0f },
+            { 26, 12, 4, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        11,
+        {
+            { 9, 15, 9, 1.0f, 0.0f },
+            { 22, 15, 9, -1.0f, 0.0f },
+            { 24, 15, 11, 0.0f, 0.0f }
+        }
+    },
+    {
+        12,
+        {
+            { 10, 15, 9, 1.0f, 0.0f },
+            { 10, 15, 9, -1.0f, 0.0f },
+            { 14, 15, 11, 0.0f, 0.0f }
+        }
+    },
+    {
+        16,
+        {
+            { 4, 12, 4, 0.0f, 0.0f },
+            { 12, 12, 7, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        17,
+        {
+            { 5, 12, 4, 0.0f, 0.0f },
+            { 12, 12, 7, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        129,
+        {
+            { 10, 15, 9, 1.0f, 0.0f },
+            { 10, 15, 9, -1.0f, 0.0f },
+            { 13, 15, 11, 0.0f, 0.0f }
+        }
+    },
+    {
+        130,
+        {
+            { 10, 15, 9, 1.0f, 0.0f },
+            { 10, 15, 9, -1.0f, 0.0f },
+            { 11, 15, 11, 0.0f, 0.0f }
+        }
+    },
+    {
+        34,
+        {
+            { 8, 15, 11, 0.0f, 0.0f },
+            { 18, 15, 9, 1.0f, 0.0f },
+            { 18, 15, 9, -1.0f, 0.0f }
+        }
+    },
+    {
+        224,
+        {
+            { 39, 15, 9, 0.0f, 3.0f },
+            { 41, 15, 10, 0.0f, 5.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        24,
+        {
+            { 39, 15, 1, 0.0f, -3.0f },
+            { 41, 15, 1, 0.0f, -1.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    },
+    {
+        -1,
+        {
+            { -1, 0, 0, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f },
+            { -1, 0, 0, 0.0f, 0.0f }
+        }
+    }
+};
 
 void (*bhEne01_Mode0[6])(BH_PWORK*) = 
 {
@@ -10139,57 +10284,75 @@ void bhEne01_KamiEffect(BH_PWORK* epw, int frm)
 	}
 }
 
-
-// 
-// Start address: 0x187620
+// 99.62% matching
 void bhEne01_WaterEffect(BH_PWORK* epw, int frm)
 {
-	int j;
+	EN01_WATER_WORK* weff;
+	O_WORK* owk;
+	NJS_POINT3 pd; 
+	NJS_POINT3 ps;  
 	int i;
-	//_anon11 ps;
-	//_anon11 pd;
-	//_anon2* owk;
-	//_anon32* weff;
-	// Line 11168, Address: 0x187620, Func Offset: 0
-	// Line 11175, Address: 0x187644, Func Offset: 0x24
-	// Line 11169, Address: 0x187648, Func Offset: 0x28
-	// Line 11175, Address: 0x187650, Func Offset: 0x30
-	// Line 11177, Address: 0x187660, Func Offset: 0x40
-	// Line 11179, Address: 0x187664, Func Offset: 0x44
-	// Line 11181, Address: 0x187674, Func Offset: 0x54
-	// Line 11183, Address: 0x187680, Func Offset: 0x60
-	// Line 11185, Address: 0x187688, Func Offset: 0x68
-	// Line 11187, Address: 0x187698, Func Offset: 0x78
-	// Line 11190, Address: 0x1876a0, Func Offset: 0x80
-	// Line 11193, Address: 0x1876ac, Func Offset: 0x8c
-	// Line 11194, Address: 0x1876c4, Func Offset: 0xa4
-	// Line 11196, Address: 0x1876c8, Func Offset: 0xa8
-	// Line 11198, Address: 0x1876d8, Func Offset: 0xb8
-	// Line 11201, Address: 0x1876dc, Func Offset: 0xbc
-	// Line 11198, Address: 0x1876e0, Func Offset: 0xc0
-	// Line 11199, Address: 0x1876e4, Func Offset: 0xc4
-	// Line 11201, Address: 0x1876e8, Func Offset: 0xc8
-	// Line 11202, Address: 0x1876f0, Func Offset: 0xd0
-	// Line 11203, Address: 0x1876fc, Func Offset: 0xdc
-	// Line 11204, Address: 0x18770c, Func Offset: 0xec
-	// Line 11205, Address: 0x187714, Func Offset: 0xf4
-	// Line 11207, Address: 0x187718, Func Offset: 0xf8
-	// Line 11204, Address: 0x18771c, Func Offset: 0xfc
-	// Line 11205, Address: 0x187730, Func Offset: 0x110
-	// Line 11206, Address: 0x18773c, Func Offset: 0x11c
-	// Line 11207, Address: 0x187744, Func Offset: 0x124
-	// Line 11209, Address: 0x187754, Func Offset: 0x134
-	// Line 11211, Address: 0x187764, Func Offset: 0x144
-	// Line 11212, Address: 0x187788, Func Offset: 0x168
-	// Line 11213, Address: 0x187790, Func Offset: 0x170
-	// Line 11215, Address: 0x18779c, Func Offset: 0x17c
-	// Line 11216, Address: 0x1877c0, Func Offset: 0x1a0
-	// Line 11219, Address: 0x1877c8, Func Offset: 0x1a8
-	// Line 11223, Address: 0x1877e8, Func Offset: 0x1c8
-	// Line 11225, Address: 0x1877f8, Func Offset: 0x1d8
-	// Line 11226, Address: 0x187804, Func Offset: 0x1e4
-	// Func End, Address: 0x187828, Func Offset: 0x208
-	scePrintf("bhEne01_WaterEffect - UNIMPLEMENTED!\n");
+	int j;
+
+    weff = en01_weff_tbl;
+    
+    if (epw->stflg & 0x100000)
+    {
+    	for (j = 0; TRUE; j++, weff++) 
+    	{
+    		if (weff->mtn_no == -1)
+            {
+                return;
+            }
+            
+            if (epw->mtn_no == weff->mtn_no) 
+            {
+                for (i = 0; i < 3; i++)            
+                {
+                    if (weff->eff[i].frm == -1)
+                    {
+                        return;
+                    } 
+                    
+                    if (weff->eff[i].frm == frm)
+                    {
+                        if (weff->eff[i].size != -1)
+                        {
+                            bhSetEffect(108, (POINT*)&epw->mlwP->owP->mtx[12], NULL, weff->eff[i].size);
+                        }
+                        
+                        if (weff->eff[i].obj != -1)
+                        {
+                            ps.x = weff->eff[i].px;
+                            ps.z = weff->eff[i].pz;
+                            
+                            njUnitMatrix(NULL);
+                            njRotateY(NULL, epw->ay);
+                            njCalcPoint(NULL, &ps, &pd);
+                            
+                            owk = &epw->mlwP->owP[weff->eff[i].obj];
+                            pd.x = owk->mtx[12] - pd.x;
+                            pd.y = owk->mtx[13];
+                            pd.z = owk->mtx[14] - pd.z;
+                            
+                            if (weff->eff[i].size < 11)
+                            {
+                                bhSetWaterSplash2(epw, &pd, 1, 0.8f, 0.8f, 0.8f);
+                            } 
+                            else if (weff->eff[i].size < 13)
+                            {
+                                bhSetWaterSplash2(epw, &pd, 1, 1.4f, 1.4f, 1.4f);
+                            } 
+                            else
+                            {
+                                bhSetWaterSplash2(epw, &pd, 1, 2.0f, 2.0f, 2.0f);
+                            }                                
+                        }
+                    }                    
+                }              
+            }         
+        }
+    }
 }
 
 // 100% matching!
