@@ -89,4 +89,4 @@ AshfordFamily's org avatar fan art was designed by [fishiiarts_](https://www.ins
 
 ## Disclaimer
 
-recvx-decomp is licensed under **CC0 1.0 Universal**, which allows for commercial use of the project's code. However, for commercializing ports of the game to modern platforms we still very much recommend contacting Capcom first for a proper publishing deal. 
+recvx-decomp is licensed under **MIT License**, which allows for commercial use of the project's code. However, for commercializing ports of the game to modern platforms we still very much recommend contacting Capcom first for a proper publishing deal. 

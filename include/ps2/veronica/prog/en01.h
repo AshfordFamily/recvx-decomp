@@ -199,7 +199,7 @@ void bhEne01_KamiEffect(BH_PWORK* epw, int frm);
 void bhEne01_WaterEffect(BH_PWORK* epw, int frm);
 void bhEne01_NeckBloodEffect(BH_PWORK* epw, int type);
 void bhEne01_NeckBloodEffect2(BH_PWORK* epw, int type);
-void bhEne01_ExpHeadEffect(BH_PWORK* epw, int unused); // different from DWARF
+void bhEne01_ExpHeadEffect(BH_PWORK* epw, int type);
 void bhEne01_ExpHeadEffect2(BH_PWORK* epw, int type);
 void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_POINT3* ps, int n);
 void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj);
@@ -220,7 +220,7 @@ int bhEne01_EatCheck(BH_PWORK* epw, int rng, float dist, int mode);
 int bhEne01_WormCheck(BH_PWORK* epw);
 int bhEne01_KaidanCheck(BH_PWORK* epw);
 int bhEne01_CutLeg(BH_PWORK* epw);
-void bhEne01_CutHead(BH_PWORK* epw, int unused); // different from DWARF
+void bhEne01_CutHead(BH_PWORK* epw, int prm1);
 void bhEne01_FlyingCap(BH_PWORK* epw, int tbl_no);
 
 extern NJS_POINT2_XZ cl_mtn01_xz[60];

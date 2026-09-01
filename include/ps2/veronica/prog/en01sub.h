@@ -2,6 +2,7 @@
 #define _EN01SUB_H_
 
 #include "types.h"
+#include "macros.h"
 
 void bhEne01Parent(BH_PWORK* epw);
 void bhEne01Parent_Init(BH_PWORK* epw);

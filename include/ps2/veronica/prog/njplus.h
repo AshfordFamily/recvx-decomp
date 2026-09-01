@@ -86,7 +86,7 @@ void npSetAllMatAlphaColor(NJS_CNK_OBJECT* objp, int obj_n, unsigned char alpha)
 void npSetOffsetUV(NJS_CNK_MODEL* mdlp, short offu, short offv);
 void npSetOffsetUV2(NJS_CNK_MODEL* mdlp, short offu, short offv);
 int npCopyVlist(int* dstp, int* srcp);
-void npCutSkin();
+void npCutSkin(BH_PWORK* epw, int prm1, int prm2, int prm3, float prm4, float prm5, float prm6);
 void npInitCalcSkin(void* pwp, int obj_n, int* sknp);
 void npCalcSkin(void* pwp, int obj_n, int* sknp);
 void npInitCalcSkinFM(void* pwp, int obj_n, int* sknp);

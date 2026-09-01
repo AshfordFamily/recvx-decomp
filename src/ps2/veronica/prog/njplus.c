@@ -1743,7 +1743,7 @@ int npCopyVlist(int* dstp, int* srcp)
 }
 
 // 100% matching!
-void npCutSkin() 
+void npCutSkin(BH_PWORK* epw, int prm1, int prm2, int prm3, float prm4, float prm5, float prm6) // parameters not present on DWARF
 {
     
 }

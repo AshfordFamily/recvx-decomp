@@ -10946,7 +10946,7 @@ void bhEne01_NeckBloodEffect2(BH_PWORK* epw, int type)
 }
 
 // 100% matching!
-void bhEne01_ExpHeadEffect(BH_PWORK* epw, int unused)
+void bhEne01_ExpHeadEffect(BH_PWORK* epw, int type) // second parameter not present on DWARF
 {
 	NJS_VECTOR v;
 	NJS_POINT3 ps;
@@ -11897,7 +11897,7 @@ int bhEne01_CutLeg(BH_PWORK* epw)
 }
 
 // 100% matching!
-void bhEne01_CutHead(BH_PWORK* epw, int unused)
+void bhEne01_CutHead(BH_PWORK* epw, int prm1) // second parameter not present on DWARF
 {
     EXP0_I(0x78) = -1;
 }

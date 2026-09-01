@@ -849,7 +849,7 @@ void bhEne_CallEffectSE(NJS_POINT3* pos, int se)
 }
 
 // 100% matching!
-void bhEne_SetSEPan(int param, NJS_POINT3* pos, int se) // first parameter is not present on DWARF
+void bhEne_SetSEPan(BH_PWORK* epw, NJS_POINT3* pos, int se) // first parameter is not present on DWARF
 {
     RequestEnemySeBasic(sys->enow, pos, se, 0, 0);
 }

@@ -243,7 +243,7 @@ Float	njSqrt(Float n)
 
         vwaitq 
 
-        vaddq   vf8, vf0, Q
+        vaddq.x vf8, vf0, Q
         
         qmfc2   v0,  vf8
     
@@ -271,7 +271,7 @@ Float	njInvertSqrt(Float n)
 
         vwaitq 
 
-        vaddq   vf8, vf0, Q
+        vaddq.x vf8, vf0, Q
         
         qmfc2   v0,  vf8
     
@@ -287,41 +287,41 @@ void	njLinear(Float *idata, Float *odata, NJS_SPLINE *attr, Float frame)
 {
 	asm volatile
     ("
-	    addi     a4, %0, 12
+	    addi      a4, %0, 12
 
-		mfc1     a5, %3
+		mfc1      a5, %3
 
-        ldl      a6, 0x7(%0)
-        ldr      a6,   0(%0)
+        ldl       a6, 0x7(%0)
+        ldr       a6,   0(%0)
      
-        lw       a7,   8(%0) 
+        lw        a7,   8(%0) 
 
-        ldl      t4, 0x7(a4)
-        ldr      t4,   0(a4)
+        ldl       t4, 0x7(a4)
+        ldr       t4,   0(a4)
      
-        lw       t5,   8(a4) 
+        lw        t5,   8(a4) 
      
-        pcpyld   a6, a7, a6
-        pcpyld   t4, t5, t4
+        pcpyld    a6, a7, a6
+        pcpyld    t4, t5, t4
      
-        qmtc2.ni a6, vf10
-        qmtc2.ni t4, vf11
-		qmtc2.ni a5, vf9
+        qmtc2.ni  a6, vf10
+        qmtc2.ni  t4, vf11
+		qmtc2.ni  a5, vf9
 		
-		vsub     vf12, vf11, vf10
+		vsub.xyz  vf12, vf11, vf10
 
-		vmulx    vf12, vf12, vf9
+		vmulx.xyz vf12, vf12, vf9
 
-		vadd     vf4,  vf12, vf10
+		vadd.xyz  vf4,  vf12, vf10
 
-		qmfc2.ni a6, vf4
+		qmfc2.ni  a6, vf4
 
-		pcpyud   a7, a6, a6
+		pcpyud    a7, a6, a6
 
-		sdl      a6, 0x7(%1)
-        sdr      a6,   0(%1)
+		sdl       a6, 0x7(%1)
+        sdr       a6,   0(%1)
      
-        sw       a7,   8(%1) 
+        sw        a7,   8(%1) 
     " : : "r"(idata), "r"(odata), "r"(attr), "f"(frame) : 
     );
 }
@@ -335,92 +335,92 @@ void	njOverhauserSpline(Float *idata, Float *odata, NJS_SPLINE *attr, Float fram
 
 	asm volatile
     ("
-		mfc1     a4, %3
+		mfc1      a4, %3
 
-		vaddw    vf12,  vf0, vf0
-		vaddw    vf12, vf12, vf0
+		vaddw.x   vf12,  vf0, vf0
+		vaddw.x   vf12, vf12, vf0
 
-		qmtc2.ni a4, vf4
+		qmtc2.ni  a4, vf4
 
-		vmul     vf5,  vf4, vf4
-		vmul     vf6,  vf5, vf4
+		vmul.x    vf5,  vf4, vf4
+		vmul.x    vf6,  vf5, vf4
 
-		vadd     vf8,  vf5, vf5
+		vadd.x    vf8,  vf5, vf5
 
-		vsub     vf8,  vf8, vf6
-		vsub     vf8,  vf8, vf4
+		vsub.x    vf8,  vf8, vf6
+		vsub.x    vf8,  vf8, vf4
 
-		vmulz    vf10, vf5, vf2
-		vmul     vf9,  vf6, vf2
+		vmulz.x   vf10, vf5, vf2
+		vmul.x    vf9,  vf6, vf2
 
-		vsub     vf9,  vf9, vf10
+		vsub.x    vf9,  vf9, vf10
 
-		vadd     vf9,  vf9, vf12
+		vadd.x    vf9,  vf9, vf12
 
-		vsub     vf7,  vf0, vf2
+		vsub.x    vf7,  vf0, vf2
 
-		vmulx    vf7,  vf6, vf7
-		vmuly    vf10, vf5, vf2
+		vmulx.x   vf7,  vf6, vf7
+		vmuly.x   vf10, vf5, vf2
 
-		vadd     vf10, vf10, vf4
-		vadd     vf10, vf10, vf7
+		vadd.x    vf10, vf10, vf4
+		vadd.x    vf10, vf10, vf7
 
-		vsub     vf11, vf6, vf5
+		vsub.x    vf11, vf6, vf5
 
-		mfc1     a5, %4
+		mfc1      a5, %4
 		nop
 
-		qmtc2.ni a5, vf12
+		qmtc2.ni  a5, vf12
 
-        ldl      a4,  0x7(%0)
-        ldr      a4,    0(%0)
+        ldl       a4,  0x7(%0)
+        ldr       a4,    0(%0)
      
-        lw       a5,    8(%0) 
+        lw        a5,    8(%0) 
 
-        ldl      a6, 0x13(%0)
-        ldr      a6,  0xC(%0)
+        ldl       a6, 0x13(%0)
+        ldr       a6,  0xC(%0)
      
-        lw       a7,   20(%0) 
+        lw        a7,   20(%0) 
 
-		ldl      t4, 0x1F(%0)
-        ldr      t4, 0x18(%0)
+		ldl       t4, 0x1F(%0)
+        ldr       t4, 0x18(%0)
      
-        lw       t5,   32(%0) 
+        lw        t5,   32(%0) 
 
-        ldl      t6, 0x2B(%0)
-        ldr      t6, 0x24(%0)
+        ldl       t6, 0x2B(%0)
+        ldr       t6, 0x24(%0)
      
-        lw       t7,   44(%0) 
+        lw        t7,   44(%0) 
      
-		pcpyld   a4, a5, a4
-		pcpyld   a6, a7, a6
-        pcpyld   t4, t5, t4
-        pcpyld   t6, t7, t6
+		pcpyld    a4, a5, a4
+		pcpyld    a6, a7, a6
+        pcpyld    t4, t5, t4
+        pcpyld    t6, t7, t6
      
-		qmtc2.ni a4, vf4
-		qmtc2.ni a6, vf5
-		qmtc2.ni t4, vf6
-		qmtc2.ni t6, vf7
+		qmtc2.ni  a4, vf4
+		qmtc2.ni  a6, vf5
+		qmtc2.ni  t4, vf6
+		qmtc2.ni  t6, vf7
 		
-		vmulx    vf4, vf4, vf8
-		vmulx    vf5, vf5, vf9
-		vmulx    vf6, vf6, vf10
-		vmulx    vf7, vf7, vf11
+		vmulx.xyz vf4, vf4, vf8
+		vmulx.xyz vf5, vf5, vf9
+		vmulx.xyz vf6, vf6, vf10
+		vmulx.xyz vf7, vf7, vf11
 
-		vadd     vf4, vf4, vf5
-		vadd     vf4, vf4, vf6
-		vadd     vf4, vf4, vf7
+		vadd.xyz  vf4, vf4, vf5
+		vadd.xyz  vf4, vf4, vf6
+		vadd.xyz  vf4, vf4, vf7
 
-		vmulx    vf4, vf4, vf12
+		vmulx.xyz vf4, vf4, vf12
 
-		qmfc2.ni a6, vf4
+		qmfc2.ni  a6, vf4
 
-		pcpyud   a7, a6, a6
+		pcpyud    a7, a6, a6
 
-		sdl      a6, 0x7(%1)
-        sdr      a6,   0(%1)
+		sdl       a6, 0x7(%1)
+        sdr       a6,   0(%1)
      
-        sw       a7,   8(%1) 
+        sw        a7,   8(%1) 
     " : : "r"(idata), "r"(odata), "r"(attr), "f"(frame), "f"(ftmp) : 
     );
 }

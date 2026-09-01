@@ -1953,67 +1953,67 @@ void vu1DrawTriangleStripTransDoubleI(unsigned long ulType, VU1_STRIP_BUF* pS, u
         
         asm volatile
         ("
-            lqc2       vf4, VU1_STRIP_BUF.fSx(%2)   
-            lqc2       vf5, VU1_STRIP_BUF.fU(%2)    
-            lqc2       vf6, VU1_STRIP_BUF.fVx(%2)    
-            
-            vmulz.xy   vf5, vf5, vf4z  
-            
-            vadd.z     vf5, vf0, vf4   
-            vsub.w     vf5, vf5, vf5   
-            
-            sqc2       vf5, VU1_PRIM_BUF.fS(%3)      
+            lqc2         vf4, VU1_STRIP_BUF.fSx(%2)   
+            lqc2         vf5, VU1_STRIP_BUF.fU(%2)    
+            lqc2         vf6, VU1_STRIP_BUF.fVx(%2)    
+              
+            vmulz.xy     vf5, vf5, vf4z  
+              
+            vadd.z       vf5, vf0, vf4   
+            vsub.w       vf5, vf5, vf5   
+              
+            sqc2         vf5, VU1_PRIM_BUF.fS(%3)      
+          
+            lqc2         vf8, VU1_STRIP_BUF.fVx(%2)    
+            lqc2         vf10, VU1_STRIP_BUF.fU(%2)   
+            lqc2         vf9, VU1_PRIM_BUF.fR(%3)    
         
-            lqc2       vf8, VU1_STRIP_BUF.fVx(%2)    
-            lqc2       vf10, VU1_STRIP_BUF.fU(%2)   
-            lqc2       vf9, VU1_PRIM_BUF.fR(%3)    
-        
-            vmulax     ACC, vf24, vf8x
+            vmulax.xyzw  ACC, vf24, vf8x
             
-            vmadday    ACC, vf25, vf8y 
-            vmaddaz    ACC, vf26, vf8z 
-            vmaddw     vf11, vf27, vf0w 
+            vmadday.xyzw ACC, vf25, vf8y 
+            vmaddaz.xyzw ACC, vf26, vf8z 
+            vmaddw.xyzw  vf11, vf27, vf0w 
             
-            vclipw.xyz vf11, vf11w       
+            vclipw.xyz   vf11, vf11w       
             
-            vmove      vf7, vf6         
+            vmove.xyzw   vf7, vf6         
             
-            vadd.xy    vf7, vf4, vf16  
-            
-            sqc2       vf7, VU1_PRIM_BUF.fX(%3)   
-            
-            lw         t1, 0(%1)     
-            
-            cfc2.ni    t0, vi18        
-            
-            andi       t0, t0, 0x3F   
-            or         t1, t0, t1     
-            
-            sw         t1, 0(%1)     
-            
-            lw         t2, SCISSOR.rotflag(%0)   
-            
-            muli       t3, t2, 64    
-        
-            addi       t2, t2, 1     
-            add        t4, t3, %0      
-            
-            andi       t2, t2, 0x3   
-            
-            sqc2       vf8, SCISSOR.triangle.node[0].vertex(t4)    
-            sqc2       vf9, SCISSOR.triangle.node[0].color(t4)    
-            sqc2       vf10, SCISSOR.triangle.node[0].texUV(t4)   
-            sqc2       vf11, SCISSOR.triangle.node[0].clipV(t4) 
-            
-            addi       t5, t2, -3    
-            
-            bltz       t5, l_002D5AE0        
-            vnop                    
-        
-            neg        t2, zero   
+            vadd.xy      vf7, vf4, vf16  
+              
+            sqc2         vf7, VU1_PRIM_BUF.fX(%3)   
+              
+            lw           t1, 0(%1)     
+              
+            cfc2.ni      t0, vi18        
+              
+            andi         t0, t0, 0x3F   
+            or           t1, t0, t1     
+              
+            sw           t1, 0(%1)     
+              
+            lw           t2, SCISSOR.rotflag(%0)   
+              
+            muli         t3, t2, 64    
+          
+            addi         t2, t2, 1     
+            add          t4, t3, %0      
+              
+            andi         t2, t2, 0x3   
+              
+            sqc2         vf8, SCISSOR.triangle.node[0].vertex(t4)    
+            sqc2         vf9, SCISSOR.triangle.node[0].color(t4)    
+            sqc2         vf10, SCISSOR.triangle.node[0].texUV(t4)   
+            sqc2         vf11, SCISSOR.triangle.node[0].clipV(t4) 
+              
+            addi         t5, t2, -3    
+              
+            bltz         t5, l_002D5AE0        
+            vnop                      
+          
+            neg          t2, zero   
             
             l_002D5AE0:
-            sw         t2, SCISSOR.rotflag(%0)    
+            sw           t2, SCISSOR.rotflag(%0)    
         " : : "r"(&scissorflip), "r"(&clipflag), "r"(pS), "r"(pP) : "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "memory");
     
         flg |= _Check_DisplayAreaPoint((NJS_VECTOR*)&pP->fX); 

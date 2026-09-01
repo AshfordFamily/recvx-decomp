@@ -53,7 +53,12 @@
 #define EXP1_I(o) (*(int   *)((char *)plp->exp1 + (o)))
 #define EXP1_F(o) (*(float *)((char *)plp->exp1 + (o)))
 
-#define EP_EXP0_I(o) (*(int   *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_C(o)  (*(char           *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_UC(o) (*(unsigned char  *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_S(o)  (*(short          *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_US(o) (*(unsigned short *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_I(o)  (*(int            *)((char *)ep->exp0 + (o)))
+#define EP_EXP0_F(o)  (*(float          *)((char *)ep->exp0 + (o)))
 
 #define PEXP0_UC(o) (*(unsigned char  *)((char *)plp->exp0 + (o)))
 #define PEXP0_S(o) (*(short *)((char *)plp->exp0 + (o)))

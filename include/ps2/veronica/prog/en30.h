@@ -26,6 +26,6 @@ void bhEne30_DD01(BH_PWORK* epw);
 void bhEne30_CheckEnemies(BH_PWORK* epw);
 void bhEne30_DamageInit(BH_PWORK* epw);
 void bhEne30_CollisionLine(BH_PWORK* epw);
-/*void bhEne30_SetFluidEffect(_anon3* pos, _anon3* vec, int type, float size);*/
+void bhEne30_SetFluidEffect(NJS_POINT3* pos, NJS_POINT3* vec, int type, float size);
 
 #endif

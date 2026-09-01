@@ -62,7 +62,7 @@ void bhEne_InitDamage(BH_PWORK* epw);
 void bhEne_CallSE(BH_PWORK* epw, NJS_POINT3* pos, int se);
 void bhEne_CallSE_EX(BH_PWORK* epw, NJS_POINT3* pos, int se, int fade);
 void bhEne_CallEffectSE(NJS_POINT3* pos, int se);
-void bhEne_SetSEPan(int param, NJS_POINT3* pos, int se); // first parameter is not present on DWARF
+void bhEne_SetSEPan(BH_PWORK* epw, NJS_POINT3* pos, int se); // first parameter is not present on DWARF
 int bhEne_CheckPlayEffectSE(int se);
 int bhArcTan2(float y, float x);
 ATR_WORK* bhEne_CheckEventAtr(int flr_no, float px, float pz, int id, int min, int max);
