@@ -3,6 +3,13 @@
 
 #include "types.h"
 
+typedef struct EN21UV {
+    int u;  // offset 0x0, size 0x4
+    int v;  // offset 0x4, size 0x4
+    int sx; // offset 0x8, size 0x4
+    int sy; // offset 0xC, size 0x4
+} EN21UV;
+
 void bhEne21(BH_PWORK* epw);
 void bhEne21_Init(BH_PWORK* epw);
 void bhEne21_SearchPlayer(BH_PWORK* epw);
@@ -16,7 +23,7 @@ void bhEne21_MV03(BH_PWORK* epw);
 void bhEne21_MV04(BH_PWORK* epw);
 void bhEne21_MV05(BH_PWORK* epw);
 void bhEne21_MV06(BH_PWORK* epw);
-void bhEne21_MV07();
+void bhEne21_MV07(BH_PWORK* epw);
 void bhEne21_MV08(BH_PWORK* epw);
 void bhEne21_Nage(BH_PWORK* epw);
 void bhEne21_NG00(BH_PWORK* epw);
