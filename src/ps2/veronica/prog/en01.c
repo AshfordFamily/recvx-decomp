@@ -934,18 +934,6 @@ EN01_MTN2_WORK en01_mtn_tbl3[16] =
     }
 };
 
-const char en01_tree[8][8] =
-{
-    { 0, 1, 5, 6, 7, 255, 0, 0 },
-    { 0, 1, 2, 3, 4, 255, 0, 0 },
-    { 0, 1, 8, 9, 15, 16, 17, 255 },
-    { 0, 1, 8, 9, 12, 13, 14, 255 },
-    { 8, 9, 15, 16, 17, 255, 0, 0 },
-    { 8, 9, 12, 13, 14, 255, 0, 0 },
-    { 0, 1, 5, 6, 255, 0, 0, 0 },
-    { 0, 1, 8, 9, 10, 255, 0, 0 }
-};
-
 WPNDAMAGE_WORK En01_WpnDamageTbl[22] =
 {
     {      0, 0, 0, 0, 0 }, 
@@ -2412,6 +2400,37 @@ void (*bhEne01_DmgCheckType[16])(BH_PWORK*) =
 	bhEne01_DmgCheckType00
 };
 
+const char en01_flipTree[19] =
+{
+    0, 1, 5, 6, 7, 2, 3, 4,
+    8, 9, 10, 11, 15, 16, 17, 12,
+    13, 14, -1
+};
+
+const char en01_flipTree2[11] =
+{
+    0, 1, 2, 3, 7, 8, 9, 4,
+    5, 6, -1
+};
+
+const char en01_tree[8][8] =
+{
+    { 0, 1, 5, 6, 7, 255, 0, 0 },
+    { 0, 1, 2, 3, 4, 255, 0, 0 },
+    { 0, 1, 8, 9, 15, 16, 17, 255 },
+    { 0, 1, 8, 9, 12, 13, 14, 255 },
+    { 8, 9, 15, 16, 17, 255, 0, 0 },
+    { 8, 9, 12, 13, 14, 255, 0, 0 },
+    { 0, 1, 5, 6, 255, 0, 0, 0 },
+    { 0, 1, 8, 9, 10, 255, 0, 0 }
+};
+
+const int en01_hp_tbl[2][16] =
+{
+    {  60,  60,  60,  60,  60,  90,  90,  90,  90,  90, 120, 120, 120, 120, 120, 120 },
+    {  20,  20,  40,  40,  40,  40,  40,  40,  40,  40,  60,  60,  60,  60,  60,  60 }
+};
+
 const float en01_kamikami[71] =
 {
        0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,
@@ -2439,25 +2458,6 @@ const float en01_mogmog[40] =
      100.0f,  200.0f,  300.0f,  400.0f,  500.0f,  600.0f,  700.0f,  800.0f,  900.0f, 1000.0f,
      900.0f,  800.0f,  700.0f,  600.0f,  500.0f,  400.0f,  300.0f,  200.0f,  100.0f,    0.0f,
        0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f,    0.0f
-};
-
-const char en01_flipTree[19] =
-{
-    0, 1, 5, 6, 7, 2, 3, 4,
-    8, 9, 10, 11, 15, 16, 17, 12,
-    13, 14, -1
-};
-
-const char en01_flipTree2[11] =
-{
-    0, 1, 2, 3, 7, 8, 9, 4,
-    5, 6, -1
-};
-
-const int en01_hp_tbl[2][16] =
-{
-    {  60,  60,  60,  60,  60,  90,  90,  90,  90,  90, 120, 120, 120, 120, 120, 120 },
-    {  20,  20,  40,  40,  40,  40,  40,  40,  40,  40,  60,  60,  60,  60,  60,  60 }
 };
 
 // 100% matching!
@@ -11107,6 +11107,16 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
 
     // not from DWARF
     int ang2;
+
+    /* WARNING: the following eight printf statements help to prevent an issue where the code of the function prevents the intro FMV from playing, for some reason. This is just a rough patch in place of the actual solution. */
+    scePrintf("1");
+    scePrintf("2");
+    scePrintf("3");
+    scePrintf("4");
+    scePrintf("5");
+    scePrintf("6");
+    scePrintf("7");
+    scePrintf("8");
 
     p_epw = (BH_PWORK*)epw->lkwkp;
     
