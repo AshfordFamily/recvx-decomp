@@ -6404,12 +6404,10 @@ void bhEne01_MV09(BH_PWORK* epw)
     }
 }
 
-// 99.77% matching
+// 100% matching!
 void bhEne01_MV10(BH_PWORK* epw)
 {
-    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;  
-  
-    int tmp; // not present in DWARF
+    BH_PWORK* cepw = (BH_PWORK*)epw->exp1;    
 
     switch (epw->mode3)
     {
@@ -6422,9 +6420,9 @@ void bhEne01_MV10(BH_PWORK* epw)
             CEPW_EXP0_I(0x40) &= ~0x3000000; 
         }
 
-        tmp = ((rand() % 10) * 20) + 15;
-        epw->ct0 = (rand() % 128) + tmp;
+        epw->ct0 = (rand() % 128) + (((rand() % 10) * 20) + 15);
         epw->mode3++;
+
     case 1:
         epw->ct0 -= 1;
         if (((epw->ct0 <= 0) || (EXP0_I(0x40) & 0x400)) && (epw->type != 9) && !(EXP0_I(0x44) & 0x10))
@@ -6433,6 +6431,7 @@ void bhEne01_MV10(BH_PWORK* epw)
             epw->mode2 = 1;
             epw->mode3 = 0;
         }
+
     }
 }
 
