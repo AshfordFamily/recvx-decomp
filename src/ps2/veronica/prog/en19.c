@@ -3481,77 +3481,205 @@ static int bhEne19_PlySetDamage(BH_PWORK* plP, FW_WORK* fwP, int dmg_mod)
     return 0;
 }
 
-// 
-// Start address: 0x1f5ad0
+// 100% matching!
 static void bhEne19_PlyMoveMain(BH_PWORK* plP, FW_WORK* fwP)
 {
-	ATR_WORK* htP;
-	int act;
-	int* stsP;
-	// Line 3880, Address: 0x1f5ad0, Func Offset: 0
-	// Line 3887, Address: 0x1f5aec, Func Offset: 0x1c
-	// Line 3881, Address: 0x1f5afc, Func Offset: 0x2c
-	// Line 3887, Address: 0x1f5b00, Func Offset: 0x30
-	// Line 3889, Address: 0x1f5b08, Func Offset: 0x38
-	// Line 3890, Address: 0x1f5b14, Func Offset: 0x44
-	// Line 3891, Address: 0x1f5b2c, Func Offset: 0x5c
-	// Line 3892, Address: 0x1f5b48, Func Offset: 0x78
-	// Line 3893, Address: 0x1f5b64, Func Offset: 0x94
-	// Line 3897, Address: 0x1f5b7c, Func Offset: 0xac
-	// Line 3898, Address: 0x1f5b8c, Func Offset: 0xbc
-	// Line 3900, Address: 0x1f5bb8, Func Offset: 0xe8
-	// Line 3901, Address: 0x1f5bcc, Func Offset: 0xfc
-	// Line 3902, Address: 0x1f5bd0, Func Offset: 0x100
-	// Line 3903, Address: 0x1f5bd4, Func Offset: 0x104
-	// Line 3907, Address: 0x1f5bdc, Func Offset: 0x10c
-	// Line 3908, Address: 0x1f5bf0, Func Offset: 0x120
-	// Line 3909, Address: 0x1f5bf4, Func Offset: 0x124
-	// Line 3910, Address: 0x1f5bf8, Func Offset: 0x128
-	// Line 3913, Address: 0x1f5c00, Func Offset: 0x130
-	// Line 3914, Address: 0x1f5c14, Func Offset: 0x144
-	// Line 3915, Address: 0x1f5c18, Func Offset: 0x148
-	// Line 3916, Address: 0x1f5c1c, Func Offset: 0x14c
-	// Line 3919, Address: 0x1f5c24, Func Offset: 0x154
-	// Line 3920, Address: 0x1f5c58, Func Offset: 0x188
-	// Line 3922, Address: 0x1f5c68, Func Offset: 0x198
-	// Line 3923, Address: 0x1f5c78, Func Offset: 0x1a8
-	// Line 3924, Address: 0x1f5c88, Func Offset: 0x1b8
-	// Line 3925, Address: 0x1f5ca0, Func Offset: 0x1d0
-	// Line 3927, Address: 0x1f5ca4, Func Offset: 0x1d4
-	// Line 3929, Address: 0x1f5ca8, Func Offset: 0x1d8
-	// Line 3930, Address: 0x1f5cb0, Func Offset: 0x1e0
-	// Line 3931, Address: 0x1f5cbc, Func Offset: 0x1ec
-	// Line 3932, Address: 0x1f5cd0, Func Offset: 0x200
-	// Line 3933, Address: 0x1f5cd4, Func Offset: 0x204
-	// Line 3935, Address: 0x1f5cdc, Func Offset: 0x20c
-	// Line 3936, Address: 0x1f5cf0, Func Offset: 0x220
-	// Line 3937, Address: 0x1f5d04, Func Offset: 0x234
-	// Line 3938, Address: 0x1f5d08, Func Offset: 0x238
-	// Line 3939, Address: 0x1f5d10, Func Offset: 0x240
-	// Line 3940, Address: 0x1f5d24, Func Offset: 0x254
-	// Line 3943, Address: 0x1f5d28, Func Offset: 0x258
-	// Line 3947, Address: 0x1f5d30, Func Offset: 0x260
-	// Line 3948, Address: 0x1f5d3c, Func Offset: 0x26c
-	// Line 3950, Address: 0x1f5d4c, Func Offset: 0x27c
-	// Line 3951, Address: 0x1f5d64, Func Offset: 0x294
-	// Line 3953, Address: 0x1f5d68, Func Offset: 0x298
-	// Line 3954, Address: 0x1f5d6c, Func Offset: 0x29c
-	// Line 3955, Address: 0x1f5d74, Func Offset: 0x2a4
-	// Line 3956, Address: 0x1f5d80, Func Offset: 0x2b0
-	// Line 3957, Address: 0x1f5d94, Func Offset: 0x2c4
-	// Line 3958, Address: 0x1f5d98, Func Offset: 0x2c8
-	// Line 3960, Address: 0x1f5da0, Func Offset: 0x2d0
-	// Line 3961, Address: 0x1f5db4, Func Offset: 0x2e4
-	// Line 3962, Address: 0x1f5dc8, Func Offset: 0x2f8
-	// Line 3963, Address: 0x1f5dcc, Func Offset: 0x2fc
-	// Line 3964, Address: 0x1f5dd4, Func Offset: 0x304
-	// Line 3965, Address: 0x1f5de8, Func Offset: 0x318
-	// Line 3975, Address: 0x1f5dec, Func Offset: 0x31c
-	// Line 3976, Address: 0x1f5dfc, Func Offset: 0x32c
-	// Line 3977, Address: 0x1f5e18, Func Offset: 0x348
-	// Line 3980, Address: 0x1f5e24, Func Offset: 0x354
-	// Func End, Address: 0x1f5e40, Func Offset: 0x370
-	scePrintf("bhEne19_PlyMoveMain - UNIMPLEMENTED!\n");
+    int* stsP;     
+    int act;       
+    ATR_WORK* htP; 
+
+    stsP = &fwP->ply_act.p_status;
+    
+    act = -1;
+    
+    htP = bhCheckFloorEnemy(plP->flr_no, plP->px, plP->pz);
+    
+    *stsP &= ~0x38;
+    
+    if ((htP != NULL) && (htP->prm0 == 19)) 
+    {
+        if (htP->prm1 == 0) 
+        {
+            *stsP |= 0x8;
+        } 
+        else if (htP->prm1 == 1) 
+        {
+            *stsP |= 0x10;
+        } 
+        else if (htP->prm1 == 6) 
+        {
+            *stsP |= 0x20;
+        }
+    }
+    
+    if ((*stsP & 0x1))
+    {
+        switch (fwP->ply_act.p_mode) 
+        {
+        case 0:
+            if ((*stsP & 0x2))
+            {
+                act = 13;
+            }
+            else
+            { 
+                act = 14;
+            }
+            
+            fwP->ply_act.p_mode = 8;
+            break;
+        case 1:
+        case 2:
+            if ((*stsP & 0x2)) 
+            {
+                act = 2;
+            }
+            else 
+            { 
+                act = 1;
+            }
+            
+            fwP->ply_act.p_mode = 4;
+            break;
+        case 3:
+            if ((*stsP & 0x2)) 
+            {
+                act = 11;
+            }
+            else 
+            { 
+                act = 12; 
+            }
+            
+            fwP->ply_act.p_mode = 5;
+            break;
+        case 4:
+            if (fwP->trw_spd > 0.8f) 
+            {
+                plP->flg |=  0x4000;
+            } 
+            else 
+            {
+                plP->flg &= ~0x4000;
+            }
+            
+            if ((*stsP & 0x20)) 
+            {
+                fwP->ply_act.p_act_flg &= ~0x7;
+                
+                if (!(*stsP & 0x2)) 
+                {
+                    act = 15;
+                }
+                else 
+                { 
+                    act = 16;
+                }
+                
+                fwP->ply_act.p_mode = 8;
+            } 
+            else if ((*stsP & 0x10))
+            {
+                if ((*stsP & 0x2)) 
+                {
+                    act = 6;
+                }
+                else 
+                {
+                    act = 5;
+                }
+            }
+            else if (plp->hp >= 0) 
+            {
+                if ((*stsP & 0x2))
+                {
+                    act = 4;
+                }
+                else 
+                { 
+                    act = 3;
+                }
+            } 
+            else
+            {
+                if ((*stsP & 0x2)) 
+                {
+                    act = 10;
+                }
+                else 
+                { 
+                    act = 9;
+                }
+            }
+            
+            break;
+        case 5:
+            if ((*stsP & 0x20)) 
+            {
+                fwP->ply_act.p_act_flg &= ~0x7;
+                
+                if (!(*stsP & 0x2)) 
+                {
+                    act = 15;
+                }
+                else 
+                { 
+                    act = 16;
+                }
+                
+                fwP->ply_act.p_mode = 8;
+            } 
+            else if ((*stsP & 0x10)) 
+            {
+                if (!(*stsP & 0x2)) 
+                {
+                    act = 6;
+                }
+                else 
+                { 
+                    act = 5;
+                }
+            } 
+            else if (plp->hp >= 0) 
+            {
+                if (!(*stsP & 0x2)) 
+                {
+                    act = 4;
+                }
+                else 
+                { 
+                    act = 3;
+                }
+            } 
+            else 
+            {
+                if (!(*stsP & 0x2)) 
+                {
+                    act = 10;
+                }
+                else 
+                { 
+                    act = 9;
+                }
+            }
+            
+            break;
+        case 6:
+        case 7:
+        case 8:
+            break;
+        }
+    }
+    
+    if ((*stsP & 0x11)) 
+    {
+        if (act != -1) 
+        {
+            bhEne_PlyActionChange(plP, &fwP->ply_act, act);
+        }
+        
+        bhEne_PlyActionMain(plP, &fwP->ply_act);
+    }
 }
 
 // 100% matching!
