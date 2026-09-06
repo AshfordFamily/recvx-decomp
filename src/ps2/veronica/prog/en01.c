@@ -11015,7 +11015,7 @@ void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_VECTOR* ps, int n)
     }        
 }
 
-// 100% matching
+// 100% matching!
 void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj)
 {
 	NJS_VECTOR v;
@@ -11086,32 +11086,19 @@ void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj)
     }
 }
 
-// 99.66% matching
+// 100% matching!
 void bhEne01_ExpWormEffect(BH_PWORK* epw)
 {
-    BH_PWORK* p_epw;
-    O_WORK* owk; 
-    NJS_POINT3 v;
-    NJS_POINT3 ps;
-    NJS_POINT3 pd;
-    float tmp;
-    int ang1;
-    int eno;   
-    int i;
+	BH_PWORK* p_epw;
+	O_WORK* owk;
+	NJS_POINT3 v;
+	NJS_POINT3 ps;
+	NJS_POINT3 pd;
+	float tmp;
+	int ang1;
+	int eno;   	
+	int i;
     int j;
-
-    // not from DWARF
-    int ang2;
-
-    /* WARNING: the following eight printf statements help to prevent an issue where the code of the function prevents the intro FMV from playing, for some reason. This is just a rough patch in place of the actual solution. */
-    scePrintf("1");
-    scePrintf("2");
-    scePrintf("3");
-    scePrintf("4");
-    scePrintf("5");
-    scePrintf("6");
-    scePrintf("7");
-    scePrintf("8");
 
     p_epw = (BH_PWORK*)epw->lkwkp;
     
@@ -11127,12 +11114,9 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
     sys->ef.px = pd.x;    
     sys->ef.py = pd.y;
     sys->ef.pz = pd.z;
-
-    for (ang2 = NJM_DEG_ANG(112.5f), j = 0; j < 2; j++, ang2 += NJM_DEG_ANG(45.0f))
-    {
-
-        for (ang1 = NJM_DEG_ANG(0.0f), i = 0; i < 8; i++, ang1 += NJM_DEG_ANG(45.0f))
-        {
+    
+    for (j = 0; j < 2; j++) {
+        for (i = 0; i < 8; i++) {
             tmp = 2.0f + (njRandom());
             sys->ef.sx = tmp;
             sys->ef.sy = tmp;
@@ -11145,26 +11129,26 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
                 eff[eno].tex_id = bhEne01_ChgTextID(p_epw, 7);
                 eff[eno].spd = 2.0f + (2.0f * (njRandom()));
                 eff[eno].ct3 = 0;
-                eff[eno].ay = ang1;
-                eff[eno].ax = ang2;
-                v.x = -njSin(ang1) * njCos(ang2);
-                v.y = njSin(ang2);
-                v.z = -njCos(ang1) * njCos(ang2);
+                eff[eno].ay = i * NJM_DEG_ANG(45.0f);
+                eff[eno].ax = NJM_DEG_ANG(112.5f) + (j * NJM_DEG_ANG(45.0f));
+                v.x = -njSin(i * NJM_DEG_ANG(45.0f)) * njCos(NJM_DEG_ANG(112.5f) + (j * NJM_DEG_ANG(45.0f)));
+                v.y = njSin(NJM_DEG_ANG(112.5f) + (j * NJM_DEG_ANG(45.0f)));
+                v.z = -njCos(i * NJM_DEG_ANG(45.0f)) * njCos(NJM_DEG_ANG(112.5f) + (j * NJM_DEG_ANG(45.0f)));
                 eff[eno].xn = v.x;
                 eff[eno].yn = v.y;
                 eff[eno].zn = v.z;
             }
         }
-    } 
-    
-    for (i = 0, ang1 = NJM_DEG_ANG(0.0f); i < 4; i++, ang1 += NJM_DEG_ANG(90.0f)) 
-    {
-        ang2 = (NJM_DEG_ANG(45.0f) + epw->py + ang1);
-        v.x = 0.8f * (-njSin(ang2) * njCos(NJM_DEG_ANG(22.5f)));
-        v.y = 0.8f * njSin(NJM_DEG_ANG(22.5f));
-        v.z = 0.8f * (-njCos(ang2) * njCos(NJM_DEG_ANG(22.5f)));
-        bhEne_SetNikuhenEffect(p_epw, 4, &pd, &v, bhEne01_ChgTextID(p_epw, 5));        
     }
+    
+    for (i = 0; i < 4; i++)
+    {
+        ang1 = (NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
+        v.x = 0.8f * (-njSin(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+        v.y = 0.8f * njSin(NJM_DEG_ANG(22.5f));
+        v.z = 0.8f * (-njCos(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+        bhEne_SetNikuhenEffect(p_epw, 4, &pd, &v, bhEne01_ChgTextID(p_epw, 5));
+    } 
     
     sys->ef.id = 370;   
     sys->ef.flg = 1;
@@ -11177,11 +11161,10 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
     sys->ef.mdlver = 1;
     pd.x = pd.y = pd.z = 0.0f;
     
-    for (ang1 = NJM_DEG_ANG(45.0f), i = 0; i < 4; i++, ang1 += NJM_DEG_ANG(90.0f)) 
-    {
-        v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(45.0f)));
+    for (i = 0; i < 4; i++) {
+        v.x = -(njSin(NJM_DEG_ANG(45.0f) + (i * NJM_DEG_ANG(90.0f))) * njCos(NJM_DEG_ANG(45.0f)));
         v.y = njSin(NJM_DEG_ANG(45.0f));
-        v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(45.0f)));
+        v.z = -(njCos(NJM_DEG_ANG(45.0f) + (i * NJM_DEG_ANG(90.0f))) * njCos(NJM_DEG_ANG(45.0f)));
         sys->ef.type = 7;
         eno = bhSetEffectTb(&sys->ef, &pd, (unsigned char*)epw, 0);
         if (eno != -1)
@@ -11192,9 +11175,9 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
             eff[eno].ct0 = i;
             eff[eno].ct1 = 3;
         }
-        v.x = -(njSin(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+        v.x = -(njSin(NJM_DEG_ANG(45.0f) + (i * NJM_DEG_ANG(90.0f))) * njCos(NJM_DEG_ANG(22.5f)));
         v.y = njSin(NJM_DEG_ANG(22.5f));
-        v.z = -(njCos(ang1) * njCos(NJM_DEG_ANG(22.5f)));
+        v.z = -(njCos(NJM_DEG_ANG(45.0f) + (i * NJM_DEG_ANG(90.0f))) * njCos(NJM_DEG_ANG(22.5f)));
         sys->ef.type = 6;
         eno = bhSetEffectTb(&sys->ef, &pd, (unsigned char*)epw, 0);
         if (eno != -1)
@@ -11205,7 +11188,7 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
             eff[eno].ct0 = i;
             eff[eno].ct1 = 3;
         }
-    } 
+    }
 }
 
 // 100% matching!
