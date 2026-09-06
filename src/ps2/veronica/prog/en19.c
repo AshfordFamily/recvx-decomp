@@ -2281,7 +2281,7 @@ static void bhEne19_Mv10(BH_PWORK* ewP, FW_WORK* fwP, int count)
 // 100% matching!
 static void bhEne19_Mv11(BH_PWORK* ewP, FW_WORK* fwP, int count) // third parameter not present on DWARF
 {
-    if (((fwP->status & 0x40)) && ((bhEne19_AttackHitCheck(ewP, (!(fwP->status & 0x8)) ? TY_ARM_RIGHT : TY_ARM_LEFT, 4.0f, &fwP->trw_dir) != 0) && (bhEne19_PlySetDamage(plp, fwP, 1) != 0)))
+    if (((fwP->status & 0x40)) && ((bhEne19_AttackHitCheck(ewP, ((fwP->status & 0x8)) ? TY_ARM_LEFT : TY_ARM_RIGHT, 4.0f, &fwP->trw_dir) != 0) && (bhEne19_PlySetDamage(plp, fwP, 1) != 0)))
     {
         fwP->trw_spd = 2.0f;
     }
@@ -2290,7 +2290,7 @@ static void bhEne19_Mv11(BH_PWORK* ewP, FW_WORK* fwP, int count) // third parame
 // 100% matching!
 static void bhEne19_Mv12(BH_PWORK* ewP, FW_WORK* fwP, int count) // third parameter not present on DWARF
 {
-    if (((fwP->status & 0x40)) && ((bhEne19_AttackHitCheck(ewP, (!(fwP->status & 0x8)) ? TY_ARM_LEFT : TY_ARM_RIGHT, 4.0f, &fwP->trw_dir) != 0) && (bhEne19_PlySetDamage(plp, fwP, 1) != 0)))
+    if (((fwP->status & 0x40)) && ((bhEne19_AttackHitCheck(ewP, ((fwP->status & 0x8)) ? TY_ARM_RIGHT : TY_ARM_LEFT, 4.0f, &fwP->trw_dir) != 0) && (bhEne19_PlySetDamage(plp, fwP, 1) != 0)))
     {
         fwP->trw_spd = 2.0f;
     }

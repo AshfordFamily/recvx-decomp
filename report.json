@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 86.326324,
+    "fuzzy_match_percent": 86.32908,
     "total_code": "1904472",
-    "matched_code": "1349532",
-    "matched_code_percent": 70.86121,
+    "matched_code": "1348864",
+    "matched_code_percent": 70.82613,
     "total_data": "28428164",
     "matched_data": "28346180",
     "matched_data_percent": 99.71161,
     "total_functions": 4529,
-    "matched_functions": 3809,
-    "matched_functions_percent": 84.102455,
+    "matched_functions": 3810,
+    "matched_functions_percent": 84.12453,
     "total_units": 200
   },
   "units": [
@@ -11489,16 +11489,16 @@
     {
       "name": "ps2/veronica/prog/en19",
       "measures": {
-        "fuzzy_match_percent": 99.78316,
+        "fuzzy_match_percent": 99.9684,
         "total_code": "28352",
-        "matched_code": "27404",
-        "matched_code_percent": 96.65633,
+        "matched_code": "26736",
+        "matched_code_percent": 94.30023,
         "total_data": "4624",
         "matched_data": "4624",
         "matched_data_percent": 100.0,
         "total_functions": 68,
-        "matched_functions": 64,
-        "matched_functions_percent": 94.117645,
+        "matched_functions": 65,
+        "matched_functions_percent": 95.588234,
         "total_units": 1
       },
       "sections": [
@@ -11525,7 +11525,7 @@
         {
           "name": ".text",
           "size": "28752",
-          "fuzzy_match_percent": 99.78316,
+          "fuzzy_match_percent": 99.9684,
           "metadata": {}
         },
         {
@@ -11684,21 +11684,21 @@
         {
           "name": "bhEne19_Mv11",
           "size": "124",
-          "fuzzy_match_percent": 72.258064,
+          "fuzzy_match_percent": 100.0,
           "metadata": {},
           "address": "10512"
         },
         {
           "name": "bhEne19_Mv12",
           "size": "120",
-          "fuzzy_match_percent": 84.5,
+          "fuzzy_match_percent": 100.0,
           "metadata": {},
           "address": "10640"
         },
         {
           "name": "bhEne19_Mv13",
           "size": "912",
-          "fuzzy_match_percent": 100.0,
+          "fuzzy_match_percent": 99.947365,
           "metadata": {},
           "address": "10768"
         },
@@ -41750,16 +41750,16 @@
       "id": "game",
       "name": "Main Game",
       "measures": {
-        "fuzzy_match_percent": 85.6953,
+        "fuzzy_match_percent": 85.69818,
         "total_code": "1820460",
-        "matched_code": "1265520",
-        "matched_code_percent": 69.516495,
+        "matched_code": "1264852",
+        "matched_code_percent": 69.4798,
         "total_data": "28336764",
         "matched_data": "28279892",
         "matched_data_percent": 99.7993,
         "total_functions": 3834,
-        "matched_functions": 3114,
-        "matched_functions_percent": 81.22066,
+        "matched_functions": 3115,
+        "matched_functions_percent": 81.24674,
         "total_units": 152
       }
     },
