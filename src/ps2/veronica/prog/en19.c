@@ -2442,7 +2442,7 @@ static int bhEne19_ActionMain(BH_PWORK* ewP, FW_WORK* fwP)
     
     if ((mat & 0x10))
     {
-        *stsP |= 0x40;
+        *stsP |=  0x40;
     }
     else 
     {
@@ -2839,16 +2839,15 @@ static void bhEne19_CalcEnemy(BH_PWORK* ewP, FW_WORK* fwP)
     ewP->watr.r = fwP->watr_rad;
 }
 
-// 
-// Start address: 0x1f4460
+// 100% matching!
 static void bhEne19_DmgCheck(BH_PWORK* ewP, FW_WORK* fwP)
 {
-	NJS_POINT3 dir;
-	int dst;
-	int flg;
-	int eff_typ;
-	DD_WORK* ddP;
-	int* stsP;
+    int* stsP;      
+    DD_WORK* ddP;   
+    int eff_typ;   
+    int flg;     
+    int dst;        
+    NJS_POINT3 dir; 
 	static const DD_WORK DmgDat[21] =
 	{
 		{ { -1, -1, -1 }, { -1, -1, -1 },  0 },
@@ -2873,55 +2872,114 @@ static void bhEne19_DmgCheck(BH_PWORK* ewP, FW_WORK* fwP)
 		{ {  7,  7,  1 }, { -1, -1, -1 }, 14 },
 		{ { 11, 11, 11 }, { -1, -1, -1 }, 14 }
 	};
-	// Line 3221, Address: 0x1f4460, Func Offset: 0
-	// Line 3250, Address: 0x1f4480, Func Offset: 0x20
-	// Line 3251, Address: 0x1f44a4, Func Offset: 0x44
-	// Line 3252, Address: 0x1f44b0, Func Offset: 0x50
-	// Line 3253, Address: 0x1f44bc, Func Offset: 0x5c
-	// Line 3255, Address: 0x1f44c8, Func Offset: 0x68
-	// Line 3260, Address: 0x1f44d0, Func Offset: 0x70
-	// Line 3263, Address: 0x1f44e0, Func Offset: 0x80
-	// Line 3266, Address: 0x1f44ec, Func Offset: 0x8c
-	// Line 3268, Address: 0x1f4504, Func Offset: 0xa4
-	// Line 3271, Address: 0x1f4508, Func Offset: 0xa8
-	// Line 3268, Address: 0x1f450c, Func Offset: 0xac
-	// Line 3271, Address: 0x1f4520, Func Offset: 0xc0
-	// Line 3272, Address: 0x1f4548, Func Offset: 0xe8
-	// Line 3276, Address: 0x1f4564, Func Offset: 0x104
-	// Line 3279, Address: 0x1f457c, Func Offset: 0x11c
-	// Line 3280, Address: 0x1f4580, Func Offset: 0x120
-	// Line 3279, Address: 0x1f458c, Func Offset: 0x12c
-	// Line 3280, Address: 0x1f4590, Func Offset: 0x130
-	// Line 3283, Address: 0x1f45ac, Func Offset: 0x14c
-	// Line 3284, Address: 0x1f45c0, Func Offset: 0x160
-	// Line 3285, Address: 0x1f45c4, Func Offset: 0x164
-	// Line 3292, Address: 0x1f45c8, Func Offset: 0x168
-	// Line 3293, Address: 0x1f45cc, Func Offset: 0x16c
-	// Line 3294, Address: 0x1f45e0, Func Offset: 0x180
-	// Line 3295, Address: 0x1f45f4, Func Offset: 0x194
-	// Line 3297, Address: 0x1f4604, Func Offset: 0x1a4
-	// Line 3299, Address: 0x1f462c, Func Offset: 0x1cc
-	// Line 3302, Address: 0x1f463c, Func Offset: 0x1dc
-	// Line 3305, Address: 0x1f4654, Func Offset: 0x1f4
-	// Line 3306, Address: 0x1f4658, Func Offset: 0x1f8
-	// Line 3305, Address: 0x1f465c, Func Offset: 0x1fc
-	// Line 3306, Address: 0x1f467c, Func Offset: 0x21c
-	// Line 3308, Address: 0x1f4688, Func Offset: 0x228
-	// Line 3309, Address: 0x1f4694, Func Offset: 0x234
-	// Line 3310, Address: 0x1f46a0, Func Offset: 0x240
-	// Line 3313, Address: 0x1f46bc, Func Offset: 0x25c
-	// Line 3317, Address: 0x1f46d4, Func Offset: 0x274
-	// Line 3318, Address: 0x1f46e4, Func Offset: 0x284
-	// Line 3320, Address: 0x1f4700, Func Offset: 0x2a0
-	// Line 3323, Address: 0x1f4704, Func Offset: 0x2a4
-	// Line 3325, Address: 0x1f470c, Func Offset: 0x2ac
-	// Line 3326, Address: 0x1f471c, Func Offset: 0x2bc
-	// Line 3328, Address: 0x1f4728, Func Offset: 0x2c8
-	// Line 3330, Address: 0x1f4730, Func Offset: 0x2d0
-	// Line 3336, Address: 0x1f4748, Func Offset: 0x2e8
-	// Line 3337, Address: 0x1f475c, Func Offset: 0x2fc
-	// Func End, Address: 0x1f477c, Func Offset: 0x31c
-	scePrintf("bhEne19_DmgCheck - UNIMPLEMENTED!\n");
+    
+    stsP = &fwP->status;
+    
+    if (((fwP->dmg_flg & 0x80)) && (!(fwP->status & 0x10))) 
+    {
+        fwP->dmg_flg &= ~0xA0;
+        
+        if (ewP->hp < 0) 
+        {
+            ewP->flg |= 0x4;
+            
+            ewP->comb_flg = fwP->comb_flg;
+        }
+    }
+
+    if ((ewP->flg & 0x4))
+    {
+        ewP->flg &= ~0x4;
+        
+        bhEne_CalcDamage(ewP, En19CombWepTbl, En19CombJointTbl);
+        
+        ddP = (DD_WORK*)&DmgDat[ewP->comb_wep];
+        
+        if (((!(*stsP & 0x100)) || ((plp->at_flg & ddP->dmg_cdn))) && ((ewP->comb_wep != 16) || ((ewP->flg2 & 0x4)))) 
+        {
+            if (ewP->hp >= 0) 
+            {
+                ewP->hp -= ewP->total_dam;
+            }
+    
+            fwP->dmg_obj = ewP->djnt_no;
+            fwP->dmg_lvl = bhEne19_CheckDmgLvl[ewP->type](ewP, fwP);
+    
+            if (fwP->dmg_dly > fwP->dmg_lvl) 
+            {
+                fwP->dmg_lvl = fwP->dmg_dly;
+                fwP->dmg_dly = TY_DMG_NON;
+            }
+    
+            flg = ewP->comb_flg;
+            
+            if ((flg & 0x10)) 
+            {
+                dst = 0;
+            } 
+            else if ((flg & 0x20))
+            {
+                dst = 1;
+            } 
+            else if ((flg & 0x40)) 
+            {
+                dst = 2;
+            }
+    
+            if ((ewP->comb_wep == 17) && (!(ewP->flg2 & 0x4))) 
+            {
+                eff_typ = -1;
+            }
+            else
+            {
+                eff_typ = ddP->eff_nml[dst];
+            }
+    
+            if ((fwP->eff_tim == 0) && (eff_typ != -1)) 
+            {
+                dir.x = -ewP->dvx;
+                dir.y = -ewP->dvy;
+                dir.z = -ewP->dvz;
+                
+                bhEne19_SetDmgEffect(ewP, ewP->djnt_no, eff_typ, &dir);
+                
+                if (((flg & 0x1)) && (ddP->eff_nml[dst + 3] != -1))
+                {
+                    bhEne19_SetDmgEffect(ewP, ewP->djnt_no, ddP->eff_nml[dst + 3], &dir);
+                }
+                
+                if (ewP->comb_wep == 16)
+                {
+                    fwP->eff_tim = 32;
+                }
+            }
+    
+            if (!(fwP->status & 0x10)) 
+            {
+                if ((fwP->dmg_lvl > 0) && (fwP->br_mde1 != TY_BR1_DAMAGE))
+                {
+                    fwP->br_mde1 = TY_BR1_DAMAGE;
+                    fwP->br_mde2 = TY_BR2_FIRST;
+                }
+            } 
+            else if (fwP->dmg_lvl >= 3) 
+            {
+                fwP->dmg_flg |= 0x80;
+                
+                fwP->comb_flg = ewP->comb_flg;
+                
+                if (fwP->dmg_dly < fwP->dmg_lvl) 
+                {
+                    fwP->dmg_dly = fwP->dmg_lvl;
+                }
+            }
+        }
+    }
+
+    if (fwP->eff_tim != 0) 
+    {
+        fwP->eff_tim--;
+    }
 }
 
 // 
