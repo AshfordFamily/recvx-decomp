@@ -3103,58 +3103,66 @@ static int bhEne19_CollisionCircle2Oval(NJS_MATRIX* basP, float ra, float rb, NJ
     return 0;
 }
 
-// 
-// Start address: 0x1f5000
+// 100% matching!
 static void bhEne19_TyBloodSet(EB_WORK* ebP)
 {
-	float* prmP;
-	int rnd;
-	FW_WORK* fwP;
-	BH_PWORK* ewP;
+    BH_PWORK* ewP;
+    FW_WORK* fwP; 
+    int rnd;      
+    float* prmP;  
 	static const float SetPrm[2][3] = 
 	{
 		{ 18.0f,  0.5f,  1.0f },
 		{  4.0f,  1.0f,  2.0f }
 	};
-	// Line 3606, Address: 0x1f5000, Func Offset: 0
-	// Line 3607, Address: 0x1f5018, Func Offset: 0x18
-	// Line 3608, Address: 0x1f501c, Func Offset: 0x1c
-	// Line 3616, Address: 0x1f5024, Func Offset: 0x24
-	// Line 3617, Address: 0x1f5040, Func Offset: 0x40
-	// Line 3618, Address: 0x1f504c, Func Offset: 0x4c
-	// Line 3622, Address: 0x1f5088, Func Offset: 0x88
-	// Line 3618, Address: 0x1f508c, Func Offset: 0x8c
-	// Line 3622, Address: 0x1f5090, Func Offset: 0x90
-	// Line 3624, Address: 0x1f50b0, Func Offset: 0xb0
-	// Line 3626, Address: 0x1f50c8, Func Offset: 0xc8
-	// Line 3631, Address: 0x1f50d0, Func Offset: 0xd0
-	// Line 3626, Address: 0x1f50d4, Func Offset: 0xd4
-	// Line 3631, Address: 0x1f50d8, Func Offset: 0xd8
-	// Line 3626, Address: 0x1f50dc, Func Offset: 0xdc
-	// Line 3627, Address: 0x1f50e8, Func Offset: 0xe8
-	// Line 3629, Address: 0x1f50f4, Func Offset: 0xf4
-	// Line 3627, Address: 0x1f50f8, Func Offset: 0xf8
-	// Line 3628, Address: 0x1f5104, Func Offset: 0x104
-	// Line 3629, Address: 0x1f5118, Func Offset: 0x118
-	// Line 3630, Address: 0x1f5134, Func Offset: 0x134
-	// Line 3631, Address: 0x1f5148, Func Offset: 0x148
-	// Line 3632, Address: 0x1f515c, Func Offset: 0x15c
-	// Line 3633, Address: 0x1f5184, Func Offset: 0x184
-	// Line 3632, Address: 0x1f5188, Func Offset: 0x188
-	// Line 3633, Address: 0x1f5194, Func Offset: 0x194
-	// Line 3634, Address: 0x1f51b8, Func Offset: 0x1b8
-	// Line 3635, Address: 0x1f5210, Func Offset: 0x210
-	// Line 3636, Address: 0x1f5268, Func Offset: 0x268
-	// Line 3638, Address: 0x1f5290, Func Offset: 0x290
-	// Line 3636, Address: 0x1f5294, Func Offset: 0x294
-	// Line 3638, Address: 0x1f52a8, Func Offset: 0x2a8
-	// Line 3636, Address: 0x1f52b0, Func Offset: 0x2b0
-	// Line 3638, Address: 0x1f52e4, Func Offset: 0x2e4
-	// Line 3639, Address: 0x1f52fc, Func Offset: 0x2fc
-	// Line 3640, Address: 0x1f5304, Func Offset: 0x304
-	// Line 3642, Address: 0x1f530c, Func Offset: 0x30c
-	// Func End, Address: 0x1f5328, Func Offset: 0x328
-	scePrintf("bhEne19_TyBloodSet - UNIMPLEMENTED!\n");
+
+    ewP = ebP->ewP;
+    fwP = ebP->fwP;
+    
+    if ((ewP->mode0 != 5) && (ewP->mode0 != 3))
+    {
+        if (ebP->time == 0)
+        {
+            rnd = (int)(16.0f * (-rand() / -2.1474836E9f)) & 0xF;
+            
+            if (fwP->br_mde0 != TY_BR0_PINCH) 
+            {
+                prmP = (float*)&SetPrm[0];
+            } 
+            else
+            {
+                prmP = (float*)&SetPrm[1];
+            }
+            
+            ebP->time = *prmP++ + rnd;
+            
+            sys->ef.flg = 1;
+            
+            sys->ef.id = 303;
+            
+            sys->ef.ax = 0;
+            sys->ef.ay = ewP->ay + (rnd * 1024);
+            
+            sys->ef.mdlver = 0;
+            
+            sys->ef.type = (rnd & 0x3) + 4;
+            
+            *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&ewP->mlwP->owP[18].mtx[12];
+            
+            sys->ef.py = bhGetGroundPosition((NJS_POINT3*)&sys->ef.px);
+            
+            sys->ef.px += *prmP   * ((-rand() / -2.1474836E9f) - 0.5f);
+            sys->ef.pz += *prmP++ * ((-rand() / -2.1474836E9f) - 0.5f);
+            
+            sys->ef.sx = sys->ef.sx = sys->ef.sz = 0.5f + (*prmP * (-rand() / -2.1474836E9f)); // maybe they meant to assign to sy as well?
+            
+            bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        }
+        else
+        {
+            ebP->time--;
+        }
+    }
 }
 
 // 100% matching!
