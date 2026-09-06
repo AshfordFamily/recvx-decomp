@@ -2402,49 +2402,102 @@ static int bhEne19_ActionChange(BH_PWORK* ewP, FW_WORK* fwP, int act_dst)
     return 0;
 }
 
-// 
-// Start address: 0x1f3980
+#pragma divbyzerocheck on
+
+// 100% matching!
 static int bhEne19_ActionMain(BH_PWORK* ewP, FW_WORK* fwP)
 {
-	short* s16P;
-	int ang;
-	int mat;
-	int* stsP;
-	// Line 2812, Address: 0x1f3980, Func Offset: 0
-	// Line 2817, Address: 0x1f399c, Func Offset: 0x1c
-	// Line 2820, Address: 0x1f39a4, Func Offset: 0x24
-	// Line 2821, Address: 0x1f39b0, Func Offset: 0x30
-	// Line 2820, Address: 0x1f39b4, Func Offset: 0x34
-	// Line 2821, Address: 0x1f39b8, Func Offset: 0x38
-	// Line 2822, Address: 0x1f39d4, Func Offset: 0x54
-	// Line 2824, Address: 0x1f39f0, Func Offset: 0x70
-	// Line 2825, Address: 0x1f39fc, Func Offset: 0x7c
-	// Line 2824, Address: 0x1f3a00, Func Offset: 0x80
-	// Line 2825, Address: 0x1f3a04, Func Offset: 0x84
-	// Line 2826, Address: 0x1f3a20, Func Offset: 0xa0
-	// Line 2828, Address: 0x1f3a3c, Func Offset: 0xbc
-	// Line 2830, Address: 0x1f3a48, Func Offset: 0xc8
-	// Line 2831, Address: 0x1f3a64, Func Offset: 0xe4
-	// Line 2833, Address: 0x1f3a74, Func Offset: 0xf4
-	// Line 2834, Address: 0x1f3a90, Func Offset: 0x110
-	// Line 2839, Address: 0x1f3aa0, Func Offset: 0x120
-	// Line 2843, Address: 0x1f3ac8, Func Offset: 0x148
-	// Line 2847, Address: 0x1f3ad8, Func Offset: 0x158
-	// Line 2849, Address: 0x1f3ae8, Func Offset: 0x168
-	// Line 2850, Address: 0x1f3b04, Func Offset: 0x184
-	// Line 2861, Address: 0x1f3b20, Func Offset: 0x1a0
-	// Line 2862, Address: 0x1f3b40, Func Offset: 0x1c0
-	// Line 2867, Address: 0x1f3b50, Func Offset: 0x1d0
-	// Line 2865, Address: 0x1f3b5c, Func Offset: 0x1dc
-	// Line 2867, Address: 0x1f3b60, Func Offset: 0x1e0
-	// Line 2868, Address: 0x1f3b7c, Func Offset: 0x1fc
-	// Line 2874, Address: 0x1f3b88, Func Offset: 0x208
-	// Line 2876, Address: 0x1f3bbc, Func Offset: 0x23c
-	// Line 2874, Address: 0x1f3bc0, Func Offset: 0x240
-	// Line 2877, Address: 0x1f3bc4, Func Offset: 0x244
-	// Func End, Address: 0x1f3bdc, Func Offset: 0x25c
-	scePrintf("bhEne19_ActionMain - UNIMPLEMENTED!\n");
+    short* s16P; 
+    int ang;    
+    int mat;     
+    int* stsP;  
+
+    stsP = &fwP->status;
+    
+    mat = bhEne19_MtnAttrbuteGet(ewP);
+    
+    *stsP &= ~0x30000;
+    
+    if ((mat & 0x2)) 
+    {
+        *stsP |= 0x10000;
+    }
+    else if ((mat & 0x1)) 
+    {
+        *stsP |= 0x20000;
+    }
+    
+    *stsP &= ~0xC0000;
+    
+    if ((mat & 0x8)) 
+    {
+        *stsP |= 0x40000;
+    }
+    else if ((mat & 0x4)) 
+    {
+        *stsP |= 0x80000;
+    }
+    
+    fwP->snd_no = (unsigned char)(mat / 256);
+    
+    if ((mat & 0x10))
+    {
+        *stsP |= 0x40;
+    }
+    else 
+    {
+        *stsP &= ~0x40;
+    }
+    
+    if ((mat & 0x20)) 
+    {
+        *stsP |=  0x10;
+    }
+    else
+    {
+        *stsP &= ~0x10;
+    }
+    
+    if (fwP->prgP != NULL) 
+    {
+        fwP->prgP(ewP, (en19_freework*)fwP, fwP->act_cnt++);
+    }
+    
+    if ((fwP->act_flg & 0x8)) 
+    {
+        ang = (fwP->tgt_ang > fwP->trn_spd) ? fwP->trn_spd : fwP->tgt_ang;
+        
+        if ((fwP->status & 0x2000))
+        {
+            ewP->ay += ang;
+        }
+        
+        if ((fwP->status & 0x4000)) 
+        {
+            ewP->ay -= ang;
+        }
+    }
+    
+    if ((fwP->status & 0x8)) 
+    {
+        ewP->mtn_md |=  0x2;
+    } 
+    else 
+    {
+        ewP->mtn_md &= ~0x2;
+    } 
+    
+    s16P = (short*)&fwP->act_frm;
+    
+    s16P[1] += bhSetMotion(ewP, ewP->mtn_add, ewP->mtn_md, ewP->mtn_tp);
+    s16P[0] =  ewP->frm_no / 65536;
+    
+    fwP->mtn_rte = ewP->frm_no / (ewP->mnwP[ewP->mtn_no].frm_num - 1);
+    
+    return 0;
 }
+
+#pragma divbyzerocheck off
 
 // 100% matching!
 static void bhEne19_TargetAnalyze(BH_PWORK* ewP, FW_WORK* fwP)
