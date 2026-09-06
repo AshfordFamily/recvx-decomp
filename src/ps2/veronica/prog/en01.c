@@ -9658,8 +9658,6 @@ void bhEne01_DG14(BH_PWORK* epw)
 {
 	BH_PWORK* cepw;
 	O_WORK* owk;
-	//O_WORK* owk;
-	//O_WORK* owk;
     NJS_POINT3 ps;
 	NJS_POINT3 pd;
 	float y_len;
@@ -10483,8 +10481,7 @@ void bhEne01_CheckMtnTbl(BH_PWORK* epw, int frm)
 	EN01_MTN2_WORK* mtbl2;
 	EN01_MTN2_WORK* mtbl3;
     BH_PWORK* epp;
-    int i;   
-  
+      
     mtbl = en01_mtn_tbl;
     mtbl2 = en01_mtn_tbl2;
     mtbl3 = en01_mtn_tbl3;
@@ -10494,6 +10491,7 @@ void bhEne01_CheckMtnTbl(BH_PWORK* epw, int frm)
         NJS_VECTOR vec = {0.0f, 0.0f, 0.0f};
 	    NJS_VECTOR vec1 = {0.0f, 0.0f, 0.0f};
 	    NJS_VECTOR vec2 = {0.0f, -1.0f, -1.9f};  
+        int i;
 
         if (sys->rmthp != epw->mnwP)
         {
