@@ -3291,122 +3291,139 @@ static void bhEne19_ClawReset(BH_PWORK* ewP, FW_WORK* fwP)
     *(NJS_POINT3*)objP[13].pos = *posP++;
 }
 
-// 
-// Start address: 0x1f53a0
+// 100% matching!
 static void bhEne19_SoundSet(BH_PWORK* ewP, FW_WORK* fwP)
 {
-	//int sts;
-	int obj_b;
-	int obj_a;
-	int i;
-	int sts;
-	int obj;
-	int snd_no;
-	int SndTbl[20] = 
+    int SndTbl[20] =  
 	{
 		    0, 74496,  8961, 16786178, 16851715, 16851716, 74501, 74502, 74503, 74504, 
 		74505, 74506, 74507,    74508,    74509,    74510, 74511, 74512, 74513, 74514
 	};
+    int snd_no;      
+    int obj;        
+    int sts;         
+    int i;          
+    int obj_a, obj_b;    
 	static const NJS_POINT3 WlkOff = {  0.0f, -1.5f,  0.0f };
 	static const int EffTbl[15] = {  4, 17, 16, 15, 14, 23, 24,  1, 19, 20,  6,  7,  8,  9,  2 };
-	// Line 3670, Address: 0x1f53a0, Func Offset: 0
-	// Line 3672, Address: 0x1f53b0, Func Offset: 0x10
-	// Line 3670, Address: 0x1f53b4, Func Offset: 0x14
-	// Line 3672, Address: 0x1f53bc, Func Offset: 0x1c
-	// Line 3695, Address: 0x1f53f0, Func Offset: 0x50
-	// Line 3697, Address: 0x1f53f4, Func Offset: 0x54
-	// Line 3698, Address: 0x1f53fc, Func Offset: 0x5c
-	// Line 3700, Address: 0x1f5424, Func Offset: 0x84
-	// Line 3703, Address: 0x1f5428, Func Offset: 0x88
-	// Line 3711, Address: 0x1f5464, Func Offset: 0xc4
-	// Line 3712, Address: 0x1f5468, Func Offset: 0xc8
-	// Line 3714, Address: 0x1f547c, Func Offset: 0xdc
-	// Line 3716, Address: 0x1f5494, Func Offset: 0xf4
-	// Line 3718, Address: 0x1f54ac, Func Offset: 0x10c
-	// Line 3721, Address: 0x1f54b0, Func Offset: 0x110
-	// Line 3722, Address: 0x1f54b8, Func Offset: 0x118
-	// Line 3723, Address: 0x1f54f4, Func Offset: 0x154
-	// Line 3724, Address: 0x1f5500, Func Offset: 0x160
-	// Line 3726, Address: 0x1f5504, Func Offset: 0x164
-	// Line 3723, Address: 0x1f5508, Func Offset: 0x168
-	// Line 3724, Address: 0x1f5514, Func Offset: 0x174
-	// Line 3727, Address: 0x1f551c, Func Offset: 0x17c
-	// Line 3731, Address: 0x1f5520, Func Offset: 0x180
-	// Line 3724, Address: 0x1f552c, Func Offset: 0x18c
-	// Line 3725, Address: 0x1f5538, Func Offset: 0x198
-	// Line 3726, Address: 0x1f5554, Func Offset: 0x1b4
-	// Line 3727, Address: 0x1f5568, Func Offset: 0x1c8
-	// Line 3728, Address: 0x1f55a4, Func Offset: 0x204
-	// Line 3729, Address: 0x1f55b8, Func Offset: 0x218
-	// Line 3730, Address: 0x1f55cc, Func Offset: 0x22c
-	// Line 3731, Address: 0x1f55e0, Func Offset: 0x240
-	// Line 3734, Address: 0x1f55f8, Func Offset: 0x258
-	// Line 3748, Address: 0x1f5600, Func Offset: 0x260
-	// Line 3749, Address: 0x1f5610, Func Offset: 0x270
-	// Line 3748, Address: 0x1f5614, Func Offset: 0x274
-	// Line 3749, Address: 0x1f5620, Func Offset: 0x280
-	// Line 3752, Address: 0x1f5628, Func Offset: 0x288
-	// Line 3749, Address: 0x1f5634, Func Offset: 0x294
-	// Line 3750, Address: 0x1f564c, Func Offset: 0x2ac
-	// Line 3752, Address: 0x1f5658, Func Offset: 0x2b8
-	// Line 3750, Address: 0x1f5660, Func Offset: 0x2c0
-	// Line 3753, Address: 0x1f5694, Func Offset: 0x2f4
-	// Line 3755, Address: 0x1f569c, Func Offset: 0x2fc
-	// Line 3757, Address: 0x1f56a0, Func Offset: 0x300
-	// Line 3753, Address: 0x1f56ac, Func Offset: 0x30c
-	// Line 3754, Address: 0x1f56b8, Func Offset: 0x318
-	// Line 3755, Address: 0x1f56d4, Func Offset: 0x334
-	// Line 3756, Address: 0x1f56e8, Func Offset: 0x348
-	// Line 3757, Address: 0x1f5724, Func Offset: 0x384
-	// Line 3756, Address: 0x1f5728, Func Offset: 0x388
-	// Line 3757, Address: 0x1f5734, Func Offset: 0x394
-	// Line 3758, Address: 0x1f5750, Func Offset: 0x3b0
-	// Line 3757, Address: 0x1f5758, Func Offset: 0x3b8
-	// Line 3758, Address: 0x1f575c, Func Offset: 0x3bc
-	// Line 3760, Address: 0x1f5764, Func Offset: 0x3c4
-	// Line 3767, Address: 0x1f576c, Func Offset: 0x3cc
-	// Line 3765, Address: 0x1f5774, Func Offset: 0x3d4
-	// Line 3767, Address: 0x1f5778, Func Offset: 0x3d8
-	// Line 3768, Address: 0x1f577c, Func Offset: 0x3dc
-	// Line 3767, Address: 0x1f5780, Func Offset: 0x3e0
-	// Line 3768, Address: 0x1f578c, Func Offset: 0x3ec
-	// Line 3771, Address: 0x1f5794, Func Offset: 0x3f4
-	// Line 3774, Address: 0x1f5798, Func Offset: 0x3f8
-	// Line 3768, Address: 0x1f579c, Func Offset: 0x3fc
-	// Line 3769, Address: 0x1f57a8, Func Offset: 0x408
-	// Line 3770, Address: 0x1f57c4, Func Offset: 0x424
-	// Line 3771, Address: 0x1f57d8, Func Offset: 0x438
-	// Line 3772, Address: 0x1f5814, Func Offset: 0x474
-	// Line 3774, Address: 0x1f5824, Func Offset: 0x484
-	// Line 3775, Address: 0x1f582c, Func Offset: 0x48c
-	// Line 3777, Address: 0x1f5830, Func Offset: 0x490
-	// Line 3778, Address: 0x1f5838, Func Offset: 0x498
-	// Line 3779, Address: 0x1f583c, Func Offset: 0x49c
-	// Line 3782, Address: 0x1f5840, Func Offset: 0x4a0
-	// Line 3783, Address: 0x1f5848, Func Offset: 0x4a8
-	// Line 3782, Address: 0x1f5850, Func Offset: 0x4b0
-	// Line 3783, Address: 0x1f5860, Func Offset: 0x4c0
-	// Line 3784, Address: 0x1f5870, Func Offset: 0x4d0
-	// Line 3783, Address: 0x1f5878, Func Offset: 0x4d8
-	// Line 3784, Address: 0x1f587c, Func Offset: 0x4dc
-	// Line 3783, Address: 0x1f5880, Func Offset: 0x4e0
-	// Line 3784, Address: 0x1f589c, Func Offset: 0x4fc
-	// Line 3783, Address: 0x1f58a0, Func Offset: 0x500
-	// Line 3784, Address: 0x1f58ac, Func Offset: 0x50c
-	// Line 3785, Address: 0x1f58c0, Func Offset: 0x520
-	// Line 3786, Address: 0x1f58c8, Func Offset: 0x528
-	// Line 3785, Address: 0x1f58d0, Func Offset: 0x530
-	// Line 3786, Address: 0x1f58e0, Func Offset: 0x540
-	// Line 3787, Address: 0x1f58f0, Func Offset: 0x550
-	// Line 3786, Address: 0x1f58f8, Func Offset: 0x558
-	// Line 3787, Address: 0x1f58fc, Func Offset: 0x55c
-	// Line 3786, Address: 0x1f5900, Func Offset: 0x560
-	// Line 3787, Address: 0x1f591c, Func Offset: 0x57c
-	// Line 3786, Address: 0x1f5920, Func Offset: 0x580
-	// Line 3787, Address: 0x1f592c, Func Offset: 0x58c
-	// Line 3792, Address: 0x1f5940, Func Offset: 0x5a0
-	// Func End, Address: 0x1f595c, Func Offset: 0x5bc
-	scePrintf("bhEne19_SoundSet - UNIMPLEMENTED!\n");
+
+    snd_no = fwP->snd_no;
+    
+    if (snd_no != 0) 
+    {
+        RequestEnemySe(sys->enow, (NJS_POINT3*)&ewP->px, SndTbl[snd_no]);
+        
+        fwP->snd_no = 0;
+    }
+
+    switch (SndTbl[snd_no]) 
+    {
+    case 74496:
+        sts = fwP->status;
+        
+        if ((sts & 0x8)) 
+        {
+            sts ^= 0x30000;
+        }
+        
+        if ((sts & 0x10000)) 
+        {
+            sts = 0x18;
+        } 
+        else if ((sts & 0x20000)) 
+        {
+            sts = 0x14;
+        } 
+        else 
+        {
+            sts = 0;
+        }
+
+        if (sts != 0) 
+        {
+            njCalcPoint(&ewP->mlwP->owP[sts].mtx, &WlkOff, (NJS_POINT3*)&sys->ef.px);
+            
+            sys->ef.flg = 1;
+            
+            sys->ef.id = 305;
+            
+            sys->ef.ay = ewP->ay + 10922;
+            sys->ef.ax = 16384;
+            
+            sys->ef.sx = sys->ef.sy = sys->ef.sz = 1.0f;
+            
+            sys->ef.mdlver = 0;
+            
+            sys->ef.flr_no = 0;
+            
+            sys->ef.type = 0;
+            
+            bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        }
+        
+        break;
+    case 74501:
+        sys->ef.flg = 1;
+        
+        sys->ef.id = 305;
+    
+        sys->ef.sx = sys->ef.sy = sys->ef.sz = 1.0f;
+    
+        for (i = 0; i < 15; i++)
+        {
+            sys->ef.ax = 0;
+            sys->ef.ay = ewP->ay + (i * 4369);
+            
+            sys->ef.type = i & 0x3;
+        
+            *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&ewP->mlwP->owP[EffTbl[i]].mtx[12];
+            
+            bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        }
+        
+        break;
+    case 74502:
+    {
+        int sts; 
+
+        sts = fwP->status;
+        
+        sys->ef.flg = 1;
+        
+        sys->ef.id = 305;
+        
+        sys->ef.ay = ewP->ay + 10922;
+        sys->ef.ax = 0;
+        
+        sys->ef.sx = sys->ef.sy = sys->ef.sz = 1.0f;
+        
+        sys->ef.flr_no = 0;
+
+        if ((sts & 0x8)) 
+        {
+            obj_a = 19;
+            obj_b = 9;
+        } 
+        else 
+        {
+            obj_a = 23;
+            obj_b = 17;
+        }
+        
+        sys->ef.type = 2;
+        
+        *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&ewP->mlwP->owP[obj_a].mtx[12];
+        
+        bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+
+        sys->ef.type = 1;
+        
+        *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&ewP->mlwP->owP[obj_b].mtx[12];
+        
+        bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        break;
+    }
+    }
 }
 
 // 100% matching!
