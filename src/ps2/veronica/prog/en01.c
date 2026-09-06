@@ -11015,35 +11015,32 @@ void bhEne01_NikuhenEffect(BH_PWORK* epw, NJS_VECTOR* ps, int n)
     }        
 }
 
-// 99.82% matching
+// 100% matching
 void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj)
 {
 	NJS_VECTOR v;
 	NJS_POINT3 ps;
 	NJS_POINT3 pd;
-	O_WORK* owk; 
+	O_WORK* owk;
 	int ang1;
 	float tmp;
 	int eno;
 	int i;
 	int j;
-    
-    // not from DWARF
-    int ang2;
-  
+
     owk = &epw->mlwP->owP[lnk_obj];
     ps.x = 0.0f;
     ps.y = 1.0f;
     ps.z = -1.0f;
     njCalcPoint(&owk->mtx, &ps, &pd);
-    for (i = 0; i < 4; i++)
-    {
-		ang1 = (NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
-		v.x = -njSin(ang1) * njCos(NJM_DEG_ANG(22.5f));
-		v.y = njSin(NJM_DEG_ANG(22.5f));
-		v.z = -njCos(ang1) * njCos(NJM_DEG_ANG(22.5f));
-		bhEne_SetNikuhenEffect(epw, rand() % 2, &pd, &v, bhEne01_ChgTextID(epw, 5));
-	}
+    
+    for (i = 0; i < 4; i++) {
+        ang1 = (NJM_DEG_ANG(45.0f) + epw->py + (i * NJM_DEG_ANG(90.0f)));
+        v.x = -njSin(ang1) * njCos(NJM_DEG_ANG(22.5f));
+        v.y = njSin(NJM_DEG_ANG(22.5f));
+        v.z = -njCos(ang1) * njCos(NJM_DEG_ANG(22.5f));
+        bhEne_SetNikuhenEffect(epw, rand() % 2, &pd, &v, bhEne01_ChgTextID(epw, 5));
+    }
     
     sys->ef.flg = 1;
     sys->ef.id = 5;
@@ -11059,13 +11056,12 @@ void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj)
     bhSetEffectTb(&sys->ef, NULL, NULL, 0);
     
     sys->ef.id = 363;
-    for (i = 0, ang2 = NJM_DEG_ANG(135.0f); i < 3; i++, ang2 += NJM_DEG_ANG(45.0f))
-    {
-        for (ang1 = NJM_DEG_ANG(0.0f), j = 0; j < 8; ang1 += NJM_DEG_ANG(45.0f), j++)
-        {
+    for (j = 0; j < 3; j++) {
+        for (i = 0; i < 8; i++)
+        {                    
             tmp = 1.0f + (2.0f * njRandom());
             sys->ef.sx = tmp;
-            sys->ef.sy = tmp;   
+            sys->ef.sy = tmp;
             sys->ef.sz = 1.0f;
             sys->ef.type = 3;
             eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
@@ -11076,12 +11072,12 @@ void bhEne01_ExpLegEffect(BH_PWORK* epw, int lnk_obj)
                 eff[eno].tex_id = bhEne01_ChgTextID(epw, 7);
                 eff[eno].spd = 2.0f + (2.0f * njRandom());
                 eff[eno].ct3 = 0;
-                eff[eno].ay = ang1;
-                eff[eno].ax = ang2;
-    
-                v.x = -njSin(ang1) * njCos(ang2);
-                v.y = njSin(ang2);
-                v.z = -njCos(ang1) * njCos(ang2);
+                eff[eno].ay = i * NJM_DEG_ANG(45.0f);
+                eff[eno].ax = NJM_DEG_ANG(135.0f) + (j * NJM_DEG_ANG(45.0f));
+
+                v.x = -njSin(i * NJM_DEG_ANG(45.0f)) * njCos(NJM_DEG_ANG(135.0f) + (j * NJM_DEG_ANG(45.0f)));
+                v.y = njSin(NJM_DEG_ANG(135.0f) + (j * NJM_DEG_ANG(45.0f)));
+                v.z = -njCos(i * NJM_DEG_ANG(45.0f)) * njCos(NJM_DEG_ANG(135.0f) + (j * NJM_DEG_ANG(45.0f)));
                 eff[eno].xn = v.x;
                 eff[eno].yn = v.y;
                 eff[eno].zn = v.z;
