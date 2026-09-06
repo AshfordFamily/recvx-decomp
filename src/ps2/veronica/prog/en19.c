@@ -3380,62 +3380,66 @@ static void bhEne19_PlyMoveMain(BH_PWORK* plP, FW_WORK* fwP)
 	scePrintf("bhEne19_PlyMoveMain - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1f5e40
+// 100% matching!
 static void bhEne19_PlyDmg042(BH_PWORK* plP, FW_WORK* fwP)
-{
-	int obj;
-	int dlt;
-	float spd;
-	int dir;
+{    
+    int dir;   
+    float spd; 
+    int dlt;  
+    int obj;  
 	static const int EffTbl[4] = { 20,  9, 16, 13 };
-	// Line 3991, Address: 0x1f5e40, Func Offset: 0
-	// Line 3993, Address: 0x1f5e58, Func Offset: 0x18
-	// Line 3996, Address: 0x1f5e6c, Func Offset: 0x2c
-	// Line 4001, Address: 0x1f5e80, Func Offset: 0x40
-	// Line 4003, Address: 0x1f5e84, Func Offset: 0x44
-	// Line 4004, Address: 0x1f5e9c, Func Offset: 0x5c
-	// Line 4006, Address: 0x1f5eac, Func Offset: 0x6c
-	// Line 4004, Address: 0x1f5eb0, Func Offset: 0x70
-	// Line 4006, Address: 0x1f5eb8, Func Offset: 0x78
-	// Line 4008, Address: 0x1f5ecc, Func Offset: 0x8c
-	// Line 4006, Address: 0x1f5ed0, Func Offset: 0x90
-	// Line 4008, Address: 0x1f5ed4, Func Offset: 0x94
-	// Line 4006, Address: 0x1f5ed8, Func Offset: 0x98
-	// Line 4008, Address: 0x1f5edc, Func Offset: 0x9c
-	// Line 4006, Address: 0x1f5ee4, Func Offset: 0xa4
-	// Line 4008, Address: 0x1f5eec, Func Offset: 0xac
-	// Line 4013, Address: 0x1f5ef8, Func Offset: 0xb8
-	// Line 4014, Address: 0x1f5f0c, Func Offset: 0xcc
-	// Line 4016, Address: 0x1f5f18, Func Offset: 0xd8
-	// Line 4018, Address: 0x1f5f40, Func Offset: 0x100
-	// Line 4022, Address: 0x1f5f58, Func Offset: 0x118
-	// Line 4027, Address: 0x1f5f68, Func Offset: 0x128
-	// Line 4029, Address: 0x1f5f74, Func Offset: 0x134
-	// Line 4027, Address: 0x1f5f7c, Func Offset: 0x13c
-	// Line 4029, Address: 0x1f5f8c, Func Offset: 0x14c
-	// Line 4030, Address: 0x1f5f9c, Func Offset: 0x15c
-	// Line 4037, Address: 0x1f5fa4, Func Offset: 0x164
-	// Line 4030, Address: 0x1f5fac, Func Offset: 0x16c
-	// Line 4031, Address: 0x1f5fbc, Func Offset: 0x17c
-	// Line 4037, Address: 0x1f5fc0, Func Offset: 0x180
-	// Line 4031, Address: 0x1f5fc4, Func Offset: 0x184
-	// Line 4033, Address: 0x1f5fcc, Func Offset: 0x18c
-	// Line 4038, Address: 0x1f5fd0, Func Offset: 0x190
-	// Line 4031, Address: 0x1f5fd4, Func Offset: 0x194
-	// Line 4038, Address: 0x1f5fd8, Func Offset: 0x198
-	// Line 4031, Address: 0x1f5fe0, Func Offset: 0x1a0
-	// Line 4032, Address: 0x1f5ff0, Func Offset: 0x1b0
-	// Line 4033, Address: 0x1f6004, Func Offset: 0x1c4
-	// Line 4034, Address: 0x1f602c, Func Offset: 0x1ec
-	// Line 4035, Address: 0x1f6040, Func Offset: 0x200
-	// Line 4037, Address: 0x1f605c, Func Offset: 0x21c
-	// Line 4038, Address: 0x1f6088, Func Offset: 0x248
-	// Line 4037, Address: 0x1f608c, Func Offset: 0x24c
-	// Line 4038, Address: 0x1f6098, Func Offset: 0x258
-	// Line 4041, Address: 0x1f60ac, Func Offset: 0x26c
-	// Func End, Address: 0x1f60c8, Func Offset: 0x288
-	scePrintf("bhEne19_PlyDmg042 - UNIMPLEMENTED!\n");
+
+    plP->flg |= 0x200000;
+    
+    if (fwP->ply_act.p_mtn_rte == 0) 
+    {
+        CallPlayerVoice(1026);
+    }
+    
+    spd = fwP->trw_spd; 
+    dir = fwP->trw_dir;
+    
+    if (spd > 0)
+    {
+        plP->px += spd * -njSin(dir);
+        plp->pz += spd * -njCos(dir);
+        
+        fwP->trw_spd -= 0.075f;
+    }
+    
+    if (fwP->ply_act.p_mtn_rte <= 49152) 
+    {
+        dlt = fwP->trw_dir - plP->ay;
+        
+        if (njCos(dlt) < 0)
+        {
+            dlt += 32768;
+        }
+        
+        plP->ay += (short)dlt / 16;
+    }
+    
+    if (fwP->ply_act.p_mtn_rte > 26214) 
+    {
+        obj = EffTbl[fwP->ply_act.p_act_frm & 0x3];
+        
+        sys->ef.flg = 1;
+        
+        sys->ef.id = 305;
+        
+        sys->ef.ay = fwP->ewP->ay + 10922;
+        sys->ef.ax = 0;
+        
+        sys->ef.sx = sys->ef.sy = 1.0f;
+        
+        sys->ef.mdlver = 0;
+        
+        sys->ef.type = fwP->ply_act.p_act_frm & 0x1;
+        
+        *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&plP->mlwP->owP[obj].mtx[12];
+        
+        bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+    }
 }
 
 // 100% matching!
