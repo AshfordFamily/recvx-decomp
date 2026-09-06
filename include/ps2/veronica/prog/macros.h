@@ -79,6 +79,8 @@
 #define EXP0_P3(n)  ((NJS_POINT3*)(epw->exp0 + (n) * 12 + 0x84))
 #define EXP0_P(i) (*(NJS_POINT3 *)((char *)epw->exp0 + 4 + ((i) * 12)))
 
+#define CEPW_EXP0_I(o) (*(int*)((char*)cepw->exp0 + (o)))
+
 #define MTN_NO_CHECK(epw) ((epw->mtn_no == 2) ? 0 : (epw->mtn_no == 3) ? 1 : 2) 
 
 #define PREFETCH(_v) asm("pref 0x0,0(%0)": : "r"(_v) : "memory")
