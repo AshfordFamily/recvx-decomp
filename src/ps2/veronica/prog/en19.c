@@ -2298,30 +2298,46 @@ static void bhEne19_Mv20(BH_PWORK* ewP, FW_WORK* fwP, int count)
     }
 }
 
-// 
-// Start address: 0x1f3760
+// 93.33% matching
 static EA_WORK* bhEne19_ActionSearch(int act_nw, int act_no)
 {
-	int middle;
-	int val;
-	int low;
-	int high;
-	int key;
-	// Line 2694, Address: 0x1f3760, Func Offset: 0
-	// Line 2695, Address: 0x1f376c, Func Offset: 0xc
-	// Line 2694, Address: 0x1f3770, Func Offset: 0x10
-	// Line 2696, Address: 0x1f3774, Func Offset: 0x14
-	// Line 2703, Address: 0x1f3778, Func Offset: 0x18
-	// Line 2702, Address: 0x1f3780, Func Offset: 0x20
-	// Line 2703, Address: 0x1f3788, Func Offset: 0x28
-	// Line 2705, Address: 0x1f379c, Func Offset: 0x3c
-	// Line 2706, Address: 0x1f37a4, Func Offset: 0x44
-	// Line 2708, Address: 0x1f37b4, Func Offset: 0x54
-	// Line 2713, Address: 0x1f37c0, Func Offset: 0x60
-	// Line 2716, Address: 0x1f37cc, Func Offset: 0x6c
-	// Line 2717, Address: 0x1f37d0, Func Offset: 0x70
-	// Func End, Address: 0x1f37d8, Func Offset: 0x78
-	scePrintf("bhEne19_ActionSearch - UNIMPLEMENTED!\n");
+	int key;  
+	int high, low;  
+	int val;   
+	int middle; 
+
+    high = 50;
+    
+    key = ((unsigned char)act_nw << 8) | ((unsigned char)act_no << 0);
+    
+    low = 0;
+
+    while (TRUE)
+    {
+        middle = (low + high) / 2;
+        
+        val = En19ActTbl[middle].label;
+
+        if (key == val)
+        {
+            break;
+        }
+        else if (key < val)
+        {
+            high = middle - 1;
+        }
+        else if (key > val)
+        {
+            low = middle + 1;
+        }
+
+        if (high < low)
+        {
+            return NULL;
+        }
+    }
+
+    return &En19ActTbl[middle];
 }
 
 // 
