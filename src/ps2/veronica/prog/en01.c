@@ -4185,26 +4185,24 @@ void bhEne01_CollCheckPush(BH_PWORK* epw, BH_PWORK* top_epw)
     }
 }
 
-// 98.81% matching!
+// 100% matching!
 int bhEne01_EnemyHitChk(BH_PWORK* epw, BH_PWORK* tepw, int rng)
 {
-	int ang;
+	int ang; 
+	int r1;
 	int r2;
 
+
     ang = (unsigned short)NitenDir_ck(tepw->px, tepw->pz, epw->px, epw->pz);
-    ang = (unsigned short)(tepw->ay + ang);
-    r2 = (unsigned short)(tepw->ay - rng);
+    ang = (tepw->ay + ang) & 0xFFFF;
 
-
-    if (!((unsigned short)(tepw->ay + rng) < ang)
-        || !((unsigned short)(ang < r2)))
+    r2 = (unsigned short)(tepw->ay + rng);
+    r1 = (unsigned short)(tepw->ay - rng); 
+    if ((r2 >= ang) || (ang >= r1))
     {
         return 1;
-    } 
-    else
-    {
-        return 0;
     }
+    return 0;
 }
 
 // 99.98% matching
