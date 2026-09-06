@@ -8,6 +8,7 @@
 #include "../../../ps2/veronica/prog/njplus.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
+#include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
@@ -2968,60 +2969,69 @@ static void bhEne19_SetDmgEffect(BH_PWORK* ewP, int set_obj, int eff_typ, NJS_PO
 	scePrintf("bhEne19_SetDmgEffect - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1f4e40
+// 100% matching!
 static int bhEne19_CollisionCircle2Oval(NJS_MATRIX* basP, float ra, float rb, NJS_POINT3* posP, float rc)
 {
-	float dr;
-	NJS_POINT3 dlt;
-	NJS_POINT3 vct;
-	float dst;
-	static const float UniMtx[16] = 
+    float dst;      
+    NJS_VECTOR vct; 
+    NJS_POINT3 dlt;
+    float dr;       
+	static const NJS_MATRIX UniMtx = 
 	{
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
-	// Line 3524, Address: 0x1f4e40, Func Offset: 0
-	// Line 3548, Address: 0x1f4e78, Func Offset: 0x38
-	// Line 3553, Address: 0x1f4e88, Func Offset: 0x48
-	// Line 3556, Address: 0x1f4e90, Func Offset: 0x50
-	// Line 3553, Address: 0x1f4e94, Func Offset: 0x54
-	// Line 3554, Address: 0x1f4e9c, Func Offset: 0x5c
-	// Line 3555, Address: 0x1f4ea0, Func Offset: 0x60
-	// Line 3556, Address: 0x1f4eac, Func Offset: 0x6c
-	// Line 3566, Address: 0x1f4eb4, Func Offset: 0x74
-	// Line 3556, Address: 0x1f4ebc, Func Offset: 0x7c
-	// Line 3566, Address: 0x1f4ec0, Func Offset: 0x80
-	// Line 3567, Address: 0x1f4ec8, Func Offset: 0x88
-	// Line 3568, Address: 0x1f4ed4, Func Offset: 0x94
-	// Line 3570, Address: 0x1f4ee8, Func Offset: 0xa8
-	// Line 3571, Address: 0x1f4ef4, Func Offset: 0xb4
-	// Line 3570, Address: 0x1f4ef8, Func Offset: 0xb8
-	// Line 3571, Address: 0x1f4f14, Func Offset: 0xd4
-	// Line 3572, Address: 0x1f4f1c, Func Offset: 0xdc
-	// Line 3576, Address: 0x1f4f20, Func Offset: 0xe0
-	// Line 3572, Address: 0x1f4f24, Func Offset: 0xe4
-	// Line 3576, Address: 0x1f4f34, Func Offset: 0xf4
-	// Line 3578, Address: 0x1f4f44, Func Offset: 0x104
-	// Line 3579, Address: 0x1f4f54, Func Offset: 0x114
-	// Line 3580, Address: 0x1f4f5c, Func Offset: 0x11c
-	// Line 3582, Address: 0x1f4f64, Func Offset: 0x124
-	// Line 3585, Address: 0x1f4f68, Func Offset: 0x128
-	// Line 3582, Address: 0x1f4f74, Func Offset: 0x134
-	// Line 3583, Address: 0x1f4f7c, Func Offset: 0x13c
-	// Line 3584, Address: 0x1f4f88, Func Offset: 0x148
-	// Line 3585, Address: 0x1f4f90, Func Offset: 0x150
-	// Line 3587, Address: 0x1f4f98, Func Offset: 0x158
-	// Line 3591, Address: 0x1f4fa0, Func Offset: 0x160
-	// Line 3592, Address: 0x1f4fb0, Func Offset: 0x170
-	// Line 3591, Address: 0x1f4fbc, Func Offset: 0x17c
-	// Line 3592, Address: 0x1f4fc4, Func Offset: 0x184
-	// Line 3595, Address: 0x1f4fcc, Func Offset: 0x18c
-	// Line 3596, Address: 0x1f4fd0, Func Offset: 0x190
-	// Func End, Address: 0x1f4ffc, Func Offset: 0x1bc
-	scePrintf("bhEne19_CollisionCircle2Oval - UNIMPLEMENTED!\n");
+
+    if (basP == NULL) 
+    {
+        basP = (NJS_MATRIX*)&UniMtx;
+    }
+    
+    vct.x = posP->x - basP[0][12];
+    vct.y = 0;
+    vct.z = posP->z - basP[0][14];
+    
+    dst = njScalor2(&vct);
+    
+    njSetMatrix(lcmat, basP);
+    
+    njInvertMatrix(lcmat);
+    
+    njCalcPoint(lcmat, posP, &dlt);
+    
+    dlt.x /= ra;
+    dlt.y = 0;
+    dlt.z /= rb;
+    
+    njUnitVector(&dlt);
+    
+    dlt.x *= ra;
+    dlt.z *= rb;
+    
+    dr = (rc * rc) + njScalor2(&dlt);
+    
+    if (dr > dst) 
+    {
+        njUnitVector(&dlt);
+        
+        dr = njSqrt(dr);
+        
+        posP->x = dlt.x * dr;
+        posP->y = dlt.y * dr;
+        posP->z = dlt.z * dr; 
+        
+        njCalcPoint(basP, posP, posP);
+        
+        return 1;
+    }
+    
+    *posP = dlt;
+    
+    njCalcPoint(basP, posP, posP);
+    
+    return 0;
 }
 
 // 
