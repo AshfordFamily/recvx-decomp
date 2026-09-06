@@ -2616,14 +2616,13 @@ static void bhEne19_HeadTurn(BH_PWORK* ewP, FW_WORK* fwP, int mode)
     }
 }
 
-// 
-// Start address: 0x1f4200
-static int bhEne19_AttackHitCheck(BH_PWORK* ewP, TY_ARM_NO arm_no, float ar, int* angP)
+// 100% matching!
+static int bhEne19_AttackHitCheck(BH_PWORK* ewP, TY_ARM_NO arm_no, float ar, int* angP) 
 {
-	int dir;
-	FW_WORK* fwP;
-	NJS_SPHERE spr;
-	int hit;
+    int hit;        
+    NJS_SPHERE spr; 
+    FW_WORK* fwP;   
+    int dir;       
 	static const TY_OBJ_MODE AtkObj[2][2] =
 	{
 		{ TY_OBJ_ARM_L1, TY_OBJ_ARM_L2 }, 
@@ -2634,31 +2633,58 @@ static int bhEne19_AttackHitCheck(BH_PWORK* ewP, TY_ARM_NO arm_no, float ar, int
 		{  1.0f, -1.0f,  1.0f },
    	    {  1.0f,  1.0f,  1.0f }
 	};
-	// Line 3116, Address: 0x1f4200, Func Offset: 0
-	// Line 3134, Address: 0x1f4220, Func Offset: 0x20
-	// Line 3143, Address: 0x1f4224, Func Offset: 0x24
-	// Line 3140, Address: 0x1f4228, Func Offset: 0x28
-	// Line 3143, Address: 0x1f422c, Func Offset: 0x2c
-	// Line 3141, Address: 0x1f4238, Func Offset: 0x38
-	// Line 3143, Address: 0x1f423c, Func Offset: 0x3c
-	// Line 3144, Address: 0x1f4288, Func Offset: 0x88
-	// Line 3150, Address: 0x1f42a4, Func Offset: 0xa4
-	// Line 3151, Address: 0x1f42ac, Func Offset: 0xac
-	// Line 3152, Address: 0x1f42e4, Func Offset: 0xe4
-	// Line 3158, Address: 0x1f4300, Func Offset: 0x100
-	// Line 3159, Address: 0x1f4308, Func Offset: 0x108
-	// Line 3163, Address: 0x1f430c, Func Offset: 0x10c
-	// Line 3165, Address: 0x1f4314, Func Offset: 0x114
-	// Line 3167, Address: 0x1f4318, Func Offset: 0x118
-	// Line 3165, Address: 0x1f431c, Func Offset: 0x11c
-	// Line 3167, Address: 0x1f4320, Func Offset: 0x120
-	// Line 3168, Address: 0x1f4334, Func Offset: 0x134
-	// Line 3170, Address: 0x1f433c, Func Offset: 0x13c
-	// Line 3172, Address: 0x1f4340, Func Offset: 0x140
-	// Line 3174, Address: 0x1f4348, Func Offset: 0x148
-	// Line 3175, Address: 0x1f434c, Func Offset: 0x14c
-	// Func End, Address: 0x1f4370, Func Offset: 0x170
-	scePrintf("bhEne19_AttackHitCheck - UNIMPLEMENTED!\n");
+    
+    fwP = (FW_WORK*)ewP->exp0;
+    
+    arm_no &= 0x1;
+    
+    spr.r = ar;
+    
+    hit = 0;
+
+    njCalcPoint(&ewP->mlwP->owP[AtkObj[arm_no][0]].mtx, (NJS_POINT3*)&AtkOff[arm_no], &spr.c);
+
+    if (njCollisionCheckSC(&spr, &plp->watr) != 0) 
+    {
+        hit = 1;
+    } 
+    else 
+    {
+        njCalcPoint(&ewP->mlwP->owP[AtkObj[arm_no][1]].mtx, (NJS_POINT3*)&AtkOff[arm_no], &spr.c);
+        
+        if (njCollisionCheckSC(&spr, &plp->watr) != 0) 
+        {
+            hit = 1;
+        }
+        else
+        {
+            hit = 0;
+        }
+    }
+
+    if (hit != 0) 
+    {
+        dir = (fwP->tgt_ang - 16384) / 4;
+        
+        if (arm_no == 1) 
+        {
+            dir = ewP->ay - dir;
+        }
+        else 
+        {
+            dir = ewP->ay + dir;
+        }
+        
+        *angP = dir;
+        
+        hit = 1;
+    }
+    else 
+    {
+        hit = 0;
+    }
+
+    return hit;
 }
 
 // 100% matching!
