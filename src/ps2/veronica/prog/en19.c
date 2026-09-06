@@ -10,6 +10,7 @@
 #include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
+#include "../../../ps2/veronica/prog/ps2_NaMem.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
 
@@ -2328,7 +2329,7 @@ static EA_WORK* bhEne19_ActionSearch(int act_nw, int act_no)
         }
         else if (key > val)
         {
-            low = middle + 1;
+            low  = middle + 1;
         }
 
         if (high < low)
@@ -2340,44 +2341,65 @@ static EA_WORK* bhEne19_ActionSearch(int act_nw, int act_no)
     return &En19ActTbl[middle];
 }
 
-// 
-// Start address: 0x1f37e0
+// 100% matching!
 static int bhEne19_ActionChange(BH_PWORK* ewP, FW_WORK* fwP, int act_dst)
 {
-	EA_WORK* eaP;
-	// Line 2729, Address: 0x1f37e0, Func Offset: 0
-	// Line 2736, Address: 0x1f37fc, Func Offset: 0x1c
-	// Line 2737, Address: 0x1f3818, Func Offset: 0x38
-	// Line 2738, Address: 0x1f3824, Func Offset: 0x44
-	// Line 2743, Address: 0x1f3834, Func Offset: 0x54
-	// Line 2745, Address: 0x1f383c, Func Offset: 0x5c
-	// Line 2748, Address: 0x1f384c, Func Offset: 0x6c
-	// Line 2751, Address: 0x1f3854, Func Offset: 0x74
-	// Line 2754, Address: 0x1f3858, Func Offset: 0x78
-	// Line 2755, Address: 0x1f3860, Func Offset: 0x80
-	// Line 2756, Address: 0x1f3864, Func Offset: 0x84
-	// Line 2759, Address: 0x1f386c, Func Offset: 0x8c
-	// Line 2760, Address: 0x1f3874, Func Offset: 0x94
-	// Line 2761, Address: 0x1f3880, Func Offset: 0xa0
-	// Line 2762, Address: 0x1f38b4, Func Offset: 0xd4
-	// Line 2764, Address: 0x1f38b8, Func Offset: 0xd8
-	// Line 2762, Address: 0x1f38bc, Func Offset: 0xdc
-	// Line 2764, Address: 0x1f38c0, Func Offset: 0xe0
-	// Line 2766, Address: 0x1f38d8, Func Offset: 0xf8
-	// Line 2767, Address: 0x1f38f4, Func Offset: 0x114
-	// Line 2769, Address: 0x1f38fc, Func Offset: 0x11c
-	// Line 2772, Address: 0x1f3900, Func Offset: 0x120
-	// Line 2769, Address: 0x1f3908, Func Offset: 0x128
-	// Line 2772, Address: 0x1f390c, Func Offset: 0x12c
-	// Line 2775, Address: 0x1f391c, Func Offset: 0x13c
-	// Line 2776, Address: 0x1f3928, Func Offset: 0x148
-	// Line 2775, Address: 0x1f392c, Func Offset: 0x14c
-	// Line 2776, Address: 0x1f3934, Func Offset: 0x154
-	// Line 2790, Address: 0x1f3950, Func Offset: 0x170
-	// Line 2797, Address: 0x1f395c, Func Offset: 0x17c
-	// Line 2801, Address: 0x1f3960, Func Offset: 0x180
-	// Func End, Address: 0x1f397c, Func Offset: 0x19c
-	scePrintf("bhEne19_ActionChange - UNIMPLEMENTED!\n");
+    EA_WORK* eaP;
+    
+    if (((eaP = bhEne19_ActionSearch(fwP->act_now, act_dst)) == NULL) && (fwP->act_now != act_dst)) 
+    {
+        eaP = bhEne19_ActionSearch(-1, act_dst);
+    }
+    
+    if (eaP != NULL) 
+    {
+        njMemCopy4(&fwP->b_status, &fwP->status, 8);
+        
+        fwP->b_mtn_md = ewP->mtn_md;
+        
+        fwP->act_flg = 0;
+        
+        fwP->prgP = eaP->prgP;
+        
+        fwP->act_cnt = 0;
+        fwP->act_frm = eaP->frm_no;
+        
+        ewP->mtn_no = eaP->mtn_no;
+        ewP->frm_no = eaP->frm_no * 65536;
+        
+        ewP->hokan_rate  = eaP->hkn_lvl * (65536.0 / 255.0);
+        ewP->hokan_count = eaP->hkn_cnt;
+
+        if ((eaP->flag & 0x20000)) 
+        {
+            ewP->mtn_add = 0;
+        } 
+        else if ((eaP->flag & 0x40000)) 
+        {
+            ewP->mtn_add = -65536;
+        } 
+        else 
+        {
+            ewP->mtn_add =  65536;
+        }
+
+        ewP->mtn_md = (unsigned short)eaP->flag;
+        
+        fwP->chg_rte = eaP->chg_rte * 65536.0f;
+        
+        fwP->status &= ~0x38000;
+
+        if ((eaP->flag & 0x80000)) 
+        {
+            fwP->status |= 0x8000;
+        }
+
+        fwP->act_now = act_dst;
+        
+        return 1;
+    }
+    
+    return 0;
 }
 
 // 
