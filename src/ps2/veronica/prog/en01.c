@@ -3011,13 +3011,6 @@ void bhEne01_SearchNeck(BH_PWORK* epw)
 // 100% matching!
 void bhEne01_PlayerLink(BH_PWORK* ply, BH_PWORK* epw)
 {
-    NJS_POINT2_XZ* ply_pos_p; 
-    NJS_POINT3 pos;
-    NJS_POINT3 opos;
-    NJS_POINT3 ps;
-    NJS_POINT3 pd; 
-    int mtn_no;
-
     NJS_POINT2_XZ* ply_pos[16] =
     {
         cl_mtn01_xz,
@@ -3037,6 +3030,13 @@ void bhEne01_PlayerLink(BH_PWORK* ply, BH_PWORK* epw)
         ch_mtn04_xz,
         ch_mtn05_xz
     };
+
+    NJS_POINT2_XZ* ply_pos_p; 
+    NJS_POINT3 pos;
+    NJS_POINT3 opos;
+    NJS_POINT3 ps;
+    NJS_POINT3 pd; 
+    int mtn_no;
     
     njUnitMatrix(NULL);
     njTranslate(NULL, epw->px, epw->py, epw->pz);
@@ -4186,7 +4186,7 @@ void bhEne01_CollCheckPush(BH_PWORK* epw, BH_PWORK* top_epw)
 int bhEne01_EnemyHitChk(BH_PWORK* epw, BH_PWORK* tepw, int rng)
 {
 	int ang; 
-	int r1;
+	int r1; // not from DWARF
 	int r2;
 
 
