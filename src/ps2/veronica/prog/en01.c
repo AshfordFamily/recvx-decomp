@@ -22,9 +22,6 @@
 
 // ENEMY: Zombie 
 
-// TODO: move this somewhere else
-#define CEPW_EXP0_I(o) (*(int*)((char*)cepw->exp0 + (o)))
-
 int En01_PlyMtn_OffsetTbl[4] =
 {
     400, 425, 450, 425
@@ -5261,7 +5258,7 @@ void bhEne01_MV02(BH_PWORK* epw)
                     if (--epw->ct0 < 0)
                     {
                         bhEne01_ChgWalkMtn(epw);
-                        epw->way = 512;
+                        epw->way = 256;
                         epw->flg |= 0x40000;
                         EXP0_I(0x44) &= ~0x80;
                         EXP0_F(0x94) = 0.0f;
@@ -11097,6 +11094,8 @@ void bhEne01_ExpWormEffect(BH_PWORK* epw)
 	int eno;   	
 	int i;
     int j;
+
+
 
     p_epw = (BH_PWORK*)epw->lkwkp;
     
