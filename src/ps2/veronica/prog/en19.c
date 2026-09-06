@@ -2527,51 +2527,82 @@ static void bhEne19_TargetAnalyze(BH_PWORK* ewP, FW_WORK* fwP)
     }
 }
 
-// 
-// Start address: 0x1f3f10
+// 100% matching!
 static void bhEne19_PositonFix(BH_PWORK* ewP, FW_WORK* fwP)
 {
-	NJS_POINT3* vzP;
-	NJS_POINT3 vct;
-	char** tblP;
-	int sts;
-	NJS_POINT3* vaP;
+    NJS_POINT3* vaP; 
+    int sts;         
+    char** tblP;     
+    NJS_VECTOR vct; 
+    NJS_POINT3* vzP; 
 	static const char FixDatLL[7] = { 0, 1, 22, 23, 24, 25, -1 };
 	static const char FixDatLR[7] = { 0, 1, 18, 19, 20, 21, -1 };
 	static const char FixDatAL[9] = { 0, 1,  2,  3, 14, 15, 16, 17, -1 };
 	static const char FixDatAR[9] = { 0, 1,  2,  3,  6,  7,  8,  9, -1 };
 	static char* FixDatTbl[2][4] = 
 	{
-		{ FixDatLL, FixDatLR, FixDatAL, FixDatAR },
-		{ FixDatLR, FixDatLL, FixDatAR, FixDatAL } 
+		{ (char*)FixDatLL, (char*)FixDatLR, (char*)FixDatAL, (char*)FixDatAR },
+		{ (char*)FixDatLR, (char*)FixDatLL, (char*)FixDatAR, (char*)FixDatAL } 
 	};
-	// Line 2981, Address: 0x1f3f10, Func Offset: 0
-	// Line 3015, Address: 0x1f3f28, Func Offset: 0x18
-	// Line 3017, Address: 0x1f3f30, Func Offset: 0x20
-	// Line 3012, Address: 0x1f3f34, Func Offset: 0x24
-	// Line 3017, Address: 0x1f3f38, Func Offset: 0x28
-	// Line 3020, Address: 0x1f3f44, Func Offset: 0x34
-	// Line 3022, Address: 0x1f3f64, Func Offset: 0x54
-	// Line 3023, Address: 0x1f3f74, Func Offset: 0x64
-	// Line 3025, Address: 0x1f3f88, Func Offset: 0x78
-	// Line 3027, Address: 0x1f3f9c, Func Offset: 0x8c
-	// Line 3029, Address: 0x1f3fa4, Func Offset: 0x94
-	// Line 3030, Address: 0x1f3fc8, Func Offset: 0xb8
-	// Line 3031, Address: 0x1f3fd0, Func Offset: 0xc0
-	// Line 3032, Address: 0x1f3ffc, Func Offset: 0xec
-	// Line 3033, Address: 0x1f4004, Func Offset: 0xf4
-	// Line 3043, Address: 0x1f4038, Func Offset: 0x128
-	// Line 3045, Address: 0x1f4040, Func Offset: 0x130
-	// Line 3046, Address: 0x1f404c, Func Offset: 0x13c
-	// Line 3047, Address: 0x1f4060, Func Offset: 0x150
-	// Line 3048, Address: 0x1f4074, Func Offset: 0x164
-	// Line 3049, Address: 0x1f4080, Func Offset: 0x170
-	// Line 3053, Address: 0x1f4090, Func Offset: 0x180
-	// Line 3056, Address: 0x1f409c, Func Offset: 0x18c
-	// Line 3057, Address: 0x1f40bc, Func Offset: 0x1ac
-	// Line 3060, Address: 0x1f40d4, Func Offset: 0x1c4
-	// Func End, Address: 0x1f40f0, Func Offset: 0x1e0
-	scePrintf("bhEne19_PositonFix - UNIMPLEMENTED!\n");
+
+    sts = fwP->status;
+    
+    vaP = &fwP->fix_adj;
+    
+    if ((sts & 0x30000)) 
+    {
+        if ((sts & 0x8)) 
+        {
+            tblP = FixDatTbl[1];
+        } 
+        else
+        {
+            tblP = FixDatTbl[0];
+        }
+        
+        if ((!(sts & 0x10000)) && ((sts & 0x20000))) 
+        {
+            tblP++;
+        }
+        
+        bhCalcFixOffset(ewP, *tblP, NULL, vaP);
+    } 
+    else 
+    {
+        if (njScalor2(vaP) > 0.25f) 
+        {
+            njUnitVector(vaP);
+            
+            vaP->x *= 0.25f;
+            vaP->y *= 0.25f;
+            vaP->z *= 0.25f;
+        }
+        else
+        {
+            vaP->x *= 0.96f;
+            vaP->y *= 0.96f;
+            vaP->z *= 0.96f;
+        }
+    }
+    
+    vzP = (NJS_POINT3*)&lcmat[0][8];
+    
+    njUnitRotPortion(lcmat);
+    
+    njRotateY(lcmat, -ewP->ay);
+    
+    njCalcVector(lcmat, vaP, &vct);
+    
+    njTransposeMatrix(lcmat);
+    
+    njScaleV(lcmat, &vct);
+    
+    njSubVector((NJS_VECTOR*)&ewP->px, vzP);
+    
+    vaP = (NJS_POINT3*)&lcmat;
+    
+    fwP->adj_vx = *vaP;
+    fwP->adj_vz = *vzP;
 }
 
 // 99.55% matching
@@ -3002,7 +3033,7 @@ static int bhEne19_CollisionCircle2Oval(NJS_MATRIX* basP, float ra, float rb, NJ
     njCalcPoint(lcmat, posP, &dlt);
     
     dlt.x /= ra;
-    dlt.y = 0;
+    dlt.y  = 0;
     dlt.z /= rb;
     
     njUnitVector(&dlt);
