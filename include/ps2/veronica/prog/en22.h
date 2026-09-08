@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-void bhEne22_DmmyBrain();
+void bhEne22_DmmyBrain(BH_PWORK* epw);
 void bhEne22(BH_PWORK* epw);
 void bhEne22_MainLoop(BH_PWORK* epw);
 int bhEne22_DmgChk(BH_PWORK* epw);

@@ -2,7 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 
-// ENEMY: Albinoid Adult 
+// ENEMY: Albinoid Adult
 
 /*char en22_flipTree[43];
 char en22_tree[16][4];
@@ -31,15 +31,13 @@ void(*bhEne22_DamageType)(BH_PWORK*)[1];
 void(*bhEne22_DamageMode2)(BH_PWORK*)[3];
 void(*bhEne22_DieType)(BH_PWORK*)[1];
 void(*bhEne22_DieMode2)(BH_PWORK*)[2];
-float en22_mogmog[20];
+float en22_mogmog[20];*/
 
-// 
-// Start address: 0x1faba0
-void bhEne22_DmmyBrain()
+// 100% matching!
+void bhEne22_DmmyBrain(BH_PWORK* epw)
 {
-	// Line 91, Address: 0x1faba0, Func Offset: 0
-	// Func End, Address: 0x1faba8, Func Offset: 0x8
-}*/
+	return;
+}
 
 // 
 // Start address: 0x1fabb0
