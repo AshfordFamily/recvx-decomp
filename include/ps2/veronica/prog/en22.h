@@ -2,6 +2,7 @@
 #define _EN22_H_
 
 #include "types.h"
+#include "macros.h"
 
 void bhEne22_DmmyBrain(BH_PWORK* epw);
 void bhEne22(BH_PWORK* epw);

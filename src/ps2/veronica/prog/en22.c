@@ -1,5 +1,6 @@
 #include "../../../ps2/veronica/prog/en22.h"
 #include "../../../ps2/veronica/prog/main.h"
+#include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 
 // ENEMY: Albinoid Adult
@@ -39,47 +40,74 @@ void bhEne22_DmmyBrain(BH_PWORK* epw)
 	return;
 }
 
-// 
-// Start address: 0x1fabb0
+// 100% matching!
 void bhEne22(BH_PWORK* epw)
 {
-	int i;
-	//_anon17* owk;
-	// Line 260, Address: 0x1fabb0, Func Offset: 0
-	// Line 265, Address: 0x1fabbc, Func Offset: 0xc
-	// Line 268, Address: 0x1fabc4, Func Offset: 0x14
-	// Line 270, Address: 0x1fabe8, Func Offset: 0x38
-	// Line 271, Address: 0x1fabf4, Func Offset: 0x44
-	// Line 273, Address: 0x1fac04, Func Offset: 0x54
-	// Line 277, Address: 0x1fac10, Func Offset: 0x60
-	// Line 279, Address: 0x1fac20, Func Offset: 0x70
-	// Line 280, Address: 0x1fac44, Func Offset: 0x94
-	// Line 285, Address: 0x1fac54, Func Offset: 0xa4
-	// Line 288, Address: 0x1fac60, Func Offset: 0xb0
-	// Line 291, Address: 0x1fac68, Func Offset: 0xb8
-	// Line 297, Address: 0x1fac6c, Func Offset: 0xbc
-	// Line 292, Address: 0x1fac74, Func Offset: 0xc4
-	// Line 303, Address: 0x1fac78, Func Offset: 0xc8
-	// Line 291, Address: 0x1fac7c, Func Offset: 0xcc
-	// Line 292, Address: 0x1fac80, Func Offset: 0xd0
-	// Line 293, Address: 0x1fac8c, Func Offset: 0xdc
-	// Line 295, Address: 0x1fac9c, Func Offset: 0xec
-	// Line 296, Address: 0x1faca4, Func Offset: 0xf4
-	// Line 297, Address: 0x1facac, Func Offset: 0xfc
-	// Line 298, Address: 0x1facb8, Func Offset: 0x108
-	// Line 299, Address: 0x1facc0, Func Offset: 0x110
-	// Line 300, Address: 0x1facc8, Func Offset: 0x118
-	// Line 301, Address: 0x1facd0, Func Offset: 0x120
-	// Line 302, Address: 0x1facdc, Func Offset: 0x12c
-	// Line 303, Address: 0x1face4, Func Offset: 0x134
-	// Line 305, Address: 0x1face8, Func Offset: 0x138
-	// Line 306, Address: 0x1fad08, Func Offset: 0x158
-	// Line 307, Address: 0x1fad28, Func Offset: 0x178
-	// Line 308, Address: 0x1fad48, Func Offset: 0x198
-	// Line 314, Address: 0x1fad68, Func Offset: 0x1b8
-	// Line 316, Address: 0x1fad74, Func Offset: 0x1c4
-	// Func End, Address: 0x1fad84, Func Offset: 0x1d4
-	scePrintf("bhEne22 - UNIMPLEMENTED!\n");
+    O_WORK* owk;
+    int i;
+
+    bhEne22_MainLoop(epw);
+
+    if ((plp->mode0 == 4) || (plp->mode0 == 6))
+    {
+        if (plp->mode2 == 0)
+        {
+            bhEne22_PlyDG00(plp, epw);
+        }
+        else
+        {
+            bhEne22_PlyDG01(plp, epw);
+        }
+    }
+
+    if (epw->flg & 0x4)
+    {
+        for (i = 0; i < 64; i++)
+        {
+            epw->dam[i] = 0;
+        }
+        epw->flg &= ~0x4;
+    }
+
+    bhEne22_CollCheck(epw);
+    bhCalcModel(epw);
+
+    owk = epw->mlwP->owP + 4;
+    epw->aox = owk->mtx[12] - epw->px;
+    epw->aoz = owk->mtx[14] - epw->pz;
+
+    owk = epw->mlwP->owP + 3;
+    epw->watr.c1.x = owk->mtx[12];
+    epw->watr.c1.y = epw->py + 2.0f;
+    epw->watr.c1.z = owk->mtx[14];
+
+    owk = epw->mlwP->owP + 9;
+    epw->watr.c2.x = owk->mtx[12];
+    epw->watr.c2.y = epw->py + 2.0f;
+    epw->watr.c2.z = owk->mtx[14];
+    epw->watr.r = 5.5f;
+
+    if (EXP0_I(0xC) > 0)
+    {
+        EXP0_I(0xC)--;
+    }
+
+    if (EXP0_I(0x10) > 0)
+    {
+        EXP0_I(0x10)--;
+    }
+
+    if (EXP0_I(0x14) > 0)
+    {
+        EXP0_I(0x14)--;
+    }
+
+    if (EXP0_I(0x1C) > 0)
+    {
+        EXP0_I(0x1C)--;
+    }
+
+    bhEne22_CtrLight(epw);
 }
 
 /*// 
@@ -220,7 +248,7 @@ void bhEne22_CollCheck(BH_PWORK* epw)
 // Start address: 0x1fb2c0
 void bhEne22_CollCheckWall(BH_PWORK* epw)
 {
-	_anon17* owk;
+	O_WORK* owk;
 	_anon34 pd;
 	_anon34 ps;
 	// Line 708, Address: 0x1fb2c0, Func Offset: 0
@@ -464,7 +492,7 @@ void bhEne22_Move(BH_PWORK* epw)
 {
 	_anon34 epos;
 	_anon34 pos;
-	_anon17* owk;
+	O_WORK* owk;
 	// Line 1001, Address: 0x1fbb70, Func Offset: 0
 	// Line 1007, Address: 0x1fbb84, Func Offset: 0x14
 	// Line 1009, Address: 0x1fbb8c, Func Offset: 0x1c
@@ -1314,7 +1342,7 @@ void bhEne22_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
 	int rot;
 	_anon34 dv;
 	_anon34 key;
-	_anon17* owk;
+	O_WORK* owk;
 	npobj* obj;
 	_anon37* pos_p;
 	_anon37* mtn_pos[4];
@@ -1656,7 +1684,7 @@ void bhEne22_SetWaterEffect(BH_PWORK* epw, int mtn_no, int frm)
 	int i;
 	float size;
 	_anon3 eff_pos;
-	_anon17* owk;
+	O_WORK* owk;
 	_anon44* eff2;
 	_anon41* eff;
 	// Line 3217, Address: 0x1fe970, Func Offset: 0
