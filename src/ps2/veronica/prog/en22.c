@@ -2,6 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
+#include "../../../ps2/veronica/prog/subpl.h"
 
 // ENEMY: Albinoid Adult
 
@@ -20,9 +21,18 @@ _anon41 en22_weff_tbl[14];
 _anon37 ply_mtn42b_pos[20];
 _anon37 ply_mtn43b_pos[20];
 _anon37 ply_mtn44b_pos[50];
-_anon37 ply_mtn45b_pos[50];
-void(*bhEne22_Mode0)(BH_PWORK*)[6];
-void(*bhEne22_InitType)(BH_PWORK*)[1];
+_anon37 ply_mtn45b_pos[50];*/
+
+void (*bhEne22_Mode0[6])(BH_PWORK*) = {
+    bhEne22_Init,
+    bhEne22_Move,
+    bhEne22_Nage,
+    bhEne22_Damage,
+    bhEne22_Die,
+    bhEne_Event
+};
+
+/*void(*bhEne22_InitType)(BH_PWORK*)[1];
 void(*bhEne22_MoveType)(BH_PWORK*)[1];
 void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
 void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
@@ -110,19 +120,17 @@ void bhEne22(BH_PWORK* epw)
     bhEne22_CtrLight(epw);
 }
 
-/*// 
-// Start address: 0x1fad90
+// 100% matching!
 void bhEne22_MainLoop(BH_PWORK* epw)
 {
-	// Line 333, Address: 0x1fad90, Func Offset: 0
-	// Line 338, Address: 0x1fad9c, Func Offset: 0xc
-	// Line 341, Address: 0x1fada4, Func Offset: 0x14
-	// Line 344, Address: 0x1fadc4, Func Offset: 0x34
-	// Line 433, Address: 0x1fadcc, Func Offset: 0x3c
-	// Func End, Address: 0x1faddc, Func Offset: 0x4c
+    bhEne22_DmgChk(epw);
+
+    bhEne22_Mode0[epw->mode0](epw);
+
+    bhEne22_SetMtn(epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fade0
 int bhEne22_DmgChk(BH_PWORK* epw)
 {
