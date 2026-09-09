@@ -3,16 +3,86 @@
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/subpl.h"
+#include "../../../ps2/veronica/prog/zonzon.h"
+#include "../../../ps2/veronica/prog/zonzon1.h"
 
 // ENEMY: Albinoid Adult
 
 /*char en22_flipTree[43];
 char en22_tree[16][4];
 _anon46 en22_mtn_tbl[12];
-_anon38 En22_WpnDamageTbl[22];
-_anon53 CombWepTbl[21];
-_anon55 CombJointTbl[42];
-_anon30 Ene22CapColTab[27];
+_anon38 En22_WpnDamageTbl[22];*/
+
+static COMBWEP_WORK CombWepTbl[21] = {
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    { 40, {10, 8, 5}, 0, 0},
+    { 40, {10, 8, 5}, 0, 0},
+    { 40, {10, 8, 5}, 0, 0},
+    { 90, {10, 8, 5}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    { 40, {10, 8, 5}, 0, 0},
+    {160, {10, 8, 5}, 0, 0},
+    { 40, {10, 8, 5}, 0, 0},
+    { 80, {10, 8, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {160, {10, 8, 5}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0},
+    {  0, { 0, 0, 0}, 0, 0}
+};
+
+static COMBJOINT_WORK CombJointTbl[42] = {
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0}
+};
+
+/*_anon30 Ene22CapColTab[27];
 _anon12 en22prt_blood_tbl[42];
 char En22SdwTab[7];
 int en22_hp_tbl[16];
@@ -130,31 +200,53 @@ void bhEne22_MainLoop(BH_PWORK* epw)
     bhEne22_SetMtn(epw);
 }
 
-/*// 
-// Start address: 0x1fade0
+// 100% matching!
 int bhEne22_DmgChk(BH_PWORK* epw)
 {
-	int houkou;
-	// Line 452, Address: 0x1fade0, Func Offset: 0
-	// Line 455, Address: 0x1fadec, Func Offset: 0xc
-	// Line 460, Address: 0x1fae20, Func Offset: 0x40
-	// Line 462, Address: 0x1fae34, Func Offset: 0x54
-	// Line 465, Address: 0x1fae48, Func Offset: 0x68
-	// Line 467, Address: 0x1fae54, Func Offset: 0x74
-	// Line 470, Address: 0x1fae6c, Func Offset: 0x8c
-	// Line 473, Address: 0x1fae78, Func Offset: 0x98
-	// Line 474, Address: 0x1fae88, Func Offset: 0xa8
-	// Line 476, Address: 0x1fae98, Func Offset: 0xb8
-	// Line 478, Address: 0x1faeb8, Func Offset: 0xd8
-	// Line 480, Address: 0x1faed8, Func Offset: 0xf8
-	// Line 482, Address: 0x1faef4, Func Offset: 0x114
-	// Line 484, Address: 0x1faf00, Func Offset: 0x120
-	// Line 487, Address: 0x1faf08, Func Offset: 0x128
-	// Line 488, Address: 0x1faf0c, Func Offset: 0x12c
-	// Func End, Address: 0x1faf1c, Func Offset: 0x13c
+    int houkou;
+
+    if ((epw->flg & 0x4) && ((epw->flg & 0x2) == 0) && ((EXP0_I(0x8) & 0x20000) == 0))
+    {
+        bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
+        if (epw->total_dam == 0)
+        {
+            return 1;
+        }
+
+        bhEne22_DamageAdd(epw);
+        if (epw->mode0 != 1)
+        {
+            return 1;
+        }
+
+        houkou = bhDGCdirCheck3((NJS_VECTOR*)&epw->dvx, epw->ay);
+        EXP0_I(0x8) &= ~0x30;
+        if (houkou == 0)
+        {
+            EXP0_I(0x8) |= 0x0;
+        }
+        else if (houkou == 1)
+        {
+            EXP0_I(0x8) |= 0x10;
+        }
+        else if (houkou == 2)
+        {
+            EXP0_I(0x8) |= 0x20;
+        }
+        else if (houkou == 3)
+        {
+            EXP0_I(0x8) |= 0x30;
+        }
+
+        bhEne22_ChgDmgMode(epw);
+
+        return 1;
+    }
+
+    return 0;
 }
 
-// 
+/*// 
 // Start address: 0x1faf20
 void bhEne22_ChgDmgMode(BH_PWORK* epw)
 {
