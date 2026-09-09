@@ -10,8 +10,32 @@
 
 /*char en22_flipTree[43];
 char en22_tree[16][4];
-_anon46 en22_mtn_tbl[12];
-_anon38 En22_WpnDamageTbl[22];*/
+_anon46 en22_mtn_tbl[12];*/
+
+WPNDAMAGE_WORK En22_WpnDamageTbl[22] = {
+	{ 0, 0, 0, 0, 0},
+	{ 0, 0, 0, 0, 0},
+	{ 0, 4, 3, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 0, 5, 3, 5},
+	{ 0, 4, 7, 3, 3},
+	{ 0, 4, 3, 3, 3},
+	{ 0, 0, 1, 3, 3},
+	{12, 0, 1, 3, 3},
+	{ 4, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3},
+};
 
 static COMBWEP_WORK CombWepTbl[21] = {
     {  0, { 0, 0, 0}, 0, 0},
@@ -246,56 +270,79 @@ int bhEne22_DmgChk(BH_PWORK* epw)
     return 0;
 }
 
-/*// 
-// Start address: 0x1faf20
+// 100% matching!
 void bhEne22_ChgDmgMode(BH_PWORK* epw)
 {
-	int act;
-	_anon38* wp_tbl;
-	// Line 510, Address: 0x1faf20, Func Offset: 0
-	// Line 507, Address: 0x1faf24, Func Offset: 0x4
-	// Line 516, Address: 0x1faf2c, Func Offset: 0xc
-	// Line 510, Address: 0x1faf30, Func Offset: 0x10
-	// Line 516, Address: 0x1faf40, Func Offset: 0x20
-	// Line 518, Address: 0x1faf48, Func Offset: 0x28
-	// Line 519, Address: 0x1faf54, Func Offset: 0x34
-	// Line 520, Address: 0x1faf58, Func Offset: 0x38
-	// Line 523, Address: 0x1faf5c, Func Offset: 0x3c
-	// Line 526, Address: 0x1faf6c, Func Offset: 0x4c
-	// Line 530, Address: 0x1faf74, Func Offset: 0x54
-	// Line 537, Address: 0x1faf80, Func Offset: 0x60
-	// Line 540, Address: 0x1faf94, Func Offset: 0x74
-	// Line 542, Address: 0x1fafc0, Func Offset: 0xa0
-	// Line 546, Address: 0x1fafc8, Func Offset: 0xa8
-	// Line 550, Address: 0x1fafe0, Func Offset: 0xc0
-	// Line 551, Address: 0x1fafe8, Func Offset: 0xc8
-	// Line 550, Address: 0x1fafec, Func Offset: 0xcc
-	// Line 551, Address: 0x1faff0, Func Offset: 0xd0
-	// Line 550, Address: 0x1faff4, Func Offset: 0xd4
-	// Line 551, Address: 0x1fb004, Func Offset: 0xe4
-	// Line 553, Address: 0x1fb014, Func Offset: 0xf4
-	// Line 556, Address: 0x1fb028, Func Offset: 0x108
-	// Line 558, Address: 0x1fb034, Func Offset: 0x114
-	// Line 559, Address: 0x1fb03c, Func Offset: 0x11c
-	// Line 560, Address: 0x1fb040, Func Offset: 0x120
-	// Line 562, Address: 0x1fb044, Func Offset: 0x124
-	// Line 565, Address: 0x1fb04c, Func Offset: 0x12c
-	// Line 566, Address: 0x1fb054, Func Offset: 0x134
-	// Line 567, Address: 0x1fb058, Func Offset: 0x138
-	// Line 569, Address: 0x1fb05c, Func Offset: 0x13c
-	// Line 572, Address: 0x1fb070, Func Offset: 0x150
-	// Line 575, Address: 0x1fb078, Func Offset: 0x158
-	// Line 579, Address: 0x1fb080, Func Offset: 0x160
-	// Func End, Address: 0x1fb088, Func Offset: 0x168
+    WPNDAMAGE_WORK* wp_tbl = En22_WpnDamageTbl;
+    int act;
+
+    wp_tbl += epw->wpnr_no;
+    act = wp_tbl->nm_act;
+
+    if (epw->hp < 0)
+    {
+        epw->comb_flg |= 0x1;
+        epw->comb_timeout = 0;
+        epw->comb_pnt = 0;
+    }
+
+    if (epw->comb_flg & 0x1)
+    {
+        act = wp_tbl->cb_act;
+    }
+
+    if (act < 4U)
+    {
+        if (EXP0_I(0x8) & 0x1000)
+        {
+            O_WRK* owP; // Not from DWARF
+
+            owP = *(O_WRK**)(epw->exp0 + 0x4C);
+            if ((owP->flg != 0x0) && (owP->id == 353) && ((BH_PWORK*)owP->lkwkp == epw))
+            {
+                owP->mode0 = 4;
+            }
+
+            if (EXP0_I(0x8) & 0x80000)
+            {
+                rom->lgtp[2].flg &= ~0x3;
+                EXP0_I(0x8) &= ~0x80000;
+            }
+
+            EXP0_I(0x8) &= ~0x1000;
+        }
+
+        if (epw->hp < 0)
+        {
+            epw->mode0 = 4;
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+        else
+        {
+            epw->mode0 = 3;
+            epw->mode1 = 0;
+            epw->mode3 = 0;
+            if (EXP0_I(0x8) & 0x100)
+            {
+                epw->mode2 = 0;
+            }
+            else
+            {
+                epw->mode2 = 1;
+            }
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fb090
 void bhEne22_DamageAdd(BH_PWORK* epw)
 {
 	int i;
 	int* d;
-	_anon38* wp_tbl;
+	WPNDAMAGE_WORK* wp_tbl;
 	// Line 596, Address: 0x1fb090, Func Offset: 0
 	// Line 603, Address: 0x1fb0ac, Func Offset: 0x1c
 	// Line 597, Address: 0x1fb0b0, Func Offset: 0x20
