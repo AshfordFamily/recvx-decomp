@@ -1,4 +1,5 @@
 #include "../../../ps2/veronica/prog/en22.h"
+#include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
@@ -434,21 +435,21 @@ void bhEne22_DamageAdd(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fb260
+// 100% matching!
 void bhEne22_CollCheck(BH_PWORK* epw)
 {
-	// Line 674, Address: 0x1fb260, Func Offset: 0
-	// Line 678, Address: 0x1fb26c, Func Offset: 0xc
-	// Line 680, Address: 0x1fb27c, Func Offset: 0x1c
-	// Line 683, Address: 0x1fb288, Func Offset: 0x28
-	// Line 685, Address: 0x1fb29c, Func Offset: 0x3c
-	// Line 689, Address: 0x1fb2a4, Func Offset: 0x44
-	// Line 691, Address: 0x1fb2b0, Func Offset: 0x50
-	// Func End, Address: 0x1fb2c0, Func Offset: 0x60
+    if ((epw->flg & 0x2) == 0)
+    {
+        if ((epw->flg & 0x8) && (EXP0_I(0x8) & 0x40))
+        {
+            bhCheckPlayer(epw);
+        }
+
+        bhEne22_CollCheckWall(epw);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fb2c0
 void bhEne22_CollCheckWall(BH_PWORK* epw)
 {
