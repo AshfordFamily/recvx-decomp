@@ -106,9 +106,54 @@ static COMBJOINT_WORK CombJointTbl[42] = {
     {0, 0}
 };
 
-/*_anon30 Ene22CapColTab[27];
-_anon12 en22prt_blood_tbl[42];
-char En22SdwTab[7];
+// _anon30 Ene22CapColTab[27];
+
+BT_WORK en22prt_blood_tbl[42] = {
+    { 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+    { 1, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
+    { 2, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 3, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 4, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 5, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 6, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 7, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 8, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    { 9, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {10, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {11, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {12, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {13, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {14, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {15, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {16, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {17, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {18, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {19, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {20, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {21, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {22, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {23, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {24, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {25, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {26, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {27, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {28, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {29, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {30, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {31, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {32, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {33, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {34, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {35, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {36, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {37, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {38, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {39, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {40, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f},
+    {41, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f}
+};
+
+/*char En22SdwTab[7];
 int en22_hp_tbl[16];
 _anon44 ene22_wsp_tbl[57];
 _anon41 en22_weff_tbl[14];
@@ -336,48 +381,60 @@ void bhEne22_ChgDmgMode(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fb090
+// 100% matching!
 void bhEne22_DamageAdd(BH_PWORK* epw)
 {
-	int i;
-	int* d;
-	WPNDAMAGE_WORK* wp_tbl;
-	// Line 596, Address: 0x1fb090, Func Offset: 0
-	// Line 603, Address: 0x1fb0ac, Func Offset: 0x1c
-	// Line 597, Address: 0x1fb0b0, Func Offset: 0x20
-	// Line 603, Address: 0x1fb0b4, Func Offset: 0x24
-	// Line 605, Address: 0x1fb0bc, Func Offset: 0x2c
-	// Line 608, Address: 0x1fb0c0, Func Offset: 0x30
-	// Line 609, Address: 0x1fb0c4, Func Offset: 0x34
-	// Line 605, Address: 0x1fb0c8, Func Offset: 0x38
-	// Line 606, Address: 0x1fb0d0, Func Offset: 0x40
-	// Line 609, Address: 0x1fb0e0, Func Offset: 0x50
-	// Line 611, Address: 0x1fb0e8, Func Offset: 0x58
-	// Line 613, Address: 0x1fb0f4, Func Offset: 0x64
-	// Line 614, Address: 0x1fb0f8, Func Offset: 0x68
-	// Line 616, Address: 0x1fb108, Func Offset: 0x78
-	// Line 619, Address: 0x1fb128, Func Offset: 0x98
-	// Line 620, Address: 0x1fb13c, Func Offset: 0xac
-	// Line 624, Address: 0x1fb144, Func Offset: 0xb4
-	// Line 628, Address: 0x1fb158, Func Offset: 0xc8
-	// Line 629, Address: 0x1fb174, Func Offset: 0xe4
-	// Line 631, Address: 0x1fb178, Func Offset: 0xe8
-	// Line 634, Address: 0x1fb194, Func Offset: 0x104
-	// Line 636, Address: 0x1fb1a8, Func Offset: 0x118
-	// Line 637, Address: 0x1fb1b0, Func Offset: 0x120
-	// Line 639, Address: 0x1fb1c0, Func Offset: 0x130
-	// Line 640, Address: 0x1fb1d8, Func Offset: 0x148
-	// Line 643, Address: 0x1fb1e0, Func Offset: 0x150
-	// Line 648, Address: 0x1fb1f8, Func Offset: 0x168
-	// Line 650, Address: 0x1fb208, Func Offset: 0x178
-	// Line 652, Address: 0x1fb21c, Func Offset: 0x18c
-	// Line 653, Address: 0x1fb224, Func Offset: 0x194
-	// Line 657, Address: 0x1fb238, Func Offset: 0x1a8
-	// Func End, Address: 0x1fb254, Func Offset: 0x1c4
+    WPNDAMAGE_WORK* wp_tbl = En22_WpnDamageTbl;
+    int* d;
+    int i;
+
+    if (epw->hp >= 0)
+    {
+        epw->hp -= epw->total_dam;
+        wp_tbl += epw->comb_wep;
+
+        for (d = epw->dam + 2, i = 2; i < (int)epw->mlwP->obj_num; i++, d++)
+        {
+            if (*d <= 0) continue;
+
+            epw->djnt_no = i;
+
+            if (wp_tbl->flg & 0x4) continue;
+
+            if ((epw->comb_flg & 0x1) || (epw->hp < 0))
+            {
+                bhEne_SetBlood(epw, wp_tbl->cb_blood, en22prt_blood_tbl);
+            }
+            else
+            {
+                bhEne_SetBlood(epw, wp_tbl->nm_blood, en22prt_blood_tbl);
+            }
+        }
+    }
+
+    if (((wp_tbl->flg & 0x1) || (wp_tbl->flg & 0x2)) && (EXP0_I(0x10) <= 0))
+    {
+        EXP0_I(0x10) = 10;
+
+        if (wp_tbl->flg & 0x2)
+        {
+            bhEne_SetDFireEffect(epw, epw->djnt_no, en22prt_blood_tbl, 2);
+        }
+        else
+        {
+            bhEne_SetDFireEffect(epw, epw->djnt_no, en22prt_blood_tbl, 1);
+        }
+    }
+
+    if ((wp_tbl->flg & 0x8) && (EXP0_I(0x10) <= 0))
+    {
+        EXP0_I(0x10) = 10;
+
+        bhEne_SetSanEffect(epw, epw->djnt_no, en22prt_blood_tbl);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fb260
 void bhEne22_CollCheck(BH_PWORK* epw)
 {
