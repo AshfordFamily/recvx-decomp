@@ -715,15 +715,13 @@ void bhEne22_Init(BH_PWORK* epw)
     bhEne22_InitType[epw->type](epw);
 }
 
-/*// 
-// Start address: 0x1fbb60
+// 100% matching!
 void bhEne22_InitType00(BH_PWORK* epw)
 {
-	// Line 983, Address: 0x1fbb60, Func Offset: 0
-	// Func End, Address: 0x1fbb68, Func Offset: 0x8
+    return;
 }
 
-// 
+/*// 
 // Start address: 0x1fbb70
 void bhEne22_Move(BH_PWORK* epw)
 {
