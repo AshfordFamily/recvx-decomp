@@ -13,7 +13,7 @@ void bhEne22_DamageAdd(BH_PWORK* epw);
 void bhEne22_CollCheck(BH_PWORK* epw);
 void bhEne22_CollCheckWall(BH_PWORK* epw);
 void bhEne22_Init(BH_PWORK* epw);
-void bhEne22_InitType00();
+void bhEne22_InitType00(BH_PWORK* epw);
 void bhEne22_Move(BH_PWORK* epw);
 void bhEne22_Nage(BH_PWORK* epw);
 void bhEne22_Damage(BH_PWORK* epw);

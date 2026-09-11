@@ -1,4 +1,6 @@
 #include "../../../ps2/veronica/prog/en22.h"
+#include "../../../ps2/veronica/prog/effect.h"
+#include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
@@ -9,8 +11,16 @@
 
 // ENEMY: Albinoid Adult
 
-/*char en22_flipTree[43];
-char en22_tree[16][4];
+const char en22_flipTree[43] = {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+    19, 20, 21, 22, 23, 24, 25,
+    12, 13, 14, 15, 16, 17, 18,
+    34, 35, 36, 37, 38, 39, 40, 41,
+    26, 27, 28, 29, 30, 31, 32, 33,
+    -1
+};
+
+/*char en22_tree[16][4];
 _anon46 en22_mtn_tbl[12];*/
 
 WPNDAMAGE_WORK En22_WpnDamageTbl[22] = {
@@ -35,7 +45,7 @@ WPNDAMAGE_WORK En22_WpnDamageTbl[22] = {
 	{ 0, 0, 1, 3, 3},
 	{ 0, 0, 1, 3, 3},
 	{ 0, 0, 1, 3, 3},
-	{ 0, 0, 1, 3, 3},
+	{ 0, 0, 1, 3, 3}
 };
 
 static COMBWEP_WORK CombWepTbl[21] = {
@@ -107,7 +117,35 @@ static COMBJOINT_WORK CombJointTbl[42] = {
     {0, 0}
 };
 
-// _anon30 Ene22CapColTab[27];
+CPCL Ene22CapColTab[27] = {
+    {  2,  2, 20},
+    {  0,  0, 20},
+    {  2,  2, 23},
+    {-25,  0, 20},
+    {  2,  2, 23},
+    { 25,  0, 20},
+    {  3,  4, 30},
+    {  4,  5, 22},
+    {  5,  6, 15},
+    {  6,  7, 18},
+    {  7,  8, 12},
+    {  8,  9, 11},
+    {  9, 10, 11},
+    { 10, 11, 10},
+    { 19, 20, 11},
+    { 20, 21,  9},
+    { 12, 13, 11},
+    { 13, 14,  9},
+    { 34, 34, 20},
+    {  8,  0,  0},
+    { 35, 36,  8},
+    { 36, 37,  8},
+    { 26, 26, 20},
+    { -8,  0,  0},
+    { 27, 28,  8},
+    { 28, 29,  8},
+    {  0,  0,  0}
+};
 
 BT_WORK en22prt_blood_tbl[42] = {
     { 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},
@@ -154,8 +192,11 @@ BT_WORK en22prt_blood_tbl[42] = {
     {41, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f}
 };
 
-/*char En22SdwTab[7];
-int en22_hp_tbl[16];
+char En22SdwTab[7] = {
+    2, 7, 13, 20, 28, 36, -1
+};
+
+/*int en22_hp_tbl[16];
 _anon44 ene22_wsp_tbl[57];
 _anon41 en22_weff_tbl[14];
 _anon37 ply_mtn42b_pos[20];
@@ -172,8 +213,11 @@ void (*bhEne22_Mode0[6])(BH_PWORK*) = {
     bhEne_Event
 };
 
-/*void(*bhEne22_InitType)(BH_PWORK*)[1];
-void(*bhEne22_MoveType)(BH_PWORK*)[1];
+void (*bhEne22_InitType[1])(BH_PWORK*) = {
+    bhEne22_InitType00
+};
+
+/*void(*bhEne22_MoveType)(BH_PWORK*)[1];
 void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
 void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
 void(*bhEne22_NageType)(BH_PWORK*)[1];
@@ -590,81 +634,90 @@ void bhEne22_CollCheckWall(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fb940
+// 100% matching!
 void bhEne22_Init(BH_PWORK* epw)
 {
-	int size;
-	unsigned char* addr;
-	int i;
-	// Line 866, Address: 0x1fb940, Func Offset: 0
-	// Line 871, Address: 0x1fb94c, Func Offset: 0xc
-	// Line 872, Address: 0x1fb954, Func Offset: 0x14
-	// Line 873, Address: 0x1fb95c, Func Offset: 0x1c
-	// Line 874, Address: 0x1fb960, Func Offset: 0x20
-	// Line 875, Address: 0x1fb964, Func Offset: 0x24
-	// Line 876, Address: 0x1fb968, Func Offset: 0x28
-	// Line 877, Address: 0x1fb96c, Func Offset: 0x2c
-	// Line 880, Address: 0x1fb970, Func Offset: 0x30
-	// Line 881, Address: 0x1fb988, Func Offset: 0x48
-	// Line 883, Address: 0x1fb994, Func Offset: 0x54
-	// Line 885, Address: 0x1fb99c, Func Offset: 0x5c
-	// Line 888, Address: 0x1fb9c0, Func Offset: 0x80
-	// Line 889, Address: 0x1fb9c4, Func Offset: 0x84
-	// Line 890, Address: 0x1fb9c8, Func Offset: 0x88
-	// Line 893, Address: 0x1fb9cc, Func Offset: 0x8c
-	// Line 891, Address: 0x1fb9d0, Func Offset: 0x90
-	// Line 893, Address: 0x1fb9d4, Func Offset: 0x94
-	// Line 892, Address: 0x1fb9d8, Func Offset: 0x98
-	// Line 893, Address: 0x1fb9dc, Func Offset: 0x9c
-	// Line 894, Address: 0x1fb9e0, Func Offset: 0xa0
-	// Line 897, Address: 0x1fb9e4, Func Offset: 0xa4
-	// Line 899, Address: 0x1fb9f0, Func Offset: 0xb0
-	// Line 900, Address: 0x1fb9fc, Func Offset: 0xbc
-	// Line 909, Address: 0x1fba04, Func Offset: 0xc4
-	// Line 913, Address: 0x1fba18, Func Offset: 0xd8
-	// Line 914, Address: 0x1fba20, Func Offset: 0xe0
-	// Line 913, Address: 0x1fba24, Func Offset: 0xe4
-	// Line 914, Address: 0x1fba28, Func Offset: 0xe8
-	// Line 913, Address: 0x1fba2c, Func Offset: 0xec
-	// Line 914, Address: 0x1fba3c, Func Offset: 0xfc
-	// Line 918, Address: 0x1fba4c, Func Offset: 0x10c
-	// Line 917, Address: 0x1fba50, Func Offset: 0x110
-	// Line 919, Address: 0x1fba54, Func Offset: 0x114
-	// Line 921, Address: 0x1fba60, Func Offset: 0x120
-	// Line 922, Address: 0x1fba64, Func Offset: 0x124
-	// Line 921, Address: 0x1fba68, Func Offset: 0x128
-	// Line 922, Address: 0x1fba6c, Func Offset: 0x12c
-	// Line 923, Address: 0x1fba7c, Func Offset: 0x13c
-	// Line 926, Address: 0x1fba80, Func Offset: 0x140
-	// Line 931, Address: 0x1fba84, Func Offset: 0x144
-	// Line 926, Address: 0x1fba88, Func Offset: 0x148
-	// Line 930, Address: 0x1fba94, Func Offset: 0x154
-	// Line 931, Address: 0x1fbaa0, Func Offset: 0x160
-	// Line 934, Address: 0x1fbaac, Func Offset: 0x16c
-	// Line 936, Address: 0x1fbabc, Func Offset: 0x17c
-	// Line 937, Address: 0x1fbae4, Func Offset: 0x1a4
-	// Line 949, Address: 0x1fbaf0, Func Offset: 0x1b0
-	// Line 950, Address: 0x1fbaf8, Func Offset: 0x1b8
-	// Line 960, Address: 0x1fbafc, Func Offset: 0x1bc
-	// Line 952, Address: 0x1fbb00, Func Offset: 0x1c0
-	// Line 957, Address: 0x1fbb04, Func Offset: 0x1c4
-	// Line 950, Address: 0x1fbb08, Func Offset: 0x1c8
-	// Line 952, Address: 0x1fbb10, Func Offset: 0x1d0
-	// Line 953, Address: 0x1fbb14, Func Offset: 0x1d4
-	// Line 954, Address: 0x1fbb18, Func Offset: 0x1d8
-	// Line 955, Address: 0x1fbb1c, Func Offset: 0x1dc
-	// Line 960, Address: 0x1fbb20, Func Offset: 0x1e0
-	// Line 957, Address: 0x1fbb24, Func Offset: 0x1e4
-	// Line 960, Address: 0x1fbb28, Func Offset: 0x1e8
-	// Line 962, Address: 0x1fbb2c, Func Offset: 0x1ec
-	// Line 964, Address: 0x1fbb4c, Func Offset: 0x20c
-	// Func End, Address: 0x1fbb5c, Func Offset: 0x21c
+    int i;
+    unsigned char* addr;
+    int size;
+
+    epw->ar = 7.0f;
+    epw->ah = 6.0f;
+    epw->aw = 0.0f;
+    epw->ad = 0.0f;
+    epw->car = 7.0f;
+    epw->cah = 6.0f;
+    epw->stflg = 0;
+
+    if (sys->gm_mode != 2)
+    {
+        epw->hp = 250;
+    }
+    else
+    {
+        epw->hp = 160;
+    }
+
+    for (i = 0; i < 64; i++)
+    {
+        epw->dam[i] = 0;
+    }
+
+    epw->hokan_rate = 0;
+    epw->hokan_count = 0;
+    epw->mtn_no = 0;
+    epw->mtn_add = 0;
+    epw->frm_no = 0;
+    epw->mtn_tp = (unsigned char*)en22_flipTree;
+    epw->mtn_md = 0;
+
+    if (epw->exp0 == NULL)
+    {
+        epw->exp0 = bhEne_CallocWork(0xB0, 8);
+    }
+    else
+    {
+        if (EXP0_I(0x8) & 0x80000)
+        {
+            rom->lgtp[2].flg &= ~0x3;
+            EXP0_I(0x8) &= ~0x80000;
+        }
+
+        addr = epw->exp0;
+        size = 0xB0;
+        while (size-- != 0)
+        {
+            *addr = 0;
+            addr++;
+        }
+    }
+
+    EXP0_I(0x8) |= 0x41;
+    epw->flg |= 0x78;
+    epw->flg &= ~0x2;
+
+    if ((epw->flg & 0x800) == 0)
+    {
+        addr = (unsigned char*)epw;
+        bhSetShadow(En22SdwTab, addr, 4, 4.0f, 4.0f, 8.0f);
+        epw->flg |= 0x800;
+    }
+
+    epw->clp_jno[0] = -1;
+    epw->mdflg |= 0x20;
+    epw->mode0 = 1;
+    epw->mode1 = 1;
+    epw->mode2 = 0;
+    epw->mode3 = 0;
+    epw->lok_jno = 2;
+    epw->cpcl = Ene22CapColTab;
+
+    bhEne22_InitType[epw->type](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fbb60
-void bhEne22_InitType00()
+void bhEne22_InitType00(BH_PWORK* epw)
 {
 	// Line 983, Address: 0x1fbb60, Func Offset: 0
 	// Func End, Address: 0x1fbb68, Func Offset: 0x8
