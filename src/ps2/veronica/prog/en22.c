@@ -1068,80 +1068,112 @@ void bhEne22_MV00(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fc5a0
+// 100% matching!
 void bhEne22_MV01(BH_PWORK* epw)
 {
-	int hit;
-	// Line 1565, Address: 0x1fc5a0, Func Offset: 0
-	// Line 1568, Address: 0x1fc5ac, Func Offset: 0xc
-	// Line 1571, Address: 0x1fc5f0, Func Offset: 0x50
-	// Line 1572, Address: 0x1fc5fc, Func Offset: 0x5c
-	// Line 1573, Address: 0x1fc604, Func Offset: 0x64
-	// Line 1574, Address: 0x1fc608, Func Offset: 0x68
-	// Line 1575, Address: 0x1fc60c, Func Offset: 0x6c
-	// Line 1576, Address: 0x1fc610, Func Offset: 0x70
-	// Line 1577, Address: 0x1fc614, Func Offset: 0x74
-	// Line 1580, Address: 0x1fc620, Func Offset: 0x80
-	// Line 1582, Address: 0x1fc634, Func Offset: 0x94
-	// Line 1583, Address: 0x1fc648, Func Offset: 0xa8
-	// Line 1585, Address: 0x1fc66c, Func Offset: 0xcc
-	// Line 1588, Address: 0x1fc678, Func Offset: 0xd8
-	// Line 1589, Address: 0x1fc688, Func Offset: 0xe8
-	// Line 1588, Address: 0x1fc68c, Func Offset: 0xec
-	// Line 1589, Address: 0x1fc690, Func Offset: 0xf0
-	// Line 1591, Address: 0x1fc6ac, Func Offset: 0x10c
-	// Line 1594, Address: 0x1fc6b0, Func Offset: 0x110
-	// Line 1595, Address: 0x1fc6c4, Func Offset: 0x124
-	// Line 1596, Address: 0x1fc6d0, Func Offset: 0x130
-	// Line 1603, Address: 0x1fc6d8, Func Offset: 0x138
-	// Line 1605, Address: 0x1fc6f0, Func Offset: 0x150
-	// Line 1607, Address: 0x1fc70c, Func Offset: 0x16c
-	// Line 1608, Address: 0x1fc73c, Func Offset: 0x19c
-	// Line 1611, Address: 0x1fc744, Func Offset: 0x1a4
-	// Line 1613, Address: 0x1fc754, Func Offset: 0x1b4
-	// Line 1614, Address: 0x1fc76c, Func Offset: 0x1cc
-	// Line 1615, Address: 0x1fc774, Func Offset: 0x1d4
-	// Line 1616, Address: 0x1fc778, Func Offset: 0x1d8
-	// Line 1615, Address: 0x1fc784, Func Offset: 0x1e4
-	// Line 1616, Address: 0x1fc788, Func Offset: 0x1e8
-	// Line 1615, Address: 0x1fc78c, Func Offset: 0x1ec
-	// Line 1616, Address: 0x1fc790, Func Offset: 0x1f0
-	// Line 1617, Address: 0x1fc798, Func Offset: 0x1f8
-	// Line 1618, Address: 0x1fc7a0, Func Offset: 0x200
-	// Line 1619, Address: 0x1fc7a8, Func Offset: 0x208
-	// Line 1622, Address: 0x1fc7b0, Func Offset: 0x210
-	// Line 1624, Address: 0x1fc7c4, Func Offset: 0x224
-	// Line 1629, Address: 0x1fc838, Func Offset: 0x298
-	// Line 1631, Address: 0x1fc84c, Func Offset: 0x2ac
-	// Line 1630, Address: 0x1fc850, Func Offset: 0x2b0
-	// Line 1631, Address: 0x1fc854, Func Offset: 0x2b4
-	// Line 1632, Address: 0x1fc858, Func Offset: 0x2b8
-	// Line 1636, Address: 0x1fc870, Func Offset: 0x2d0
-	// Line 1637, Address: 0x1fc884, Func Offset: 0x2e4
-	// Line 1638, Address: 0x1fc890, Func Offset: 0x2f0
-	// Line 1641, Address: 0x1fc898, Func Offset: 0x2f8
-	// Line 1642, Address: 0x1fc8a8, Func Offset: 0x308
-	// Line 1643, Address: 0x1fc8b4, Func Offset: 0x314
-	// Line 1645, Address: 0x1fc8c4, Func Offset: 0x324
-	// Line 1646, Address: 0x1fc8e0, Func Offset: 0x340
-	// Line 1645, Address: 0x1fc8e4, Func Offset: 0x344
-	// Line 1648, Address: 0x1fc8ec, Func Offset: 0x34c
-	// Line 1651, Address: 0x1fc8f4, Func Offset: 0x354
-	// Line 1653, Address: 0x1fc924, Func Offset: 0x384
-	// Line 1654, Address: 0x1fc92c, Func Offset: 0x38c
-	// Line 1655, Address: 0x1fc930, Func Offset: 0x390
-	// Line 1657, Address: 0x1fc934, Func Offset: 0x394
-	// Line 1658, Address: 0x1fc944, Func Offset: 0x3a4
-	// Line 1657, Address: 0x1fc94c, Func Offset: 0x3ac
-	// Line 1658, Address: 0x1fc950, Func Offset: 0x3b0
-	// Line 1660, Address: 0x1fc960, Func Offset: 0x3c0
-	// Line 1662, Address: 0x1fc964, Func Offset: 0x3c4
-	// Line 1665, Address: 0x1fc970, Func Offset: 0x3d0
-	// Func End, Address: 0x1fc980, Func Offset: 0x3e0
+    int hit;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 1, 0, 5);
+        epw->way = 384;
+        epw->wax = 0;
+        epw->ct0 = 0;
+        epw->ct1 = 0;
+        epw->spd = 0.0f;
+        epw->mode3++;
+
+    case 1:
+        if (epw->flg & 0x2000000)
+        {
+            bhEne_ChgMtn(epw, 2, 0, 0);
+            epw->ct1 = rand() % 30 + 40;
+            epw->mode3++;
+        }
+
+        epw->spd += 0.02f;
+        if (epw->spd >= 0.4f)
+        {
+            epw->spd = 0.4f;
+        }
+
+        ikou(epw, (NJS_POINT3*)&EXP0_F(0x24), 384);
+        bhAddSpeed(epw, 0);
+        break;
+
+    case 2:
+        if (bhEne_CheckDirWall2(epw, 0, 18.0f) != NULL)
+        {
+            hit = bhEne_CheckSideWall2(epw, 18.0f, 0);
+            if (hit == 0)
+            {
+                epw->way = (rand() % 2) ? 384 : -384;
+            }
+            else
+            {
+                epw->way = hit * 384;
+            }
+
+            if (epw->way < 0)
+            {
+                epw->wax = -256;
+            }
+            else
+            {
+                epw->wax = 256;
+            }
+            EXP0_I(0x8) |= 0x2000;
+            bhEne_ChgMtn(epw, 2, 0, 5);
+            epw->ct1 = 42;
+            epw->mode3++;
+        }
+        else
+        {
+            if ((epw->flg & 0x2000000)
+                && (((fabsf(EXP0_F(0x24) - epw->px) < 10.0f) && (fabsf(EXP0_F(0x2C) - epw->pz) < 10.0f))
+                    || (EXP0_I(0x8) & 0x8000)))
+            {
+                bhEne_ChgMtn(epw, 4, 0, 5);
+                epw->ct1 = 0;
+                epw->mode3 = 4;
+                EXP0_I(0x8) &= ~0x8000;
+            }
+
+            ikou(epw, (NJS_POINT3*)&EXP0_F(0x24), 384);
+            bhAddSpeed(epw, 0);
+        }
+        break;
+
+    case 3:
+        epw->ay += epw->way;
+        bhAddSpeed(epw, -epw->way);
+        if (--epw->ct1 < 0)
+        {
+            epw->ct1 = rand() % 30 + 40;
+            epw->mode3 = 2;
+        }
+        break;
+
+    case 4:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+
+        epw->spd -= 0.02f;
+        if (epw->spd < 0.0f)
+        {
+            epw->spd = 0.0f;
+        }
+        bhAddSpeed(epw, 0);
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fc980
 void bhEne22_MV02(BH_PWORK* epw)
 {
