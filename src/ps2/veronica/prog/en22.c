@@ -9,7 +9,6 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
-#include "ninjadef.h"
 
 // ENEMY: Albinoid Adult
 
@@ -232,8 +231,17 @@ void (*bhEne22_BrainMode2[6])(BH_PWORK*) = {
     bhEne22_DmmyBrain
 };
 
-/*void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
-void(*bhEne22_NageType)(BH_PWORK*)[1];
+void (*bhEne22_MoveMode2[7])(BH_PWORK*) = {
+    bhEne22_MV00,
+    bhEne22_MV01,
+    bhEne22_MV02,
+    bhEne22_MV03,
+    bhEne22_MV04,
+    bhEne22_MV05,
+    bhEne22_MV06
+};
+
+/*void(*bhEne22_NageType)(BH_PWORK*)[1];
 void(*bhEne22_NageMode2)(BH_PWORK*)[1];*/
 
 void (*bhEne22_DamageType[1])(BH_PWORK*) = {
@@ -1007,19 +1015,18 @@ void bhEne22_Brain04(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fc3d0
+// 100% matching!
 void bhEne22_MVType00(BH_PWORK* epw)
 {
-	// Line 1484, Address: 0x1fc3d0, Func Offset: 0
-	// Line 1486, Address: 0x1fc3dc, Func Offset: 0xc
-	// Line 1487, Address: 0x1fc3ec, Func Offset: 0x1c
-	// Line 1489, Address: 0x1fc3f4, Func Offset: 0x24
-	// Line 1490, Address: 0x1fc414, Func Offset: 0x44
-	// Func End, Address: 0x1fc424, Func Offset: 0x54
+    if (epw->mode1 == 1)
+    {
+        bhEne22_Brain(epw);
+    }
+
+    bhEne22_MoveMode2[epw->mode2](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fc430
 void bhEne22_MV00(BH_PWORK* epw)
 {
