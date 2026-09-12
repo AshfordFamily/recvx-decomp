@@ -760,15 +760,13 @@ void bhEne22_Move(BH_PWORK* epw)
     bhEne22_PlyerHitCheck(plp, epw);
 }
 
-/*// 
-// Start address: 0x1fbcd0
-void bhEne22_Nage()
+// 100% matching!
+void bhEne22_Nage(BH_PWORK* epw)
 {
-	// Line 1042, Address: 0x1fbcd0, Func Offset: 0
-	// Func End, Address: 0x1fbcd8, Func Offset: 0x8
+    return;
 }
 
-// 
+/*// 
 // Start address: 0x1fbce0
 void bhEne22_Damage(BH_PWORK* epw)
 {
