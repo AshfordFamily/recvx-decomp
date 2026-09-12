@@ -998,17 +998,16 @@ void bhEne22_Brain02(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fc390
+// 100% matching!
 void bhEne22_Brain04(BH_PWORK* epw)
 {
-	// Line 1462, Address: 0x1fc390, Func Offset: 0
-	// Line 1465, Address: 0x1fc3b0, Func Offset: 0x20
-	// Line 1467, Address: 0x1fc3c0, Func Offset: 0x30
-	// Func End, Address: 0x1fc3c8, Func Offset: 0x38
+    if (EXP0_F(0x20) < 20.0f)
+    {
+        EXP0_I(0x8) |= 0x10000;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fc3d0
 void bhEne22_MVType00(BH_PWORK* epw)
 {
