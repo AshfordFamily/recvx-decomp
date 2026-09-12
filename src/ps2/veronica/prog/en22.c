@@ -230,9 +230,13 @@ void (*bhEne22_DamageType[1])(BH_PWORK*) = {
     bhEne22_DGType00
 };
 
-/*void(*bhEne22_DamageMode2)(BH_PWORK*)[3];
-void(*bhEne22_DieType)(BH_PWORK*)[1];
-void(*bhEne22_DieMode2)(BH_PWORK*)[2];
+/*void(*bhEne22_DamageMode2)(BH_PWORK*)[3];*/
+
+void (*bhEne22_DieType[1])(BH_PWORK*) = {
+    bhEne22_DDType00
+};
+
+/*void(*bhEne22_DieMode2)(BH_PWORK*)[2];
 float en22_mogmog[20];*/
 
 // 100% matching!
@@ -776,15 +780,13 @@ void bhEne22_Damage(BH_PWORK* epw)
     bhEne22_DamageType[epw->type](epw);
 }
 
-/*// 
-// Start address: 0x1fbd00
+// 100% matching!
 void bhEne22_Die(BH_PWORK* epw)
 {
-	// Line 1051, Address: 0x1fbd00, Func Offset: 0
-	// Func End, Address: 0x1fbd20, Func Offset: 0x20
+    bhEne22_DieType[epw->type](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fbd20
 void bhEne22_PlyerHitCheck(BH_PWORK* pl, BH_PWORK* epw)
 {
