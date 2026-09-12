@@ -224,9 +224,13 @@ void (*bhEne22_MoveType[1])(BH_PWORK*) = {
 /*void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
 void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
 void(*bhEne22_NageType)(BH_PWORK*)[1];
-void(*bhEne22_NageMode2)(BH_PWORK*)[1];
-void(*bhEne22_DamageType)(BH_PWORK*)[1];
-void(*bhEne22_DamageMode2)(BH_PWORK*)[3];
+void(*bhEne22_NageMode2)(BH_PWORK*)[1];*/
+
+void (*bhEne22_DamageType[1])(BH_PWORK*) = {
+    bhEne22_DGType00
+};
+
+/*void(*bhEne22_DamageMode2)(BH_PWORK*)[3];
 void(*bhEne22_DieType)(BH_PWORK*)[1];
 void(*bhEne22_DieMode2)(BH_PWORK*)[2];
 float en22_mogmog[20];*/
@@ -766,15 +770,13 @@ void bhEne22_Nage(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fbce0
+// 100% matching!
 void bhEne22_Damage(BH_PWORK* epw)
 {
-	// Line 1046, Address: 0x1fbce0, Func Offset: 0
-	// Func End, Address: 0x1fbd00, Func Offset: 0x20
+    bhEne22_DamageType[epw->type](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fbd00
 void bhEne22_Die(BH_PWORK* epw)
 {
