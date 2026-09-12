@@ -217,8 +217,11 @@ void (*bhEne22_InitType[1])(BH_PWORK*) = {
     bhEne22_InitType00
 };
 
-/*void(*bhEne22_MoveType)(BH_PWORK*)[1];
-void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
+void (*bhEne22_MoveType[1])(BH_PWORK*) = {
+    bhEne22_MVType00
+};
+
+/*void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
 void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
 void(*bhEne22_NageType)(BH_PWORK*)[1];
 void(*bhEne22_NageMode2)(BH_PWORK*)[1];
@@ -720,50 +723,44 @@ void bhEne22_InitType00(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fbb70
+// 100% matching!
 void bhEne22_Move(BH_PWORK* epw)
 {
-	NJS_POINT3 epos;
-	NJS_POINT3 pos;
-	O_WORK* owk;
-	// Line 1001, Address: 0x1fbb70, Func Offset: 0
-	// Line 1007, Address: 0x1fbb84, Func Offset: 0x14
-	// Line 1009, Address: 0x1fbb8c, Func Offset: 0x1c
-	// Line 1010, Address: 0x1fbb90, Func Offset: 0x20
-	// Line 1007, Address: 0x1fbb98, Func Offset: 0x28
-	// Line 1014, Address: 0x1fbb9c, Func Offset: 0x2c
-	// Line 1007, Address: 0x1fbba0, Func Offset: 0x30
-	// Line 1008, Address: 0x1fbba4, Func Offset: 0x34
-	// Line 1009, Address: 0x1fbbac, Func Offset: 0x3c
-	// Line 1010, Address: 0x1fbbb4, Func Offset: 0x44
-	// Line 1011, Address: 0x1fbbbc, Func Offset: 0x4c
-	// Line 1012, Address: 0x1fbbcc, Func Offset: 0x5c
-	// Line 1013, Address: 0x1fbbdc, Func Offset: 0x6c
-	// Line 1014, Address: 0x1fbbe0, Func Offset: 0x70
-	// Line 1021, Address: 0x1fbbf0, Func Offset: 0x80
-	// Line 1014, Address: 0x1fbbf8, Func Offset: 0x88
-	// Line 1021, Address: 0x1fbbfc, Func Offset: 0x8c
-	// Line 1023, Address: 0x1fbc14, Func Offset: 0xa4
-	// Line 1025, Address: 0x1fbc34, Func Offset: 0xc4
-	// Line 1026, Address: 0x1fbc40, Func Offset: 0xd0
-	// Line 1027, Address: 0x1fbc54, Func Offset: 0xe4
-	// Line 1031, Address: 0x1fbc58, Func Offset: 0xe8
-	// Line 1026, Address: 0x1fbc64, Func Offset: 0xf4
-	// Line 1029, Address: 0x1fbc68, Func Offset: 0xf8
-	// Line 1031, Address: 0x1fbc6c, Func Offset: 0xfc
-	// Line 1026, Address: 0x1fbc70, Func Offset: 0x100
-	// Line 1027, Address: 0x1fbc78, Func Offset: 0x108
-	// Line 1028, Address: 0x1fbc80, Func Offset: 0x110
-	// Line 1029, Address: 0x1fbc84, Func Offset: 0x114
-	// Line 1031, Address: 0x1fbc88, Func Offset: 0x118
-	// Line 1032, Address: 0x1fbc90, Func Offset: 0x120
-	// Line 1036, Address: 0x1fbca4, Func Offset: 0x134
-	// Line 1037, Address: 0x1fbcb4, Func Offset: 0x144
-	// Func End, Address: 0x1fbccc, Func Offset: 0x15c
+    O_WORK* owk;
+    NJS_POINT3 pos, epos;
+
+    owk = plp->mlwP->owP;
+    pos.x = owk->mtx[12];
+    pos.y = epw->py;
+    pos.z = owk->mtx[14];
+
+    epos.x = epw->px + epw->aox;
+    epos.z = epw->pz + epw->aoz;
+    epos.y = epw->py;
+
+    EXP0_F(0x20) = njDistanceP2P(&pos, &epos);
+
+    bhEne22_MoveType[epw->type](epw);
+
+    if ((EXP0_I(0x14) == 0) && (epw->mode2 != 4))
+    {
+        bhEne22_SetElectricShockEffect(epw, 3);
+
+        EXP0_I(0x14) = rand() % 30 + 60;
+        EXP0_I(0x1C) = 15;
+
+        pos.x = 0.0f;
+        pos.y = 5.0f;
+        pos.z = 0.0f;
+
+        bhEne22_SetLight(epw, 4, &pos, 0);
+        bhEne22_SePlay(epw, (NJS_POINT3*)&epw->px, 0x1012302);
+    }
+
+    bhEne22_PlyerHitCheck(plp, epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fbcd0
 void bhEne22_Nage()
 {

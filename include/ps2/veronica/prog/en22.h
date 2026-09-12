@@ -51,13 +51,13 @@ void bhEne22_SetWaterEffect(BH_PWORK* epw, int mtn_no, int frm);
 int bhEne22_GetAreaNo(float px, float pz);
 int bhEne22_AreaCheck(float ene_x, float ene_z, float ply_x, float ply_z);
 int bhEne22_SetTrgPos(BH_PWORK* epw);
-/*void bhEne22_SePlay(BH_PWORK* epw, _anon34* ps, int no);
-_anon0* bhEne22_SetDengekiEffect(BH_PWORK* epw, int obj, _anon34* ofs, float size);*/
+void bhEne22_SePlay(BH_PWORK* epw, NJS_POINT3* ps, int no);
+/*_anon0* bhEne22_SetDengekiEffect(BH_PWORK* epw, int obj, NJS_POINT3* ofs, float size);*/
 void bhEne22_SetDengekiEffect2(BH_PWORK* epw);
 void bhEne22_SetElectricShockEffect(BH_PWORK* epw, int type);
 void bhEne22_SetElectricShockEffect2(BH_PWORK* epw);
-/*_anon0* bhEne22_SetElectricLightEffect(BH_PWORK* epw);
-void bhEne22_SetLight(BH_PWORK* epw, int lnk_obj, _anon34* ofs, int type);*/
+/*_anon0* bhEne22_SetElectricLightEffect(BH_PWORK* epw);*/
+void bhEne22_SetLight(BH_PWORK* epw, int lnk_obj, NJS_POINT3* ofs, int type);
 void bhEne22_CtrLight(BH_PWORK* epw);
 /*void bhEne22_ChgDengekiColor(npobj* objp, int no, unsigned int argb);*/
 
