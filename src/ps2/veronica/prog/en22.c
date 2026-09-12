@@ -385,12 +385,11 @@ void bhEne22_ChgDmgMode(BH_PWORK* epw)
     {
         if (EXP0_I(0x8) & 0x1000)
         {
-            O_WRK* owP; // Not from DWARF
-
-            owP = *(O_WRK**)(epw->exp0 + 0x4C);
-            if ((owP->flg != 0x0) && (owP->id == 353) && ((BH_PWORK*)owP->lkwkp == epw))
+            if (((*(O_WRK**)(epw->exp0 + 0x4C))->flg != 0x0)
+                && ((*(O_WRK**)(epw->exp0 + 0x4C))->id == 353)
+                && ((BH_PWORK*)(*(O_WRK**)(epw->exp0 + 0x4C))->lkwkp == epw))
             {
-                owP->mode0 = 4;
+                (*(O_WRK**)(epw->exp0 + 0x4C))->mode0 = 4;
             }
 
             if (EXP0_I(0x8) & 0x80000)
