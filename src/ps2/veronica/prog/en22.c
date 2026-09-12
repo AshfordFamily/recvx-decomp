@@ -914,42 +914,58 @@ void bhEne22_Brain(BH_PWORK* epw)
     bhEne22_BrainMode2[epw->mode2](epw);
 }
 
-/*// 
-// Start address: 0x1fc0f0
+// 100% matching!
 void bhEne22_Brain00(BH_PWORK* epw)
 {
-	// Line 1311, Address: 0x1fc0f0, Func Offset: 0
-	// Line 1312, Address: 0x1fc0fc, Func Offset: 0xc
-	// Line 1314, Address: 0x1fc108, Func Offset: 0x18
-	// Line 1317, Address: 0x1fc11c, Func Offset: 0x2c
-	// Line 1319, Address: 0x1fc13c, Func Offset: 0x4c
-	// Line 1320, Address: 0x1fc144, Func Offset: 0x54
-	// Line 1322, Address: 0x1fc14c, Func Offset: 0x5c
-	// Line 1325, Address: 0x1fc154, Func Offset: 0x64
-	// Line 1328, Address: 0x1fc178, Func Offset: 0x88
-	// Line 1329, Address: 0x1fc180, Func Offset: 0x90
-	// Line 1330, Address: 0x1fc188, Func Offset: 0x98
-	// Line 1332, Address: 0x1fc18c, Func Offset: 0x9c
-	// Line 1333, Address: 0x1fc1ac, Func Offset: 0xbc
-	// Line 1336, Address: 0x1fc1b4, Func Offset: 0xc4
-	// Line 1337, Address: 0x1fc1b8, Func Offset: 0xc8
-	// Line 1336, Address: 0x1fc1bc, Func Offset: 0xcc
-	// Line 1337, Address: 0x1fc1c4, Func Offset: 0xd4
-	// Line 1342, Address: 0x1fc210, Func Offset: 0x120
-	// Line 1344, Address: 0x1fc21c, Func Offset: 0x12c
-	// Line 1346, Address: 0x1fc228, Func Offset: 0x138
-	// Line 1348, Address: 0x1fc24c, Func Offset: 0x15c
-	// Line 1349, Address: 0x1fc250, Func Offset: 0x160
-	// Line 1352, Address: 0x1fc258, Func Offset: 0x168
-	// Line 1354, Address: 0x1fc25c, Func Offset: 0x16c
-	// Line 1357, Address: 0x1fc264, Func Offset: 0x174
-	// Line 1359, Address: 0x1fc26c, Func Offset: 0x17c
-	// Line 1360, Address: 0x1fc274, Func Offset: 0x184
-	// Line 1363, Address: 0x1fc278, Func Offset: 0x188
-	// Func End, Address: 0x1fc288, Func Offset: 0x198
+    if (epw->mode3 == 0) return;
+
+    if (plp->flr_no == 0)
+    {
+        if (EXP0_F(0x20) <= 40.0f)
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        else if (((plp->stflg & 0x80000000) == 0) && (EXP0_F(0x20) > 40.0f))
+        {
+            epw->mode1 = 1;
+            epw->mode2 = 4;
+            epw->mode3 = 0;
+        }
+
+        epw->ct0 = rand() % 60 + 120;
+    }
+    else
+    {
+        epw->ct0--;
+
+        if (bhEne22_AreaCheck(epw->px, epw->pz, plp->px, plp->pz) || (epw->ct0 < 0) || (EXP0_F(0x20) < 42.0f))
+        {
+            bhEne22_SetTrgPos(epw);
+
+            if (epw->ct0 < 0)
+            {
+                if ((rand() % 2))
+                {
+                    epw->mode2 = 1;
+                }
+                else
+                {
+                    epw->mode2 = 2;
+                }
+            }
+            else
+            {
+                epw->mode2 = 2;
+            }
+            epw->mode1 = 1;
+            epw->mode3 = 0;
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fc290
 void bhEne22_Brain01(BH_PWORK* epw)
 {
