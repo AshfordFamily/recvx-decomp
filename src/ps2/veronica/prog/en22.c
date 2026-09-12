@@ -954,7 +954,7 @@ void bhEne22_Brain00(BH_PWORK* epw)
 
             if (epw->ct0 < 0)
             {
-                if ((rand() % 2))
+                if (rand() % 2)
                 {
                     epw->mode2 = 1;
                 }
@@ -1026,34 +1026,49 @@ void bhEne22_MVType00(BH_PWORK* epw)
     bhEne22_MoveMode2[epw->mode2](epw);
 }
 
-/*// 
-// Start address: 0x1fc430
+// 100% matching!
 void bhEne22_MV00(BH_PWORK* epw)
 {
-	// Line 1510, Address: 0x1fc430, Func Offset: 0
-	// Line 1511, Address: 0x1fc43c, Func Offset: 0xc
-	// Line 1514, Address: 0x1fc45c, Func Offset: 0x2c
-	// Line 1516, Address: 0x1fc46c, Func Offset: 0x3c
-	// Line 1517, Address: 0x1fc480, Func Offset: 0x50
-	// Line 1519, Address: 0x1fc4a8, Func Offset: 0x78
-	// Line 1521, Address: 0x1fc4cc, Func Offset: 0x9c
-	// Line 1524, Address: 0x1fc4e4, Func Offset: 0xb4
-	// Line 1525, Address: 0x1fc4f0, Func Offset: 0xc0
-	// Line 1526, Address: 0x1fc50c, Func Offset: 0xdc
-	// Line 1525, Address: 0x1fc510, Func Offset: 0xe0
-	// Line 1527, Address: 0x1fc518, Func Offset: 0xe8
-	// Line 1530, Address: 0x1fc520, Func Offset: 0xf0
-	// Line 1534, Address: 0x1fc524, Func Offset: 0xf4
-	// Line 1533, Address: 0x1fc528, Func Offset: 0xf8
-	// Line 1534, Address: 0x1fc52c, Func Offset: 0xfc
-	// Line 1535, Address: 0x1fc530, Func Offset: 0x100
-	// Line 1542, Address: 0x1fc53c, Func Offset: 0x10c
-	// Line 1544, Address: 0x1fc574, Func Offset: 0x144
-	// Line 1546, Address: 0x1fc588, Func Offset: 0x158
-	// Func End, Address: 0x1fc598, Func Offset: 0x168
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 0, 0, 7);
+
+        if (EXP0_UC(0x0) & 0x40)
+        {
+            epw->ct0 = rand() % 60 + 30;
+        }
+        else
+        {
+            epw->ct0 = rand() % 60 + 120;
+        }
+
+        if (EXP0_I(0x8) & 0x4000)
+        {
+            EXP0_I(0x8) &= ~0x4000;
+            epw->ct0 = rand() % 60 + 90;
+            epw->ct1 = 1;
+        }
+        else
+        {
+            epw->ct1 = 0;
+        }
+        epw->ct2 = 0;
+        epw->mode1 = 1;
+        epw->mode3++;
+        break;
+
+    case 1:
+        break;
+    }
+
+    if ((epw->flg & 0x2000000) && (rand() % 2))
+    {
+        bhEne22_SePlay(epw, (NJS_POINT3*)&epw->px, 0x1012306);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fc5a0
 void bhEne22_MV01(BH_PWORK* epw)
 {
