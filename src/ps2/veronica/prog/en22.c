@@ -5,6 +5,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
@@ -517,7 +518,7 @@ void bhEne22_CollCheckWall(BH_PWORK* epw)
 
     EXP0_ATR(17) = bhCheckWallType((NJS_POINT3*)&epw->px, epw->flg, epw->ar, epw->ah);
 
-    if (((EXP0_I(0x8) & 0xF) == 1) && (epw->flg & 0x10))
+    if (((EXP0_I(0x8) & 0xF) == 0x1) && (epw->flg & 0x10))
     {
         ps.x = epw->px + epw->aox;
         ps.z = epw->pz + epw->aoz;
@@ -859,29 +860,42 @@ void bhEne22_PlyerHitCheck(BH_PWORK* pl, BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fbfb0
+// 100% matching!
 void bhEne22_EneSearch(BH_PWORK* epw)
 {
-	// Line 1178, Address: 0x1fbfb0, Func Offset: 0
-	// Line 1182, Address: 0x1fbfbc, Func Offset: 0xc
-	// Line 1185, Address: 0x1fbfcc, Func Offset: 0x1c
-	// Line 1187, Address: 0x1fbfe4, Func Offset: 0x34
-	// Line 1210, Address: 0x1fbff8, Func Offset: 0x48
-	// Line 1213, Address: 0x1fc008, Func Offset: 0x58
-	// Line 1215, Address: 0x1fc020, Func Offset: 0x70
-	// Line 1218, Address: 0x1fc02c, Func Offset: 0x7c
-	// Line 1219, Address: 0x1fc030, Func Offset: 0x80
-	// Line 1222, Address: 0x1fc038, Func Offset: 0x88
-	// Line 1224, Address: 0x1fc040, Func Offset: 0x90
-	// Line 1227, Address: 0x1fc050, Func Offset: 0xa0
-	// Line 1230, Address: 0x1fc060, Func Offset: 0xb0
-	// Line 1232, Address: 0x1fc078, Func Offset: 0xc8
-	// Line 1234, Address: 0x1fc080, Func Offset: 0xd0
-	// Func End, Address: 0x1fc090, Func Offset: 0xe0
+    EXP0_UC(0x0) |= 0x80;
+
+    if ((EXP0_UC(0x0) & 0x1F) < 0x4)
+    {
+        if (bhSearchPlayer(epw, 18204) != -1)
+        {
+            EXP0_UC(0x0) |= 0x20;
+        }
+
+        if ((EXP0_UC(0x0) & 0x1F) == 3)
+        {
+            if (EXP0_UC(0x0) & 0x20)
+            {
+                EXP0_UC(0x0) |= 0x40;
+            }
+            else
+            {
+                EXP0_UC(0x0) &= ~0x40;
+            }
+
+            EXP0_UC(0x0) &= ~0xA0;
+        }
+    }
+
+    EXP0_UC(0x0)++;
+
+    if ((EXP0_UC(0x0) & 0x1F) > 0xF)
+    {
+        EXP0_UC(0x0) &= ~0x1F;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fc090
 void bhEne22_Brain(BH_PWORK* epw)
 {
