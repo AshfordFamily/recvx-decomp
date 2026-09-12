@@ -223,8 +223,16 @@ void (*bhEne22_MoveType[1])(BH_PWORK*) = {
     bhEne22_MVType00
 };
 
-/*void(*bhEne22_BrainMode2)(BH_PWORK*)[6];
-void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
+void (*bhEne22_BrainMode2[6])(BH_PWORK*) = {
+    bhEne22_Brain00,
+    bhEne22_Brain01,
+    bhEne22_Brain02,
+    bhEne22_DmmyBrain,
+    bhEne22_Brain04,
+    bhEne22_DmmyBrain
+};
+
+/*void(*bhEne22_MoveMode2)(BH_PWORK*)[7];
 void(*bhEne22_NageType)(BH_PWORK*)[1];
 void(*bhEne22_NageMode2)(BH_PWORK*)[1];*/
 
@@ -895,19 +903,18 @@ void bhEne22_EneSearch(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fc090
+// 100% matching!
 void bhEne22_Brain(BH_PWORK* epw)
 {
-	// Line 1251, Address: 0x1fc090, Func Offset: 0
-	// Line 1254, Address: 0x1fc09c, Func Offset: 0xc
-	// Line 1255, Address: 0x1fc0b0, Func Offset: 0x20
-	// Line 1292, Address: 0x1fc0b8, Func Offset: 0x28
-	// Line 1293, Address: 0x1fc0d8, Func Offset: 0x48
-	// Func End, Address: 0x1fc0e8, Func Offset: 0x58
+    if ((EXP0_UC(0x0) & 0x40) == 0)
+    {
+        bhEne22_EneSearch(epw);
+    }
+
+    bhEne22_BrainMode2[epw->mode2](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fc0f0
 void bhEne22_Brain00(BH_PWORK* epw)
 {
