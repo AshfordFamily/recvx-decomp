@@ -8,6 +8,7 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
+#include "ninjadef.h"
 
 // ENEMY: Albinoid Adult
 
@@ -786,70 +787,79 @@ void bhEne22_Die(BH_PWORK* epw)
     bhEne22_DieType[epw->type](epw);
 }
 
-/*// 
-// Start address: 0x1fbd20
+// 100% matching!
 void bhEne22_PlyerHitCheck(BH_PWORK* pl, BH_PWORK* epw)
 {
-	NJS_POINT3 ps;
-	// Line 1071, Address: 0x1fbd20, Func Offset: 0
-	// Line 1076, Address: 0x1fbd30, Func Offset: 0x10
-	// Line 1085, Address: 0x1fbda4, Func Offset: 0x84
-	// Line 1086, Address: 0x1fbdac, Func Offset: 0x8c
-	// Line 1094, Address: 0x1fbdb0, Func Offset: 0x90
-	// Line 1085, Address: 0x1fbdb4, Func Offset: 0x94
-	// Line 1086, Address: 0x1fbdbc, Func Offset: 0x9c
-	// Line 1087, Address: 0x1fbdc0, Func Offset: 0xa0
-	// Line 1088, Address: 0x1fbdc4, Func Offset: 0xa4
-	// Line 1089, Address: 0x1fbdc8, Func Offset: 0xa8
-	// Line 1092, Address: 0x1fbdcc, Func Offset: 0xac
-	// Line 1093, Address: 0x1fbdd8, Func Offset: 0xb8
-	// Line 1094, Address: 0x1fbde0, Func Offset: 0xc0
-	// Line 1096, Address: 0x1fbde8, Func Offset: 0xc8
-	// Line 1098, Address: 0x1fbdfc, Func Offset: 0xdc
-	// Line 1099, Address: 0x1fbe04, Func Offset: 0xe4
-	// Line 1101, Address: 0x1fbe08, Func Offset: 0xe8
-	// Line 1098, Address: 0x1fbe10, Func Offset: 0xf0
-	// Line 1101, Address: 0x1fbe14, Func Offset: 0xf4
-	// Line 1098, Address: 0x1fbe1c, Func Offset: 0xfc
-	// Line 1099, Address: 0x1fbe20, Func Offset: 0x100
-	// Line 1100, Address: 0x1fbe24, Func Offset: 0x104
-	// Line 1101, Address: 0x1fbe28, Func Offset: 0x108
-	// Line 1102, Address: 0x1fbe30, Func Offset: 0x110
-	// Line 1109, Address: 0x1fbe38, Func Offset: 0x118
-	// Line 1118, Address: 0x1fbeb8, Func Offset: 0x198
-	// Line 1119, Address: 0x1fbec0, Func Offset: 0x1a0
-	// Line 1118, Address: 0x1fbec4, Func Offset: 0x1a4
-	// Line 1119, Address: 0x1fbed0, Func Offset: 0x1b0
-	// Line 1123, Address: 0x1fbeec, Func Offset: 0x1cc
-	// Line 1125, Address: 0x1fbef4, Func Offset: 0x1d4
-	// Line 1124, Address: 0x1fbef8, Func Offset: 0x1d8
-	// Line 1125, Address: 0x1fbefc, Func Offset: 0x1dc
-	// Line 1127, Address: 0x1fbf00, Func Offset: 0x1e0
-	// Line 1130, Address: 0x1fbf08, Func Offset: 0x1e8
-	// Line 1131, Address: 0x1fbf10, Func Offset: 0x1f0
-	// Line 1132, Address: 0x1fbf14, Func Offset: 0x1f4
-	// Line 1133, Address: 0x1fbf18, Func Offset: 0x1f8
-	// Line 1137, Address: 0x1fbf1c, Func Offset: 0x1fc
-	// Line 1139, Address: 0x1fbf20, Func Offset: 0x200
-	// Line 1137, Address: 0x1fbf24, Func Offset: 0x204
-	// Line 1138, Address: 0x1fbf2c, Func Offset: 0x20c
-	// Line 1139, Address: 0x1fbf34, Func Offset: 0x214
-	// Line 1142, Address: 0x1fbf3c, Func Offset: 0x21c
-	// Line 1144, Address: 0x1fbf48, Func Offset: 0x228
-	// Line 1146, Address: 0x1fbf5c, Func Offset: 0x23c
-	// Line 1147, Address: 0x1fbf64, Func Offset: 0x244
-	// Line 1149, Address: 0x1fbf68, Func Offset: 0x248
-	// Line 1146, Address: 0x1fbf70, Func Offset: 0x250
-	// Line 1149, Address: 0x1fbf74, Func Offset: 0x254
-	// Line 1146, Address: 0x1fbf7c, Func Offset: 0x25c
-	// Line 1147, Address: 0x1fbf80, Func Offset: 0x260
-	// Line 1148, Address: 0x1fbf84, Func Offset: 0x264
-	// Line 1149, Address: 0x1fbf88, Func Offset: 0x268
-	// Line 1153, Address: 0x1fbf90, Func Offset: 0x270
-	// Func End, Address: 0x1fbfa4, Func Offset: 0x284
+    NJS_POINT3 ps;
+
+    if ((EXP0_I(0x1C) > 0)
+        && (EXP0_F(0x20) <= 20.0f)
+        && (pl->flr_no == epw->flr_no)
+        && ((pl->flg & 0x2) == 0)
+        && ((pl->flg & 0x4) == 0)
+        && ((pl->stflg & 0x80000000) == 0))
+    {
+        EXP0_I(0x8) |= 0x40000;
+
+        pl->mode0 = 4;
+        pl->mode1 = 0;
+        pl->mode2 = 0;
+        pl->mode3 = 0;
+        pl->flg |= 0x4;
+        pl->hp -= 30;
+
+        bhEne22_SetElectricShockEffect2(epw);
+        bhEne22_SePlay(epw, (NJS_POINT3*)&pl->px, 0x1012302);
+
+        ps.x = plp->px;
+        ps.y = 10.0f;
+        ps.z = plp->pz;
+
+        bhEne22_SetLight(epw, -1, &ps, 0);
+
+        EXP0_I(0x1C) = 0;
+    }
+
+    if ((EXP0_F(0x20) <= 10.0f)
+        && (ikou3(epw, (NJS_POINT3*)&plp->px, NJM_DEG_ANG(30.0f)) == 0)
+        && (pl->flr_no == epw->flr_no)
+        && ((pl->flg & 0x2) == 0)
+        && ((pl->flg & 0x4) == 0)
+        && ((pl->stflg & 0x80000000) == 0))
+    {
+        EXP0_I(0x8) |= 0x40000;
+
+        if ((epw->mtn_no == 5) || (epw->mtn_no - 6 < 2))
+        {
+            pl->mode0 = 4;
+            pl->mode1 = 0;
+            pl->mode2 = 1;
+            pl->mode3 = 0;
+        }
+        else
+        {
+            pl->mode0 = 4;
+            pl->mode1 = 0;
+            pl->mode2 = 0;
+            pl->mode3 = 0;
+        }
+
+        pl->flg |= 0x4;
+        pl->hp -= 30;
+
+        bhEne22_SetElectricShockEffect2(epw);
+        bhEne22_SetElectricShockEffect(epw, 1);
+        bhEne22_SePlay(epw, (NJS_POINT3*)&pl->px, 0x1012302);
+
+        ps.x = plp->px;
+        ps.y = 10.0f;
+        ps.z = plp->pz;
+
+        bhEne22_SetLight(epw, -1, &ps, 0);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fbfb0
 void bhEne22_EneSearch(BH_PWORK* epw)
 {
