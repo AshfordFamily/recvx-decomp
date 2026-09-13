@@ -1536,15 +1536,13 @@ void bhEne22_MV04(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fd5f0
-void bhEne22_MV05()
+// 100% matching!
+void bhEne22_MV05(BH_PWORK* epw)
 {
-	// Line 2220, Address: 0x1fd5f0, Func Offset: 0
-	// Func End, Address: 0x1fd5f8, Func Offset: 0x8
+    return;
 }
 
-// 
+/*// 
 // Start address: 0x1fd600
 void bhEne22_MV06(BH_PWORK* epw)
 {
