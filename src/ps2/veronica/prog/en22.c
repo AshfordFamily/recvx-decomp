@@ -415,7 +415,7 @@ void bhEne22_ChgDmgMode(BH_PWORK* epw)
     {
         if (EXP0_I(0x8) & 0x1000)
         {
-            if (((*(O_WRK**)(epw->exp0 + 0x4C))->flg != 0x0)
+            if (((*(O_WRK**)(epw->exp0 + 0x4C))->flg != 0)
                 && ((*(O_WRK**)(epw->exp0 + 0x4C))->id == 353)
                 && ((BH_PWORK*)(*(O_WRK**)(epw->exp0 + 0x4C))->lkwkp == epw))
             {
@@ -1446,77 +1446,97 @@ void bhEne22_MV03(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fd2b0
+// 100% matching!
 void bhEne22_MV04(BH_PWORK* epw)
 {
-	int frm;
-	// Line 2093, Address: 0x1fd2b0, Func Offset: 0
-	// Line 2099, Address: 0x1fd2bc, Func Offset: 0xc
-	// Line 2102, Address: 0x1fd2dc, Func Offset: 0x2c
-	// Line 2103, Address: 0x1fd2ec, Func Offset: 0x3c
-	// Line 2104, Address: 0x1fd2f4, Func Offset: 0x44
-	// Line 2105, Address: 0x1fd2f8, Func Offset: 0x48
-	// Line 2106, Address: 0x1fd2fc, Func Offset: 0x4c
-	// Line 2108, Address: 0x1fd304, Func Offset: 0x54
-	// Line 2114, Address: 0x1fd310, Func Offset: 0x60
-	// Line 2111, Address: 0x1fd314, Func Offset: 0x64
-	// Line 2114, Address: 0x1fd318, Func Offset: 0x68
-	// Line 2116, Address: 0x1fd330, Func Offset: 0x80
-	// Line 2117, Address: 0x1fd33c, Func Offset: 0x8c
-	// Line 2116, Address: 0x1fd340, Func Offset: 0x90
-	// Line 2117, Address: 0x1fd344, Func Offset: 0x94
-	// Line 2119, Address: 0x1fd34c, Func Offset: 0x9c
-	// Line 2120, Address: 0x1fd354, Func Offset: 0xa4
-	// Line 2121, Address: 0x1fd358, Func Offset: 0xa8
-	// Line 2119, Address: 0x1fd35c, Func Offset: 0xac
-	// Line 2120, Address: 0x1fd368, Func Offset: 0xb8
-	// Line 2121, Address: 0x1fd36c, Func Offset: 0xbc
-	// Line 2122, Address: 0x1fd370, Func Offset: 0xc0
-	// Line 2125, Address: 0x1fd374, Func Offset: 0xc4
-	// Line 2127, Address: 0x1fd3a4, Func Offset: 0xf4
-	// Line 2131, Address: 0x1fd3ac, Func Offset: 0xfc
-	// Line 2135, Address: 0x1fd3c4, Func Offset: 0x114
-	// Line 2136, Address: 0x1fd3cc, Func Offset: 0x11c
-	// Line 2135, Address: 0x1fd3d0, Func Offset: 0x120
-	// Line 2136, Address: 0x1fd3d4, Func Offset: 0x124
-	// Line 2135, Address: 0x1fd3d8, Func Offset: 0x128
-	// Line 2136, Address: 0x1fd3e8, Func Offset: 0x138
-	// Line 2138, Address: 0x1fd3f4, Func Offset: 0x144
-	// Line 2142, Address: 0x1fd3fc, Func Offset: 0x14c
-	// Line 2144, Address: 0x1fd408, Func Offset: 0x158
-	// Line 2145, Address: 0x1fd410, Func Offset: 0x160
-	// Line 2148, Address: 0x1fd418, Func Offset: 0x168
-	// Line 2151, Address: 0x1fd420, Func Offset: 0x170
-	// Line 2159, Address: 0x1fd43c, Func Offset: 0x18c
-	// Line 2151, Address: 0x1fd440, Func Offset: 0x190
-	// Line 2159, Address: 0x1fd448, Func Offset: 0x198
-	// Line 2162, Address: 0x1fd45c, Func Offset: 0x1ac
-	// Line 2165, Address: 0x1fd470, Func Offset: 0x1c0
-	// Line 2171, Address: 0x1fd4f0, Func Offset: 0x240
-	// Line 2172, Address: 0x1fd4f8, Func Offset: 0x248
-	// Line 2178, Address: 0x1fd504, Func Offset: 0x254
-	// Line 2172, Address: 0x1fd508, Func Offset: 0x258
-	// Line 2173, Address: 0x1fd50c, Func Offset: 0x25c
-	// Line 2174, Address: 0x1fd518, Func Offset: 0x268
-	// Line 2175, Address: 0x1fd524, Func Offset: 0x274
-	// Line 2177, Address: 0x1fd530, Func Offset: 0x280
-	// Line 2178, Address: 0x1fd540, Func Offset: 0x290
-	// Line 2180, Address: 0x1fd548, Func Offset: 0x298
-	// Line 2183, Address: 0x1fd564, Func Offset: 0x2b4
-	// Line 2186, Address: 0x1fd56c, Func Offset: 0x2bc
-	// Line 2190, Address: 0x1fd584, Func Offset: 0x2d4
-	// Line 2192, Address: 0x1fd5b4, Func Offset: 0x304
-	// Line 2193, Address: 0x1fd5bc, Func Offset: 0x30c
-	// Line 2192, Address: 0x1fd5c0, Func Offset: 0x310
-	// Line 2193, Address: 0x1fd5cc, Func Offset: 0x31c
-	// Line 2194, Address: 0x1fd5d0, Func Offset: 0x320
-	// Line 2195, Address: 0x1fd5d4, Func Offset: 0x324
-	// Line 2199, Address: 0x1fd5d8, Func Offset: 0x328
-	// Func End, Address: 0x1fd5e8, Func Offset: 0x338
+    int frm;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 9, 0, 5);
+        epw->ct0 = 30;
+        epw->ct1 = 0;
+        epw->ct2 = 0;
+        EXP0_I(0x5C) = 0;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if (EXP0_I(0x8) & 0x10000)
+        {
+            EXP0_I(0x8) &= ~0x10000;
+            if (frm <= 20)
+            {
+                EXP0_I(0x8) &= ~0x1000;
+                epw->mode1 = 1;
+                epw->mode2 = 2;
+                epw->mode3 = 0;
+
+                if (((*(O_WRK**)(epw->exp0 + 0x4C))->flg != 0)
+                    && ((*(O_WRK**)(epw->exp0 + 0x4C))->id == 353)
+                    && ((BH_PWORK*)(*(O_WRK**)(epw->exp0 + 0x4C))->lkwkp == epw))
+                {
+                    (*(O_WRK**)(epw->exp0 + 0x4C))->mode0 = 4;
+                }
+
+                if (EXP0_I(0x8) & 0x80000)
+                {
+                    rom->lgtp[2].flg &= ~0x3;
+                    EXP0_I(0x8) &= ~0x80000;
+                }
+                break;
+            }
+        }
+
+        if (epw->ct0 <= 0)
+        {
+            epw->ct1++;
+        }
+        else
+        {
+            epw->ct0--;
+        }
+
+        EXP0_F(0x50) = 4.0f * epw->ct1 + 24.0f;
+
+        if ((frm >= 21) && (frm <= 60))
+        {
+            EXP0_I(0x8) |= 0x20000;
+
+            if ((EXP0_F(0x20) <= EXP0_F(0x50)) && (EXP0_F(0x20) >= EXP0_F(0x50) - 8.0f)
+                && ((plp->flg & 0x2) == 0) && ((plp->flg & 0x4) == 0)
+                && ((plp->stflg & 0x80000000) == 0))
+            {
+                plp->flg |= 0x4;
+                plp->mode0 = 4;
+                plp->mode1 = 0;
+                plp->mode2 = 0;
+                plp->mode3 = 0;
+                plp->hp -= 30;
+
+                bhEne22_SetElectricShockEffect2(epw);
+                bhEne22_SePlay(epw, (NJS_POINT3*)&plp->px, 0x1012302);
+            }
+        }
+        else
+        {
+            EXP0_I(0x8) &= ~0x20000;
+        }
+
+        frm = epw->frm_no / 65536;
+        if (frm == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            EXP0_I(0x8) &= ~0x1000;
+            epw->mode1 = 1;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fd5f0
 void bhEne22_MV05()
 {
