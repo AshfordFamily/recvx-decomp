@@ -1542,35 +1542,41 @@ void bhEne22_MV05(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fd600
+// 100% matching!
 void bhEne22_MV06(BH_PWORK* epw)
 {
-	int frm;
-	// Line 2240, Address: 0x1fd600, Func Offset: 0
-	// Line 2244, Address: 0x1fd60c, Func Offset: 0xc
-	// Line 2247, Address: 0x1fd62c, Func Offset: 0x2c
-	// Line 2248, Address: 0x1fd63c, Func Offset: 0x3c
-	// Line 2268, Address: 0x1fd640, Func Offset: 0x40
-	// Line 2274, Address: 0x1fd64c, Func Offset: 0x4c
-	// Line 2275, Address: 0x1fd654, Func Offset: 0x54
-	// Line 2276, Address: 0x1fd668, Func Offset: 0x68
-	// Line 2277, Address: 0x1fd674, Func Offset: 0x74
-	// Line 2279, Address: 0x1fd6a4, Func Offset: 0xa4
-	// Line 2288, Address: 0x1fd6a8, Func Offset: 0xa8
-	// Line 2289, Address: 0x1fd6ac, Func Offset: 0xac
-	// Line 2279, Address: 0x1fd6b0, Func Offset: 0xb0
-	// Line 2283, Address: 0x1fd6bc, Func Offset: 0xbc
-	// Line 2284, Address: 0x1fd6c0, Func Offset: 0xc0
-	// Line 2285, Address: 0x1fd6c4, Func Offset: 0xc4
-	// Line 2288, Address: 0x1fd6c8, Func Offset: 0xc8
-	// Line 2289, Address: 0x1fd6cc, Func Offset: 0xcc
-	// Line 2290, Address: 0x1fd6d0, Func Offset: 0xd0
-	// Line 2295, Address: 0x1fd6d4, Func Offset: 0xd4
-	// Func End, Address: 0x1fd6e4, Func Offset: 0xe4
+    int frm;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        bhEne_ChgMtn(epw, 2, 0, 7);
+        epw->ct1 = 0;
+        epw->mode3++;
+
+    case 1:
+        frm = epw->frm_no / 65536;
+        if ((frm >= 0) && (frm <= 30))
+        {
+            epw->ay -= NJM_DEG_ANG(3.0f);
+        }
+
+        frm = epw->frm_no / 65536;
+        if (frm == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            EXP0_I(0x8) |= 0x200;
+            epw->ct0 = 0;
+            epw->ct1 = 0;
+            epw->ct3 = 0;
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fd6f0
 void bhEne22_DGType00(BH_PWORK* epw)
 {
