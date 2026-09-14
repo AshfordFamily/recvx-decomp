@@ -1685,38 +1685,51 @@ void bhEne22_DDType00(BH_PWORK* epw)
     bhEne22_DieMode2[epw->mode2](epw);
 }
 
-/*// 
-// Start address: 0x1fda20
+// 100% matching!
 void bhEne22_DD00(BH_PWORK* epw)
 {
-	// Line 2492, Address: 0x1fda20, Func Offset: 0
-	// Line 2495, Address: 0x1fda2c, Func Offset: 0xc
-	// Line 2498, Address: 0x1fda58, Func Offset: 0x38
-	// Line 2500, Address: 0x1fda6c, Func Offset: 0x4c
-	// Line 2501, Address: 0x1fda7c, Func Offset: 0x5c
-	// Line 2504, Address: 0x1fda84, Func Offset: 0x64
-	// Line 2506, Address: 0x1fda94, Func Offset: 0x74
-	// Line 2507, Address: 0x1fdaa0, Func Offset: 0x80
-	// Line 2509, Address: 0x1fdaa4, Func Offset: 0x84
-	// Line 2512, Address: 0x1fdab0, Func Offset: 0x90
-	// Line 2514, Address: 0x1fdac0, Func Offset: 0xa0
-	// Line 2516, Address: 0x1fdad0, Func Offset: 0xb0
-	// Line 2514, Address: 0x1fdad8, Func Offset: 0xb8
-	// Line 2515, Address: 0x1fdae0, Func Offset: 0xc0
-	// Line 2516, Address: 0x1fdaec, Func Offset: 0xcc
-	// Line 2517, Address: 0x1fdb04, Func Offset: 0xe4
-	// Line 2520, Address: 0x1fdb10, Func Offset: 0xf0
-	// Line 2522, Address: 0x1fdb24, Func Offset: 0x104
-	// Line 2523, Address: 0x1fdb2c, Func Offset: 0x10c
-	// Line 2524, Address: 0x1fdb34, Func Offset: 0x114
-	// Line 2523, Address: 0x1fdb3c, Func Offset: 0x11c
-	// Line 2524, Address: 0x1fdb44, Func Offset: 0x124
-	// Line 2525, Address: 0x1fdb50, Func Offset: 0x130
-	// Line 2533, Address: 0x1fdb5c, Func Offset: 0x13c
-	// Func End, Address: 0x1fdb6c, Func Offset: 0x14c
+    switch (epw->mode3)
+    {
+    case 0:
+        if (EXP0_I(0x8) & 0x100)
+        {
+            bhEne_ChgMtn(epw, 20, 0, 5);
+        }
+        else
+        {
+            bhEne_ChgMtn(epw, 19, 0, 5);
+        }
+        epw->spd = 0.8f;
+        epw->ct0 = 0;
+        epw->mode3++;
+
+    case 1:
+        if (epw->mtn_no == 20)
+        {
+            epw->spd -= 0.01f;
+            epw->ct0++;
+            if (epw->spd < 0.0f)
+            {
+                epw->spd = 0.0f;
+            }
+            bhAddSpeed(epw, 0);
+        }
+
+        if (epw->flg & 0x2000000)
+        {
+            epw->flg |= 0x2;
+            epw->flg &= ~0x28;
+            bhEne_ChgMtn(epw, 22, 0, 0);
+            epw->mode3++;
+        }
+        break;
+
+    case 2:
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fdb70
 void bhEne22_DD01()
 {
