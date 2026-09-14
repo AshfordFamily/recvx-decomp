@@ -39,7 +39,7 @@ void bhEne22_DG01(BH_PWORK* epw);
 void bhEne22_DG02(BH_PWORK* epw);
 void bhEne22_DDType00(BH_PWORK* epw);
 void bhEne22_DD00(BH_PWORK* epw);
-void bhEne22_DD01();
+void bhEne22_DD01(BH_PWORK* epw);
 void bhEne22_PlyDG00(BH_PWORK* pl, BH_PWORK* epw);
 void bhEne22_PlyDG01(BH_PWORK* pl, BH_PWORK* epw);
 int bhEne22_SetMtn(BH_PWORK* epw);

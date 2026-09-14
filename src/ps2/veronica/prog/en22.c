@@ -1729,15 +1729,13 @@ void bhEne22_DD00(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fdb70
-void bhEne22_DD01()
+// 100% matching!
+void bhEne22_DD01(BH_PWORK* epw)
 {
-	// Line 2554, Address: 0x1fdb70, Func Offset: 0
-	// Func End, Address: 0x1fdb78, Func Offset: 0x8
+    return;
 }
 
-// 
+/*// 
 // Start address: 0x1fdb80
 void bhEne22_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
 {
