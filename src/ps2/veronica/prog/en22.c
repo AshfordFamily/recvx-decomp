@@ -1625,36 +1625,51 @@ void bhEne22_DG00(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fd870
+// 100% matching!
 void bhEne22_DG01(BH_PWORK* epw)
 {
-	// Line 2396, Address: 0x1fd870, Func Offset: 0
-	// Line 2399, Address: 0x1fd87c, Func Offset: 0xc
-	// Line 2402, Address: 0x1fd89c, Func Offset: 0x2c
-	// Line 2404, Address: 0x1fd8b0, Func Offset: 0x40
-	// Line 2405, Address: 0x1fd8c0, Func Offset: 0x50
-	// Line 2406, Address: 0x1fd8ec, Func Offset: 0x7c
-	// Line 2407, Address: 0x1fd8f4, Func Offset: 0x84
-	// Line 2409, Address: 0x1fd900, Func Offset: 0x90
-	// Line 2411, Address: 0x1fd910, Func Offset: 0xa0
-	// Line 2412, Address: 0x1fd918, Func Offset: 0xa8
-	// Line 2414, Address: 0x1fd924, Func Offset: 0xb4
-	// Line 2415, Address: 0x1fd934, Func Offset: 0xc4
-	// Line 2416, Address: 0x1fd960, Func Offset: 0xf0
-	// Line 2417, Address: 0x1fd968, Func Offset: 0xf8
-	// Line 2419, Address: 0x1fd974, Func Offset: 0x104
-	// Line 2421, Address: 0x1fd984, Func Offset: 0x114
-	// Line 2424, Address: 0x1fd990, Func Offset: 0x120
-	// Line 2426, Address: 0x1fd9c0, Func Offset: 0x150
-	// Line 2427, Address: 0x1fd9c8, Func Offset: 0x158
-	// Line 2428, Address: 0x1fd9cc, Func Offset: 0x15c
-	// Line 2429, Address: 0x1fd9d0, Func Offset: 0x160
-	// Line 2433, Address: 0x1fd9d4, Func Offset: 0x164
-	// Func End, Address: 0x1fd9e4, Func Offset: 0x174
+    switch (epw->mode3)
+    {
+    case 0:
+        if ((EXP0_I(0x8) & 0x30) == 0)
+        {
+            bhEne_ChgMtn(epw, 10, 0, 5);
+            if ((rand() % 2) == 0)
+            {
+                epw->mtn_md |= 0x2;
+            }
+        }
+        else if ((EXP0_I(0x8) & 0x30) == 0x10)
+        {
+            bhEne_ChgMtn(epw, 10, 0, 5);
+        }
+        else if ((EXP0_I(0x8) & 0x30) == 0x20)
+        {
+            bhEne_ChgMtn(epw, 11, 0, 5);
+            if ((rand() % 2) == 0)
+            {
+                epw->mtn_md |= 0x2;
+            }
+        }
+        else if ((EXP0_I(0x8) & 0x30) == 0x30)
+        {
+            bhEne_ChgMtn(epw, 10, 0, 5);
+        }
+        epw->mode3++;
+
+    case 1:
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 1;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fd9f0
 void bhEne22_DG02(BH_PWORK* epw)
 {
