@@ -1735,66 +1735,72 @@ void bhEne22_DD01(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fdb80
+// 100% matching!
 void bhEne22_PlyDG00(BH_PWORK* pl, BH_PWORK* epw)
 {
-	NJS_POINT3 dv;
-	// Line 2577, Address: 0x1fdb80, Func Offset: 0
-	// Line 2581, Address: 0x1fdb90, Func Offset: 0x10
-	// Line 2584, Address: 0x1fdbb4, Func Offset: 0x34
-	// Line 2585, Address: 0x1fdbc0, Func Offset: 0x40
-	// Line 2586, Address: 0x1fdbc4, Func Offset: 0x44
-	// Line 2591, Address: 0x1fdbc8, Func Offset: 0x48
-	// Line 2584, Address: 0x1fdbcc, Func Offset: 0x4c
-	// Line 2585, Address: 0x1fdbd4, Func Offset: 0x54
-	// Line 2594, Address: 0x1fdbd8, Func Offset: 0x58
-	// Line 2585, Address: 0x1fdbdc, Func Offset: 0x5c
-	// Line 2586, Address: 0x1fdbe4, Func Offset: 0x64
-	// Line 2589, Address: 0x1fdbf0, Func Offset: 0x70
-	// Line 2590, Address: 0x1fdbf4, Func Offset: 0x74
-	// Line 2591, Address: 0x1fdbf8, Func Offset: 0x78
-	// Line 2592, Address: 0x1fdbfc, Func Offset: 0x7c
-	// Line 2593, Address: 0x1fdc00, Func Offset: 0x80
-	// Line 2594, Address: 0x1fdc04, Func Offset: 0x84
-	// Line 2595, Address: 0x1fdc08, Func Offset: 0x88
-	// Line 2597, Address: 0x1fdc0c, Func Offset: 0x8c
-	// Line 2598, Address: 0x1fdc1c, Func Offset: 0x9c
-	// Line 2599, Address: 0x1fdc2c, Func Offset: 0xac
-	// Line 2600, Address: 0x1fdc3c, Func Offset: 0xbc
-	// Line 2602, Address: 0x1fdc50, Func Offset: 0xd0
-	// Line 2603, Address: 0x1fdc54, Func Offset: 0xd4
-	// Line 2606, Address: 0x1fdc5c, Func Offset: 0xdc
-	// Line 2610, Address: 0x1fdc64, Func Offset: 0xe4
-	// Line 2612, Address: 0x1fdc6c, Func Offset: 0xec
-	// Line 2613, Address: 0x1fdc78, Func Offset: 0xf8
-	// Line 2614, Address: 0x1fdc80, Func Offset: 0x100
-	// Line 2617, Address: 0x1fdc88, Func Offset: 0x108
-	// Line 2620, Address: 0x1fdc98, Func Offset: 0x118
-	// Line 2621, Address: 0x1fdca4, Func Offset: 0x124
-	// Line 2624, Address: 0x1fdcb8, Func Offset: 0x138
-	// Line 2627, Address: 0x1fdcc4, Func Offset: 0x144
-	// Line 2628, Address: 0x1fdcd0, Func Offset: 0x150
-	// Line 2630, Address: 0x1fdcd4, Func Offset: 0x154
-	// Line 2627, Address: 0x1fdcd8, Func Offset: 0x158
-	// Line 2628, Address: 0x1fdce0, Func Offset: 0x160
-	// Line 2631, Address: 0x1fdce4, Func Offset: 0x164
-	// Line 2630, Address: 0x1fdcec, Func Offset: 0x16c
-	// Line 2635, Address: 0x1fdcf0, Func Offset: 0x170
-	// Line 2628, Address: 0x1fdcf4, Func Offset: 0x174
-	// Line 2630, Address: 0x1fdcfc, Func Offset: 0x17c
-	// Line 2631, Address: 0x1fdd1c, Func Offset: 0x19c
-	// Line 2635, Address: 0x1fdd20, Func Offset: 0x1a0
-	// Line 2631, Address: 0x1fdd24, Func Offset: 0x1a4
-	// Line 2632, Address: 0x1fdd2c, Func Offset: 0x1ac
-	// Line 2633, Address: 0x1fdd38, Func Offset: 0x1b8
-	// Line 2634, Address: 0x1fdd44, Func Offset: 0x1c4
-	// Line 2635, Address: 0x1fdd48, Func Offset: 0x1c8
-	// Line 2639, Address: 0x1fdd50, Func Offset: 0x1d0
-	// Func End, Address: 0x1fdd64, Func Offset: 0x1e4
+    NJS_VECTOR dv;
+
+    switch (pl->mode3)
+    {
+    case 0:
+        pl->flg &= ~0x40000;
+        pl->flg |= 0x10000;
+        pl->flg |= 0x200000;
+        pl->frm_no = 65536;
+        pl->hokan_count = 0;
+        pl->hokan_rate = 49152;
+        pl->mtn_add = 65536;
+        pl->mtn_md = 0;
+        pl->ct0 = 2;
+        pl->ct1 = 0;
+
+        dv.x = epw->px - pl->px;
+        dv.y = epw->py - pl->py;
+        dv.z = epw->pz - pl->pz;
+        if (bhDGCdirCheck(&dv, pl->ay))
+        {
+            pl->mtn_no = 73;
+        }
+        else
+        {
+            pl->mtn_no = 74;
+        }
+
+        bhEne_SetVibration(1);
+        bhEne_PlayerSePlay(epw, 1026);
+
+        pl->mode3++;
+        break;
+
+    case 1:
+        if ((pl->frm_no / 65536) == 0)
+        {
+            pl->ct0--;
+            if (pl->ct0 != 0)
+            {
+                bhEne_SetVibration(1);
+            }
+        }
+
+        if (pl->ct0 == 0)
+        {
+            pl->flg &= ~0x200000;
+            pl->flg &= ~0x4;
+
+            sys->pad_on &= ~0xF;
+
+            pl->flg &= ~0x10000;
+            pl->flg |= 0x8;
+            pl->stflg &= ~0x10000;
+            pl->at_flg = 0;
+
+            *(int*)&plp->mode0 = 1;
+        }
+        break;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fdd70
 void bhEne22_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
 {
