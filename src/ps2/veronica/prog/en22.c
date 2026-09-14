@@ -259,8 +259,12 @@ void (*bhEne22_DieType[1])(BH_PWORK*) = {
     bhEne22_DDType00
 };
 
-/*void(*bhEne22_DieMode2)(BH_PWORK*)[2];
-float en22_mogmog[20];*/
+void (*bhEne22_DieMode2[2])(BH_PWORK*) = {
+    bhEne22_DD00,
+    bhEne22_DD01
+};
+
+/*float en22_mogmog[20];*/
 
 // 100% matching!
 void bhEne22_DmmyBrain(BH_PWORK* epw)
@@ -1675,15 +1679,13 @@ void bhEne22_DG02(BH_PWORK* epw)
     return;
 }
 
-/*// 
-// Start address: 0x1fda00
+// 100% matching!
 void bhEne22_DDType00(BH_PWORK* epw)
 {
-	// Line 2472, Address: 0x1fda00, Func Offset: 0
-	// Func End, Address: 0x1fda20, Func Offset: 0x20
+    bhEne22_DieMode2[epw->mode2](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fda20
 void bhEne22_DD00(BH_PWORK* epw)
 {
