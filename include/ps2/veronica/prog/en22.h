@@ -36,7 +36,7 @@ void bhEne22_MV06(BH_PWORK* epw);
 void bhEne22_DGType00(BH_PWORK* epw);
 void bhEne22_DG00(BH_PWORK* epw);
 void bhEne22_DG01(BH_PWORK* epw);
-void bhEne22_DG02();
+void bhEne22_DG02(BH_PWORK* epw);
 void bhEne22_DDType00(BH_PWORK* epw);
 void bhEne22_DD00(BH_PWORK* epw);
 void bhEne22_DD01();

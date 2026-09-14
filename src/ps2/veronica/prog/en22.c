@@ -249,7 +249,11 @@ void (*bhEne22_DamageType[1])(BH_PWORK*) = {
     bhEne22_DGType00
 };
 
-/*void(*bhEne22_DamageMode2)(BH_PWORK*)[3];*/
+void (*bhEne22_DamageMode2[3])(BH_PWORK*) = {
+    bhEne22_DG00,
+    bhEne22_DG01,
+    bhEne22_DG02
+};
 
 void (*bhEne22_DieType[1])(BH_PWORK*) = {
     bhEne22_DDType00
@@ -1576,15 +1580,13 @@ void bhEne22_MV06(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fd6f0
+// 100% matching!
 void bhEne22_DGType00(BH_PWORK* epw)
 {
-	// Line 2313, Address: 0x1fd6f0, Func Offset: 0
-	// Func End, Address: 0x1fd710, Func Offset: 0x20
+    bhEne22_DamageMode2[epw->mode2](epw);
 }
 
-// 
+/*// 
 // Start address: 0x1fd710
 void bhEne22_DG00(BH_PWORK* epw)
 {
@@ -1649,7 +1651,7 @@ void bhEne22_DG01(BH_PWORK* epw)
 
 // 
 // Start address: 0x1fd9f0
-void bhEne22_DG02()
+void bhEne22_DG02(BH_PWORK* epw)
 {
 	// Line 2453, Address: 0x1fd9f0, Func Offset: 0
 	// Func End, Address: 0x1fd9f8, Func Offset: 0x8
