@@ -2428,6 +2428,8 @@ void bhEne05_MV16(BH_PWORK* epw)
         }
     }
 }
+
+// 100% matching!
 void bhEne05_MV17(BH_PWORK* epw)
 {
     NJS_POINT3 pos;
@@ -4211,64 +4213,53 @@ void bhEne05_DD08(BH_PWORK* epw)
 	// Func End, Address: 0x1b6024, Func Offset: 0x334
 }
 
-// 
-// Start address: 0x1b6030
+*/
+
 void bhEne05_SearchPlayer(BH_PWORK* epw)
 {
-	_anon38 p2;
-	_anon38 p1;
-	float dz;
-	float dx;
 	int wk;
-	// Line 5011, Address: 0x1b6030, Func Offset: 0
-	// Line 5016, Address: 0x1b6040, Func Offset: 0x10
-	// Line 5017, Address: 0x1b604c, Func Offset: 0x1c
-	// Line 5016, Address: 0x1b6054, Func Offset: 0x24
-	// Line 5017, Address: 0x1b6058, Func Offset: 0x28
-	// Line 5016, Address: 0x1b605c, Func Offset: 0x2c
-	// Line 5017, Address: 0x1b6060, Func Offset: 0x30
-	// Line 5018, Address: 0x1b6064, Func Offset: 0x34
-	// Line 5021, Address: 0x1b6074, Func Offset: 0x44
-	// Line 5018, Address: 0x1b6078, Func Offset: 0x48
-	// Line 5021, Address: 0x1b607c, Func Offset: 0x4c
-	// Line 5022, Address: 0x1b60ac, Func Offset: 0x7c
-	// Line 5023, Address: 0x1b60b8, Func Offset: 0x88
-	// Line 5022, Address: 0x1b60bc, Func Offset: 0x8c
-	// Line 5023, Address: 0x1b60c0, Func Offset: 0x90
-	// Line 5026, Address: 0x1b60c8, Func Offset: 0x98
-	// Line 5027, Address: 0x1b60cc, Func Offset: 0x9c
-	// Line 5029, Address: 0x1b60d4, Func Offset: 0xa4
-	// Line 5033, Address: 0x1b60dc, Func Offset: 0xac
-	// Line 5026, Address: 0x1b60e0, Func Offset: 0xb0
-	// Line 5027, Address: 0x1b60e4, Func Offset: 0xb4
-	// Line 5033, Address: 0x1b60e8, Func Offset: 0xb8
-	// Line 5027, Address: 0x1b60f0, Func Offset: 0xc0
-	// Line 5028, Address: 0x1b60f8, Func Offset: 0xc8
-	// Line 5029, Address: 0x1b6100, Func Offset: 0xd0
-	// Line 5030, Address: 0x1b6108, Func Offset: 0xd8
-	// Line 5031, Address: 0x1b6114, Func Offset: 0xe4
-	// Line 5033, Address: 0x1b6118, Func Offset: 0xe8
-	// Line 5034, Address: 0x1b6128, Func Offset: 0xf8
-	// Line 5035, Address: 0x1b612c, Func Offset: 0xfc
-	// Line 5036, Address: 0x1b6130, Func Offset: 0x100
-	// Line 5034, Address: 0x1b6134, Func Offset: 0x104
-	// Line 5035, Address: 0x1b6138, Func Offset: 0x108
-	// Line 5036, Address: 0x1b6140, Func Offset: 0x110
-	// Line 5037, Address: 0x1b614c, Func Offset: 0x11c
-	// Line 5036, Address: 0x1b6150, Func Offset: 0x120
-	// Line 5037, Address: 0x1b6154, Func Offset: 0x124
-	// Line 5038, Address: 0x1b6160, Func Offset: 0x130
-	// Line 5037, Address: 0x1b6164, Func Offset: 0x134
-	// Line 5038, Address: 0x1b6168, Func Offset: 0x138
-	// Line 5041, Address: 0x1b6178, Func Offset: 0x148
-	// Line 5047, Address: 0x1b6180, Func Offset: 0x150
-	// Line 5048, Address: 0x1b6190, Func Offset: 0x160
-	// Line 5049, Address: 0x1b61a4, Func Offset: 0x174
-	// Line 5050, Address: 0x1b61ac, Func Offset: 0x17c
-	// Line 5053, Address: 0x1b61b0, Func Offset: 0x180
-	// Func End, Address: 0x1b61c4, Func Offset: 0x194
+	float dx;
+	float dz;
+	NJS_POINT3 p1;    
+	NJS_POINT3 p2;
+
+    dx = epw->px - plp->px;
+    dz = epw->pz - plp->pz;
+    EXP0_F(0x0) = njSqrt(dx * dx + dz * dz);
+    if (fabsf(epw->py - plp->py) < 30.0f)
+    {
+        wk = bhSearchPlayer(epw, 21845);
+        if (wk != -1)
+        {
+            p1.x = epw->px;
+            p1.y = 15.0f + epw->py;
+            p1.z = epw->pz;
+            p2.x = plp->px;
+            p2.y = 15.0f + plp->py;
+            p2.z = plp->pz;
+            if (bhCollisionCheckLine2(&p1, &p2, 17408, -1) == NULL)
+            {
+                EXP0_I(0x4) = wk;
+                EXP0_UC(0x14) = 1;               
+                EXP0_F(0x8) = plp->px;
+                EXP0_F(0xC) = plp->py;
+                EXP0_F(0x10) = plp->pz;
+                epw->ct3 = 0;
+                return;
+            }
+        }
+    }
+    
+    if (EXP0_UC(0x14) != 0)
+    {
+        if (++epw->ct3 > 90)
+        {
+            EXP0_UC(0x14) = 0;
+            epw->ct3 = 0;
+        }
+    }
 }
-*/
+
 // 
 // Start address: 0x1b61d0
 void bhEne05_MotionPause(BH_PWORK* epw, char* parts)
