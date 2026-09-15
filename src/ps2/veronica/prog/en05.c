@@ -10,6 +10,7 @@
 #include "../../../ps2/veronica/prog/rutchk.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 #include "../../../ps2/veronica/prog/hitchk.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
 
 // ENEMY: Hunter/Sweeper 
 
@@ -3755,72 +3756,66 @@ void bhEne05_DD02(BH_PWORK* epw)
 	// Line 4478, Address: 0x1b4bb4, Func Offset: 0x1e4
 	// Func End, Address: 0x1b4bc4, Func Offset: 0x1f4
 }
+*/
 
-// 
-// Start address: 0x1b4bd0
+// 100% matching!
 void bhEne05_DD03(BH_PWORK* epw)
 {
-	float dist;
-	_anon38 pos;
-	// Line 4488, Address: 0x1b4bd0, Func Offset: 0
-	// Line 4491, Address: 0x1b4bdc, Func Offset: 0xc
-	// Line 4493, Address: 0x1b4c08, Func Offset: 0x38
-	// Line 4495, Address: 0x1b4c14, Func Offset: 0x44
-	// Line 4497, Address: 0x1b4c18, Func Offset: 0x48
-	// Line 4493, Address: 0x1b4c1c, Func Offset: 0x4c
-	// Line 4495, Address: 0x1b4c24, Func Offset: 0x54
-	// Line 4496, Address: 0x1b4c28, Func Offset: 0x58
-	// Line 4497, Address: 0x1b4c2c, Func Offset: 0x5c
-	// Line 4498, Address: 0x1b4c30, Func Offset: 0x60
-	// Line 4499, Address: 0x1b4c38, Func Offset: 0x68
-	// Line 4501, Address: 0x1b4c40, Func Offset: 0x70
-	// Line 4504, Address: 0x1b4c44, Func Offset: 0x74
-	// Line 4501, Address: 0x1b4c48, Func Offset: 0x78
-	// Line 4502, Address: 0x1b4c4c, Func Offset: 0x7c
-	// Line 4504, Address: 0x1b4c50, Func Offset: 0x80
-	// Line 4501, Address: 0x1b4c54, Func Offset: 0x84
-	// Line 4502, Address: 0x1b4c70, Func Offset: 0xa0
-	// Line 4503, Address: 0x1b4c74, Func Offset: 0xa4
-	// Line 4504, Address: 0x1b4c80, Func Offset: 0xb0
-	// Line 4507, Address: 0x1b4c8c, Func Offset: 0xbc
-	// Line 4509, Address: 0x1b4c94, Func Offset: 0xc4
-	// Line 4507, Address: 0x1b4c9c, Func Offset: 0xcc
-	// Line 4509, Address: 0x1b4cb4, Func Offset: 0xe4
-	// Line 4511, Address: 0x1b4cbc, Func Offset: 0xec
-	// Line 4515, Address: 0x1b4cc8, Func Offset: 0xf8
-	// Line 4516, Address: 0x1b4cdc, Func Offset: 0x10c
-	// Line 4517, Address: 0x1b4cf0, Func Offset: 0x120
-	// Line 4516, Address: 0x1b4cf4, Func Offset: 0x124
-	// Line 4517, Address: 0x1b4cf8, Func Offset: 0x128
-	// Line 4516, Address: 0x1b4cfc, Func Offset: 0x12c
-	// Line 4517, Address: 0x1b4d00, Func Offset: 0x130
-	// Line 4516, Address: 0x1b4d04, Func Offset: 0x134
-	// Line 4517, Address: 0x1b4d08, Func Offset: 0x138
-	// Line 4518, Address: 0x1b4d14, Func Offset: 0x144
-	// Line 4520, Address: 0x1b4d2c, Func Offset: 0x15c
-	// Line 4524, Address: 0x1b4d38, Func Offset: 0x168
-	// Line 4525, Address: 0x1b4d48, Func Offset: 0x178
-	// Line 4528, Address: 0x1b4d54, Func Offset: 0x184
-	// Line 4529, Address: 0x1b4d64, Func Offset: 0x194
-	// Line 4530, Address: 0x1b4d78, Func Offset: 0x1a8
-	// Line 4533, Address: 0x1b4d7c, Func Offset: 0x1ac
-	// Line 4535, Address: 0x1b4d80, Func Offset: 0x1b0
-	// Line 4536, Address: 0x1b4d84, Func Offset: 0x1b4
-	// Line 4530, Address: 0x1b4d88, Func Offset: 0x1b8
-	// Line 4531, Address: 0x1b4d8c, Func Offset: 0x1bc
-	// Line 4533, Address: 0x1b4d94, Func Offset: 0x1c4
-	// Line 4534, Address: 0x1b4d98, Func Offset: 0x1c8
-	// Line 4535, Address: 0x1b4d9c, Func Offset: 0x1cc
-	// Line 4536, Address: 0x1b4da0, Func Offset: 0x1d0
-	// Line 4539, Address: 0x1b4da4, Func Offset: 0x1d4
-	// Line 4541, Address: 0x1b4db0, Func Offset: 0x1e0
-	// Line 4543, Address: 0x1b4db8, Func Offset: 0x1e8
-	// Line 4546, Address: 0x1b4dc0, Func Offset: 0x1f0
-	// Line 4547, Address: 0x1b4dd4, Func Offset: 0x204
-	// Line 4549, Address: 0x1b4de0, Func Offset: 0x210
-	// Func End, Address: 0x1b4df0, Func Offset: 0x220
+    NJS_POINT3 pos;
+    float dist;
+    
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg &= ~0x40000;
+        epw->mtn_no = 15;
+        epw->frm_no = 0;
+        epw->hokan_count = 10;
+        epw->hokan_rate = 32768;
+        epw->mtn_add = 65536;
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 1;
+        epw->ct1 = 8;
+        epw->mode3++;
+        epw->flg &= ~0x100000;
+
+    case 1:
+        epw->ay += (short)(epw->ayp - epw->ay) / 8;
+        EXP0_F(0x3C) = 1.4f;
+        if (epw->ct1 != 0) 
+        {
+            dist = njDistanceP2PL((NJS_POINT3*)&epw->px, (NJS_PVECTOR*)(epw->exp0 + 0x48), &pos);
+            dist = dist + ((16.0f - dist) / epw->ct1);
+            epw->px = pos.x + (dist * EXP0_F(0x54));
+            epw->pz = pos.z + (dist * EXP0_F(0x5C));
+            epw->ct1 -= 1;
+        }
+        
+        if (epw->frm_no == 983040)
+        {
+            bhEne05_DustEffect(epw, 1);
+        }
+
+        if (epw->ct0-- == 0)
+        {
+            bhEne_GetPartsPos(epw, *joint_tree, &pos);
+            epw->px = pos.x;
+            epw->pz = pos.z;
+            epw->mtn_no = 28;
+            epw->frm_no = 0;
+            epw->hokan_count = 10;
+            epw->hokan_count = 45875;
+            epw->mtn_md |= 0x100;
+            epw->mode3++;
+        }
+        break;
+        
+    case 2:
+        bhEne_BloodPool(epw, (NJS_POINT3*)&epw->px, epw->ay, &BloodParam);
+        epw->mode3++;
+    }
 }
 
+/*
 // 
 // Start address: 0x1b4df0
 void bhEne05_DD04(BH_PWORK* epw)
