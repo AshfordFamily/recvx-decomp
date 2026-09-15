@@ -2856,60 +2856,67 @@ void bhEne05_DG05(BH_PWORK* epw)
 	// Line 3508, Address: 0x1b2850, Func Offset: 0x310
 	// Func End, Address: 0x1b2860, Func Offset: 0x320
 }
-
-// 
-// Start address: 0x1b2860
-void bhEne05_DG06(BH_PWORK* epw)
-{
-	// Line 3518, Address: 0x1b2860, Func Offset: 0
-	// Line 3519, Address: 0x1b286c, Func Offset: 0xc
-	// Line 3521, Address: 0x1b28a4, Func Offset: 0x44
-	// Line 3523, Address: 0x1b28b0, Func Offset: 0x50
-	// Line 3525, Address: 0x1b28b4, Func Offset: 0x54
-	// Line 3521, Address: 0x1b28b8, Func Offset: 0x58
-	// Line 3523, Address: 0x1b28c0, Func Offset: 0x60
-	// Line 3524, Address: 0x1b28c4, Func Offset: 0x64
-	// Line 3525, Address: 0x1b28c8, Func Offset: 0x68
-	// Line 3526, Address: 0x1b28cc, Func Offset: 0x6c
-	// Line 3527, Address: 0x1b28d4, Func Offset: 0x74
-	// Line 3529, Address: 0x1b28dc, Func Offset: 0x7c
-	// Line 3531, Address: 0x1b28ec, Func Offset: 0x8c
-	// Line 3532, Address: 0x1b2910, Func Offset: 0xb0
-	// Line 3534, Address: 0x1b291c, Func Offset: 0xbc
-	// Line 3535, Address: 0x1b292c, Func Offset: 0xcc
-	// Line 3536, Address: 0x1b293c, Func Offset: 0xdc
-	// Line 3538, Address: 0x1b2944, Func Offset: 0xe4
-	// Line 3537, Address: 0x1b2948, Func Offset: 0xe8
-	// Line 3538, Address: 0x1b294c, Func Offset: 0xec
-	// Line 3539, Address: 0x1b2950, Func Offset: 0xf0
-	// Line 3541, Address: 0x1b2954, Func Offset: 0xf4
-	// Line 3542, Address: 0x1b2998, Func Offset: 0x138
-	// Line 3547, Address: 0x1b29a4, Func Offset: 0x144
-	// Line 3548, Address: 0x1b29b4, Func Offset: 0x154
-	// Line 3550, Address: 0x1b29c0, Func Offset: 0x160
-	// Line 3552, Address: 0x1b29c8, Func Offset: 0x168
-	// Line 3553, Address: 0x1b29d8, Func Offset: 0x178
-	// Line 3555, Address: 0x1b29e0, Func Offset: 0x180
-	// Line 3554, Address: 0x1b29e4, Func Offset: 0x184
-	// Line 3555, Address: 0x1b29e8, Func Offset: 0x188
-	// Line 3556, Address: 0x1b29ec, Func Offset: 0x18c
-	// Line 3558, Address: 0x1b29f4, Func Offset: 0x194
-	// Line 3559, Address: 0x1b2a18, Func Offset: 0x1b8
-	// Line 3561, Address: 0x1b2a20, Func Offset: 0x1c0
-	// Line 3563, Address: 0x1b2a28, Func Offset: 0x1c8
-	// Line 3564, Address: 0x1b2a34, Func Offset: 0x1d4
-	// Line 3565, Address: 0x1b2a44, Func Offset: 0x1e4
-	// Line 3566, Address: 0x1b2a4c, Func Offset: 0x1ec
-	// Line 3567, Address: 0x1b2a50, Func Offset: 0x1f0
-	// Line 3568, Address: 0x1b2a58, Func Offset: 0x1f8
-	// Line 3569, Address: 0x1b2a5c, Func Offset: 0x1fc
-	// Line 3570, Address: 0x1b2a64, Func Offset: 0x204
-	// Line 3569, Address: 0x1b2a6c, Func Offset: 0x20c
-	// Line 3570, Address: 0x1b2a74, Func Offset: 0x214
-	// Line 3574, Address: 0x1b2a80, Func Offset: 0x220
-	// Func End, Address: 0x1b2a90, Func Offset: 0x230
-}
 */
+
+// 99.93% matching
+void bhEne05_DG06(BH_PWORK* epw) 
+{
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg &= ~0x40000;
+        epw->mtn_no = 12;
+        epw->frm_no = 0;
+        epw->hokan_count = 10;
+        epw->hokan_rate = 32768;
+        epw->mtn_add = 65536;
+        epw->flg |= 0xC00000;
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 1;
+        epw->mode3++;
+
+    case 1:
+        bhEne_AddNullTrans(epw, hu_012);
+        if (epw->ct0-- == 0)
+        {
+            epw->mtn_no = 37;
+            epw->frm_no = 0;
+            epw->hokan_count = 10;
+            epw->hokan_rate = 32768;
+            epw->ct0 = (20.0f + (30.0f * njRandom()));
+            epw->mode3++;
+        }
+        
+        if (epw->frm_no == 655360)
+        {
+            bhEne05_DustEffect(epw, 1);
+        }
+        break;
+        
+    case 2:
+        if (epw->ct0-- == 0)
+        {
+            epw->mtn_no = 16;
+            epw->frm_no = 0;
+            epw->hokan_count = 10;
+            epw->hokan_rate = 32768;
+            epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 2;
+            epw->mode3++;
+        }
+        break;
+        
+    case 3:
+        bhEne_AddNullTrans(epw, hu_016);
+        if (epw->ct0-- == 0) 
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 1;
+            epw->mode2 = 2;
+            epw->mode3 = 0;
+            epw->flg &= ~4;
+            epw->flg &= ~0xC00000;
+        }
+    }
+}
 
 #pragma divbyzerocheck on
 
@@ -2948,6 +2955,7 @@ void bhEne05_DG07(BH_PWORK* epw)
             epw->ct0 = 20.0f + (30.0f * njRandom());
             epw->mode3++;
         }
+
         if (epw->frm_no == 589824)
         {
             bhEne05_DustEffect(epw, 1);
