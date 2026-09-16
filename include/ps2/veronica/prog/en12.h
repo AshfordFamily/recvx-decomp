@@ -3,6 +3,15 @@
 
 #include "types.h"
 
+typedef struct EN12_WORK
+{
+	int jno;
+	NJS_POINT3 ofp;
+	float size;
+	int life;
+	int delay;
+} EN12_WORK;
+
 void bhEne12(BH_PWORK* epw);
 void bhEne12_Init(BH_PWORK* epw);
 void bhEne12_Brain(BH_PWORK* epw);
