@@ -4,6 +4,12 @@
 #include "types.h"
 #include "macros.h"
 
+typedef struct EN22_POINT2_XZ
+{
+    float px; // offset 0x0, size 0x4
+    float pz; // offset 0x4, size 0x4
+} EN22_POINT2_XZ;
+
 void bhEne22_DmmyBrain(BH_PWORK* epw);
 void bhEne22(BH_PWORK* epw);
 void bhEne22_MainLoop(BH_PWORK* epw);
