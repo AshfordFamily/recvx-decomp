@@ -656,9 +656,9 @@ bhEne05_BrainType_proc bhEne05_BrainType[8] =
     bhEne05_BR02,
     bhEne05_BR02
 };
-/*void(*bhEne05_MoveMode2)(BH_PWORK*)[18];
-void(*bhEne05_NageMode2)(BH_PWORK*)[1];
-void(*bhEne05_DamageMode2)(BH_PWORK*)[14];*/
+/*void(*bhEne05_MoveMode2)(BH_PWORK*)[18];*/
+// void(*bhEne05_NageMode2)(BH_PWORK*)[1]; // unused
+/*void(*bhEne05_DamageMode2)(BH_PWORK*)[14];*/
 typedef void (*bhEne05_DeadMode2_proc)(BH_PWORK* epw);
 bhEne05_DeadMode2_proc bhEne05_DeadMode2[9] =
 {
@@ -2589,13 +2589,10 @@ void bhEne05_MV17(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1b1ab0
-void bhEne05_Nage()
+// 100% matching!
+void bhEne05_Nage(void)
 {
-	// Line 3070, Address: 0x1b1ab0, Func Offset: 0
-	// Func End, Address: 0x1b1ab8, Func Offset: 0x8
-	scePrintf("bhEne05_Nage - UNIMPLEMENTED!\n");
+
 }
 
 // 
