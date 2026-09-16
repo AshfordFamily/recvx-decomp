@@ -4840,93 +4840,102 @@ void bhEne05_CheckWall(BH_PWORK* epw)
 	scePrintf("bhEne05_CheckWall - UNIMPLEMENTED!\n");
 }
 
- 
-// Start address: 0x1b6b00
+// 100% matching!
 int bhEne05_CheckLeaningWall(BH_PWORK* epw, int flg)
 {
-	// _anon38 n;
-	// _anon6* hp;
-	// _anon38 pos2;
-	// _anon38 pos1;
-	// _anon38 vec;
-	// Line 5339, Address: 0x1b6b00, Func Offset: 0
-	// Line 5345, Address: 0x1b6b24, Func Offset: 0x24
-	// Line 5346, Address: 0x1b6b28, Func Offset: 0x28
-	// Line 5347, Address: 0x1b6b30, Func Offset: 0x30
-	// Line 5349, Address: 0x1b6b58, Func Offset: 0x58
-	// Line 5350, Address: 0x1b6b60, Func Offset: 0x60
-	// Line 5351, Address: 0x1b6b6c, Func Offset: 0x6c
-	// Line 5352, Address: 0x1b6b7c, Func Offset: 0x7c
-	// Line 5353, Address: 0x1b6b80, Func Offset: 0x80
-	// Line 5355, Address: 0x1b6b88, Func Offset: 0x88
-	// Line 5356, Address: 0x1b6b8c, Func Offset: 0x8c
-	// Line 5352, Address: 0x1b6b90, Func Offset: 0x90
-	// Line 5353, Address: 0x1b6b94, Func Offset: 0x94
-	// Line 5357, Address: 0x1b6b98, Func Offset: 0x98
-	// Line 5359, Address: 0x1b6b9c, Func Offset: 0x9c
-	// Line 5353, Address: 0x1b6ba0, Func Offset: 0xa0
-	// Line 5354, Address: 0x1b6ba8, Func Offset: 0xa8
-	// Line 5355, Address: 0x1b6bb0, Func Offset: 0xb0
-	// Line 5356, Address: 0x1b6bbc, Func Offset: 0xbc
-	// Line 5357, Address: 0x1b6bc8, Func Offset: 0xc8
-	// Line 5359, Address: 0x1b6bd8, Func Offset: 0xd8
-	// Line 5360, Address: 0x1b6be8, Func Offset: 0xe8
-	// Line 5361, Address: 0x1b6c00, Func Offset: 0x100
-	// Line 5362, Address: 0x1b6c08, Func Offset: 0x108
-	// Line 5363, Address: 0x1b6c10, Func Offset: 0x110
-	// Line 5365, Address: 0x1b6c18, Func Offset: 0x118
-	// Line 5370, Address: 0x1b6c20, Func Offset: 0x120
-	// Line 5373, Address: 0x1b6c24, Func Offset: 0x124
-	// Line 5365, Address: 0x1b6c2c, Func Offset: 0x12c
-	// Line 5366, Address: 0x1b6c30, Func Offset: 0x130
-	// Line 5367, Address: 0x1b6c3c, Func Offset: 0x13c
-	// Line 5368, Address: 0x1b6c48, Func Offset: 0x148
-	// Line 5369, Address: 0x1b6c54, Func Offset: 0x154
-	// Line 5370, Address: 0x1b6c60, Func Offset: 0x160
-	// Line 5373, Address: 0x1b6c68, Func Offset: 0x168
-	// Line 5374, Address: 0x1b6c8c, Func Offset: 0x18c
-	// Line 5376, Address: 0x1b6c94, Func Offset: 0x194
-	// Line 5377, Address: 0x1b6ca0, Func Offset: 0x1a0
-	// Line 5379, Address: 0x1b6ca8, Func Offset: 0x1a8
-	// Line 5381, Address: 0x1b6cc0, Func Offset: 0x1c0
-	// Line 5385, Address: 0x1b6cc8, Func Offset: 0x1c8
-	// Line 5386, Address: 0x1b6ccc, Func Offset: 0x1cc
-	// Func End, Address: 0x1b6cf0, Func Offset: 0x1f0
-    scePrintf("bhEne05_CheckLeaningWall - UNIMPLEMENTED!\n");
+    NJS_VECTOR vec;
+    NJS_POINT3 pos1;
+    NJS_POINT3 pos2;
+    ATR_WORK* hp;
+    NJS_POINT3 n;
+
+    vec.x = 0.0f;
+    vec.y = 1.0f;
+    vec.z = (flg != 0) ? -16.0f : 12.0f;
+
+    njUnitMatrix(NULL);
+    njRotateY(NULL, epw->ay);
+    njCalcVector(NULL, &vec, &vec);
+
+    pos1.x = epw->px;
+    pos1.y = 1.0f + epw->py;
+    pos1.z = epw->pz;
+    
+    pos2.x = epw->px + vec.x;
+    pos2.y = 1.0f + epw->py;
+    pos2.z = epw->pz + vec.z;
+
+    hp = bhCollisionCheckLine2(&pos1, &pos2, epw->flg, epw->flr_no);
+    if ((hp != NULL) && !(hp->attr & 8)) 
+    {   
+        bhGetHitCollisionNormal(&n);
+        njUnitVector(&n);
+        njUnitVector(&vec);  
+        
+        EXP0_F(0x48) = pos2.x;
+        EXP0_F(0x4c) = pos2.y;
+        EXP0_F(0x50) = pos2.z;
+        
+        EXP0_F(0x54) = n.x;
+        EXP0_F(0x58) = n.y;
+        EXP0_F(0x5c) = n.z;
+    
+        if (njInnerProduct(&vec, &n) < njCos(0x671C))
+        {    
+            if (flg != 0)
+            {
+                epw->ayp = bhArcTan2(n.x, n.z);
+            }
+            else
+            {
+                epw->ayp = bhArcTan2(-n.x, -n.z);
+            }
+            return 1;
+        }
+    }
+    return 0;
 }
 
-// 
-// Start address: 0x1b6cf0
+// 100% matching!
 void bhEne05_FloorCollision(BH_PWORK* epw)
 {
-	//_anon38 pos;
-	//_anon6* hp;
-	//_anon38 n;
-	// Line 5396, Address: 0x1b6cf0, Func Offset: 0
-	// Line 5401, Address: 0x1b6d04, Func Offset: 0x14
-	// Line 5404, Address: 0x1b6d18, Func Offset: 0x28
-	// Line 5405, Address: 0x1b6d34, Func Offset: 0x44
-	// Line 5406, Address: 0x1b6d38, Func Offset: 0x48
-	// Line 5408, Address: 0x1b6d44, Func Offset: 0x54
-	// Line 5405, Address: 0x1b6d48, Func Offset: 0x58
-	// Line 5406, Address: 0x1b6d4c, Func Offset: 0x5c
-	// Line 5407, Address: 0x1b6d58, Func Offset: 0x68
-	// Line 5408, Address: 0x1b6d60, Func Offset: 0x70
-	// Line 5409, Address: 0x1b6d70, Func Offset: 0x80
-	// Line 5410, Address: 0x1b6d78, Func Offset: 0x88
-	// Line 5415, Address: 0x1b6d90, Func Offset: 0xa0
-	// Line 5416, Address: 0x1b6da8, Func Offset: 0xb8
-	// Line 5417, Address: 0x1b6db0, Func Offset: 0xc0
-	// Line 5418, Address: 0x1b6dc8, Func Offset: 0xd8
-	// Line 5419, Address: 0x1b6dd4, Func Offset: 0xe4
-	// Line 5420, Address: 0x1b6ddc, Func Offset: 0xec
-	// Line 5421, Address: 0x1b6e00, Func Offset: 0x110
-	// Line 5422, Address: 0x1b6e10, Func Offset: 0x120
-	// Line 5423, Address: 0x1b6e1c, Func Offset: 0x12c
-	// Line 5425, Address: 0x1b6e5c, Func Offset: 0x16c
-	// Line 5429, Address: 0x1b6e74, Func Offset: 0x184
-	// Func End, Address: 0x1b6e88, Func Offset: 0x198
-	scePrintf("bhEne05_FloorCollision - UNIMPLEMENTED!\n");
+	NJS_POINT3 n;
+	ATR_WORK* hp;
+	NJS_POINT3 pos;
+
+    if (!(epw->flg & 0x2000000))
+    {
+        if (EXP0_F(0x20) > 0.0f)
+        {
+            pos.x = epw->px;
+            pos.y = 20.0f + epw->py;
+            pos.z = epw->pz;
+            if (bhCollisionCheckLine2((NJS_POINT3*)&epw->px, &pos, epw->flg, epw->flr_no) != NULL)
+            {
+                epw->py = pos.y - 20.0f;
+            }
+        }
+        
+        hp = bhCollisionCheckLine2((NJS_POINT3*)&epw->pxb, (NJS_POINT3*)&epw->px, epw->flg, epw->flr_no);
+        if ((hp != NULL) && ((hp->type == 0) || (hp->type == 7)))
+        {
+            bhGetHitCollisionNormal(&n);
+            njUnitVector(&n);
+            if (n.y > 0.9f)
+            {
+                epw->flg |= 0x2000000;
+                if (hp->type == 0)
+                {                    
+                    epw->py = hp->py + (hp->h ? hp->h : rom->h);
+                }
+                
+                if (hp->type == 7)
+                {
+                    epw->py = hp->py;
+                }
+            }
+        }
+    }
 }
 
 // 100% matching!
