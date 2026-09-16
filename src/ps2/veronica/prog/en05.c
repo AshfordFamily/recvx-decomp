@@ -716,7 +716,7 @@ void bhEne05(BH_PWORK* epw)
     epw->aox = (0.5f * (pos1.x + pos2.x)) - epw->px;
     epw->aoz = (0.5f * (pos1.z + pos2.z)) - epw->pz;
     
-    bhEne_GetPartsPos(epw, *joint_tree, &pos1);
+    bhEne_GetPartsPos(epw, joint_tree[0], &pos1);
     
     epw->aoy = pos1.y - epw->py;
     
@@ -2136,137 +2136,138 @@ void bhEne05_MV11(BH_PWORK* epw)
     }
 }
 
-/*
-// 
-// Start address: 0x1b08a0
+#pragma divbyzerocheck on
+
+// 100% matching!
 void bhEne05_MV12(BH_PWORK* epw)
 {
-	_anon38 trans;
-	_anon3* mkfP;
-	_anon38 pos;
-	// Line 2558, Address: 0x1b08a0, Func Offset: 0
-	// Line 2563, Address: 0x1b08b8, Func Offset: 0x18
-	// Line 2565, Address: 0x1b08d8, Func Offset: 0x38
-	// Line 2566, Address: 0x1b08dc, Func Offset: 0x3c
-	// Line 2565, Address: 0x1b08e0, Func Offset: 0x40
-	// Line 2566, Address: 0x1b08e4, Func Offset: 0x44
-	// Line 2567, Address: 0x1b08e8, Func Offset: 0x48
-	// Line 2565, Address: 0x1b08ec, Func Offset: 0x4c
-	// Line 2566, Address: 0x1b08f4, Func Offset: 0x54
-	// Line 2568, Address: 0x1b08f8, Func Offset: 0x58
-	// Line 2569, Address: 0x1b0900, Func Offset: 0x60
-	// Line 2570, Address: 0x1b0908, Func Offset: 0x68
-	// Line 2566, Address: 0x1b090c, Func Offset: 0x6c
-	// Line 2567, Address: 0x1b0914, Func Offset: 0x74
-	// Line 2568, Address: 0x1b0918, Func Offset: 0x78
-	// Line 2571, Address: 0x1b091c, Func Offset: 0x7c
-	// Line 2568, Address: 0x1b0920, Func Offset: 0x80
-	// Line 2569, Address: 0x1b0928, Func Offset: 0x88
-	// Line 2570, Address: 0x1b0934, Func Offset: 0x94
-	// Line 2571, Address: 0x1b0940, Func Offset: 0xa0
-	// Line 2574, Address: 0x1b094c, Func Offset: 0xac
-	// Line 2576, Address: 0x1b0960, Func Offset: 0xc0
-	// Line 2577, Address: 0x1b0964, Func Offset: 0xc4
-	// Line 2579, Address: 0x1b096c, Func Offset: 0xcc
-	// Line 2582, Address: 0x1b0974, Func Offset: 0xd4
-	// Line 2581, Address: 0x1b0978, Func Offset: 0xd8
-	// Line 2582, Address: 0x1b097c, Func Offset: 0xdc
-	// Line 2583, Address: 0x1b0980, Func Offset: 0xe0
-	// Line 2584, Address: 0x1b0988, Func Offset: 0xe8
-	// Line 2585, Address: 0x1b0990, Func Offset: 0xf0
-	// Line 2588, Address: 0x1b0998, Func Offset: 0xf8
-	// Line 2585, Address: 0x1b099c, Func Offset: 0xfc
-	// Line 2586, Address: 0x1b09a4, Func Offset: 0x104
-	// Line 2590, Address: 0x1b09b0, Func Offset: 0x110
-	// Line 2593, Address: 0x1b09b8, Func Offset: 0x118
-	// Line 2594, Address: 0x1b09c4, Func Offset: 0x124
-	// Line 2595, Address: 0x1b09f4, Func Offset: 0x154
-	// Line 2596, Address: 0x1b0a18, Func Offset: 0x178
-	// Line 2597, Address: 0x1b0a3c, Func Offset: 0x19c
-	// Line 2601, Address: 0x1b0a48, Func Offset: 0x1a8
-	// Line 2602, Address: 0x1b0a58, Func Offset: 0x1b8
-	// Line 2603, Address: 0x1b0a68, Func Offset: 0x1c8
-	// Line 2604, Address: 0x1b0a70, Func Offset: 0x1d0
-	// Line 2603, Address: 0x1b0a74, Func Offset: 0x1d4
-	// Line 2604, Address: 0x1b0a7c, Func Offset: 0x1dc
-	// Line 2606, Address: 0x1b0a88, Func Offset: 0x1e8
-	// Line 2607, Address: 0x1b0a98, Func Offset: 0x1f8
-	// Line 2608, Address: 0x1b0a9c, Func Offset: 0x1fc
-	// Line 2607, Address: 0x1b0aa0, Func Offset: 0x200
-	// Line 2608, Address: 0x1b0aa8, Func Offset: 0x208
-	// Line 2612, Address: 0x1b0ab0, Func Offset: 0x210
-	// Line 2613, Address: 0x1b0ac0, Func Offset: 0x220
-	// Line 2614, Address: 0x1b0ad0, Func Offset: 0x230
-	// Line 2615, Address: 0x1b0ad8, Func Offset: 0x238
-	// Line 2614, Address: 0x1b0adc, Func Offset: 0x23c
-	// Line 2615, Address: 0x1b0ae4, Func Offset: 0x244
-	// Line 2617, Address: 0x1b0af0, Func Offset: 0x250
-	// Line 2618, Address: 0x1b0b00, Func Offset: 0x260
-	// Line 2619, Address: 0x1b0b04, Func Offset: 0x264
-	// Line 2618, Address: 0x1b0b08, Func Offset: 0x268
-	// Line 2619, Address: 0x1b0b10, Func Offset: 0x270
-	// Line 2623, Address: 0x1b0b18, Func Offset: 0x278
-	// Line 2625, Address: 0x1b0b24, Func Offset: 0x284
-	// Line 2626, Address: 0x1b0b38, Func Offset: 0x298
-	// Line 2631, Address: 0x1b0b3c, Func Offset: 0x29c
-	// Line 2632, Address: 0x1b0b40, Func Offset: 0x2a0
-	// Line 2626, Address: 0x1b0b44, Func Offset: 0x2a4
-	// Line 2627, Address: 0x1b0b48, Func Offset: 0x2a8
-	// Line 2628, Address: 0x1b0b50, Func Offset: 0x2b0
-	// Line 2630, Address: 0x1b0b58, Func Offset: 0x2b8
-	// Line 2631, Address: 0x1b0b64, Func Offset: 0x2c4
-	// Line 2632, Address: 0x1b0b68, Func Offset: 0x2c8
-	// Line 2633, Address: 0x1b0b6c, Func Offset: 0x2cc
-	// Line 2634, Address: 0x1b0b7c, Func Offset: 0x2dc
-	// Line 2635, Address: 0x1b0b80, Func Offset: 0x2e0
-	// Line 2636, Address: 0x1b0b88, Func Offset: 0x2e8
-	// Line 2638, Address: 0x1b0b8c, Func Offset: 0x2ec
-	// Line 2641, Address: 0x1b0b90, Func Offset: 0x2f0
-	// Line 2643, Address: 0x1b0b98, Func Offset: 0x2f8
-	// Line 2644, Address: 0x1b0b9c, Func Offset: 0x2fc
-	// Line 2641, Address: 0x1b0ba0, Func Offset: 0x300
-	// Line 2645, Address: 0x1b0bb4, Func Offset: 0x314
-	// Line 2641, Address: 0x1b0bb8, Func Offset: 0x318
-	// Line 2642, Address: 0x1b0bbc, Func Offset: 0x31c
-	// Line 2643, Address: 0x1b0bc4, Func Offset: 0x324
-	// Line 2644, Address: 0x1b0bcc, Func Offset: 0x32c
-	// Line 2645, Address: 0x1b0bd0, Func Offset: 0x330
-	// Line 2646, Address: 0x1b0bd8, Func Offset: 0x338
-	// Line 2647, Address: 0x1b0be4, Func Offset: 0x344
-	// Line 2648, Address: 0x1b0bf4, Func Offset: 0x354
-	// Line 2649, Address: 0x1b0c04, Func Offset: 0x364
-	// Line 2650, Address: 0x1b0c14, Func Offset: 0x374
-	// Line 2652, Address: 0x1b0c24, Func Offset: 0x384
-	// Line 2653, Address: 0x1b0c2c, Func Offset: 0x38c
-	// Line 2654, Address: 0x1b0c34, Func Offset: 0x394
-	// Line 2655, Address: 0x1b0c48, Func Offset: 0x3a8
-	// Line 2656, Address: 0x1b0c64, Func Offset: 0x3c4
-	// Line 2657, Address: 0x1b0c6c, Func Offset: 0x3cc
-	// Line 2660, Address: 0x1b0c8c, Func Offset: 0x3ec
-	// Line 2661, Address: 0x1b0c94, Func Offset: 0x3f4
-	// Line 2662, Address: 0x1b0c9c, Func Offset: 0x3fc
-	// Line 2663, Address: 0x1b0ca0, Func Offset: 0x400
-	// Line 2660, Address: 0x1b0ca4, Func Offset: 0x404
-	// Line 2661, Address: 0x1b0cac, Func Offset: 0x40c
-	// Line 2663, Address: 0x1b0cb0, Func Offset: 0x410
-	// Line 2664, Address: 0x1b0cb4, Func Offset: 0x414
-	// Line 2665, Address: 0x1b0cbc, Func Offset: 0x41c
-	// Line 2661, Address: 0x1b0cc4, Func Offset: 0x424
-	// Line 2662, Address: 0x1b0ccc, Func Offset: 0x42c
-	// Line 2663, Address: 0x1b0cd8, Func Offset: 0x438
-	// Line 2664, Address: 0x1b0ce4, Func Offset: 0x444
-	// Line 2665, Address: 0x1b0cf0, Func Offset: 0x450
-	// Line 2668, Address: 0x1b0cfc, Func Offset: 0x45c
-	// Line 2669, Address: 0x1b0d08, Func Offset: 0x468
-	// Line 2670, Address: 0x1b0d14, Func Offset: 0x474
-	// Line 2669, Address: 0x1b0d18, Func Offset: 0x478
-	// Line 2670, Address: 0x1b0d1c, Func Offset: 0x47c
-	// Line 2674, Address: 0x1b0d28, Func Offset: 0x488
-	// Func End, Address: 0x1b0d40, Func Offset: 0x4a0
-}
-*/
+	NJS_POINT3 pos;
+	NJS_MKEY_F_MOD* mkfP;
+    NJS_VECTOR trans;
 
-#pragma divbyzerocheck on
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg |= 0x20000000;
+        epw->flg &= ~0x2000000;
+        epw->flr_no = -128;
+        epw->flg &= ~0x380000;
+        epw->flg &= ~0x40010;
+        epw->flg |= 0x4000000;
+        epw->flg |= 0x10000000;
+
+        if (*(unsigned char *)(*(int *)(epw->exp0 + 0x74) + 0x22) == 0)
+        {
+            epw->mtn_no = 44;
+        } 
+        else
+        {
+            epw->mtn_no = 49;
+        }
+
+        epw->frm_no = 0;
+        epw->hokan_count = 10;
+        epw->hokan_rate = 45875;
+        epw->mtn_add = 65536;
+        epw->mtn_md &= ~2;
+        epw->mode3++;
+        epw->ct0 = 8;
+        break;
+        
+    case 1:
+        if (epw->ct0 != 0)
+        {
+            epw->ay += (short)(epw->ayp - epw->ay) / epw->ct0;
+            epw->px += (EXP0_F(0x68) - epw->px) / epw->ct0;
+            epw->pz += (EXP0_F(0x70) - epw->pz) / epw->ct0;
+            epw->ct0--;
+        }
+        
+        if (epw->mtn_no == 44)
+        {
+            if (epw->frm_no == 917504) 
+            {
+                epw->flg &= ~0x20;
+                EXP0_F(0x44) = 2.0f;
+                epw->car = 2.0f;
+            }
+            if (epw->frm_no == 2162688)
+            {
+                epw->flg |= 0x20;
+                EXP0_F(0x44) = 4.0f;
+            }
+        }
+        
+        if (epw->mtn_no == 0x31)
+        {
+            if (epw->frm_no == 655360)
+            {
+                epw->flg &= ~0x20;
+                EXP0_F(0x44) = 2.0f;
+                epw->car = 2.0f;
+            }
+            if (epw->frm_no == 2293760)
+            {
+                epw->flg |= 0x20;
+                EXP0_F(0x44) = 4.0f;
+            }
+        }
+        
+        if (epw->frm_no == 0)
+        {
+            bhEne_GetPartsPos(epw, joint_tree[0], &pos);
+            epw->px = pos.x;
+            epw->py = pos.y;
+            epw->pz = pos.z;
+            epw->flg |= 0x20;
+            epw->mtn_no = 3;
+            epw->mode1 = 1;
+            
+            if (EXP0_UC(0x14) != 0)
+            {
+                epw->mode2 = 2;
+            } 
+            else 
+            {
+                epw->mode2 = 0;
+            }
+            
+            epw->mode3 = 0;
+            mkfP = epw->mnwP[epw->mtn_no].md2P->p[0];
+            trans.x = mkfP->key[0];
+            trans.y = mkfP->key[1];
+            trans.z = mkfP->key[2];
+            njUnitMatrix(NULL);
+            njRotateY(NULL, epw->ay);
+            njCalcVector(NULL, &trans, &trans);
+            epw->px -= trans.x;
+            epw->py -= trans.y;
+            epw->pz -= trans.z;
+            epw->pxb = epw->px;
+            epw->pzb = epw->pz;
+
+            if (*(unsigned char *)(*(int *)(epw->exp0 + 0x74) + 0x22) == 0)
+            {
+
+                epw->pyb = epw->py = 9.1f + EXP0_F(0x6C);
+            } 
+            else
+            {
+                epw->pyb = epw->py = 25.1f + EXP0_F(0x6C);
+            }
+
+            epw->flg |= 0x380000;
+            epw->flg |= 0x40030;
+            epw->flg |= 0x2000000;
+            epw->flg &= ~0x4000000;
+            epw->flg &= ~0x10000000;
+            epw->flg &= ~0x20000000;
+            epw->flr_no = bhCheckFloorNum(epw->py);
+            epw->stflg &= ~0x100000;
+            epw->py = bhGetGroundPosition((NJS_POINT3*)&epw->px);
+        }
+    }
+}
 
 // 100% matching!
 void bhEne05_MV13(BH_PWORK* epw)
@@ -2339,7 +2340,7 @@ void bhEne05_MV13(BH_PWORK* epw)
         
         if (epw->frm_no == 0)
         {
-            bhEne_GetPartsPos(epw, *joint_tree, &pos);
+            bhEne_GetPartsPos(epw, joint_tree[0], &pos);
             epw->px = pos.x;
             epw->py = pos.y;
             epw->pz = pos.z;
@@ -3855,7 +3856,7 @@ void bhEne05_DD02(BH_PWORK* epw)
 
         if (epw->ct0-- == 0)
         {
-            bhEne_GetPartsPos(epw, *joint_tree, &pos);
+            bhEne_GetPartsPos(epw, joint_tree[0], &pos);
             epw->px = pos.x;
             epw->pz = pos.z;
             epw->mtn_no = 27;
@@ -3912,7 +3913,7 @@ void bhEne05_DD03(BH_PWORK* epw)
 
         if (epw->ct0-- == 0)
         {
-            bhEne_GetPartsPos(epw, *joint_tree, &pos);
+            bhEne_GetPartsPos(epw, joint_tree[0], &pos);
             epw->px = pos.x;
             epw->pz = pos.z;
             epw->mtn_no = 28;
@@ -3947,7 +3948,7 @@ void bhEne05_DD04(BH_PWORK* epw)
         EXP0_F(0x1C) = 1.4f * njSin(epw->ayp);
         EXP0_F(0x24) = 1.4f * njCos(epw->ayp);
         EXP0_F(0x20) = 2.0f;
-        bhEne_GetPartsPos(epw, *joint_tree, (NJS_POINT3*)&epw->px);
+        bhEne_GetPartsPos(epw, joint_tree[0], (NJS_POINT3*)&epw->px);
         epw->mtn_md |= 0x100;
         epw->mtn_no = 41;
         epw->frm_no = 458752;
