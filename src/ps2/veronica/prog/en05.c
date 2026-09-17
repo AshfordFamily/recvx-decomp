@@ -5197,83 +5197,141 @@ void bhEne05_PlayerControl(BH_PWORK* epw)
         }
     }
 }
-// 
-// Start address: 0x1b7af0
+
+// 100% matching!
 int bhEne05_CheckJump(BH_PWORK* epw)
 {
-	//_anon6* hp;
-	float dist;
-	float ln;
-	BH_PWORK* epp;
-	int j;
-	int i;
-	int ang;
-	//_anon38 vec;
-	//_anon38 pos;
-	// Line 5811, Address: 0x1b7af0, Func Offset: 0
-	// Line 5821, Address: 0x1b7b14, Func Offset: 0x24
-	// Line 5822, Address: 0x1b7b30, Func Offset: 0x40
-	// Line 5825, Address: 0x1b7b40, Func Offset: 0x50
-	// Line 5826, Address: 0x1b7b64, Func Offset: 0x74
-	// Line 5829, Address: 0x1b7b74, Func Offset: 0x84
-	// Line 5831, Address: 0x1b7bb8, Func Offset: 0xc8
-	// Line 5833, Address: 0x1b7be8, Func Offset: 0xf8
-	// Line 5834, Address: 0x1b7bf0, Func Offset: 0x100
-	// Line 5836, Address: 0x1b7bf8, Func Offset: 0x108
-	// Line 5837, Address: 0x1b7c00, Func Offset: 0x110
-	// Line 5839, Address: 0x1b7c08, Func Offset: 0x118
-	// Line 5842, Address: 0x1b7c10, Func Offset: 0x120
-	// Line 5844, Address: 0x1b7c18, Func Offset: 0x128
-	// Line 5846, Address: 0x1b7c48, Func Offset: 0x158
-	// Line 5847, Address: 0x1b7c50, Func Offset: 0x160
-	// Line 5849, Address: 0x1b7c58, Func Offset: 0x168
-	// Line 5850, Address: 0x1b7c60, Func Offset: 0x170
-	// Line 5852, Address: 0x1b7c68, Func Offset: 0x178
-	// Line 5855, Address: 0x1b7c70, Func Offset: 0x180
-	// Line 5858, Address: 0x1b7c78, Func Offset: 0x188
-	// Line 5859, Address: 0x1b7c80, Func Offset: 0x190
-	// Line 5861, Address: 0x1b7c88, Func Offset: 0x198
-	// Line 5864, Address: 0x1b7c8c, Func Offset: 0x19c
-	// Line 5865, Address: 0x1b7ca4, Func Offset: 0x1b4
-	// Line 5864, Address: 0x1b7ca8, Func Offset: 0x1b8
-	// Line 5865, Address: 0x1b7cb4, Func Offset: 0x1c4
-	// Line 5866, Address: 0x1b7cbc, Func Offset: 0x1cc
-	// Line 5869, Address: 0x1b7ce0, Func Offset: 0x1f0
-	// Line 5870, Address: 0x1b7d08, Func Offset: 0x218
-	// Line 5873, Address: 0x1b7d4c, Func Offset: 0x25c
-	// Line 5874, Address: 0x1b7d6c, Func Offset: 0x27c
-	// Line 5876, Address: 0x1b7d88, Func Offset: 0x298
-	// Line 5874, Address: 0x1b7d8c, Func Offset: 0x29c
-	// Line 5875, Address: 0x1b7d94, Func Offset: 0x2a4
-	// Line 5876, Address: 0x1b7d9c, Func Offset: 0x2ac
-	// Line 5884, Address: 0x1b7dc0, Func Offset: 0x2d0
-	// Line 5885, Address: 0x1b7de0, Func Offset: 0x2f0
-	// Line 5886, Address: 0x1b7df0, Func Offset: 0x300
-	// Line 5889, Address: 0x1b7e14, Func Offset: 0x324
-	// Line 5890, Address: 0x1b7e2c, Func Offset: 0x33c
-	// Line 5893, Address: 0x1b7e34, Func Offset: 0x344
-	// Line 5900, Address: 0x1b7e48, Func Offset: 0x358
-	// Line 5893, Address: 0x1b7e4c, Func Offset: 0x35c
-	// Line 5894, Address: 0x1b7e5c, Func Offset: 0x36c
-	// Line 5895, Address: 0x1b7e74, Func Offset: 0x384
-	// Line 5897, Address: 0x1b7e8c, Func Offset: 0x39c
-	// Line 5898, Address: 0x1b7e94, Func Offset: 0x3a4
-	// Line 5899, Address: 0x1b7e9c, Func Offset: 0x3ac
-	// Line 5906, Address: 0x1b7ea4, Func Offset: 0x3b4
-	// Line 5907, Address: 0x1b7ec8, Func Offset: 0x3d8
-	// Line 5910, Address: 0x1b7ed0, Func Offset: 0x3e0
-	// Line 5911, Address: 0x1b7ed8, Func Offset: 0x3e8
-	// Line 5912, Address: 0x1b7ee0, Func Offset: 0x3f0
-	// Line 5916, Address: 0x1b7f10, Func Offset: 0x420
-	// Line 5917, Address: 0x1b7f34, Func Offset: 0x444
-	// Line 5918, Address: 0x1b7f50, Func Offset: 0x460
-	// Line 5921, Address: 0x1b7f58, Func Offset: 0x468
-	// Line 5922, Address: 0x1b7f80, Func Offset: 0x490
-	// Line 5923, Address: 0x1b7f8c, Func Offset: 0x49c
-	// Line 5925, Address: 0x1b7f9c, Func Offset: 0x4ac
-	// Line 5926, Address: 0x1b7fa0, Func Offset: 0x4b0
-	// Func End, Address: 0x1b7fc4, Func Offset: 0x4d4
-	scePrintf("bhEne05_CheckJump - UNIMPLEMENTED!\n");
+    NJS_POINT3 pos;
+    NJS_POINT3 vec;
+    int ang;
+    int i;
+    int j;
+    BH_PWORK* epp;
+    float ln;
+    float dist;
+    ATR_WORK* hp;
+
+    hp = bhEne_CheckEventAtr(epw->flr_no, epw->px, epw->pz, 5, 32, 32);
+    if (hp != 0)
+    {
+        return 0;
+    }
+        
+    hp = bhEne_CheckEventAtr(plp->flr_no, plp->px, plp->pz, 5, 33, 33);
+    if (hp != 0)
+    {
+        return 0;
+    }
+        
+    switch (plp->mode2)
+    {
+    case 3:
+        switch (PEXP0_I(0x14))
+        {
+        case 0: 
+            dist = 8.0f;
+            break;
+            
+        case 1: 
+            dist = 7.0f;
+            break;
+            
+        case 2: 
+            dist = 6.0f;
+            break;
+        }
+        break;
+        
+    case 6:
+        switch (PEXP0_I(0x14))
+        {
+        case 0: 
+            dist = 25.0f;
+            break;
+            
+        case 1: 
+            dist = 23.0f;
+            break;
+            
+        case 2: 
+            dist = 20.0f;
+            break;
+        }
+        break;  
+        
+    case 9:
+    case 12:
+        dist = -10.0f;
+        break;
+        
+    default:
+        dist = 0.0f;
+        break;
+    }
+
+    pos.x = plp->px - dist * njSin(plp->ay);
+    pos.y = plp->py;
+    pos.z = plp->pz - dist * njCos(plp->ay);
+
+    dist = njSqrt((epw->px - pos.x) * (epw->px - pos.x) + (epw->pz - pos.z) * (epw->pz - pos.z));
+    if (dist > 50.0f || dist < 30.0f)
+    {
+        return 0;
+    }
+        
+    ang = bhArcTan2(epw->px - pos.x, epw->pz - pos.z) + NJM_DEG_ANG(90.0f);
+
+    EXP0_F(0x68) = pos.x - 7.0f * njSin(ang);
+    EXP0_F(0x6c) = pos.y;
+    EXP0_F(0x70) = pos.z - 7.0f * njCos(ang);
+
+    ang = (short)(bhArcTan2(epw->px - EXP0_F(0x68), epw->pz - EXP0_F(0x70)) - epw->ay);
+    if (ang > NJM_DEG_ANG(25.0f) || ang < -NJM_DEG_ANG(25.0f))
+    {
+        return 0;
+    }
+        
+    hp = bhCollisionCheckLine((NJS_VECTOR*)&epw->px, (NJS_VECTOR*)(epw->exp0 + 0x68));
+    if (hp != 0)
+    {
+        return 0;
+    }
+        
+    vec.x = (EXP0_F(0x68) - epw->px) * 0.1f;
+    vec.y = (EXP0_F(0x6C) - epw->py) * 0.1f;
+    vec.z = (EXP0_F(0x70) - epw->pz) * 0.1f;
+    pos.x = epw->px;
+    pos.y = epw->py;
+    pos.z = epw->pz;
+
+    for (i = 0; i <= 10; i++)
+    {
+        hp = bhCheckWallType(&pos, 0, 2.0f, 25.0f);
+        if (hp != 0)
+        {
+            return 0;
+        }
+            
+        for (j = 0, epp = ene; j < sys->ewk_n; j++, epp++)
+        {
+            if ((epw != epp) &&
+                (epp->flg & 0x1) &&
+                (epp->flg & 0x8) &&
+                !(epp->flg & 0x2))            
+            {
+                ln = njSqrt((epp->px - pos.x) * (epp->px - pos.x) + (epp->pz - pos.z) * (epp->pz - pos.z));
+                if (ln < epw->car + epp->car)
+                {
+                    return 0;
+                }
+                    
+            }
+        }
+
+        njAddVector(&pos, &vec);
+    }
+
+    return 1;
 }
 
 // 
