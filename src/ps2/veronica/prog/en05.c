@@ -3404,6 +3404,7 @@ void bhEne05_DG09(BH_PWORK* epw)
 
 #pragma divbyzerocheck on
 
+// 99.97% matching
 void bhEne05_DG10(BH_PWORK* epw)
 {
 	NJS_MKEY_F_MOD* mkfP;
@@ -4538,20 +4539,18 @@ void bhEne05_SearchPlayer(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1b61d0
+// 100% matching!
 void bhEne05_MotionPause(BH_PWORK* epw, char* parts)
 {
-	// _anon31* owk;
-	// Line 5067, Address: 0x1b61d0, Func Offset: 0
-	// Line 5068, Address: 0x1b61d8, Func Offset: 0x8
-	// Line 5071, Address: 0x1b61e0, Func Offset: 0x10
-	// Line 5073, Address: 0x1b61f4, Func Offset: 0x24
-	// Line 5071, Address: 0x1b61f8, Func Offset: 0x28
-	// Line 5074, Address: 0x1b6200, Func Offset: 0x30
-	// Line 5075, Address: 0x1b620c, Func Offset: 0x3c
-	// Func End, Address: 0x1b6214, Func Offset: 0x44
-	scePrintf("bhEne05_MotionPause - UNIMPLEMENTED!\n");
+    O_WORK* owk;
+
+    owk = epw->mlwP->owP;
+
+    while (*parts != -1)
+    {
+        owk[*parts].flg |= 2;
+        parts++;
+    }
 }
 
 // 
