@@ -4553,27 +4553,31 @@ void bhEne05_MotionPause(BH_PWORK* epw, char* parts)
     }
 }
 
-// 
-// Start address: 0x1b6220
+// 98.09% matching
 void bhEne05_SetMotionFlg(BH_PWORK* epw, unsigned int flg, unsigned char mode)
 {
+	O_WORK* owk;
 	unsigned int onum;
-	//_anon31* owk;
-	// Line 5089, Address: 0x1b6220, Func Offset: 0
-	// Line 5090, Address: 0x1b6224, Func Offset: 0x4
-	// Line 5092, Address: 0x1b6228, Func Offset: 0x8
-	// Line 5093, Address: 0x1b6238, Func Offset: 0x18
-	// Line 5095, Address: 0x1b6260, Func Offset: 0x40
-	// Line 5096, Address: 0x1b6268, Func Offset: 0x48
-	// Line 5098, Address: 0x1b6270, Func Offset: 0x50
-	// Line 5099, Address: 0x1b6278, Func Offset: 0x58
-	// Line 5101, Address: 0x1b6280, Func Offset: 0x60
-	// Line 5103, Address: 0x1b628c, Func Offset: 0x6c
-	// Line 5105, Address: 0x1b6290, Func Offset: 0x70
-	// Line 5106, Address: 0x1b6294, Func Offset: 0x74
-	// Line 5107, Address: 0x1b62a0, Func Offset: 0x80
-	// Func End, Address: 0x1b62a8, Func Offset: 0x88
-	scePrintf("bhEne05_SetMotionFlg - UNIMPLEMENTED!\n");
+   
+    owk = epw->mlwP->owP;
+    onum = epw->mlwP->obj_num;
+    while (onum != 0)
+    {
+        switch (mode)
+        {
+        case 0:
+            owk->flg |= flg;
+            break;
+        case 1:
+            owk->flg &= ~flg;
+            break;
+        case 2:
+            owk->flg ^= flg;
+            break;
+        }
+        onum--;
+        owk++;
+    }     
 }
 
 // 100% matching!
