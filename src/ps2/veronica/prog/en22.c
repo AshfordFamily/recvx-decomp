@@ -23,8 +23,22 @@ const char en22_flipTree[43] = {
     -1
 };
 
-/*char en22_tree[16][4];
-_anon46 en22_mtn_tbl[12];*/
+/*char en22_tree[16][4];*/
+
+EN22_MTN_WORK en22_mtn_tbl[12] = {
+    { 2, {{ 0,    74504}, {38,    74504}, {-1, 0}, {-1, 0}}},
+    { 5, {{ 9,    74496}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    { 6, {{ 0,    74504}, {36,    74504}, {-1, 0}, {-1, 0}}},
+    { 7, {{ 4,    74504}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    { 8, {{ 0,    74504}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    { 9, {{10, 16851713}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    {10, {{ 0, 16786180}, {20,    74505}, {-1, 0}, {-1, 0}}},
+    {11, {{ 0, 16786180}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    {13, {{ 0, 16786186}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    {19, {{ 0,    74505}, {85, 16786181}, {-1, 0}, {-1, 0}}},
+    {20, {{ 0, 16786187}, {-1,        0}, {-1, 0}, {-1, 0}}},
+    {-1, {{ 0,        0}, { 0,        0}, { 0, 0}, { 0, 0}}}
+};
 
 WPNDAMAGE_WORK En22_WpnDamageTbl[22] = {
 	{ 0, 0, 0, 0, 0},
@@ -2121,29 +2135,39 @@ int bhEne22_SetMtn(BH_PWORK* epw)
     return ret;
 }
 
-/*// 
-// Start address: 0x1fe2b0
+// 100% matching!
 void bhEne22_CheckMtnTbl(BH_PWORK* epw, int frm)
 {
-	int i;
-	_anon46* mtbl;
-	// Line 2878, Address: 0x1fe2b0, Func Offset: 0
-	// Line 2882, Address: 0x1fe2cc, Func Offset: 0x1c
-	// Line 2879, Address: 0x1fe2d8, Func Offset: 0x28
-	// Line 2882, Address: 0x1fe2e0, Func Offset: 0x30
-	// Line 2887, Address: 0x1fe300, Func Offset: 0x50
-	// Line 2889, Address: 0x1fe30c, Func Offset: 0x5c
-	// Line 2891, Address: 0x1fe318, Func Offset: 0x68
-	// Line 2893, Address: 0x1fe328, Func Offset: 0x78
-	// Line 2895, Address: 0x1fe330, Func Offset: 0x80
-	// Line 2897, Address: 0x1fe340, Func Offset: 0x90
-	// Line 2899, Address: 0x1fe350, Func Offset: 0xa0
-	// Line 2900, Address: 0x1fe354, Func Offset: 0xa4
-	// Line 2924, Address: 0x1fe368, Func Offset: 0xb8
-	// Func End, Address: 0x1fe388, Func Offset: 0xd8
+    EN22_MTN_WORK* mtbl = &en22_mtn_tbl[0];
+    int i;
+
+    if (sys->rmthp == epw->mnwP)
+    {
+        return;
+    }
+
+    while (mtbl->no != -1)
+    {
+        if (mtbl->no == epw->mtn_no)
+        {
+            for (i = 0; i < 4; i++)
+            {
+                if (mtbl->atb[i].frm == -1)
+                {
+                    break;
+                }
+
+                if (mtbl->atb[i].frm == frm)
+                {
+                    bhEne22_SePlay(epw, (NJS_POINT3*)&epw->px, mtbl->atb[i].act);
+                }
+            }
+        }
+        mtbl++;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fe390
 void bhEne22_GetTranslateMtn(BH_PWORK* epw, int frm)
 {

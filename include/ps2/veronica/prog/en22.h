@@ -4,10 +4,25 @@
 #include "types.h"
 #include "macros.h"
 
+typedef struct EN22_ATB_WORK
+{
+    // total size: 0x8
+    int frm;            // offset 0x0, size 0x4
+    unsigned int act;   // offset 0x4, size 0x4
+} EN22_ATB_WORK;
+
+typedef struct EN22_MTN_WORK
+{
+    // total size: 0x24
+    int no;                 // offset 0x0, size 0x4
+    EN22_ATB_WORK atb[4];   // offset 0x4, size 0x20
+} EN22_MTN_WORK;
+
 typedef struct EN22_POINT2_XZ
 {
-    float px; // offset 0x0, size 0x4
-    float pz; // offset 0x4, size 0x4
+    // total size: 0x8
+    float px;   // offset 0x0, size 0x4
+    float pz;   // offset 0x4, size 0x4
 } EN22_POINT2_XZ;
 
 void bhEne22_DmmyBrain(BH_PWORK* epw);
