@@ -4,6 +4,7 @@
 #include "../../../ps2/veronica/prog/hitchk.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/MdlPut.h"
+#include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
@@ -2074,38 +2075,53 @@ void bhEne22_PlyDG01(BH_PWORK* pl, BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1fe180
+// 100% matching!
 int bhEne22_SetMtn(BH_PWORK* epw)
 {
-	int ret;
-	int frm;
-	NJS_CNK_OBJECT* obj;
-	// Line 2811, Address: 0x1fe180, Func Offset: 0
-	// Line 2816, Address: 0x1fe194, Func Offset: 0x14
-	// Line 2818, Address: 0x1fe1b0, Func Offset: 0x30
-	// Line 2819, Address: 0x1fe1b4, Func Offset: 0x34
-	// Line 2821, Address: 0x1fe1cc, Func Offset: 0x4c
-	// Line 2822, Address: 0x1fe1d4, Func Offset: 0x54
-	// Line 2824, Address: 0x1fe1e8, Func Offset: 0x68
-	// Line 2827, Address: 0x1fe1fc, Func Offset: 0x7c
-	// Line 2829, Address: 0x1fe214, Func Offset: 0x94
-	// Line 2831, Address: 0x1fe218, Func Offset: 0x98
-	// Line 2829, Address: 0x1fe220, Func Offset: 0xa0
-	// Line 2830, Address: 0x1fe224, Func Offset: 0xa4
-	// Line 2831, Address: 0x1fe228, Func Offset: 0xa8
-	// Line 2834, Address: 0x1fe230, Func Offset: 0xb0
-	// Line 2837, Address: 0x1fe240, Func Offset: 0xc0
-	// Line 2839, Address: 0x1fe254, Func Offset: 0xd4
-	// Line 2844, Address: 0x1fe264, Func Offset: 0xe4
-	// Line 2846, Address: 0x1fe274, Func Offset: 0xf4
-	// Line 2856, Address: 0x1fe280, Func Offset: 0x100
-	// Line 2858, Address: 0x1fe28c, Func Offset: 0x10c
-	// Line 2859, Address: 0x1fe290, Func Offset: 0x110
-	// Func End, Address: 0x1fe2a8, Func Offset: 0x128
+    NJS_CNK_OBJECT* obj;
+    int frm;
+    int ret;
+
+    if (EXP0_I(0x8) & 0x80)
+    {
+        return 0;
+    }
+
+    frm = epw->frm_no / 65536;
+    ret = bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+
+    if (ret != 0)
+    {
+        epw->flg |= 0x2000000;
+    }
+    else
+    {
+        epw->flg &= ~0x2000000;
+    }
+
+    if (EXP0_I(0x8) & 0x20000000)
+    {
+        obj = epw->mlwP->objP;
+        obj->pos[0] = obj->pos[2] = 0.0f;
+        bhEne22_GetTranslateMtn(epw, frm);
+    }
+
+    if ((epw->mode0 < 5) && (epw->stflg & 0x100000))
+    {
+        bhEne22_SetWaterEffect(epw, epw->mtn_no, frm);
+    }
+
+    if (epw->mtn_no == 9)
+    {
+        bhEne22_SparkEffect(epw, frm);
+    }
+
+    bhEne22_CheckMtnTbl(epw, frm);
+
+    return ret;
 }
 
-// 
+/*// 
 // Start address: 0x1fe2b0
 void bhEne22_CheckMtnTbl(BH_PWORK* epw, int frm)
 {
