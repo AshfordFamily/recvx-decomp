@@ -5334,61 +5334,86 @@ int bhEne05_CheckJump(BH_PWORK* epw)
     return 1;
 }
 
-// 
-// Start address: 0x1b7fd0
-int bhEne05_CheckBackAttack(BH_PWORK* epw)
+// 100% matching!
+int bhEne05_CheckBackAttack(BH_PWORK* epw) 
 {
-	//_anon6* hp;
-	float ln;
-	BH_PWORK* epp;
-	int j;
+	NJS_POINT3 pos;
+	NJS_POINT3 vec;
 	int i;
-	//_anon38 vec;
-	//_anon38 pos;
-	// Line 5936, Address: 0x1b7fd0, Func Offset: 0
-	// Line 5945, Address: 0x1b7ff0, Func Offset: 0x20
-	// Line 5946, Address: 0x1b800c, Func Offset: 0x3c
-	// Line 5949, Address: 0x1b801c, Func Offset: 0x4c
-	// Line 5950, Address: 0x1b8040, Func Offset: 0x70
-	// Line 5953, Address: 0x1b8050, Func Offset: 0x80
-	// Line 5954, Address: 0x1b8070, Func Offset: 0xa0
-	// Line 5957, Address: 0x1b8078, Func Offset: 0xa8
-	// Line 5958, Address: 0x1b8088, Func Offset: 0xb8
-	// Line 5959, Address: 0x1b80a8, Func Offset: 0xd8
-	// Line 5963, Address: 0x1b80b0, Func Offset: 0xe0
-	// Line 5964, Address: 0x1b80d4, Func Offset: 0x104
-	// Line 5963, Address: 0x1b80d8, Func Offset: 0x108
-	// Line 5964, Address: 0x1b80e0, Func Offset: 0x110
-	// Line 5965, Address: 0x1b80f0, Func Offset: 0x120
-	// Line 5968, Address: 0x1b8110, Func Offset: 0x140
-	// Line 5965, Address: 0x1b8114, Func Offset: 0x144
-	// Line 5968, Address: 0x1b8120, Func Offset: 0x150
-	// Line 5969, Address: 0x1b8134, Func Offset: 0x164
-	// Line 5972, Address: 0x1b813c, Func Offset: 0x16c
-	// Line 5978, Address: 0x1b8150, Func Offset: 0x180
-	// Line 5972, Address: 0x1b8154, Func Offset: 0x184
-	// Line 5979, Address: 0x1b8158, Func Offset: 0x188
-	// Line 5972, Address: 0x1b815c, Func Offset: 0x18c
-	// Line 5973, Address: 0x1b8168, Func Offset: 0x198
-	// Line 5974, Address: 0x1b8180, Func Offset: 0x1b0
-	// Line 5976, Address: 0x1b8198, Func Offset: 0x1c8
-	// Line 5977, Address: 0x1b81a0, Func Offset: 0x1d0
-	// Line 5978, Address: 0x1b81a8, Func Offset: 0x1d8
-	// Line 5985, Address: 0x1b81b0, Func Offset: 0x1e0
-	// Line 5986, Address: 0x1b81d4, Func Offset: 0x204
-	// Line 5989, Address: 0x1b81dc, Func Offset: 0x20c
-	// Line 5990, Address: 0x1b81e4, Func Offset: 0x214
-	// Line 5991, Address: 0x1b81ec, Func Offset: 0x21c
-	// Line 5995, Address: 0x1b821c, Func Offset: 0x24c
-	// Line 5996, Address: 0x1b8240, Func Offset: 0x270
-	// Line 5997, Address: 0x1b825c, Func Offset: 0x28c
-	// Line 6000, Address: 0x1b8264, Func Offset: 0x294
-	// Line 6001, Address: 0x1b8290, Func Offset: 0x2c0
-	// Line 6002, Address: 0x1b829c, Func Offset: 0x2cc
-	// Line 6004, Address: 0x1b82ac, Func Offset: 0x2dc
-	// Line 6005, Address: 0x1b82b0, Func Offset: 0x2e0
-	// Func End, Address: 0x1b82d0, Func Offset: 0x300
-	scePrintf("bhEne05_CheckBackAttack - UNIMPLEMENTED!\n");
+	int j;
+	BH_PWORK* epp; 
+	float ln;
+	ATR_WORK* hp; 
+
+    hp = bhEne_CheckEventAtr(epw->flr_no, epw->px, epw->pz, 5, 32, 32);
+    if (hp != NULL)
+    {
+        return 0;
+    } 
+    
+    hp = bhEne_CheckEventAtr(plp->flr_no, plp->px, plp->pz, 5, 33, 33);
+    if (hp != NULL)
+    {
+        return 0;
+    } 
+    
+    if (bhEne_CheckDirTarget(plp, epw->px, epw->pz, 3640) == 0)
+    {
+        return 0;
+    } 
+
+    epp = (BH_PWORK*)EXP0_I(0x60);
+    if ((epp != NULL) && (bhEne_CheckDirTarget(plp, epp->px, epp->pz, 10922) == 0))
+    {
+        return 0;
+    }
+
+    EXP0_F(0x68) = plp->px - (10.0f * njSin(epw->ay));
+    EXP0_F(0x6C) = plp->py;
+    EXP0_F(0x70) = plp->pz - (10.0f * njCos(epw->ay));
+
+    hp = bhCollisionCheckLine((NJS_VECTOR*)&epw->px, (NJS_VECTOR*)(epw->exp0 + 0x68));
+    if (hp != 0)
+    {
+        return 0;
+    }
+
+    vec.x = 0.1f * (EXP0_F(0x68) - epw->px);
+    vec.y = 0.1f * (EXP0_F(0x6C) - epw->py);
+    vec.z = 0.1f * (EXP0_F(0x70) - epw->pz);
+
+    pos.x = epw->px;
+    pos.y = epw->py;
+    pos.z = epw->pz;
+
+    for (i = 0; i <= 10; i++)
+    {
+        BH_PWORK* epp;
+        hp = bhCheckWallType(&pos, 0, 2.0f, 40.0f);
+        if (hp != NULL)
+        {
+            return 0;
+        }
+        
+        for (j = 0, epp = ene; j < sys->ewk_n; j++, epp++)
+        {
+            if ((epw != epp) &&
+                (epp->flg & 0x1) &&
+                (epp->flg & 0x8) &&
+                !(epp->flg & 0x2))
+            {
+                ln = njSqrt((epp->px - pos.x) * (epp->px - pos.x) + (epp->pz - pos.z) * (epp->pz - pos.z));
+                if (ln < epw->car + epp->car)
+                {
+                    return 0;
+                }                
+            }
+        }
+    
+        njAddVector(&pos, &vec);
+    }
+
+    return 1;
 }
 
 // 100% matching!
