@@ -5212,66 +5212,75 @@ void bhEne05_InitDamage(BH_PWORK* epw)
 	scePrintf("bhEne05_InitDamage - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1b7530
+// 96.81% matching
 void bhEne05_WaterEffect(BH_PWORK* epw)
 {
-	int i;
-	//_anon38 ofp;
+	EN05_WE_WORK* we;
+	EN05_WATER_EFFECT_WORK* wp;
 	unsigned int fno;
-	//_anon22* wp;
-	//_anon20* we;
-	// Line 5685, Address: 0x1b7530, Func Offset: 0
-	// Line 5687, Address: 0x1b754c, Func Offset: 0x1c
-	// Line 5685, Address: 0x1b7550, Func Offset: 0x20
-	// Line 5687, Address: 0x1b7554, Func Offset: 0x24
-	// Line 5688, Address: 0x1b7558, Func Offset: 0x28
-	// Line 5692, Address: 0x1b755c, Func Offset: 0x2c
-	// Line 5695, Address: 0x1b7578, Func Offset: 0x48
-	// Line 5696, Address: 0x1b7584, Func Offset: 0x54
-	// Line 5697, Address: 0x1b7588, Func Offset: 0x58
-	// Line 5698, Address: 0x1b7590, Func Offset: 0x60
-	// Line 5699, Address: 0x1b759c, Func Offset: 0x6c
-	// Line 5700, Address: 0x1b75a0, Func Offset: 0x70
-	// Line 5701, Address: 0x1b75a4, Func Offset: 0x74
-	// Line 5699, Address: 0x1b75a8, Func Offset: 0x78
-	// Line 5700, Address: 0x1b75ac, Func Offset: 0x7c
-	// Line 5701, Address: 0x1b75b0, Func Offset: 0x80
-	// Line 5702, Address: 0x1b75b8, Func Offset: 0x88
-	// Line 5703, Address: 0x1b75c4, Func Offset: 0x94
-	// Line 5704, Address: 0x1b75d4, Func Offset: 0xa4
-	// Line 5707, Address: 0x1b75dc, Func Offset: 0xac
-	// Line 5704, Address: 0x1b75e0, Func Offset: 0xb0
-	// Line 5705, Address: 0x1b75e8, Func Offset: 0xb8
-	// Line 5706, Address: 0x1b75f8, Func Offset: 0xc8
-	// Line 5707, Address: 0x1b7600, Func Offset: 0xd0
-	// Line 5709, Address: 0x1b7628, Func Offset: 0xf8
-	// Line 5710, Address: 0x1b7648, Func Offset: 0x118
-	// Line 5712, Address: 0x1b7650, Func Offset: 0x120
-	// Line 5713, Address: 0x1b7670, Func Offset: 0x140
-	// Line 5715, Address: 0x1b7678, Func Offset: 0x148
-	// Line 5717, Address: 0x1b769c, Func Offset: 0x16c
-	// Line 5719, Address: 0x1b76a0, Func Offset: 0x170
-	// Line 5720, Address: 0x1b76ac, Func Offset: 0x17c
-	// Line 5724, Address: 0x1b76b0, Func Offset: 0x180
-	// Line 5719, Address: 0x1b76b4, Func Offset: 0x184
-	// Line 5720, Address: 0x1b76c0, Func Offset: 0x190
-	// Line 5728, Address: 0x1b76c8, Func Offset: 0x198
-	// Line 5720, Address: 0x1b76d0, Func Offset: 0x1a0
-	// Line 5721, Address: 0x1b76dc, Func Offset: 0x1ac
-	// Line 5722, Address: 0x1b76f4, Func Offset: 0x1c4
-	// Line 5723, Address: 0x1b770c, Func Offset: 0x1dc
-	// Line 5724, Address: 0x1b7724, Func Offset: 0x1f4
-	// Line 5725, Address: 0x1b7738, Func Offset: 0x208
-	// Line 5726, Address: 0x1b774c, Func Offset: 0x21c
-	// Line 5728, Address: 0x1b7760, Func Offset: 0x230
-	// Line 5730, Address: 0x1b7788, Func Offset: 0x258
-	// Line 5731, Address: 0x1b778c, Func Offset: 0x25c
-	// Line 5733, Address: 0x1b77a0, Func Offset: 0x270
-	// Line 5734, Address: 0x1b77a4, Func Offset: 0x274
-	// Line 5735, Address: 0x1b77b8, Func Offset: 0x288
-	// Func End, Address: 0x1b77dc, Func Offset: 0x2ac
-	scePrintf("bhEne05_WaterEffect - UNIMPLEMENTED!\n");
+	NJS_POINT3 ofp;    
+	int i;
+
+    wp = WaterEffectTbl;
+    fno = epw->frm_no / 65536;
+    
+    if (epw->mnwP != epw->mnwPb)
+    {
+        return;
+    }
+    
+    while (wp->mtn_no != -1)
+    {
+        if (epw->mtn_no == wp->mtn_no)
+        {
+            we = wp->we;
+            i = 0;
+            while (i < wp->num)
+            {
+                if (we->frm_no == fno)
+                {
+                    ofp.x = we->ofx;
+                    ofp.z = we->ofz;
+                    
+                    njUnitMatrix(NULL);
+                    njRotateY(NULL, epw->ay);
+                    njCalcVector(NULL, &ofp, &ofp);
+                    
+                    ofp.x += epw->px;
+                    ofp.z += epw->pz;
+                    ofp.y = epw->py;
+                    
+                    switch (we->size)
+                    {
+                    case 0:
+                        bhSetWaterSplash2(epw, &ofp, 1, 1.5f, 1.0f, 1.5f);
+                        break;
+                    case 1:
+                        bhSetWaterSplash2(epw, &ofp, 1, 2.0f, 1.5f, 2.0f);
+                        break;
+                    case 2:
+                        bhSetWaterSplash2(epw, &ofp, 1, 2.0f, 3.5f, 2.0f);
+                        break;
+                    }
+                    
+                    sys->ef.id = 108;
+                    sys->ef.flg = 1;
+                    
+                    sys->ef.px = epw->px;
+                    sys->ef.py = epw->py;
+                    sys->ef.pz = epw->pz;
+                    
+                    sys->ef.sx = 1.0f;
+                    sys->ef.sy = 1.0f;
+                    sys->ef.sz = 1.0f;
+                    bhSetEffectTb(&sys->ef, NULL, NULL, (we->size * 5) + 10);
+                }
+                we++;
+                i++;
+            }
+        }
+        wp++;
+    }
 }
 
 // 100% matching!
