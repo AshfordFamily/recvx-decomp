@@ -2,6 +2,42 @@
 #define _EN05_H_
 
 #include "types.h"
+#include "macros.h"
+
+// total size: 0x10
+typedef struct EN05_WE_WORK 
+{
+    // Members
+    unsigned int frm_no; // offset 0x0, size 0x4
+    float ofx; // offset 0x4, size 0x4
+    float ofz; // offset 0x8, size 0x4
+    unsigned int size; // offset 0xC, size 0x4
+} EN05_WE_WORK;
+
+// total size: 0xC
+typedef struct EN05_WATER_EFFECT_WORK
+{
+    // Members
+    signed int mtn_no; // offset 0x0, size 0x4
+    EN05_WE_WORK* we; // offset 0x4, size 0x4
+    unsigned int num; // offset 0x8, size 0x4
+} EN05_WATER_EFFECT_WORK;
+
+// total size: 0x1C
+typedef struct EN05_SWITCH_WORK
+{
+    // Members
+    signed short kmno; // offset 0x0, size 0x2
+    signed short fno0; // offset 0x2, size 0x2
+    signed short fno1; // offset 0x4, size 0x2
+    signed short mno; // offset 0x6, size 0x2
+    signed short fno; // offset 0x8, size 0x2
+    signed int hrate; // offset 0xC, size 0x4
+    unsigned int hcnt; // offset 0x10, size 0x4
+    unsigned char mode2; // offset 0x14, size 0x1
+    unsigned char mode3; // offset 0x15, size 0x1
+    signed int ct0; // offset 0x18, size 0x4
+} EN05_SWITCH_WORK;
 
 void bhEne05(BH_PWORK* epw);
 void bhEne05_Init(BH_PWORK* epw);
@@ -71,7 +107,7 @@ int bhEne05_CheckBackAttack(BH_PWORK* epw);
 int bhEne05_CheckHikkaki(BH_PWORK* epw);
 int bhEne05_CheckPlyRoute(BH_PWORK* epw);
 void bhEne05_HitMark(BH_PWORK* epw);
-void bhEne05_DustEffect();
+void bhEne05_DustEffect(BH_PWORK* epw, int unk);
 void bhEne05_CallSE(BH_PWORK* epw);
 
 #endif
