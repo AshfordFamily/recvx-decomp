@@ -2167,46 +2167,57 @@ void bhEne22_CheckMtnTbl(BH_PWORK* epw, int frm)
     }
 }
 
-/*// 
-// Start address: 0x1fe390
+// 100% matching!
 void bhEne22_GetTranslateMtn(BH_PWORK* epw, int frm)
 {
-	NJS_POINT3 pos;
-	_anon25* mkfP;
-	// Line 2942, Address: 0x1fe390, Func Offset: 0
-	// Line 2945, Address: 0x1fe39c, Func Offset: 0xc
-	// Line 2948, Address: 0x1fe3a4, Func Offset: 0x14
-	// Line 2945, Address: 0x1fe3ac, Func Offset: 0x1c
-	// Line 2948, Address: 0x1fe3d0, Func Offset: 0x40
-	// Line 2950, Address: 0x1fe3e8, Func Offset: 0x58
-	// Line 2952, Address: 0x1fe3f0, Func Offset: 0x60
-	// Line 2954, Address: 0x1fe408, Func Offset: 0x78
-	// Line 2955, Address: 0x1fe418, Func Offset: 0x88
-	// Line 2956, Address: 0x1fe41c, Func Offset: 0x8c
-	// Line 2957, Address: 0x1fe42c, Func Offset: 0x9c
-	// Line 2960, Address: 0x1fe434, Func Offset: 0xa4
-	// Line 2961, Address: 0x1fe43c, Func Offset: 0xac
-	// Line 2962, Address: 0x1fe440, Func Offset: 0xb0
-	// Line 2964, Address: 0x1fe444, Func Offset: 0xb4
-	// Line 2967, Address: 0x1fe44c, Func Offset: 0xbc
-	// Line 2968, Address: 0x1fe460, Func Offset: 0xd0
-	// Line 2969, Address: 0x1fe464, Func Offset: 0xd4
-	// Line 2973, Address: 0x1fe478, Func Offset: 0xe8
-	// Line 2975, Address: 0x1fe488, Func Offset: 0xf8
-	// Line 2979, Address: 0x1fe4a0, Func Offset: 0x110
-	// Line 2983, Address: 0x1fe4a8, Func Offset: 0x118
-	// Line 2979, Address: 0x1fe4ac, Func Offset: 0x11c
-	// Line 2980, Address: 0x1fe4b0, Func Offset: 0x120
-	// Line 2981, Address: 0x1fe4bc, Func Offset: 0x12c
-	// Line 2983, Address: 0x1fe4c4, Func Offset: 0x134
-	// Line 2984, Address: 0x1fe4cc, Func Offset: 0x13c
-	// Line 2985, Address: 0x1fe4e0, Func Offset: 0x150
-	// Line 2986, Address: 0x1fe4f4, Func Offset: 0x164
-	// Line 2987, Address: 0x1fe504, Func Offset: 0x174
-	// Func End, Address: 0x1fe514, Func Offset: 0x184
+    NJS_POINT3 pos;
+    NJS_MKEY_F_MOD* mkfP;
+    MN_WORK* mnwP; // Not from DWARF
+
+    mnwP = &epw->mnwP[epw->mtn_no];
+    mkfP = (NJS_MKEY_F_MOD*)mnwP->md2P->p[0] + frm;
+
+    if ((epw->mtn_add != 0) || ((epw->frm_no / 65536) != frm))
+    {
+        if (frm == 0)
+        {
+            if (EXP0_I(0x8) & 0x40000000)
+            {
+                pos.x = mkfP->key[0] - EXP0_F(0x3C);
+                pos.y = 0.0f;
+                pos.z = mkfP->key[2] - EXP0_F(0x44);
+            }
+            else
+            {
+                pos.x = mkfP->key[0];
+                pos.y = 0.0f;
+                pos.z = mkfP->key[2];
+            }
+        }
+        else
+        {
+            pos.x = mkfP->key[0] - EXP0_F(0x3C);
+            pos.y = 0.0f;
+            pos.z = mkfP->key[2] - EXP0_F(0x44);
+        }
+
+        if (epw->mtn_md & 0x2)
+        {
+            pos.x *= -1.0f;
+        }
+
+        EXP0_F(0x3C) = mkfP->key[0];
+        EXP0_F(0x40) = mkfP->key[1];
+        EXP0_F(0x44) = mkfP->key[2];
+
+        njUnitMatrix(NULL);
+        njTranslate(NULL, epw->px, epw->py, epw->pz);
+        njRotateXYZ(NULL, epw->ax, epw->ay, epw->az);
+        njCalcPoint(NULL, &pos, (NJS_POINT3*)&epw->px);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fe520
 void bhEne22_SparkEffect(BH_PWORK* epw, int frm)
 {
