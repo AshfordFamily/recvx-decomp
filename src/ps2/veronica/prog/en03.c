@@ -833,72 +833,110 @@ void bhEne03_Brain(BH_PWORK* epw)
 	}
 }
 
-// 
-// Start address: 0x197450
+// 100% matching!
 void bhEne03_BR00(BH_PWORK* epw)
 {
 	float dist;
-	// Line 1086, Address: 0x197450, Func Offset: 0
-	// Line 1088, Address: 0x197460, Func Offset: 0x10
-	// Line 1089, Address: 0x19747c, Func Offset: 0x2c
-	// Line 1092, Address: 0x19748c, Func Offset: 0x3c
-	// Line 1093, Address: 0x19749c, Func Offset: 0x4c
-	// Line 1094, Address: 0x1974cc, Func Offset: 0x7c
-	// Line 1095, Address: 0x1974d4, Func Offset: 0x84
-	// Line 1096, Address: 0x1974d8, Func Offset: 0x88
-	// Line 1097, Address: 0x1974dc, Func Offset: 0x8c
-	// Line 1102, Address: 0x1974e0, Func Offset: 0x90
-	// Line 1104, Address: 0x1974f4, Func Offset: 0xa4
-	// Line 1106, Address: 0x197504, Func Offset: 0xb4
-	// Line 1107, Address: 0x197534, Func Offset: 0xe4
-	// Line 1108, Address: 0x197544, Func Offset: 0xf4
-	// Line 1109, Address: 0x197548, Func Offset: 0xf8
-	// Line 1110, Address: 0x19754c, Func Offset: 0xfc
-	// Line 1117, Address: 0x197550, Func Offset: 0x100
-	// Line 1119, Address: 0x19758c, Func Offset: 0x13c
-	// Line 1122, Address: 0x197594, Func Offset: 0x144
-	// Line 1129, Address: 0x197630, Func Offset: 0x1e0
-	// Line 1128, Address: 0x197634, Func Offset: 0x1e4
-	// Line 1129, Address: 0x197638, Func Offset: 0x1e8
-	// Line 1133, Address: 0x19763c, Func Offset: 0x1ec
-	// Line 1135, Address: 0x197660, Func Offset: 0x210
-	// Line 1139, Address: 0x197668, Func Offset: 0x218
-	// Line 1140, Address: 0x197678, Func Offset: 0x228
-	// Line 1142, Address: 0x1976ac, Func Offset: 0x25c
-	// Line 1144, Address: 0x1976b4, Func Offset: 0x264
-	// Line 1143, Address: 0x1976b8, Func Offset: 0x268
-	// Line 1144, Address: 0x1976bc, Func Offset: 0x26c
-	// Line 1147, Address: 0x1976c0, Func Offset: 0x270
-	// Line 1149, Address: 0x1976e4, Func Offset: 0x294
-	// Line 1150, Address: 0x1976ec, Func Offset: 0x29c
-	// Line 1154, Address: 0x1976f4, Func Offset: 0x2a4
-	// Line 1155, Address: 0x197704, Func Offset: 0x2b4
-	// Line 1159, Address: 0x197728, Func Offset: 0x2d8
-	// Line 1155, Address: 0x197730, Func Offset: 0x2e0
-	// Line 1159, Address: 0x197734, Func Offset: 0x2e4
-	// Line 1163, Address: 0x19778c, Func Offset: 0x33c
-	// Line 1165, Address: 0x197790, Func Offset: 0x340
-	// Line 1164, Address: 0x197794, Func Offset: 0x344
-	// Line 1165, Address: 0x197798, Func Offset: 0x348
-	// Line 1166, Address: 0x19779c, Func Offset: 0x34c
-	// Line 1171, Address: 0x1977a0, Func Offset: 0x350
-	// Line 1172, Address: 0x1977b0, Func Offset: 0x360
-	// Line 1175, Address: 0x1977fc, Func Offset: 0x3ac
-	// Line 1177, Address: 0x197804, Func Offset: 0x3b4
-	// Line 1176, Address: 0x197808, Func Offset: 0x3b8
-	// Line 1177, Address: 0x19780c, Func Offset: 0x3bc
-	// Line 1180, Address: 0x197810, Func Offset: 0x3c0
-	// Line 1182, Address: 0x197834, Func Offset: 0x3e4
-	// Line 1183, Address: 0x19783c, Func Offset: 0x3ec
-	// Line 1185, Address: 0x197844, Func Offset: 0x3f4
-	// Line 1186, Address: 0x19784c, Func Offset: 0x3fc
-	// Line 1189, Address: 0x197870, Func Offset: 0x420
-	// Line 1190, Address: 0x1978a4, Func Offset: 0x454
-	// Line 1191, Address: 0x1978b4, Func Offset: 0x464
-	// Line 1192, Address: 0x1978b8, Func Offset: 0x468
-	// Line 1193, Address: 0x1978bc, Func Offset: 0x46c
-	// Line 1215, Address: 0x1978c0, Func Offset: 0x470
-	// Func End, Address: 0x1978d4, Func Offset: 0x484
+
+    EXP0_F(64) = njDistanceP2P((NJS_POINT3*)&epw->px, (NJS_POINT3*)&plp->px);
+    
+    bhEne03_SearchPlayer(epw, 21845);
+    
+    if ((EXP0_UC(104) == 0) && (epw->mode2 != 4) && (EXP0_F(64) < 20.0f)) 
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 0;
+        epw->mode2 = 4;
+        epw->mode3 = 0;
+    }
+    
+    if (plp->hp >= 0) 
+    {
+        if (EXP0_C(105) == 0)
+        { 
+            if ((EXP0_UC(104) == 1) && (EXP0_F(64) > 12.0f) && (epw->mode2 != 3))
+            {
+                epw->mode0 = 1;
+                epw->mode2 = 3;
+                epw->mode3 = 0;
+            }
+            
+            if (((plp->stflg & 0x80000000)) || (((plp->flg & 0x4)) || ((epw->flg & 0x4))))
+            {
+                return;
+            }
+            
+            if ((bhEne_CheckEventAtr(plp->flr_no, plp->px, plp->pz, 3, 0, 0) == NULL) && (EXPW_EXP1_I(8) == 0))
+            {
+                if ((EXP0_F(64) < 20.0f) && (abs(EXP0_I(68)) < 5461) && (fabsf(epw->py - plp->py) < 0.01f)) 
+                {
+                    epw->mode1 = 0;
+                    epw->mode2 = 19;
+                    epw->mode3 = 0;
+                    
+                    EXPW_EXP1_I(8) = (rand() % 30) + 60;
+                    return;
+                }
+            }
+            
+            if (EXP0_I(228) == 0) 
+            {
+                if ((EXP0_F(64) < 25.0f) && (abs(EXP0_I(68)) < 3640)) 
+                {
+                    epw->mode0 = 1;
+                    epw->mode1 = 0;
+                    epw->mode2 = 9;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(228) = (rand() % 90) + 60;
+                }
+            } 
+            else 
+            {
+                EXP0_I(228)--;
+            }
+        }
+        else if (EXP0_C(105) == 1)
+        {
+            dist = njSqrt(((plp->px - epw->px) * (plp->px - epw->px)) + ((plp->pz - epw->pz) * (plp->pz - epw->pz)));
+            
+            if ((epw->py > plp->py) && (dist < 40.0f) && (abs(EXP0_I(68)) > 16384) && (bhEne03_DiveSpace(epw) != 0)) 
+            {
+                epw->mode0 = 1;
+                epw->mode1 = 0;
+                epw->mode2 = 11;
+                epw->mode3 = 0;
+            }
+            
+            if (EXP0_I(228) == 0) 
+            {
+                if ((epw->py > plp->py) && (dist < 25.0f) && (abs(EXP0_I(68)) < 3640))
+                {
+                    epw->mode0 = 1;
+                    epw->mode1 = 0;
+                    epw->mode2 = 9;
+                    epw->mode3 = 0;
+                    
+                    EXP0_I(228) = (rand() % 90) + 60;
+                }
+            } 
+            else 
+            {
+                EXP0_I(228)--;
+            }
+        }
+        else
+        {
+            dist = njSqrt(((plp->px - epw->px) * (plp->px - epw->px)) + ((plp->pz - epw->pz) * (plp->pz - epw->pz)));
+            
+            if ((EXP0_UC(104) == 1) && (EXP0_F(64) > 12.0f) && (epw->mode2 != 3)) 
+            {
+                epw->mode0 = 1;
+                epw->mode2 = 3;
+                epw->mode3 = 0;
+            }
+        }
+    }
 }
 
 // 
