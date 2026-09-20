@@ -2217,109 +2217,129 @@ void bhEne22_GetTranslateMtn(BH_PWORK* epw, int frm)
     }
 }
 
-/*// 
-// Start address: 0x1fe520
+// 100% matching!
 void bhEne22_SparkEffect(BH_PWORK* epw, int frm)
 {
-	int no;
-	int j;
-	int i;
-	unsigned int* argb;
-	NJS_POINT3 ps;
-	NJS_CNK_OBJECT* obj;
-	unsigned int* ulpMatAdrTbl[2][40][6];
-	unsigned int ene22_eff_col[20];
-	// Line 3006, Address: 0x1fe520, Func Offset: 0
-	// Line 3034, Address: 0x1fe54c, Func Offset: 0x2c
-	// Line 3006, Address: 0x1fe554, Func Offset: 0x34
-	// Line 3034, Address: 0x1fe55c, Func Offset: 0x3c
-	// Line 3040, Address: 0x1fe56c, Func Offset: 0x4c
-	// Line 3043, Address: 0x1fe578, Func Offset: 0x58
-	// Line 3045, Address: 0x1fe580, Func Offset: 0x60
-	// Line 3046, Address: 0x1fe584, Func Offset: 0x64
-	// Line 3047, Address: 0x1fe58c, Func Offset: 0x6c
-	// Line 3045, Address: 0x1fe594, Func Offset: 0x74
-	// Line 3046, Address: 0x1fe598, Func Offset: 0x78
-	// Line 3047, Address: 0x1fe59c, Func Offset: 0x7c
-	// Line 3049, Address: 0x1fe5a0, Func Offset: 0x80
-	// Line 3050, Address: 0x1fe5ac, Func Offset: 0x8c
-	// Line 3051, Address: 0x1fe5bc, Func Offset: 0x9c
-	// Line 3053, Address: 0x1fe5cc, Func Offset: 0xac
-	// Line 3052, Address: 0x1fe5d4, Func Offset: 0xb4
-	// Line 3053, Address: 0x1fe5dc, Func Offset: 0xbc
-	// Line 3054, Address: 0x1fe5e4, Func Offset: 0xc4
-	// Line 3059, Address: 0x1fe5fc, Func Offset: 0xdc
-	// Line 3061, Address: 0x1fe604, Func Offset: 0xe4
-	// Line 3062, Address: 0x1fe60c, Func Offset: 0xec
-	// Line 3061, Address: 0x1fe610, Func Offset: 0xf0
-	// Line 3062, Address: 0x1fe614, Func Offset: 0xf4
-	// Line 3064, Address: 0x1fe618, Func Offset: 0xf8
-	// Line 3065, Address: 0x1fe620, Func Offset: 0x100
-	// Line 3064, Address: 0x1fe628, Func Offset: 0x108
-	// Line 3065, Address: 0x1fe62c, Func Offset: 0x10c
-	// Line 3066, Address: 0x1fe63c, Func Offset: 0x11c
-	// Line 3065, Address: 0x1fe640, Func Offset: 0x120
-	// Line 3066, Address: 0x1fe644, Func Offset: 0x124
-	// Line 3067, Address: 0x1fe64c, Func Offset: 0x12c
-	// Line 3066, Address: 0x1fe654, Func Offset: 0x134
-	// Line 3067, Address: 0x1fe658, Func Offset: 0x138
-	// Line 3068, Address: 0x1fe660, Func Offset: 0x140
-	// Line 3067, Address: 0x1fe668, Func Offset: 0x148
-	// Line 3068, Address: 0x1fe66c, Func Offset: 0x14c
-	// Line 3072, Address: 0x1fe674, Func Offset: 0x154
-	// Line 3073, Address: 0x1fe67c, Func Offset: 0x15c
-	// Line 3074, Address: 0x1fe680, Func Offset: 0x160
-	// Line 3075, Address: 0x1fe688, Func Offset: 0x168
-	// Line 3077, Address: 0x1fe6a4, Func Offset: 0x184
-	// Line 3088, Address: 0x1fe6a8, Func Offset: 0x188
-	// Line 3092, Address: 0x1fe6b0, Func Offset: 0x190
-	// Line 3080, Address: 0x1fe6b8, Func Offset: 0x198
-	// Line 3081, Address: 0x1fe6bc, Func Offset: 0x19c
-	// Line 3080, Address: 0x1fe6c0, Func Offset: 0x1a0
-	// Line 3081, Address: 0x1fe6c4, Func Offset: 0x1a4
-	// Line 3083, Address: 0x1fe6c8, Func Offset: 0x1a8
-	// Line 3085, Address: 0x1fe6dc, Func Offset: 0x1bc
-	// Line 3086, Address: 0x1fe6e0, Func Offset: 0x1c0
-	// Line 3088, Address: 0x1fe6ec, Func Offset: 0x1cc
-	// Line 3089, Address: 0x1fe6f8, Func Offset: 0x1d8
-	// Line 3094, Address: 0x1fe700, Func Offset: 0x1e0
-	// Line 3097, Address: 0x1fe708, Func Offset: 0x1e8
-	// Line 3098, Address: 0x1fe70c, Func Offset: 0x1ec
-	// Line 3100, Address: 0x1fe710, Func Offset: 0x1f0
-	// Line 3101, Address: 0x1fe720, Func Offset: 0x200
-	// Line 3102, Address: 0x1fe730, Func Offset: 0x210
-	// Line 3105, Address: 0x1fe73c, Func Offset: 0x21c
-	// Line 3102, Address: 0x1fe740, Func Offset: 0x220
-	// Line 3113, Address: 0x1fe74c, Func Offset: 0x22c
-	// Line 3108, Address: 0x1fe750, Func Offset: 0x230
-	// Line 3109, Address: 0x1fe758, Func Offset: 0x238
-	// Line 3108, Address: 0x1fe75c, Func Offset: 0x23c
-	// Line 3113, Address: 0x1fe760, Func Offset: 0x240
-	// Line 3120, Address: 0x1fe764, Func Offset: 0x244
-	// Line 3113, Address: 0x1fe768, Func Offset: 0x248
-	// Line 3120, Address: 0x1fe76c, Func Offset: 0x24c
-	// Line 3113, Address: 0x1fe770, Func Offset: 0x250
-	// Line 3119, Address: 0x1fe774, Func Offset: 0x254
-	// Line 3113, Address: 0x1fe778, Func Offset: 0x258
-	// Line 3114, Address: 0x1fe788, Func Offset: 0x268
-	// Line 3119, Address: 0x1fe790, Func Offset: 0x270
-	// Line 3120, Address: 0x1fe794, Func Offset: 0x274
-	// Line 3121, Address: 0x1fe79c, Func Offset: 0x27c
-	// Line 3124, Address: 0x1fe7ac, Func Offset: 0x28c
-	// Line 3130, Address: 0x1fe7b4, Func Offset: 0x294
-	// Line 3132, Address: 0x1fe7d4, Func Offset: 0x2b4
-	// Line 3134, Address: 0x1fe7f0, Func Offset: 0x2d0
-	// Line 3137, Address: 0x1fe7fc, Func Offset: 0x2dc
-	// Line 3139, Address: 0x1fe80c, Func Offset: 0x2ec
-	// Line 3144, Address: 0x1fe818, Func Offset: 0x2f8
-	// Line 3146, Address: 0x1fe828, Func Offset: 0x308
-	// Line 3147, Address: 0x1fe834, Func Offset: 0x314
-	// Line 3149, Address: 0x1fe84c, Func Offset: 0x32c
-	// Line 3151, Address: 0x1fe85c, Func Offset: 0x33c
-	// Func End, Address: 0x1fe88c, Func Offset: 0x36c
+    static unsigned int ene22_eff_col[20] = {
+        0x60B2B2FF,
+        0xC0B2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xFFB2B2FF,
+        0xE0B2B2FF,
+        0xC0B2B2FF,
+        0xAFB2B2FF,
+        0x80B2B2FF,
+        0x60B2B2FF,
+        0x40B2B2FF,
+        0x20B2B2FF
+    };
+    static unsigned int* ulpMatAdrTbl[6][40][2];
+    NJS_CNK_OBJECT* obj;
+    NJS_POINT3 ps = {0.0f, 10.0f, 0.0f};
+    unsigned int* argb;
+    int i, j;
+    int no;
+
+    if (frm == 0)
+    {
+        for (j = 0; j < 6; j++)
+        {
+            obj = epw->mdl[j + 1].objP + 1;
+            argb = (unsigned int*)(epw->exp0 + 0x60);
+            for (i = 0; i < 20; argb++, i++)
+            {
+                *argb = 0xB2B2B2;
+                bhEne22_ChgDengekiColor(obj, 4 * i, *argb);
+                bhEne22_ChgDengekiColor(obj, 4 * i + 1, *argb);
+            }
+        }
+
+        for (j = 0; j < 6; j++)
+        {
+            obj = epw->mdl[j + 1].objP + 1;
+            for (i = 0; i < 20; i++)
+            {
+                no = (2 * i + 20) % 40;
+                ulpMatAdrTbl[j][no][0] = bhEne22_GetDengekiColorAddr(obj, no);
+                ulpMatAdrTbl[j][no][1] = bhEne22_GetDengekiColorAddr(obj, no + 1);
+            }
+        }
+
+        EXP0_I(0x18) = 0;
+        *(O_WRK**)(epw->exp0 + 0x4C) = NULL;
+    }
+    else if ((frm >= 30) && (frm < 70))
+    {
+        for (j = 0; j < 6; j++)
+        {
+            argb = (unsigned int*)(epw->exp0 + 0x60);
+            for (i = 0; i < 20; argb++, i++)
+            {
+                if (i <= EXP0_I(0x18))
+                {
+                    if (EXP0_I(0x18) - i < 20)
+                    {
+                        *argb = ene22_eff_col[EXP0_I(0x18) - i];
+                    }
+                    else
+                    {
+                        *argb = 0xB2B2FF;
+                    }
+                }
+                else
+                {
+                    *argb = 0xB2B2FF;
+                }
+            }
+        }
+
+        EXP0_I(0x18)++;
+
+        for (j = 0; j < 6; j++)
+        {
+            argb = (unsigned int*)(epw->exp0 + 0x60);
+            for (i = 0; i < 20; argb++, i++)
+            {
+                no = (2 * i + 20) % 40;
+                *ulpMatAdrTbl[j][no][0] = *argb;
+                *ulpMatAdrTbl[j][no][1] = *argb;
+            }
+        }
+
+        bhEne22_SetDengekiEffect2(epw);
+    }
+
+    if ((frm >= 11) && (frm < 55))
+    {
+        if ((frm % 2) == 0)
+        {
+            bhEne22_SetElectricShockEffect(epw, 0);
+        }
+
+        if (frm == 21)
+        {
+            bhEne22_SetElectricShockEffect(epw, 2);
+        }
+    }
+
+    if (frm == 11)
+    {
+        *(O_WRK**)(epw->exp0 + 0x4C) = bhEne22_SetElectricLightEffect(epw);
+        bhEne22_SetLight(epw, 4, &ps, 1);
+        EXP0_I(0x8) |= 0x1000;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fe890
 unsigned int* bhEne22_GetDengekiColorAddr(NJS_CNK_OBJECT* objp, int no)
 {
