@@ -2339,44 +2339,55 @@ void bhEne22_SparkEffect(BH_PWORK* epw, int frm)
     }
 }
 
-/*// 
-// Start address: 0x1fe890
+// 100% matching!
 unsigned int* bhEne22_GetDengekiColorAddr(NJS_CNK_OBJECT* objp, int no)
 {
-	short head;
-	int max;
-	short* plp;
-	int offset;
-	// Line 3162, Address: 0x1fe890, Func Offset: 0
-	// Line 3161, Address: 0x1fe894, Func Offset: 0x4
-	// Line 3162, Address: 0x1fe898, Func Offset: 0x8
-	// Line 3171, Address: 0x1fe8a0, Func Offset: 0x10
-	// Line 3193, Address: 0x1fe8a4, Func Offset: 0x14
-	// Line 3165, Address: 0x1fe8a8, Func Offset: 0x18
-	// Line 3166, Address: 0x1fe8b4, Func Offset: 0x24
-	// Line 3168, Address: 0x1fe8cc, Func Offset: 0x3c
-	// Line 3169, Address: 0x1fe8d4, Func Offset: 0x44
-	// Line 3170, Address: 0x1fe8d8, Func Offset: 0x48
-	// Line 3171, Address: 0x1fe8e0, Func Offset: 0x50
-	// Line 3174, Address: 0x1fe8e8, Func Offset: 0x58
-	// Line 3175, Address: 0x1fe8f0, Func Offset: 0x60
-	// Line 3178, Address: 0x1fe908, Func Offset: 0x78
-	// Line 3181, Address: 0x1fe910, Func Offset: 0x80
-	// Line 3183, Address: 0x1fe918, Func Offset: 0x88
-	// Line 3185, Address: 0x1fe91c, Func Offset: 0x8c
-	// Line 3183, Address: 0x1fe920, Func Offset: 0x90
-	// Line 3184, Address: 0x1fe924, Func Offset: 0x94
-	// Line 3186, Address: 0x1fe928, Func Offset: 0x98
-	// Line 3187, Address: 0x1fe930, Func Offset: 0xa0
-	// Line 3190, Address: 0x1fe948, Func Offset: 0xb8
-	// Line 3191, Address: 0x1fe950, Func Offset: 0xc0
-	// Line 3192, Address: 0x1fe954, Func Offset: 0xc4
-	// Line 3193, Address: 0x1fe95c, Func Offset: 0xcc
-	// Line 3198, Address: 0x1fe964, Func Offset: 0xd4
-	// Func End, Address: 0x1fe96c, Func Offset: 0xdc
+    int offset;
+    short* plp;
+    int max;
+    short head;
+
+    max = 0;
+    plp = objp->model->plist;
+    while (1)
+    {
+        head = *(unsigned char*)plp++;
+        if ((head >= 64) && (head < 67))
+        {
+            offset = *plp++;
+            plp += offset;
+        }
+        else if (head == 8)
+        {
+            plp++;
+        }
+        else if ((head >= 17) && (head < 24))
+        {
+            if (no == max)
+            {
+                plp++;
+                return (unsigned int*)plp;
+            }
+            else
+            {
+                max++;
+                offset = *plp++;
+                plp += offset;
+            }
+        }
+        else if ((head >= 56) && (head <= 58))
+        {
+            offset = *plp++;
+            plp += offset;
+        }
+        else if (head == 255)
+        {
+            break;
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fe970
 void bhEne22_SetWaterEffect(BH_PWORK* epw, int mtn_no, int frm)
 {
