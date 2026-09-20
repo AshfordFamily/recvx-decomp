@@ -507,31 +507,31 @@ static char SdwTab[6] =
 
 static ETTY_WORK ene05_child =
 {
-    0x8001,                                 /* flg */
-    0x1F,                                   /* id */
-    0,                                      /* type */
-    0,                                      /* flr_no */
-    0,                                      /* mdlver */
-    0,                                      /* wrk_no */
-    0,                                      /* prm1 */
-    0.0f,                                   /* px */
-    0.0f,                                   /* py */
-    0.0f,                                   /* pz */
-    0,                                      /* ax */
-    0,                                      /* az */
-    0,                                      /* ay */
-    0,                                      /* aspd */
-    {0, 0, 0, 0}                            /* hide */
+    0x8001,
+    0x1F, 
+    0, 
+    0, 
+    0,
+    0,
+    0,
+    0.0f,
+    0.0f,
+    0.0f, 
+    0,
+    0,
+    0,
+    0,
+    {0, 0, 0, 0}
 };
 
 static BP_WORK BloodParam =
 {
-    {0.0f, 0.1f, 0.0f},                      /* off_pos */
-    0,                                       /* srd_dir */
-    0.0f,                                    /* srd_pos */
-    0.059999999f,                            /* bld_spd */
-    {1.6f, 1.2f, 1.0f, 1.6f, 1.2f},          /* srt_spd */
-    {0, 3, 6, 9, 13}                         /* srt_dir */
+    {0.0f, 0.1f, 0.0f},
+    0,
+    0.0f,
+    0.059999999f,
+    {1.6f, 1.2f, 1.0f, 1.6f, 1.2f},
+    {0, 3, 6, 9, 13}
 };
 
 static DMG_REACT DmgReact[21] =
@@ -5786,7 +5786,7 @@ int bhEne05_CheckBackAttack(BH_PWORK* epw)
 
     for (i = 0; i <= 10; i++)
     {
-        BH_PWORK* epp;
+        BH_PWORK* epp; // not from DWARF
         hp = bhCheckWallType(&pos, 0, 2.0f, 40.0f);
         if (hp != NULL)
         {
