@@ -2510,28 +2510,31 @@ void bhEne22_SetWaterEffect(BH_PWORK* epw, int mtn_no, int frm)
     }
 }
 
-/*// 
-// Start address: 0x1feaf0
+// 100% matching!
 int bhEne22_GetAreaNo(float px, float pz)
 {
-	int i;
-	_anon10* at;
-	_anon10 trg_atari[4];
-	// Line 3278, Address: 0x1feaf0, Func Offset: 0
-	// Line 3280, Address: 0x1feb04, Func Offset: 0x14
-	// Line 3278, Address: 0x1feb08, Func Offset: 0x18
-	// Line 3280, Address: 0x1feb0c, Func Offset: 0x1c
-	// Line 3289, Address: 0x1feb28, Func Offset: 0x38
-	// Line 3280, Address: 0x1feb2c, Func Offset: 0x3c
-	// Line 3291, Address: 0x1feb40, Func Offset: 0x50
-	// Line 3293, Address: 0x1feb64, Func Offset: 0x74
-	// Line 3296, Address: 0x1feb6c, Func Offset: 0x7c
-	// Line 3298, Address: 0x1feb7c, Func Offset: 0x8c
-	// Line 3299, Address: 0x1feb80, Func Offset: 0x90
-	// Func End, Address: 0x1feb9c, Func Offset: 0xac
+    UV_WORK trg_atari[4] = {
+        { 0.0f,  0.0f, 70.0f, 70.0f},
+        {70.0f,  0.0f, 70.0f, 70.0f},
+        { 0.0f, 70.0f, 70.0f, 70.0f},
+        {70.0f, 70.0f, 70.0f, 70.0f}
+    };
+    UV_WORK* at;
+    int i;
+
+    at = trg_atari;
+    for (i = 0; i < 4; at++, i++)
+    {
+        if (bhEne_PosCheck(px, pz, at->u, at->v, at->xs, at->ys) != 0)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
-// 
+/*// 
 // Start address: 0x1feba0
 int bhEne22_AreaCheck(float ene_x, float ene_z, float ply_x, float ply_z)
 {
@@ -2556,8 +2559,8 @@ int bhEne22_SetTrgPos(BH_PWORK* epw)
 	float near_dist;
 	NJS_POINT3 pos;
 	NJS_POINT3 epos;
-	_anon10* at;
-	_anon10 trg_atari[4];
+	UV_WORK* at;
+	UV_WORK trg_atari[4];
 	// Line 3346, Address: 0x1fec00, Func Offset: 0
 	// Line 3348, Address: 0x1fec24, Func Offset: 0x24
 	// Line 3346, Address: 0x1fec28, Func Offset: 0x28
