@@ -8,6 +8,7 @@
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
+#include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
@@ -2603,18 +2604,16 @@ int bhEne22_SetTrgPos(BH_PWORK* epw)
     return 0;
 }
 
-/*// 
-// Start address: 0x1fedd0
+// 100% matching!
 void bhEne22_SePlay(BH_PWORK* epw, NJS_POINT3* ps, int no)
 {
-	// Line 3718, Address: 0x1fedd0, Func Offset: 0
-	// Line 3719, Address: 0x1fedd8, Func Offset: 0x8
-	// Line 3721, Address: 0x1fedec, Func Offset: 0x1c
-	// Line 3722, Address: 0x1fee04, Func Offset: 0x34
-	// Func End, Address: 0x1fee10, Func Offset: 0x40
+    if ((epw->flg & 0x10000) == 0)
+    {
+        RequestEnemySe(sys->enow, ps, no);
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1fee10
 _anon0* bhEne22_SetDengekiEffect(BH_PWORK* epw, int obj, NJS_POINT3* ofs, float size)
 {
