@@ -2534,21 +2534,18 @@ int bhEne22_GetAreaNo(float px, float pz)
     return -1;
 }
 
-/*// 
-// Start address: 0x1feba0
+// 100% matching!
 int bhEne22_AreaCheck(float ene_x, float ene_z, float ply_x, float ply_z)
 {
-	int ply_at;
-	int ene_at;
-	// Line 3318, Address: 0x1feba0, Func Offset: 0
-	// Line 3321, Address: 0x1febb8, Func Offset: 0x18
-	// Line 3322, Address: 0x1febc0, Func Offset: 0x20
-	// Line 3324, Address: 0x1febd0, Func Offset: 0x30
-	// Line 3327, Address: 0x1febe4, Func Offset: 0x44
-	// Func End, Address: 0x1febfc, Func Offset: 0x5c
+    int ene_at, ply_at;
+
+    ene_at = bhEne22_GetAreaNo(ene_x, ene_z);
+    ply_at = bhEne22_GetAreaNo(ply_x, ply_z);
+
+    return (ene_at == ply_at) ? 1 : 0;
 }
 
-// 
+/*// 
 // Start address: 0x1fec00
 int bhEne22_SetTrgPos(BH_PWORK* epw)
 {
