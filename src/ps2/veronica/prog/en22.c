@@ -2545,60 +2545,65 @@ int bhEne22_AreaCheck(float ene_x, float ene_z, float ply_x, float ply_z)
     return (ene_at == ply_at) ? 1 : 0;
 }
 
-/*// 
-// Start address: 0x1fec00
+// 100% matching!
 int bhEne22_SetTrgPos(BH_PWORK* epw)
 {
-	int i;
-	int ply_at;
-	int ene_at;
-	float dist;
-	float near_dist;
-	NJS_POINT3 pos;
-	NJS_POINT3 epos;
-	UV_WORK* at;
-	UV_WORK trg_atari[4];
-	// Line 3346, Address: 0x1fec00, Func Offset: 0
-	// Line 3348, Address: 0x1fec24, Func Offset: 0x24
-	// Line 3346, Address: 0x1fec28, Func Offset: 0x28
-	// Line 3348, Address: 0x1fec30, Func Offset: 0x30
-	// Line 3356, Address: 0x1fec34, Func Offset: 0x34
-	// Line 3348, Address: 0x1fec38, Func Offset: 0x38
-	// Line 3361, Address: 0x1fec5c, Func Offset: 0x5c
-	// Line 3362, Address: 0x1fec70, Func Offset: 0x70
-	// Line 3364, Address: 0x1fec88, Func Offset: 0x88
-	// Line 3366, Address: 0x1fec9c, Func Offset: 0x9c
-	// Line 3371, Address: 0x1feca0, Func Offset: 0xa0
-	// Line 3366, Address: 0x1feca4, Func Offset: 0xa4
-	// Line 3367, Address: 0x1feca8, Func Offset: 0xa8
-	// Line 3368, Address: 0x1fecb0, Func Offset: 0xb0
-	// Line 3373, Address: 0x1fecb8, Func Offset: 0xb8
-	// Line 3375, Address: 0x1fecc8, Func Offset: 0xc8
-	// Line 3377, Address: 0x1fecd8, Func Offset: 0xd8
-	// Line 3375, Address: 0x1fecdc, Func Offset: 0xdc
-	// Line 3378, Address: 0x1fece0, Func Offset: 0xe0
-	// Line 3375, Address: 0x1fece8, Func Offset: 0xe8
-	// Line 3376, Address: 0x1fecf0, Func Offset: 0xf0
-	// Line 3377, Address: 0x1fecf8, Func Offset: 0xf8
-	// Line 3378, Address: 0x1fed0c, Func Offset: 0x10c
-	// Line 3379, Address: 0x1fed14, Func Offset: 0x114
-	// Line 3384, Address: 0x1fed40, Func Offset: 0x140
-	// Line 3382, Address: 0x1fed44, Func Offset: 0x144
-	// Line 3381, Address: 0x1fed48, Func Offset: 0x148
-	// Line 3386, Address: 0x1fed4c, Func Offset: 0x14c
-	// Line 3388, Address: 0x1fed50, Func Offset: 0x150
-	// Line 3390, Address: 0x1fed60, Func Offset: 0x160
-	// Line 3392, Address: 0x1fed7c, Func Offset: 0x17c
-	// Line 3394, Address: 0x1fed80, Func Offset: 0x180
-	// Line 3392, Address: 0x1fed84, Func Offset: 0x184
-	// Line 3393, Address: 0x1fed88, Func Offset: 0x188
-	// Line 3394, Address: 0x1fed8c, Func Offset: 0x18c
-	// Line 3397, Address: 0x1fed94, Func Offset: 0x194
-	// Line 3453, Address: 0x1fed98, Func Offset: 0x198
-	// Func End, Address: 0x1fedc8, Func Offset: 0x1c8
+    UV_WORK trg_atari[4] = {
+        {30.0f, 30.0f, 40.0f, 40.0f},
+        {70.0f, 30.0f, 40.0f, 40.0f},
+        {30.0f, 70.0f, 40.0f, 40.0f},
+        {70.0f, 70.0f, 40.0f, 40.0f}
+    };
+    UV_WORK* at;
+    NJS_POINT3 epos, pos;
+    float near_dist, dist;
+    int ene_at, ply_at;
+    int i;
+    float x, z; // Not from DWARF
+
+    near_dist = 0.0f;
+    at = trg_atari;
+    ene_at = bhEne22_GetAreaNo(epw->px, epw->pz);
+    ply_at = bhEne22_GetAreaNo(plp->px, plp->pz);
+
+    if (ene_at == -1)
+    {
+        return 0;
+    }
+
+    epos.x = epw->px;
+    epos.y = epw->py;
+    epos.z = epw->pz;
+
+    for (i = 0; i < 4; at++, i++)
+    {
+        if ((i != ene_at) && (i != ply_at))
+        {
+            pos.x = at->u + at->xs / 2.0f;
+            pos.y = epw->py;
+            pos.z = at->v + at->ys / 2.0f;
+
+            dist = njDistanceP2P(&pos, &epos);
+            if ((near_dist > dist) || (near_dist == 0.0f))
+            {
+                near_dist = dist;
+                x = pos.x;
+                z = pos.z;
+            }
+        }
+    }
+
+    if (near_dist != -1.0f)
+    {
+        EXP0_F(0x24) = x;
+        EXP0_F(0x2C) = z;
+        return 1;
+    }
+
+    return 0;
 }
 
-// 
+/*// 
 // Start address: 0x1fedd0
 void bhEne22_SePlay(BH_PWORK* epw, NJS_POINT3* ps, int no)
 {
