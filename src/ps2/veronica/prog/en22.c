@@ -213,9 +213,84 @@ char En22SdwTab[7] = {
     2, 7, 13, 20, 28, 36, -1
 };
 
-/*int en22_hp_tbl[16];
-_anon44 ene22_wsp_tbl[57];
-_anon41 en22_weff_tbl[14];*/
+/*int en22_hp_tbl[16];*/
+
+static EN22_WSP_WORK ene22_wsp_tbl[57] = {
+    {13,  5, 37},
+    {13,  6, 35},
+    {13,  6, 29},
+    {13,  6,  6},
+    {13,  7,  2},
+    {13,  8,  4},
+    {13,  8,  9},
+    {13, 10, 13},
+    {13, 10, 20},
+    {10,  0,  2},
+    {10,  3, 11},
+    {10,  5, 29},
+    {10,  5,  9},
+    {10,  7,  7},
+    {10, 10, 37},
+    {10, 12,  0},
+    {10, 17,  0},
+    {11,  3, 28},
+    {11,  4,  0},
+    {11,  5, 13},
+    {11,  6,  7},
+    {11,  9, 36},
+    {11, 10, 20},
+    {11, 11, 10},
+    {11, 13, 11},
+    {19,  5,  2},
+    {19, 10, 10},
+    {19, 11,  4},
+    {19, 12, 29},
+    {19, 12, 11},
+    {19, 16, 37},
+    {19, 25,  0},
+    {19, 38,  0},
+    {19, 51,  0},
+    {19, 65,  0},
+    {19, 77, 29},
+    {19, 79, 37},
+    {19, 83,  4},
+    {19, 88,  2},
+    {20,  3, 13},
+    {20,  3,  4},
+    {20,  4, 20},
+    {20,  5, 28},
+    {20,  5, 36},
+    {20,  6,  2},
+    {20,  6, 10},
+    {20, 24,  2},
+    {20, 27, 28},
+    {20, 29, 36},
+    {20, 29,  6},
+    {20, 31,  9},
+    {20, 45,  3},
+    {20, 50,  0},
+    {20, 52,  9},
+    {20, 52, 28},
+    {20, 52, 36},
+    {-1,  0,  0}
+};
+
+static EN22_WEFF_WORK en22_weff_tbl[14] = {
+    { 2,  0, 28},
+    { 2, 34, 36},
+    { 5, 17,  2},
+    { 6, 23,  2},
+    { 6, 10,  2},
+    { 9, 37,  4},
+    {10, 20,  4},
+    {11, 13,  2},
+    {13,  8,  2},
+    {19,  8,  4},
+    {19, 88,  4},
+    {20, 16,  3},
+    {20, 36,  3},
+    {-1,  0,  0}
+};
 
 EN22_POINT2_XZ ply_mtn42b_pos[20] = {
     { 0.0f,            -3.220037f   },
@@ -2387,55 +2462,55 @@ unsigned int* bhEne22_GetDengekiColorAddr(NJS_CNK_OBJECT* objp, int no)
     }
 }
 
-/*// 
-// Start address: 0x1fe970
+// 100% matching!
 void bhEne22_SetWaterEffect(BH_PWORK* epw, int mtn_no, int frm)
 {
-	int i;
-	float size;
-	POINT eff_pos;
-	O_WORK* owk;
-	_anon44* eff2;
-	_anon41* eff;
-	// Line 3217, Address: 0x1fe970, Func Offset: 0
-	// Line 3226, Address: 0x1fe98c, Func Offset: 0x1c
-	// Line 3228, Address: 0x1fe9a0, Func Offset: 0x30
-	// Line 3230, Address: 0x1fe9a4, Func Offset: 0x34
-	// Line 3232, Address: 0x1fe9b4, Func Offset: 0x44
-	// Line 3234, Address: 0x1fe9c8, Func Offset: 0x58
-	// Line 3239, Address: 0x1fe9d0, Func Offset: 0x60
-	// Line 3234, Address: 0x1fe9d8, Func Offset: 0x68
-	// Line 3239, Address: 0x1fe9e8, Func Offset: 0x78
-	// Line 3234, Address: 0x1fe9ec, Func Offset: 0x7c
-	// Line 3235, Address: 0x1fe9f0, Func Offset: 0x80
-	// Line 3239, Address: 0x1fe9f4, Func Offset: 0x84
-	// Line 3235, Address: 0x1fe9f8, Func Offset: 0x88
-	// Line 3236, Address: 0x1fe9fc, Func Offset: 0x8c
-	// Line 3237, Address: 0x1fea04, Func Offset: 0x94
-	// Line 3238, Address: 0x1fea0c, Func Offset: 0x9c
-	// Line 3239, Address: 0x1fea14, Func Offset: 0xa4
-	// Line 3240, Address: 0x1fea1c, Func Offset: 0xac
-	// Line 3241, Address: 0x1fea20, Func Offset: 0xb0
-	// Line 3242, Address: 0x1fea24, Func Offset: 0xb4
-	// Line 3245, Address: 0x1fea2c, Func Offset: 0xbc
-	// Line 3246, Address: 0x1fea34, Func Offset: 0xc4
-	// Line 3248, Address: 0x1fea38, Func Offset: 0xc8
-	// Line 3250, Address: 0x1fea48, Func Offset: 0xd8
-	// Line 3252, Address: 0x1fea5c, Func Offset: 0xec
-	// Line 3254, Address: 0x1fea74, Func Offset: 0x104
-	// Line 3252, Address: 0x1fea78, Func Offset: 0x108
-	// Line 3254, Address: 0x1fea7c, Func Offset: 0x10c
-	// Line 3252, Address: 0x1fea84, Func Offset: 0x114
-	// Line 3254, Address: 0x1fea94, Func Offset: 0x124
-	// Line 3252, Address: 0x1feab0, Func Offset: 0x140
-	// Line 3254, Address: 0x1feab4, Func Offset: 0x144
-	// Line 3256, Address: 0x1feac0, Func Offset: 0x150
-	// Line 3257, Address: 0x1feac4, Func Offset: 0x154
-	// Line 3258, Address: 0x1feacc, Func Offset: 0x15c
-	// Func End, Address: 0x1feaec, Func Offset: 0x17c
+    EN22_WEFF_WORK* eff;
+    EN22_WSP_WORK* eff2;
+    O_WORK* owk;
+    POINT eff_pos;
+    float size;
+    int i;
+
+    eff = en22_weff_tbl;
+    i = 0;
+    while (1)
+    {
+        if (eff->mtn == -1) break;
+
+        if ((eff->mtn == mtn_no) && (eff->frm == frm))
+        {
+            owk = epw->mlwP->owP + eff->obj;
+            eff_pos.px = owk->mtx[12];
+            eff_pos.py = owk->mtx[13];
+            eff_pos.pz = owk->mtx[14];
+            eff_pos.ox = eff_pos.oy = eff_pos.oz = 0.0f;
+            bhSetEffect(108, &eff_pos, 0, 15);
+        }
+
+        eff++;
+        i++;
+    }
+
+    eff2 = ene22_wsp_tbl;
+    i = 0;
+    while (1)
+    {
+        if (eff2->mtn == -1) break;
+
+        if ((eff2->mtn == mtn_no) && (eff2->frm == frm))
+        {
+            size = 2.0f + njRandom();
+            owk = epw->mlwP->owP + eff2->obj;
+            bhSetWaterSplash2(epw, (NJS_POINT3*)&owk->mtx[12], 1, size, size, size);
+        }
+
+        eff2++;
+        i++;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1feaf0
 int bhEne22_GetAreaNo(float px, float pz)
 {

@@ -25,6 +25,14 @@ typedef struct EN22_POINT2_XZ
     float pz;   // offset 0x4, size 0x4
 } EN22_POINT2_XZ;
 
+typedef struct EN22_WEFF_WORK
+{
+    // total size: 0xC
+    int mtn;    // offset 0x0, size 0x4
+    int frm;    // offset 0x4, size 0x4
+    int obj;    // offset 0x8, size 0x4
+} EN22_WEFF_WORK, EN22_WSP_WORK;
+
 void bhEne22_DmmyBrain(BH_PWORK* epw);
 void bhEne22(BH_PWORK* epw);
 void bhEne22_MainLoop(BH_PWORK* epw);
