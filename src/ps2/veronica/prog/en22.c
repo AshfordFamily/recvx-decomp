@@ -2697,60 +2697,104 @@ void bhEne22_SetDengekiEffect2(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1ff2a0
+// 100% matching!
 void bhEne22_SetElectricShockEffect(BH_PWORK* epw, int type)
 {
-	int i;
-	NJS_POINT3 ps;
-	O_WRK* op;
-	_anon40* eff_tbl;
-	_anon40 en22_den_tbl[20];
-	// Line 3858, Address: 0x1ff2a0, Func Offset: 0
-	// Line 3889, Address: 0x1ff2bc, Func Offset: 0x1c
-	// Line 3891, Address: 0x1ff2c4, Func Offset: 0x24
-	// Line 3892, Address: 0x1ff2f4, Func Offset: 0x54
-	// Line 3893, Address: 0x1ff370, Func Offset: 0xd0
-	// Line 3894, Address: 0x1ff378, Func Offset: 0xd8
-	// Line 3895, Address: 0x1ff37c, Func Offset: 0xdc
-	// Line 3896, Address: 0x1ff3c8, Func Offset: 0x128
-	// Line 3897, Address: 0x1ff3d0, Func Offset: 0x130
-	// Line 3899, Address: 0x1ff3dc, Func Offset: 0x13c
-	// Line 3901, Address: 0x1ff3e4, Func Offset: 0x144
-	// Line 3902, Address: 0x1ff414, Func Offset: 0x174
-	// Line 3903, Address: 0x1ff490, Func Offset: 0x1f0
-	// Line 3904, Address: 0x1ff498, Func Offset: 0x1f8
-	// Line 3905, Address: 0x1ff49c, Func Offset: 0x1fc
-	// Line 3906, Address: 0x1ff4e8, Func Offset: 0x248
-	// Line 3908, Address: 0x1ff4f0, Func Offset: 0x250
-	// Line 3909, Address: 0x1ff4f4, Func Offset: 0x254
-	// Line 3910, Address: 0x1ff4f8, Func Offset: 0x258
-	// Line 3911, Address: 0x1ff508, Func Offset: 0x268
-	// Line 3912, Address: 0x1ff510, Func Offset: 0x270
-	// Line 3914, Address: 0x1ff51c, Func Offset: 0x27c
-	// Line 3916, Address: 0x1ff524, Func Offset: 0x284
-	// Line 3918, Address: 0x1ff528, Func Offset: 0x288
-	// Line 3920, Address: 0x1ff538, Func Offset: 0x298
-	// Line 3921, Address: 0x1ff54c, Func Offset: 0x2ac
-	// Line 3923, Address: 0x1ff554, Func Offset: 0x2b4
-	// Line 3924, Address: 0x1ff55c, Func Offset: 0x2bc
-	// Line 3925, Address: 0x1ff560, Func Offset: 0x2c0
-	// Line 3926, Address: 0x1ff564, Func Offset: 0x2c4
-	// Line 3930, Address: 0x1ff56c, Func Offset: 0x2cc
-	// Line 3932, Address: 0x1ff574, Func Offset: 0x2d4
-	// Line 3933, Address: 0x1ff5a4, Func Offset: 0x304
-	// Line 3934, Address: 0x1ff620, Func Offset: 0x380
-	// Line 3935, Address: 0x1ff628, Func Offset: 0x388
-	// Line 3936, Address: 0x1ff62c, Func Offset: 0x38c
-	// Line 3937, Address: 0x1ff678, Func Offset: 0x3d8
-	// Line 3939, Address: 0x1ff680, Func Offset: 0x3e0
-	// Line 3940, Address: 0x1ff684, Func Offset: 0x3e4
-	// Line 3941, Address: 0x1ff688, Func Offset: 0x3e8
-	// Line 3943, Address: 0x1ff698, Func Offset: 0x3f8
-	// Func End, Address: 0x1ff6b8, Func Offset: 0x418
+    static EN22_DEN_WORK en22_den_tbl[20] = {
+        { 2,  0, {0.0f, 0.0f, 1.0f}},
+        { 3,  0, {0.0f, 1.0f, 0.0f}},
+        { 4,  0, {0.0f, 1.0f, 0.0f}},
+        { 5,  0, {0.0f, 0.0f, 0.0f}},
+        { 6,  0, {0.0f, 0.0f, 0.0f}},
+        {26,  4, {0.0f, 0.0f, 0.0f}},
+        {27, 12, {0.0f, 0.0f, 0.0f}},
+        {28, 20, {0.0f, 0.0f, 0.0f}},
+        {29, 28, {0.0f, 0.0f, 0.0f}},
+        {34,  6, {0.0f, 0.0f, 0.0f}},
+        {35, 14, {0.0f, 0.0f, 0.0f}},
+        {36, 22, {0.0f, 0.0f, 0.0f}},
+        {37, 30, {0.0f, 0.0f, 0.0f}},
+        {12,  6, {0.0f, 0.0f, 0.0f}},
+        {13, 14, {0.0f, 0.0f, 0.0f}},
+        {14, 20, {0.0f, 0.0f, 0.0f}},
+        {19,  4, {0.0f, 0.0f, 0.0f}},
+        {20, 12, {0.0f, 0.0f, 0.0f}},
+        {21, 20, {0.0f, 0.0f, 0.0f}},
+        {-1,  0, {0.0f, 0.0f, 0.0f}}
+    };
+    EN22_DEN_WORK* eff_tbl;
+    O_WRK* op;
+    NJS_POINT3 ps;
+    int i;
+
+    if (type == 0)
+    {
+        eff_tbl = &en22_den_tbl[rand() % 5];
+
+        ps.x = eff_tbl->ofs.x + 6.0 * njRandom() - 3.0f;
+        ps.y = eff_tbl->ofs.y;
+        ps.z = eff_tbl->ofs.z;
+
+        bhEne22_SetDengekiEffect(epw, eff_tbl->obj, &ps, 2.0f * njRandom() + 6.0f);
+    }
+    else if (type == 1)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            eff_tbl = &en22_den_tbl[rand() % 2];
+
+            ps.x = eff_tbl->ofs.x + 6.0 * njRandom() - 3.0f;
+            ps.y = eff_tbl->ofs.y;
+            ps.z = eff_tbl->ofs.z;
+
+            op = bhEne22_SetDengekiEffect(epw, eff_tbl->obj, &ps, 2.0f * njRandom() + 6.0f);
+            if (op != NULL)
+            {
+                op->ct3 = 2 * i;
+            }
+        }
+    }
+    else if (type == 2)
+    {
+        eff_tbl = &en22_den_tbl[5];
+        i = 0;
+        while (1)
+        {
+            if (eff_tbl->obj == -1)
+            {
+                break;
+            }
+
+            op = bhEne22_SetDengekiEffect(epw, eff_tbl->obj, &eff_tbl->ofs, 5.0f);
+            if (op != NULL)
+            {
+                op->ct3 = eff_tbl->wait;
+            }
+
+            eff_tbl++;
+            i++;
+        }
+    }
+    else
+    {
+        for (i = 0; i < 5; i++)
+        {
+            eff_tbl = &en22_den_tbl[rand() % 5];
+
+            ps.x = eff_tbl->ofs.x + 6.0 * njRandom() - 3.0f;
+            ps.y = eff_tbl->ofs.y;
+            ps.z = eff_tbl->ofs.z;
+
+            op = bhEne22_SetDengekiEffect(epw, eff_tbl->obj, &ps, 2.0f * njRandom() + 6.0f);
+            if (op != NULL)
+            {
+                op->ct3 = 2 * i;
+            }
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1ff6c0
 void bhEne22_SetElectricShockEffect2(BH_PWORK* epw)
 {

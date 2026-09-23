@@ -33,6 +33,14 @@ typedef struct EN22_WEFF_WORK
     int obj;    // offset 0x8, size 0x4
 } EN22_WEFF_WORK, EN22_WSP_WORK;
 
+typedef struct EN22_DEN_WORK
+{
+    // total size: 0x14
+    int obj;        // offset 0x0, size 0x4
+    int wait;       // offset 0x4, size 0x4
+    NJS_POINT3 ofs; // offset 0x8, size 0xC
+} EN22_DEN_WORK;
+
 void bhEne22_DmmyBrain(BH_PWORK* epw);
 void bhEne22(BH_PWORK* epw);
 void bhEne22_MainLoop(BH_PWORK* epw);
