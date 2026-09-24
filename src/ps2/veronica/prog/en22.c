@@ -2822,53 +2822,41 @@ void bhEne22_SetElectricShockEffect2(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1ff830
+// 100% matching!
 O_WRK* bhEne22_SetElectricLightEffect(BH_PWORK* epw)
 {
-	int eno;
-	NJS_POINT3 ofs;
-	// Line 4010, Address: 0x1ff830, Func Offset: 0
-	// Line 4011, Address: 0x1ff834, Func Offset: 0x4
-	// Line 4010, Address: 0x1ff838, Func Offset: 0x8
-	// Line 4011, Address: 0x1ff840, Func Offset: 0x10
-	// Line 4014, Address: 0x1ff850, Func Offset: 0x20
-	// Line 4011, Address: 0x1ff85c, Func Offset: 0x2c
-	// Line 4014, Address: 0x1ff864, Func Offset: 0x34
-	// Line 4015, Address: 0x1ff868, Func Offset: 0x38
-	// Line 4017, Address: 0x1ff86c, Func Offset: 0x3c
-	// Line 4025, Address: 0x1ff870, Func Offset: 0x40
-	// Line 4014, Address: 0x1ff878, Func Offset: 0x48
-	// Line 4015, Address: 0x1ff884, Func Offset: 0x54
-	// Line 4016, Address: 0x1ff898, Func Offset: 0x68
-	// Line 4017, Address: 0x1ff8ac, Func Offset: 0x7c
-	// Line 4018, Address: 0x1ff8c0, Func Offset: 0x90
-	// Line 4019, Address: 0x1ff8d4, Func Offset: 0xa4
-	// Line 4020, Address: 0x1ff8e8, Func Offset: 0xb8
-	// Line 4022, Address: 0x1ff8fc, Func Offset: 0xcc
-	// Line 4023, Address: 0x1ff910, Func Offset: 0xe0
-	// Line 4024, Address: 0x1ff924, Func Offset: 0xf4
-	// Line 4025, Address: 0x1ff938, Func Offset: 0x108
-	// Line 4026, Address: 0x1ff950, Func Offset: 0x120
-	// Line 4028, Address: 0x1ff95c, Func Offset: 0x12c
-	// Line 4029, Address: 0x1ff980, Func Offset: 0x150
-	// Line 4028, Address: 0x1ff98c, Func Offset: 0x15c
-	// Line 4029, Address: 0x1ff994, Func Offset: 0x164
-	// Line 4030, Address: 0x1ff998, Func Offset: 0x168
-	// Line 4029, Address: 0x1ff9a4, Func Offset: 0x174
-	// Line 4030, Address: 0x1ff9a8, Func Offset: 0x178
-	// Line 4031, Address: 0x1ff9ac, Func Offset: 0x17c
-	// Line 4029, Address: 0x1ff9b4, Func Offset: 0x184
-	// Line 4031, Address: 0x1ff9b8, Func Offset: 0x188
-	// Line 4030, Address: 0x1ff9bc, Func Offset: 0x18c
-	// Line 4031, Address: 0x1ff9c0, Func Offset: 0x190
-	// Line 4032, Address: 0x1ff9c4, Func Offset: 0x194
-	// Line 4034, Address: 0x1ff9d4, Func Offset: 0x1a4
-	// Line 4035, Address: 0x1ff9d8, Func Offset: 0x1a8
-	// Func End, Address: 0x1ff9e8, Func Offset: 0x1b8
+    NJS_POINT3 ofs = {
+        0.0f, 0.1f, -5.0f
+    };
+    int eno;
+
+    sys->ef.id = 353;
+    sys->ef.flg = 0x1;
+    sys->ef.type = 0;
+    sys->ef.sx = 25.0f;
+    sys->ef.sy = 25.0f;
+    sys->ef.sz = 25.0f;
+    sys->ef.ay = 0;
+    sys->ef.px = 0.0f;
+    sys->ef.py = 0.0f;
+    sys->ef.pz = 0.0f;
+
+    eno = bhSetEffectTb(&sys->ef, &ofs, (unsigned char*)epw, 0);
+    if (eno != -1)
+    {
+        eff[eno].stflg |= 0x20;
+        eff[eno].txp[0] = epw->mlwP->texP;
+        eff[eno].tex_id = 5;
+        eff[eno].ct3 = 0;
+        return &eff[eno];
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1ff9f0
 void bhEne22_SetLight(BH_PWORK* epw, int lnk_obj, NJS_POINT3* ofs, int type)
 {
