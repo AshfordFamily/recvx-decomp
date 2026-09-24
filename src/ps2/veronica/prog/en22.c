@@ -2794,39 +2794,35 @@ void bhEne22_SetElectricShockEffect(BH_PWORK* epw, int type)
     }
 }
 
-/*// 
-// Start address: 0x1ff6c0
+// 100% matching!
 void bhEne22_SetElectricShockEffect2(BH_PWORK* epw)
 {
-	int i;
-	NJS_POINT3 ps;
-	O_WRK* op;
-	float ply_ofs[4];
-	int obj[4];
-	// Line 3963, Address: 0x1ff6c0, Func Offset: 0
-	// Line 3964, Address: 0x1ff6d8, Func Offset: 0x18
-	// Line 3963, Address: 0x1ff6dc, Func Offset: 0x1c
-	// Line 3964, Address: 0x1ff6e0, Func Offset: 0x20
-	// Line 3970, Address: 0x1ff6ec, Func Offset: 0x2c
-	// Line 3964, Address: 0x1ff6fc, Func Offset: 0x3c
-	// Line 3970, Address: 0x1ff700, Func Offset: 0x40
-	// Line 3980, Address: 0x1ff704, Func Offset: 0x44
-	// Line 3970, Address: 0x1ff70c, Func Offset: 0x4c
-	// Line 3982, Address: 0x1ff710, Func Offset: 0x50
-	// Line 3983, Address: 0x1ff714, Func Offset: 0x54
-	// Line 3984, Address: 0x1ff764, Func Offset: 0xa4
-	// Line 3986, Address: 0x1ff7b8, Func Offset: 0xf8
-	// Line 3988, Address: 0x1ff7dc, Func Offset: 0x11c
-	// Line 3989, Address: 0x1ff7e8, Func Offset: 0x128
-	// Line 3990, Address: 0x1ff7ec, Func Offset: 0x12c
-	// Line 3991, Address: 0x1ff7f0, Func Offset: 0x130
-	// Line 3989, Address: 0x1ff7f8, Func Offset: 0x138
-	// Line 3991, Address: 0x1ff800, Func Offset: 0x140
-	// Line 3992, Address: 0x1ff808, Func Offset: 0x148
-	// Func End, Address: 0x1ff828, Func Offset: 0x168
+    int obj[4] = {
+        1, 1, 2, 3
+    };
+    float ply_ofs[4] = {
+        -3.0f, 0.0f, 0.0f, 1.0f
+    };
+    O_WRK* op;
+    NJS_POINT3 ps;
+    int i;
+
+    for (i = 0; i < 4; i++)
+    {
+        ps.y = ply_ofs[i];
+        ps.x = njRandom() - 0.5;
+        ps.z = njRandom() - 0.5;
+
+        op = bhEne22_SetDengekiEffect(plp, obj[i], &ps, 7.0f);
+        if (op != NULL)
+        {
+            op->txp[0] = epw->mlwP->texP;
+            op->ct3 = 4 * i;
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1ff830
 O_WRK* bhEne22_SetElectricLightEffect(BH_PWORK* epw)
 {
