@@ -6,7 +6,6 @@
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/ps2_NaMath.h"
-#include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/pwksub.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/subpl.h"
@@ -2992,61 +2991,83 @@ void bhEne22_CtrLight(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1ffdc0
+// 100% matching!
 void bhEne22_ChgDengekiColor(NJS_CNK_OBJECT* objp, int no, unsigned int argb)
 {
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
-	unsigned char a;
-	short head;
-	int max;
-	unsigned char* mat;
-	short* plp;
-	int offset;
-	// Line 4230, Address: 0x1ffdc0, Func Offset: 0
-	// Line 4224, Address: 0x1ffdc4, Func Offset: 0x4
-	// Line 4227, Address: 0x1ffdd4, Func Offset: 0x14
-	// Line 4230, Address: 0x1ffdd8, Func Offset: 0x18
-	// Line 4225, Address: 0x1ffddc, Func Offset: 0x1c
-	// Line 4229, Address: 0x1ffdec, Func Offset: 0x2c
-	// Line 4226, Address: 0x1ffdf0, Func Offset: 0x30
-	// Line 4239, Address: 0x1ffdfc, Func Offset: 0x3c
-	// Line 4282, Address: 0x1ffe00, Func Offset: 0x40
-	// Line 4233, Address: 0x1ffe04, Func Offset: 0x44
-	// Line 4234, Address: 0x1ffe10, Func Offset: 0x50
-	// Line 4236, Address: 0x1ffe28, Func Offset: 0x68
-	// Line 4237, Address: 0x1ffe30, Func Offset: 0x70
-	// Line 4238, Address: 0x1ffe34, Func Offset: 0x74
-	// Line 4239, Address: 0x1ffe3c, Func Offset: 0x7c
-	// Line 4242, Address: 0x1ffe44, Func Offset: 0x84
-	// Line 4243, Address: 0x1ffe4c, Func Offset: 0x8c
-	// Line 4246, Address: 0x1ffe64, Func Offset: 0xa4
-	// Line 4249, Address: 0x1ffe6c, Func Offset: 0xac
-	// Line 4253, Address: 0x1ffea4, Func Offset: 0xe4
-	// Line 4254, Address: 0x1ffea8, Func Offset: 0xe8
-	// Line 4255, Address: 0x1ffeac, Func Offset: 0xec
-	// Line 4257, Address: 0x1ffeb0, Func Offset: 0xf0
-	// Line 4260, Address: 0x1ffeb8, Func Offset: 0xf8
-	// Line 4261, Address: 0x1ffebc, Func Offset: 0xfc
-	// Line 4262, Address: 0x1ffec0, Func Offset: 0x100
-	// Line 4263, Address: 0x1ffec4, Func Offset: 0x104
-	// Line 4264, Address: 0x1ffec8, Func Offset: 0x108
-	// Line 4265, Address: 0x1ffecc, Func Offset: 0x10c
-	// Line 4266, Address: 0x1ffed0, Func Offset: 0x110
-	// Line 4267, Address: 0x1ffed4, Func Offset: 0x114
-	// Line 4270, Address: 0x1ffed8, Func Offset: 0x118
-	// Line 4272, Address: 0x1ffee0, Func Offset: 0x120
-	// Line 4274, Address: 0x1ffee4, Func Offset: 0x124
-	// Line 4272, Address: 0x1ffee8, Func Offset: 0x128
-	// Line 4273, Address: 0x1ffeec, Func Offset: 0x12c
-	// Line 4275, Address: 0x1ffef0, Func Offset: 0x130
-	// Line 4276, Address: 0x1ffef8, Func Offset: 0x138
-	// Line 4279, Address: 0x1fff10, Func Offset: 0x150
-	// Line 4280, Address: 0x1fff18, Func Offset: 0x158
-	// Line 4281, Address: 0x1fff1c, Func Offset: 0x15c
-	// Line 4282, Address: 0x1fff24, Func Offset: 0x164
-	// Line 4287, Address: 0x1fff2c, Func Offset: 0x16c
-	// Func End, Address: 0x1fff34, Func Offset: 0x174
-}*/
+    int offset;
+    short* plp;
+    unsigned char* mat;
+    int max;
+    short head;
+    unsigned char a;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+
+    a = (argb & 0xFF000000) >> 0x18;
+    r = (argb & 0xFF0000) >> 0x10;
+    g = (argb & 0xFF00) >> 0x8;
+    b = argb & 0xFF;
+    plp = objp->model->plist;
+    max = 0;
+
+    while (1)
+    {
+        head = *(unsigned char*)plp++;
+        if ((head >= 64) && (head < 67))
+        {
+            offset = *plp++;
+            plp += offset;
+        }
+        else if (head == 8)
+        {
+            plp++;
+        }
+        else if ((head >= 17) && (head < 24))
+        {
+            if (no == max)
+            {
+                plp++;
+                mat = (unsigned char*)plp;
+                switch (head)
+                {
+                case 17:
+                case 21:
+                    *mat++ = b;
+                    *mat++ = g;
+                    *mat++ = r;
+                    *mat++ = a;
+                    break;
+
+                case 19:
+                case 23:
+                    *mat++ = b;
+                    *mat++ = g;
+                    *mat++ = r;
+                    *mat++ = a;
+                    *mat++ = b;
+                    *mat++ = g;
+                    *mat++ = r;
+                    *mat++ = a;
+                    break;
+                }
+                return;
+            }
+            else
+            {
+                max++;
+                offset = *plp++;
+                plp += offset;
+            }
+        }
+        else if ((head >= 56) && (head <= 58))
+        {
+            offset = *plp++;
+            plp += offset;
+        }
+        else if (head == 255)
+        {
+            return;
+        }
+    }
+}
