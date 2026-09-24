@@ -23,8 +23,6 @@ const char en22_flipTree[43] = {
     -1
 };
 
-/*char en22_tree[16][4];*/
-
 EN22_MTN_WORK en22_mtn_tbl[12] = {
     { 2, {{ 0,    74504}, {38,    74504}, {-1, 0}, {-1, 0}}},
     { 5, {{ 9,    74496}, {-1,        0}, {-1, 0}, {-1, 0}}},
@@ -212,8 +210,6 @@ BT_WORK en22prt_blood_tbl[42] = {
 char En22SdwTab[7] = {
     2, 7, 13, 20, 28, 36, -1
 };
-
-/*int en22_hp_tbl[16];*/
 
 static EN22_WSP_WORK ene22_wsp_tbl[57] = {
     {13,  5, 37},
@@ -480,9 +476,6 @@ void (*bhEne22_MoveMode2[7])(BH_PWORK*) = {
     bhEne22_MV06
 };
 
-/*void(*bhEne22_NageType)(BH_PWORK*)[1];
-void(*bhEne22_NageMode2)(BH_PWORK*)[1];*/
-
 void (*bhEne22_DamageType[1])(BH_PWORK*) = {
     bhEne22_DGType00
 };
@@ -502,7 +495,12 @@ void (*bhEne22_DieMode2[2])(BH_PWORK*) = {
     bhEne22_DD01
 };
 
-/*float en22_mogmog[20];*/
+// Unused (present in DWARF)
+// char en22_tree[16][4];
+// int en22_hp_tbl[16];
+// void(*bhEne22_NageType)(BH_PWORK*)[1];
+// void(*bhEne22_NageMode2)(BH_PWORK*)[1];
+// float en22_mogmog[20];
 
 // 100% matching!
 void bhEne22_DmmyBrain(BH_PWORK* epw)
