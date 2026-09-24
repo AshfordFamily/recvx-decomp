@@ -2904,84 +2904,95 @@ void bhEne22_SetLight(BH_PWORK* epw, int lnk_obj, NJS_POINT3* ofs, int type)
     }
 }
 
-/*// 
-// Start address: 0x1ffae0
+// 100% matching!
 void bhEne22_CtrLight(BH_PWORK* epw)
 {
-	float fl;
-	LGT_WORK* lp;
-	float rgb[3];
-	// Line 4126, Address: 0x1ffae0, Func Offset: 0
-	// Line 4127, Address: 0x1ffaec, Func Offset: 0xc
-	// Line 4126, Address: 0x1ffaf4, Func Offset: 0x14
-	// Line 4127, Address: 0x1ffaf8, Func Offset: 0x18
-	// Line 4131, Address: 0x1ffb10, Func Offset: 0x30
-	// Line 4133, Address: 0x1ffb28, Func Offset: 0x48
-	// Line 4134, Address: 0x1ffb34, Func Offset: 0x54
-	// Line 4133, Address: 0x1ffb38, Func Offset: 0x58
-	// Line 4134, Address: 0x1ffb3c, Func Offset: 0x5c
-	// Line 4136, Address: 0x1ffb48, Func Offset: 0x68
-	// Line 4137, Address: 0x1ffb54, Func Offset: 0x74
-	// Line 4141, Address: 0x1ffb80, Func Offset: 0xa0
-	// Line 4140, Address: 0x1ffb84, Func Offset: 0xa4
-	// Line 4141, Address: 0x1ffb88, Func Offset: 0xa8
-	// Line 4142, Address: 0x1ffb8c, Func Offset: 0xac
-	// Line 4143, Address: 0x1ffb94, Func Offset: 0xb4
-	// Line 4146, Address: 0x1ffba0, Func Offset: 0xc0
-	// Line 4147, Address: 0x1ffba8, Func Offset: 0xc8
-	// Line 4148, Address: 0x1ffbb4, Func Offset: 0xd4
-	// Line 4149, Address: 0x1ffbc0, Func Offset: 0xe0
-	// Line 4150, Address: 0x1ffbcc, Func Offset: 0xec
-	// Line 4152, Address: 0x1ffbe4, Func Offset: 0x104
-	// Line 4154, Address: 0x1ffbf4, Func Offset: 0x114
-	// Line 4155, Address: 0x1ffbfc, Func Offset: 0x11c
-	// Line 4154, Address: 0x1ffc04, Func Offset: 0x124
-	// Line 4155, Address: 0x1ffc0c, Func Offset: 0x12c
-	// Line 4157, Address: 0x1ffc18, Func Offset: 0x138
-	// Line 4160, Address: 0x1ffc20, Func Offset: 0x140
-	// Line 4162, Address: 0x1ffc28, Func Offset: 0x148
-	// Line 4161, Address: 0x1ffc2c, Func Offset: 0x14c
-	// Line 4162, Address: 0x1ffc30, Func Offset: 0x150
-	// Line 4163, Address: 0x1ffc34, Func Offset: 0x154
-	// Line 4166, Address: 0x1ffc40, Func Offset: 0x160
-	// Line 4167, Address: 0x1ffc48, Func Offset: 0x168
-	// Line 4168, Address: 0x1ffc54, Func Offset: 0x174
-	// Line 4169, Address: 0x1ffc60, Func Offset: 0x180
-	// Line 4170, Address: 0x1ffc6c, Func Offset: 0x18c
-	// Line 4171, Address: 0x1ffc84, Func Offset: 0x1a4
-	// Line 4173, Address: 0x1ffc94, Func Offset: 0x1b4
-	// Line 4174, Address: 0x1ffc98, Func Offset: 0x1b8
-	// Line 4173, Address: 0x1ffc9c, Func Offset: 0x1bc
-	// Line 4176, Address: 0x1ffca4, Func Offset: 0x1c4
-	// Line 4179, Address: 0x1ffcac, Func Offset: 0x1cc
-	// Line 4181, Address: 0x1ffcbc, Func Offset: 0x1dc
-	// Line 4182, Address: 0x1ffcc0, Func Offset: 0x1e0
-	// Line 4181, Address: 0x1ffcc4, Func Offset: 0x1e4
-	// Line 4182, Address: 0x1ffccc, Func Offset: 0x1ec
-	// Line 4187, Address: 0x1ffcd0, Func Offset: 0x1f0
-	// Line 4188, Address: 0x1ffce0, Func Offset: 0x200
-	// Line 4187, Address: 0x1ffce4, Func Offset: 0x204
-	// Line 4188, Address: 0x1ffcec, Func Offset: 0x20c
-	// Line 4190, Address: 0x1ffd00, Func Offset: 0x220
-	// Line 4192, Address: 0x1ffd10, Func Offset: 0x230
-	// Line 4193, Address: 0x1ffd14, Func Offset: 0x234
-	// Line 4192, Address: 0x1ffd18, Func Offset: 0x238
-	// Line 4195, Address: 0x1ffd20, Func Offset: 0x240
-	// Line 4198, Address: 0x1ffd28, Func Offset: 0x248
-	// Line 4199, Address: 0x1ffd30, Func Offset: 0x250
-	// Line 4200, Address: 0x1ffd3c, Func Offset: 0x25c
-	// Line 4201, Address: 0x1ffd48, Func Offset: 0x268
-	// Line 4202, Address: 0x1ffd54, Func Offset: 0x274
-	// Line 4203, Address: 0x1ffd6c, Func Offset: 0x28c
-	// Line 4205, Address: 0x1ffd7c, Func Offset: 0x29c
-	// Line 4206, Address: 0x1ffd84, Func Offset: 0x2a4
-	// Line 4205, Address: 0x1ffd8c, Func Offset: 0x2ac
-	// Line 4206, Address: 0x1ffd94, Func Offset: 0x2b4
-	// Line 4211, Address: 0x1ffda4, Func Offset: 0x2c4
-	// Func End, Address: 0x1ffdb8, Func Offset: 0x2d8
+    float rgb[3] = {
+        1.0f, 1.0f, 6.375f
+    };
+    LGT_WORK* lp;
+    float fl;
+
+    if (EXP0_I(0x8) & 0x80000)
+    {
+        lp = rom->lgtp + 2;
+        if ((lp->flg & 0x1) && (lp->flg & 0x2))
+        {
+            switch (lp->mode)
+            {
+            case 0:
+                lp->ct0 = 0;
+                lp->ct1 = 16;
+                lp->aspd = 8;
+                lp->mode++;
+
+            case 1:
+                fl = njSin(lp->ct0);
+                lp->r = fl * rgb[0];
+                lp->g = fl * rgb[1];
+                lp->b = fl * rgb[2];
+                lp->ct0 = (lp->ct0 + 256 * lp->aspd) & 0x7FFF;
+                if (--lp->ct1 < 0)
+                {
+                    lp->flg &= ~0x3;
+                    EXP0_I(0x8) &= ~0x80000;
+                }
+                break;
+
+            case 2:
+                lp->aspd = 4;
+                lp->ct0 = 0;
+                lp->ct1 = 16;
+                lp->mode++;
+
+            case 3:
+                fl = njSin(lp->ct0);
+                lp->r = fl * rgb[0];
+                lp->g = fl * rgb[1];
+                lp->b = fl * rgb[2];
+                lp->ct0 = (lp->ct0 + 256 * lp->aspd) & 0x7FFF;
+                if (--lp->ct1 < 0)
+                {
+                    lp->mode++;
+                    lp->ct1 = 4;
+                }
+                break;
+
+            case 4:
+                if (--lp->ct1 < 0)
+                {
+                    lp->mode++;
+                    lp->ct1 = 22;
+                }
+
+            case 5:
+                lp->nr += 0.8f;
+                lp->fr += 4.0f;
+                if (--lp->ct1 < 0)
+                {
+                    lp->mode++;
+                    lp->ct1 = 15;
+                }
+                break;
+
+            case 6:
+                fl = njSin(lp->ct0);
+                lp->r = fl * rgb[0];
+                lp->g = fl * rgb[1];
+                lp->b = fl * rgb[2];
+                lp->ct0 = (lp->ct0 + 256 * lp->aspd) & 0x7FFF;
+                if (--lp->ct1 < 0)
+                {
+                    lp->flg &= ~0x3;
+                    EXP0_I(0x8) &= ~0x80000;
+                }
+                break;
+            }
+        }
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1ffdc0
 void bhEne22_ChgDengekiColor(NJS_CNK_OBJECT* objp, int no, unsigned int argb)
 {
