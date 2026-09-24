@@ -2856,63 +2856,60 @@ O_WRK* bhEne22_SetElectricLightEffect(BH_PWORK* epw)
     }
 }
 
-/*// 
-// Start address: 0x1ff9f0
+// 100% matching!
 void bhEne22_SetLight(BH_PWORK* epw, int lnk_obj, NJS_POINT3* ofs, int type)
 {
-	_anon2* lp;
-	// Line 4062, Address: 0x1ff9f0, Func Offset: 0
-	// Line 4065, Address: 0x1ff9f4, Func Offset: 0x4
-	// Line 4062, Address: 0x1ff9f8, Func Offset: 0x8
-	// Line 4065, Address: 0x1ff9fc, Func Offset: 0xc
-	// Line 4067, Address: 0x1ffa00, Func Offset: 0x10
-	// Line 4068, Address: 0x1ffa04, Func Offset: 0x14
-	// Line 4065, Address: 0x1ffa08, Func Offset: 0x18
-	// Line 4062, Address: 0x1ffa0c, Func Offset: 0x1c
-	// Line 4074, Address: 0x1ffa10, Func Offset: 0x20
-	// Line 4075, Address: 0x1ffa14, Func Offset: 0x24
-	// Line 4065, Address: 0x1ffa18, Func Offset: 0x28
-	// Line 4067, Address: 0x1ffa20, Func Offset: 0x30
-	// Line 4068, Address: 0x1ffa24, Func Offset: 0x34
-	// Line 4069, Address: 0x1ffa28, Func Offset: 0x38
-	// Line 4070, Address: 0x1ffa2c, Func Offset: 0x3c
-	// Line 4071, Address: 0x1ffa30, Func Offset: 0x40
-	// Line 4072, Address: 0x1ffa34, Func Offset: 0x44
-	// Line 4073, Address: 0x1ffa38, Func Offset: 0x48
-	// Line 4074, Address: 0x1ffa3c, Func Offset: 0x4c
-	// Line 4075, Address: 0x1ffa40, Func Offset: 0x50
-	// Line 4078, Address: 0x1ffa44, Func Offset: 0x54
-	// Line 4062, Address: 0x1ffa48, Func Offset: 0x58
-	// Line 4078, Address: 0x1ffa4c, Func Offset: 0x5c
-	// Line 4080, Address: 0x1ffa54, Func Offset: 0x64
-	// Line 4081, Address: 0x1ffa58, Func Offset: 0x68
-	// Line 4082, Address: 0x1ffa5c, Func Offset: 0x6c
-	// Line 4083, Address: 0x1ffa60, Func Offset: 0x70
-	// Line 4084, Address: 0x1ffa68, Func Offset: 0x78
-	// Line 4085, Address: 0x1ffa70, Func Offset: 0x80
-	// Line 4086, Address: 0x1ffa74, Func Offset: 0x84
-	// Line 4090, Address: 0x1ffa7c, Func Offset: 0x8c
-	// Line 4091, Address: 0x1ffa84, Func Offset: 0x94
-	// Line 4092, Address: 0x1ffa8c, Func Offset: 0x9c
-	// Line 4093, Address: 0x1ffa90, Func Offset: 0xa0
-	// Line 4094, Address: 0x1ffa98, Func Offset: 0xa8
-	// Line 4095, Address: 0x1ffaa0, Func Offset: 0xb0
-	// Line 4096, Address: 0x1ffaa8, Func Offset: 0xb8
-	// Line 4097, Address: 0x1ffaac, Func Offset: 0xbc
-	// Line 4098, Address: 0x1ffab0, Func Offset: 0xc0
-	// Line 4101, Address: 0x1ffab4, Func Offset: 0xc4
-	// Line 4104, Address: 0x1ffabc, Func Offset: 0xcc
-	// Line 4107, Address: 0x1ffac4, Func Offset: 0xd4
-	// Line 4109, Address: 0x1ffacc, Func Offset: 0xdc
-	// Func End, Address: 0x1ffad4, Func Offset: 0xe4
+    LGT_WORK* lp;
+
+    lp = rom->lgtp + 2;
+
+    EXP0_I(0x8) |= 0x80000;
+
+    lp->flg = 0x3;
+    lp->aspd = 4;
+    lp->lsrc = 4;
+    lp->type = 0;
+    lp->r = 0.0f;
+    lp->g = 0.0f;
+    lp->b = 0.0f;
+    lp->nr = 20.0f;
+    lp->fr = 40.0f;
+    lp->light = NULL;
+
+    if (lnk_obj == -1) {
+        lp->lkflg = 0;
+        lp->lkno = 0;
+        lp->lkono = 0;
+        lp->px = ofs->x;
+        lp->py = ofs->y;
+        lp->pz = ofs->z;
+    }
+    else {
+        lp->lkflg = 0x2;
+        lp->lkno = epw->idx_ct;
+        lp->lkono = 3;
+        lp->lx = ofs->x;
+        lp->ly = ofs->y;
+        lp->lz = ofs->z;
+        lp->px = 0.0f;
+        lp->py = 0.0f;
+        lp->pz = 0.0f;
+    }
+
+    if (type == 0) {
+        lp->mode = 0;
+    }
+    else {
+        lp->mode = 2;
+    }
 }
 
-// 
+/*// 
 // Start address: 0x1ffae0
 void bhEne22_CtrLight(BH_PWORK* epw)
 {
 	float fl;
-	_anon2* lp;
+	LGT_WORK* lp;
 	float rgb[3];
 	// Line 4126, Address: 0x1ffae0, Func Offset: 0
 	// Line 4127, Address: 0x1ffaec, Func Offset: 0xc
