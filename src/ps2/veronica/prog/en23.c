@@ -1455,35 +1455,57 @@ void bhEne23_NG00()
 
 }
 
-// 
-// Start address: 0x202cb0
+// 100% matching!
 void bhEne23_Damage(BH_PWORK* epw)
 {
-	// Line 1993, Address: 0x202cb0, Func Offset: 0
-	// Line 1994, Address: 0x202cbc, Func Offset: 0xc
-	// Line 1995, Address: 0x202ccc, Func Offset: 0x1c
-	// Line 1998, Address: 0x202cd8, Func Offset: 0x28
-	// Line 1999, Address: 0x202ce4, Func Offset: 0x34
-	// Line 2000, Address: 0x202cf4, Func Offset: 0x44
-	// Line 2001, Address: 0x202cfc, Func Offset: 0x4c
-	// Line 2002, Address: 0x202d04, Func Offset: 0x54
-	// Line 2005, Address: 0x202d10, Func Offset: 0x60
-	// Line 2008, Address: 0x202d28, Func Offset: 0x78
-	// Line 2009, Address: 0x202d48, Func Offset: 0x98
-	// Line 2012, Address: 0x202d58, Func Offset: 0xa8
-	// Line 2013, Address: 0x202d64, Func Offset: 0xb4
-	// Line 2015, Address: 0x202d70, Func Offset: 0xc0
-	// Line 2016, Address: 0x202d80, Func Offset: 0xd0
-	// Line 2017, Address: 0x202d90, Func Offset: 0xe0
-	// Line 2018, Address: 0x202d9c, Func Offset: 0xec
-	// Line 2019, Address: 0x202da4, Func Offset: 0xf4
-	// Line 2021, Address: 0x202dac, Func Offset: 0xfc
-	// Line 2023, Address: 0x202db4, Func Offset: 0x104
-	// Line 2028, Address: 0x202dc0, Func Offset: 0x110
-	// Line 2033, Address: 0x202de0, Func Offset: 0x130
-	// Line 2037, Address: 0x202dec, Func Offset: 0x13c
-	// Line 2038, Address: 0x202e0c, Func Offset: 0x15c
-	// Func End, Address: 0x202e1c, Func Offset: 0x16c
+    if ((epw->flg & 0x4))
+    {
+        epw->flg &= ~0x4;
+        
+        epw->comb_flg &= ~0xC;
+
+        if (bhEne03_DGDirCheck(epw) != 0) 
+        {
+            epw->comb_flg |= 0x8;
+        } 
+        else 
+        {
+            epw->comb_flg |= 0x4;
+        }
+
+        bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
+        
+        if ((epw->wpnr_no != 16) || ((epw->flg2 & 0x4)) || (epw->comb_pnt == 1)) 
+        {
+            if (epw->total_dam != 0) 
+            {
+                if (epw->type == 0) 
+                {
+                    if ((epw->comb_flg & 0x8)) 
+                    {
+                        EXP0_I(276) -= epw->total_dam;
+        
+                        epw->hp -= epw->total_dam;
+                    } 
+                    else 
+                    {
+                        epw->hp -= epw->total_dam;
+                    }
+                } 
+                else
+                {
+                    epw->hp -= epw->total_dam;
+                }
+            }
+        
+            if ((epw->wpnr_no != 17) || ((epw->flg2 & 0x4))) 
+            {
+                bhEne23_HitMark(epw);
+            } 
+        }
+    }
+    
+    bhEne23_DamageMode2[epw->mode2](epw);
 }
 
 // 100% matching!
