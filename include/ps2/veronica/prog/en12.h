@@ -2,6 +2,16 @@
 #define _EN12_H_
 
 #include "types.h"
+#include "macros.h"
+
+typedef struct EN12_WORK
+{
+	int jno;
+	NJS_POINT3 ofp;
+	float size;
+	int life;
+	int delay;
+} EN12_WORK;
 
 void bhEne12(BH_PWORK* epw);
 void bhEne12_Init(BH_PWORK* epw);
@@ -27,7 +37,7 @@ void bhEne12_LookPlayaer(BH_PWORK* epw);
 void bhEne12_HitMark(BH_PWORK* epw);
 void bhEne12_FixedLegPos(BH_PWORK* epw);
 void bhEne12_PlayerControl(BH_PWORK* epw);
-/*void bhEne12_FlameLiquid(BH_PWORK* epw, _anon25* pos, int time);*/
+void bhEne12_FlameLiquid(BH_PWORK* epw, NJS_VECTOR* pos, int time);
 void bhEne12_Acid(BH_PWORK* epw);
 void bhEne12_CheckWall(BH_PWORK* epw);
 void bhEne12_Blood(BH_PWORK* epw, int num);
