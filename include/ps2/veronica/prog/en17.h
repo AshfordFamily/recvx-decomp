@@ -2,6 +2,7 @@
 #define _EN17_H_
 
 #include "types.h"
+#include "macros.h"
 
 typedef struct ATB_WORK
 {
@@ -87,6 +88,6 @@ void bhEne17_AfterimageAxEffect(BH_PWORK* epw, NJS_MATRIX* mtx, NJS_POINT3* ofs,
 void bhEne17_SetSmokeEffect(BH_PWORK* epw, int lnk_onj, NJS_POINT3* ofs);
 void bhEne17_SetSmokeEffect2(BH_PWORK* epw, NJS_POINT3* ofs, int rot);
 void bhEne17_SetSmokeEffect3(BH_PWORK* epw, NJS_POINT3* ofs, int rot);
-void bhEne17_SetLight(NJS_POINT3* ofs);
+void bhEne17_SetLight(BH_PWORK* epw, NJS_POINT3 *ofs);
 
 #endif
