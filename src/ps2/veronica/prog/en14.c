@@ -1126,82 +1126,117 @@ void bhEne14_TailSwing(BH_PWORK* epw)
 	// Func End, Address: 0x1dff40, Func Offset: 0x420
 }
 
-// 
-// Start address: 0x1dff40
+// 100% matching!
 int bhEne14_HitMark(BH_PWORK* epw)
 {
-	BLOOD_TBL* blp;
-	NJS_POINT3 ofp;
-	int i;
 	int range;
-	// Line 1702, Address: 0x1dff40, Func Offset: 0
-	// Line 1708, Address: 0x1dff4c, Func Offset: 0xc
-	// Line 1702, Address: 0x1dff50, Func Offset: 0x10
-	// Line 1708, Address: 0x1dff54, Func Offset: 0x14
-	// Line 1702, Address: 0x1dff58, Func Offset: 0x18
-	// Line 1708, Address: 0x1dff64, Func Offset: 0x24
-	// Line 1702, Address: 0x1dff70, Func Offset: 0x30
-	// Line 1708, Address: 0x1dff74, Func Offset: 0x34
-	// Line 1711, Address: 0x1dff7c, Func Offset: 0x3c
-	// Line 1712, Address: 0x1dff84, Func Offset: 0x44
-	// Line 1711, Address: 0x1dff88, Func Offset: 0x48
-	// Line 1712, Address: 0x1dff9c, Func Offset: 0x5c
-	// Line 1713, Address: 0x1dffa0, Func Offset: 0x60
-	// Line 1714, Address: 0x1dffb0, Func Offset: 0x70
-	// Line 1715, Address: 0x1dffc0, Func Offset: 0x80
-	// Line 1716, Address: 0x1dffe8, Func Offset: 0xa8
-	// Line 1717, Address: 0x1dffec, Func Offset: 0xac
-	// Line 1716, Address: 0x1dfff0, Func Offset: 0xb0
-	// Line 1717, Address: 0x1dfff4, Func Offset: 0xb4
-	// Line 1718, Address: 0x1dfffc, Func Offset: 0xbc
-	// Line 1719, Address: 0x1e0024, Func Offset: 0xe4
-	// Line 1720, Address: 0x1e0064, Func Offset: 0x124
-	// Line 1721, Address: 0x1e00a4, Func Offset: 0x164
-	// Line 1723, Address: 0x1e00e4, Func Offset: 0x1a4
-	// Line 1733, Address: 0x1e0114, Func Offset: 0x1d4
-	// Line 1734, Address: 0x1e0144, Func Offset: 0x204
-	// Line 1736, Address: 0x1e014c, Func Offset: 0x20c
-	// Line 1748, Address: 0x1e017c, Func Offset: 0x23c
-	// Line 1749, Address: 0x1e01b0, Func Offset: 0x270
-	// Line 1750, Address: 0x1e01b4, Func Offset: 0x274
-	// Line 1751, Address: 0x1e01b8, Func Offset: 0x278
-	// Line 1752, Address: 0x1e01bc, Func Offset: 0x27c
-	// Line 1750, Address: 0x1e01c0, Func Offset: 0x280
-	// Line 1751, Address: 0x1e01c4, Func Offset: 0x284
-	// Line 1752, Address: 0x1e01cc, Func Offset: 0x28c
-	// Line 1753, Address: 0x1e01d4, Func Offset: 0x294
-	// Line 1754, Address: 0x1e0214, Func Offset: 0x2d4
-	// Line 1755, Address: 0x1e0254, Func Offset: 0x314
-	// Line 1756, Address: 0x1e0290, Func Offset: 0x350
-	// Line 1757, Address: 0x1e0318, Func Offset: 0x3d8
-	// Line 1760, Address: 0x1e0328, Func Offset: 0x3e8
-	// Line 1761, Address: 0x1e0350, Func Offset: 0x410
-	// Line 1762, Address: 0x1e0354, Func Offset: 0x414
-	// Line 1763, Address: 0x1e0358, Func Offset: 0x418
-	// Line 1761, Address: 0x1e035c, Func Offset: 0x41c
-	// Line 1762, Address: 0x1e0360, Func Offset: 0x420
-	// Line 1763, Address: 0x1e0368, Func Offset: 0x428
-	// Line 1764, Address: 0x1e0370, Func Offset: 0x430
-	// Line 1765, Address: 0x1e03b0, Func Offset: 0x470
-	// Line 1766, Address: 0x1e03f0, Func Offset: 0x4b0
-	// Line 1767, Address: 0x1e040c, Func Offset: 0x4cc
-	// Line 1766, Address: 0x1e0410, Func Offset: 0x4d0
-	// Line 1767, Address: 0x1e0434, Func Offset: 0x4f4
-	// Line 1771, Address: 0x1e0440, Func Offset: 0x500
-	// Line 1772, Address: 0x1e0450, Func Offset: 0x510
-	// Line 1774, Address: 0x1e0460, Func Offset: 0x520
-	// Line 1776, Address: 0x1e0478, Func Offset: 0x538
-	// Line 1777, Address: 0x1e0488, Func Offset: 0x548
-	// Line 1778, Address: 0x1e0498, Func Offset: 0x558
-	// Line 1780, Address: 0x1e049c, Func Offset: 0x55c
-	// Line 1778, Address: 0x1e04a0, Func Offset: 0x560
-	// Line 1780, Address: 0x1e04a8, Func Offset: 0x568
-	// Line 1783, Address: 0x1e04b0, Func Offset: 0x570
-	// Line 1785, Address: 0x1e04b8, Func Offset: 0x578
-	// Line 1786, Address: 0x1e04c4, Func Offset: 0x584
-	// Line 1790, Address: 0x1e04d0, Func Offset: 0x590
-	// Line 1791, Address: 0x1e04d4, Func Offset: 0x594
-	// Func End, Address: 0x1e04f8, Func Offset: 0x5b8
+	int i;
+	NJS_POINT3 ofp;
+	BLOOD_TBL* blp;
+
+    range = 0;
+    bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
+    blp = &BloodTbl[epw->djnt_no];
+    
+    if ((epw->comb_flg & 0x10))
+    {
+        range = 0;
+    }
+    
+    if ((epw->comb_flg & 0x20))
+    {
+        range = 1;
+    }
+    
+    if ((epw->comb_flg & 0x40))
+    {
+        range = 2;
+    }
+    
+    if (DmgReact[epw->wpnr_no].type[range] >= 0)
+    {
+        ofp.x = blp->ofp.x;
+        ofp.y = blp->ofp.y;
+        ofp.z = (epw->comb_flg & 4) ? blp->ofp.z : -blp->ofp.z;
+
+
+        ofp.x += (blp->rx * njRandom()) - (blp->rx / 2.0f);
+        ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+        ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+        
+
+        switch (epw->wpnr_no)
+        {
+        case 10:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+            bhEne_SetBloodEffectBurst(epw, DmgReact[epw->wpnr_no].type[range], epw->djnt_no, (NJS_POINT3*)&epw->dpx, 1);
+            break;
+        default:
+            bhEne_SetBloodEffectBurst(epw, DmgReact[epw->wpnr_no].type[range], epw->djnt_no, &ofp, 0);
+            break;
+        }
+    }
+   
+    if ((DmgReact[epw->wpnr_no].exef & 1) && (blp->flg == 0))
+    {
+        for (i = 0; i < 4; i++)        
+        {
+            ofp.x = blp->ofp.x;
+            ofp.y = blp->ofp.y;
+            ofp.z = blp->ofp.z;
+
+            ofp.x += (blp->rx * njRandom()) - (blp->rx / 2.0f);
+            ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+            ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+            
+            bhEne_SetFireEffect(epw, epw->djnt_no, &ofp, (0.5f + (0.5f * njRandom())), (int)(40.0f * njRandom()) + 20);
+        }         
+    }
+    
+    if (DmgReact[epw->wpnr_no].exef & 2)
+    {
+        ofp.x = blp->ofp.x;
+        ofp.y = blp->ofp.y;
+        ofp.z = blp->ofp.z;
+
+        ofp.x += (blp->rx * njRandom()) - (blp->rx / 2.0f);
+        ofp.y += (blp->ry * njRandom()) - (blp->ry / 2.0f);
+        ofp.z += (blp->rz * njRandom()) - (blp->rz / 2.0f);
+        
+        bhEne_SetAcidEffect(epw, epw->djnt_no, &ofp, 2.0f);
+    }
+    
+    if (epw->type == 1)
+    {
+        epw->hp -= epw->total_dam;
+    }
+    
+    if (sys->gm_mode != 3) 
+    {
+        if (epw->hp < 0)
+        {
+            epw->hp = 0;
+        }
+        
+        if (epw->wpnr_no == 18)
+        {
+            epw->flg |= 2;
+            plp->mnwP = plp->mnwPb;
+        }
+    } 
+    else if (epw->hp < 0)
+    {
+        epw->flg |= 2;
+    }
+    
+    return epw->total_dam;
 }
 
 // 
