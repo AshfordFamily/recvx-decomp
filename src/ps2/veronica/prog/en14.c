@@ -970,32 +970,24 @@ void bhEne14_LookPlayaer(BH_PWORK* epw)
 	// Func End, Address: 0x1dfa74, Func Offset: 0x554
 }
 
-// 
-// Start address: 0x1dfa80
+// 100% matching!
 void bhEne14_TailInit(BH_PWORK* epw)
 {
-	O_WORK* p;
-	int i;
-	// Line 1527, Address: 0x1dfa80, Func Offset: 0
-	// Line 1528, Address: 0x1dfa84, Func Offset: 0x4
-	// Line 1527, Address: 0x1dfa90, Func Offset: 0x10
-	// Line 1539, Address: 0x1dfa98, Func Offset: 0x18
-	// Line 1530, Address: 0x1dfa9c, Func Offset: 0x1c
-	// Line 1540, Address: 0x1dfaa0, Func Offset: 0x20
-	// Line 1530, Address: 0x1dfaa4, Func Offset: 0x24
-	// Line 1540, Address: 0x1dfaa8, Func Offset: 0x28
-	// Line 1530, Address: 0x1dfaac, Func Offset: 0x2c
-	// Line 1531, Address: 0x1dfab4, Func Offset: 0x34
-	// Line 1532, Address: 0x1dfac4, Func Offset: 0x44
-	// Line 1535, Address: 0x1dfad4, Func Offset: 0x54
-	// Line 1540, Address: 0x1dfad8, Func Offset: 0x58
-	// Line 1535, Address: 0x1dfadc, Func Offset: 0x5c
-	// Line 1536, Address: 0x1dfae4, Func Offset: 0x64
-	// Line 1537, Address: 0x1dfaf0, Func Offset: 0x70
-	// Line 1539, Address: 0x1dfafc, Func Offset: 0x7c
-	// Line 1540, Address: 0x1dfb0c, Func Offset: 0x8c
-	// Line 1541, Address: 0x1dfb14, Func Offset: 0x94
-	// Func End, Address: 0x1dfb1c, Func Offset: 0x9c
+    int i;
+    O_WORK* p;
+
+    p = &epw->mlwP->owP[11];
+
+    for (i = 0; i < 11; i++, p++) 
+    {
+        *(float *)(epw->exp0 + 0x138 + i * 0xC) = p->mtx[12];
+        *(float *)(epw->exp0 + 0x13C + i * 0xC) = p->mtx[13];
+        *(float *)(epw->exp0 + 0x140 + i * 0xC) = p->mtx[14];
+        *(int *)(epw->exp0 + 0x30 + i * 0xC) = 0;
+        *(int *)(epw->exp0 + 0x34 + i * 0xC) = 0;
+        *(int *)(epw->exp0 + 0x38 + i * 0xC) = 0;
+        *(float *)(epw->exp0 + 4 + i * 4) = 2.5f;
+    }
 }
 
 // 
