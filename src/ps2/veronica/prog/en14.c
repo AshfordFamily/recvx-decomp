@@ -803,39 +803,34 @@ void bhEne14_DG00(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1df410
+// 100% matching!
 void bhEne14_DG01(BH_PWORK* epw)
 {
-	// Line 1332, Address: 0x1df410, Func Offset: 0
-	// Line 1334, Address: 0x1df430, Func Offset: 0x20
-	// Line 1335, Address: 0x1df43c, Func Offset: 0x2c
-	// Line 1338, Address: 0x1df440, Func Offset: 0x30
-	// Line 1334, Address: 0x1df444, Func Offset: 0x34
-	// Line 1335, Address: 0x1df44c, Func Offset: 0x3c
-	// Line 1341, Address: 0x1df450, Func Offset: 0x40
-	// Line 1343, Address: 0x1df454, Func Offset: 0x44
-	// Line 1335, Address: 0x1df458, Func Offset: 0x48
-	// Line 1338, Address: 0x1df45c, Func Offset: 0x4c
-	// Line 1339, Address: 0x1df460, Func Offset: 0x50
-	// Line 1340, Address: 0x1df464, Func Offset: 0x54
-	// Line 1341, Address: 0x1df468, Func Offset: 0x58
-	// Line 1342, Address: 0x1df46c, Func Offset: 0x5c
-	// Line 1343, Address: 0x1df490, Func Offset: 0x80
-	// Line 1344, Address: 0x1df49c, Func Offset: 0x8c
-	// Line 1346, Address: 0x1df4a8, Func Offset: 0x98
-	// Line 1347, Address: 0x1df4b8, Func Offset: 0xa8
-	// Line 1348, Address: 0x1df4c0, Func Offset: 0xb0
-	// Line 1349, Address: 0x1df4c4, Func Offset: 0xb4
-	// Line 1350, Address: 0x1df4c8, Func Offset: 0xb8
-	// Line 1352, Address: 0x1df4cc, Func Offset: 0xbc
-	// Line 1354, Address: 0x1df4d4, Func Offset: 0xc4
-	// Line 1355, Address: 0x1df4d8, Func Offset: 0xc8
-	// Line 1352, Address: 0x1df4dc, Func Offset: 0xcc
-	// Line 1354, Address: 0x1df4e4, Func Offset: 0xd4
-	// Line 1355, Address: 0x1df4f0, Func Offset: 0xe0
-	// Line 1358, Address: 0x1df4f8, Func Offset: 0xe8
-	// Func End, Address: 0x1df500, Func Offset: 0xf0
+    switch (epw->mode3) 
+    {
+    case 0:
+        epw->flg &= ~0x100000;
+        EXP0_I(0x240) = 8;
+        epw->mtn_no = 22;
+        epw->frm_no = 0;
+        epw->hokan_count = 8;
+        epw->hokan_rate = 45875;
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 1;
+        epw->mtn_md &= ~2;
+        epw->mode3++;
+        
+    case 1:
+        if (epw->ct0-- == 0)
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+            epw->flg &= ~4;
+            epw->flg |= 0x100000;
+            EXP0_I(0x240) = 8;
+        }
+    }
 }
 
 // 100% matching!
