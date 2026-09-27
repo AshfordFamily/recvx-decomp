@@ -1423,24 +1423,41 @@ void bhEne14_PlayerControl(BH_PWORK* epw)
 	// Func End, Address: 0x1e0dac, Func Offset: 0x27c
 }
 
-// 
-// Start address: 0x1e0db0
-void bhEne14_CallSE(BH_PWORK* epw)
+// 100% matching!
+void bhEne14_CallSE(BH_PWORK* epw) 
 {
-	// Line 2047, Address: 0x1e0db0, Func Offset: 0
-	// Line 2048, Address: 0x1e0db8, Func Offset: 0x8
-	// Line 2050, Address: 0x1e0dc8, Func Offset: 0x18
-	// Line 2052, Address: 0x1e0e10, Func Offset: 0x60
-	// Line 2053, Address: 0x1e0e1c, Func Offset: 0x6c
-	// Line 2055, Address: 0x1e0e2c, Func Offset: 0x7c
-	// Line 2058, Address: 0x1e0e34, Func Offset: 0x84
-	// Line 2059, Address: 0x1e0e44, Func Offset: 0x94
-	// Line 2061, Address: 0x1e0e54, Func Offset: 0xa4
-	// Line 2063, Address: 0x1e0e5c, Func Offset: 0xac
-	// Line 2064, Address: 0x1e0e68, Func Offset: 0xb8
-	// Line 2066, Address: 0x1e0e74, Func Offset: 0xc4
-	// Line 2073, Address: 0x1e0e7c, Func Offset: 0xcc
-	// Line 2074, Address: 0x1e0e88, Func Offset: 0xd8
-	// Line 2078, Address: 0x1e0e98, Func Offset: 0xe8
-	// Func End, Address: 0x1e0ea4, Func Offset: 0xf4
+    if (epw->mnwP == epw->mnwPb)
+    {
+        switch (epw->mtn_no)
+        {
+        case 1:
+            if (epw->frm_no == 0) 
+            {
+                bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 16851712);
+            }
+            break;
+            
+        case 2:
+        case 3:
+            if (epw->frm_no == 458752)
+            {
+                bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 74499);
+            }
+            break;
+            
+        case 4:
+            if (epw->frm_no == 0)
+            {
+                bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 8962);
+            }
+            break;
+            
+        case 22:
+            if (epw->frm_no == 0)
+            {
+                bhEne_CallSE(epw, (NJS_POINT3*)&epw->px, 16786193);
+            }
+            break;
+        }
+    }
 }
