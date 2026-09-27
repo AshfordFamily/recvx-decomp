@@ -1341,74 +1341,40 @@ void bhEne14_Acid(BH_PWORK* epw, int se)
 	// Func End, Address: 0x1e0920, Func Offset: 0x420
 }
 
-// 
-// Start address: 0x1e0920
+// 100% matching!
 void bhEne14_SetMotion(BH_PWORK* epw)
 {
-	// already reversed DWARF order
-	NJS_MKEY_A_MOD* mkaP;
+	NJS_MKEY_A_MOD* mkaP; 
 	NJS_CNK_OBJECT* objP;
 	int i;
-	int obj_list[4]   = {  7,  8,  9, 10 };
-	int obj_list_f[4] = {  9, 10,  7,  8 };
-	// Line 1893, Address: 0x1e0920, Func Offset: 0
-	// Line 1889, Address: 0x1e092c, Func Offset: 0xc
-	// Line 1893, Address: 0x1e0930, Func Offset: 0x10
-	// Line 1899, Address: 0x1e0934, Func Offset: 0x14
-	// Line 1893, Address: 0x1e0940, Func Offset: 0x20
-	// Line 1899, Address: 0x1e0944, Func Offset: 0x24
-	// Line 1908, Address: 0x1e094c, Func Offset: 0x2c
-	// Line 1909, Address: 0x1e095c, Func Offset: 0x3c
-	// Line 1911, Address: 0x1e0960, Func Offset: 0x40
-	// Line 1910, Address: 0x1e0964, Func Offset: 0x44
-	// Line 1912, Address: 0x1e0968, Func Offset: 0x48
-	// Line 1913, Address: 0x1e096c, Func Offset: 0x4c
-	// Line 1912, Address: 0x1e0970, Func Offset: 0x50
-	// Line 1911, Address: 0x1e0978, Func Offset: 0x58
-	// Line 1910, Address: 0x1e0980, Func Offset: 0x60
-	// Line 1911, Address: 0x1e0984, Func Offset: 0x64
-	// Line 1918, Address: 0x1e0990, Func Offset: 0x70
-	// Line 1911, Address: 0x1e0994, Func Offset: 0x74
-	// Line 1912, Address: 0x1e0998, Func Offset: 0x78
-	// Line 1913, Address: 0x1e099c, Func Offset: 0x7c
-	// Line 1912, Address: 0x1e09a0, Func Offset: 0x80
-	// Line 1917, Address: 0x1e09b4, Func Offset: 0x94
-	// Line 1913, Address: 0x1e09bc, Func Offset: 0x9c
-	// Line 1912, Address: 0x1e09c8, Func Offset: 0xa8
-	// Line 1913, Address: 0x1e09d0, Func Offset: 0xb0
-	// Line 1915, Address: 0x1e09d4, Func Offset: 0xb4
-	// Line 1918, Address: 0x1e09d8, Func Offset: 0xb8
-	// Line 1915, Address: 0x1e09dc, Func Offset: 0xbc
-	// Line 1916, Address: 0x1e09e0, Func Offset: 0xc0
-	// Line 1917, Address: 0x1e09ec, Func Offset: 0xcc
-	// Line 1918, Address: 0x1e09f4, Func Offset: 0xd4
-	// Line 1919, Address: 0x1e09fc, Func Offset: 0xdc
-	// Line 1920, Address: 0x1e0a04, Func Offset: 0xe4
-	// Line 1922, Address: 0x1e0a08, Func Offset: 0xe8
-	// Line 1921, Address: 0x1e0a0c, Func Offset: 0xec
-	// Line 1924, Address: 0x1e0a10, Func Offset: 0xf0
-	// Line 1923, Address: 0x1e0a14, Func Offset: 0xf4
-	// Line 1929, Address: 0x1e0a1c, Func Offset: 0xfc
-	// Line 1922, Address: 0x1e0a20, Func Offset: 0x100
-	// Line 1921, Address: 0x1e0a28, Func Offset: 0x108
-	// Line 1922, Address: 0x1e0a2c, Func Offset: 0x10c
-	// Line 1923, Address: 0x1e0a38, Func Offset: 0x118
-	// Line 1922, Address: 0x1e0a3c, Func Offset: 0x11c
-	// Line 1924, Address: 0x1e0a40, Func Offset: 0x120
-	// Line 1923, Address: 0x1e0a44, Func Offset: 0x124
-	// Line 1928, Address: 0x1e0a58, Func Offset: 0x138
-	// Line 1924, Address: 0x1e0a5c, Func Offset: 0x13c
-	// Line 1923, Address: 0x1e0a68, Func Offset: 0x148
-	// Line 1924, Address: 0x1e0a70, Func Offset: 0x150
-	// Line 1926, Address: 0x1e0a74, Func Offset: 0x154
-	// Line 1929, Address: 0x1e0a78, Func Offset: 0x158
-	// Line 1926, Address: 0x1e0a7c, Func Offset: 0x15c
-	// Line 1927, Address: 0x1e0a80, Func Offset: 0x160
-	// Line 1928, Address: 0x1e0a88, Func Offset: 0x168
-	// Line 1929, Address: 0x1e0a8c, Func Offset: 0x16c
-	// Line 1930, Address: 0x1e0a94, Func Offset: 0x174
-	// Line 1931, Address: 0x1e0a98, Func Offset: 0x178
-	// Func End, Address: 0x1e0aa4, Func Offset: 0x184
+	int obj_list[4]   = {  7,  8,  9, 10 }; 
+	int obj_list_f[4] = {  9, 10,  7,  8 }; 
+
+    if (epw->mtn_md & 2)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            objP = &epw->mlwP->objP[obj_list[i]];
+            mkaP = (NJS_MKEY_A_MOD*)epw->mnwP[epw->mtn_no].md2P[obj_list_f[i]].p[1] + (epw->frm_no / 65536);
+
+            objP->ang[0] =  mkaP->key[0];
+            objP->ang[1] = -mkaP->key[1];
+            objP->ang[2] = -mkaP->key[2];
+        }
+    } 
+    else
+    {
+        for (i = 0; i < 4; i++)
+        {
+            objP = epw->mlwP->objP;
+            objP += obj_list[i];
+            mkaP = (NJS_MKEY_A_MOD*)epw->mnwP[epw->mtn_no].md2P[obj_list[i]].p[1] + (epw->frm_no / 65536);
+
+            objP->ang[0] = mkaP->key[0];
+            objP->ang[1] = mkaP->key[1];
+            objP->ang[2] = mkaP->key[2];
+        }
+    }
 }
 
 // 100% matching!
