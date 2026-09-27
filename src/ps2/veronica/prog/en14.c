@@ -6,6 +6,7 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
+#include "../../../ps2/veronica/prog/MdlPut.h"
 
 // ENEMY: Third Form Alexia 
 
@@ -170,40 +171,49 @@ void (*bhEne14_DamageMode2[2])(BH_PWORK*) =
 	bhEne14_DG01
 };
 
-// 
-// Start address: 0x1ddad0
+// 100% matching!
 void bhEne14(BH_PWORK* epw)
 {
-	O_WRK* op;
 	int i;
-	// Line 429, Address: 0x1ddad0, Func Offset: 0
-	// Line 431, Address: 0x1ddae0, Func Offset: 0x10
-	// Line 434, Address: 0x1ddb00, Func Offset: 0x30
-	// Line 437, Address: 0x1ddb08, Func Offset: 0x38
-	// Line 440, Address: 0x1ddb1c, Func Offset: 0x4c
-	// Line 441, Address: 0x1ddb30, Func Offset: 0x60
-	// Line 445, Address: 0x1ddb38, Func Offset: 0x68
-	// Line 446, Address: 0x1ddb48, Func Offset: 0x78
-	// Line 449, Address: 0x1ddb50, Func Offset: 0x80
-	// Line 450, Address: 0x1ddb60, Func Offset: 0x90
-	// Line 454, Address: 0x1ddb68, Func Offset: 0x98
-	// Line 457, Address: 0x1ddb74, Func Offset: 0xa4
-	// Line 460, Address: 0x1ddb7c, Func Offset: 0xac
-	// Line 463, Address: 0x1ddb94, Func Offset: 0xc4
-	// Line 464, Address: 0x1ddba4, Func Offset: 0xd4
-	// Line 472, Address: 0x1ddbac, Func Offset: 0xdc
-	// Line 473, Address: 0x1ddbb0, Func Offset: 0xe0
-	// Line 474, Address: 0x1ddbb8, Func Offset: 0xe8
-	// Line 472, Address: 0x1ddbbc, Func Offset: 0xec
-	// Line 476, Address: 0x1ddbc0, Func Offset: 0xf0
-	// Line 475, Address: 0x1ddbc8, Func Offset: 0xf8
-	// Line 476, Address: 0x1ddbec, Func Offset: 0x11c
-	// Line 477, Address: 0x1ddc04, Func Offset: 0x134
-	// Line 478, Address: 0x1ddc08, Func Offset: 0x138
-	// Line 480, Address: 0x1ddc10, Func Offset: 0x140
-	// Line 489, Address: 0x1ddc20, Func Offset: 0x150
-	// Func End, Address: 0x1ddc30, Func Offset: 0x160
-	scePrintf("bhEne14 - UNIMPLEMENTED!\n");
+	O_WRK* op;
+
+    bhEne14_Mode0[epw->mode0](epw);
+    bhEne14_CallSE(epw);
+    bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+    
+    if (epw->flg & 0x20000)
+    {
+        bhEne14_TailSwing(epw);
+    }
+    
+    if (epw->flg & 0x10)
+    {
+        bhEne14_CheckWall(epw);
+    }
+    
+    if (epw->type == 1)
+    {
+        bhEne14_SetMotion(epw);
+    }
+    
+    bhCalcModel(epw);
+    bhEne14_LookPlayaer(epw);
+    bhEne_SetWeponAtr(epw, 6, 1, 5.0f);
+    
+    if (epw->type == 1)
+    {
+        bhEne14_PlayerControl(epw);
+    }
+    
+    *(O_WRK **)(epw->exp0 + 0x244) = NULL;
+    for (i = 0, op = eff; i < 512; i++, op++)
+    {
+        if ((op->flg & 1) && !(op->stflg & 0x1000000) && (op->id == 130) && (op->type == 4))
+        {
+            *(O_WRK **)(epw->exp0 + 0x244) = op;
+            break;
+        }
+    }
 }
 
 // 
