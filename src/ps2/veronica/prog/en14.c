@@ -379,65 +379,89 @@ void bhEne14_MV01(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1de0e0
+// 100% matching!
 void bhEne14_MV02(BH_PWORK* epw)
 {
-	int fno;
-	int ang;
-	BH_PWORK* ep;
-	// Line 728, Address: 0x1de0e0, Func Offset: 0
-	// Line 733, Address: 0x1de0f4, Func Offset: 0x14
-	// Line 735, Address: 0x1de114, Func Offset: 0x34
-	// Line 736, Address: 0x1de120, Func Offset: 0x40
-	// Line 740, Address: 0x1de124, Func Offset: 0x44
-	// Line 735, Address: 0x1de128, Func Offset: 0x48
-	// Line 736, Address: 0x1de130, Func Offset: 0x50
-	// Line 739, Address: 0x1de138, Func Offset: 0x58
-	// Line 740, Address: 0x1de13c, Func Offset: 0x5c
-	// Line 741, Address: 0x1de16c, Func Offset: 0x8c
-	// Line 742, Address: 0x1de178, Func Offset: 0x98
-	// Line 743, Address: 0x1de184, Func Offset: 0xa4
-	// Line 744, Address: 0x1de190, Func Offset: 0xb0
-	// Line 746, Address: 0x1de19c, Func Offset: 0xbc
-	// Line 748, Address: 0x1de1a0, Func Offset: 0xc0
-	// Line 751, Address: 0x1de1cc, Func Offset: 0xec
-	// Line 753, Address: 0x1de1d4, Func Offset: 0xf4
-	// Line 754, Address: 0x1de1d8, Func Offset: 0xf8
-	// Line 756, Address: 0x1de1e0, Func Offset: 0x100
-	// Line 757, Address: 0x1de1e8, Func Offset: 0x108
-	// Line 762, Address: 0x1de1f4, Func Offset: 0x114
-	// Line 761, Address: 0x1de1f8, Func Offset: 0x118
-	// Line 762, Address: 0x1de1fc, Func Offset: 0x11c
-	// Line 763, Address: 0x1de200, Func Offset: 0x120
-	// Line 764, Address: 0x1de208, Func Offset: 0x128
-	// Line 767, Address: 0x1de210, Func Offset: 0x130
-	// Line 764, Address: 0x1de214, Func Offset: 0x134
-	// Line 767, Address: 0x1de230, Func Offset: 0x150
-	// Line 768, Address: 0x1de234, Func Offset: 0x154
-	// Line 769, Address: 0x1de23c, Func Offset: 0x15c
-	// Line 770, Address: 0x1de244, Func Offset: 0x164
-	// Line 771, Address: 0x1de250, Func Offset: 0x170
-	// Line 773, Address: 0x1de254, Func Offset: 0x174
-	// Line 776, Address: 0x1de260, Func Offset: 0x180
-	// Line 777, Address: 0x1de264, Func Offset: 0x184
-	// Line 779, Address: 0x1de278, Func Offset: 0x198
-	// Line 780, Address: 0x1de288, Func Offset: 0x1a8
-	// Line 782, Address: 0x1de290, Func Offset: 0x1b0
-	// Line 787, Address: 0x1de2a4, Func Offset: 0x1c4
-	// Line 788, Address: 0x1de2bc, Func Offset: 0x1dc
-	// Line 792, Address: 0x1de2c8, Func Offset: 0x1e8
-	// Line 793, Address: 0x1de2d4, Func Offset: 0x1f4
-	// Line 794, Address: 0x1de2dc, Func Offset: 0x1fc
-	// Line 793, Address: 0x1de2e0, Func Offset: 0x200
-	// Line 794, Address: 0x1de2e8, Func Offset: 0x208
-	// Line 797, Address: 0x1de2f0, Func Offset: 0x210
-	// Line 798, Address: 0x1de300, Func Offset: 0x220
-	// Line 799, Address: 0x1de304, Func Offset: 0x224
-	// Line 800, Address: 0x1de308, Func Offset: 0x228
-	// Line 802, Address: 0x1de30c, Func Offset: 0x22c
-	// Line 806, Address: 0x1de31c, Func Offset: 0x23c
-	// Func End, Address: 0x1de330, Func Offset: 0x250
+    BH_PWORK* ep;
+    int ang; 
+    int fno;
+
+    switch (epw->mode3)
+    {
+    case 0:
+        epw->flg &= ~0x100000;
+        EXP0_I(0x240) = 8;
+        ep = (BH_PWORK*) epw->lkwkp;
+        ang = (short)(bhArcTan2(ep->px - plp->px, ep->pz - plp->pz) - ep->ay);
+        
+        if (ang < -NJM_DEG_ANG(30.0f))
+        {
+            epw->ct1 = 1;
+        } 
+        else if (ang > NJM_DEG_ANG(30.0f))
+        {
+            epw->ct1 = 2;
+        }
+        else
+        {
+            epw->ct1 = 0;
+        }
+
+        switch (epw->ct1)
+        {
+        case 0: 
+            epw->mtn_no = 2;
+            break;
+        case 1: 
+            epw->mtn_no = 3;
+            break;
+        case 2:
+            epw->mtn_no = 3;
+            epw->mtn_md |= 2;
+        }
+        
+        epw->frm_no = 0;
+        epw->hokan_count = 8;
+        epw->hokan_rate = 45875;
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 1;
+        epw->mlwP = epw->mdl;
+        epw->obj_a = epw->mdl[0].objP;
+        epw->obj_b = epw->mdl[1].objP;
+        epw->mdflg |= 2;
+        epw->shp_ct = 0.0f;
+        epw->mode3++;
+
+    case 1:
+        fno = epw->frm_no / 65536;
+        switch (epw->ct1) 
+        {
+            case 0:
+                epw->shp_ct = bhEne_GetShapeCnt(ShapeTbl_Acid_F, fno);
+                break;
+            default:
+                epw->shp_ct = bhEne_GetShapeCnt(ShapeTbl_Acid_S, fno);
+        }
+        
+        if (fno >= 7 && fno < 13)
+        {
+            bhEne14_Acid(epw, 1);            
+        }
+        
+        if (fno == 15)
+        {
+            epw->flg |= 0x100000;
+            EXP0_I(0x240) = 4;
+        }
+
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+            epw->mdflg &= ~2;
+        }
+
+    }
 }
 
 // 100% matching!
