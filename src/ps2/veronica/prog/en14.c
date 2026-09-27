@@ -343,35 +343,36 @@ void bhEne14_MV00(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1de000
-void bhEne14_MV01(BH_PWORK* epw)
+// 100% matching!
+void bhEne14_MV01(BH_PWORK* epw) 
 {
-	// Line 693, Address: 0x1de000, Func Offset: 0
-	// Line 695, Address: 0x1de020, Func Offset: 0x20
-	// Line 696, Address: 0x1de02c, Func Offset: 0x2c
-	// Line 701, Address: 0x1de030, Func Offset: 0x30
-	// Line 695, Address: 0x1de034, Func Offset: 0x34
-	// Line 696, Address: 0x1de03c, Func Offset: 0x3c
-	// Line 702, Address: 0x1de040, Func Offset: 0x40
-	// Line 696, Address: 0x1de044, Func Offset: 0x44
-	// Line 699, Address: 0x1de048, Func Offset: 0x48
-	// Line 700, Address: 0x1de04c, Func Offset: 0x4c
-	// Line 701, Address: 0x1de050, Func Offset: 0x50
-	// Line 702, Address: 0x1de054, Func Offset: 0x54
-	// Line 703, Address: 0x1de058, Func Offset: 0x58
-	// Line 704, Address: 0x1de07c, Func Offset: 0x7c
-	// Line 706, Address: 0x1de088, Func Offset: 0x88
-	// Line 707, Address: 0x1de098, Func Offset: 0x98
-	// Line 708, Address: 0x1de09c, Func Offset: 0x9c
-	// Line 709, Address: 0x1de0a0, Func Offset: 0xa0
-	// Line 713, Address: 0x1de0a4, Func Offset: 0xa4
-	// Line 714, Address: 0x1de0b4, Func Offset: 0xb4
-	// Line 715, Address: 0x1de0bc, Func Offset: 0xbc
-	// Line 714, Address: 0x1de0c0, Func Offset: 0xc0
-	// Line 715, Address: 0x1de0c8, Func Offset: 0xc8
-	// Line 718, Address: 0x1de0d0, Func Offset: 0xd0
-	// Func End, Address: 0x1de0d8, Func Offset: 0xd8
+    switch (epw->mode3) 
+    {
+    case 0:
+        epw->flg &= ~0x100000;
+        EXP0_I(0x240) = 16;
+        epw->mtn_no = 1;
+        epw->frm_no = 0;
+        epw->hokan_count = 8;
+        epw->hokan_rate = 45875;
+        epw->ct0 = epw->mnwP[epw->mtn_no].frm_num - 1;
+        epw->mode3++;
+
+    case 1:
+        if (epw->ct0-- == 0)
+        {
+            epw->mode1 = 0;
+            epw->mode2 = 0;
+            epw->mode3 = 0;
+        }
+        
+        if (epw->frm_no == 2949120)
+        {
+            epw->flg |= 0x100000;
+            EXP0_I(0x240) = 16;
+        }
+
+    }
 }
 
 // 
