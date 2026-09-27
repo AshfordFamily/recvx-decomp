@@ -1,9 +1,11 @@
 #include "../../../ps2/veronica/prog/en14.h"
+#include "../../../ps2/veronica/prog/en03.h"
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
+#include "../../../ps2/veronica/prog/sdfunc.h"
 
 // ENEMY: Third Form Alexia 
 
@@ -1325,24 +1327,16 @@ void bhEne14_SetMotion(BH_PWORK* epw)
 	// Func End, Address: 0x1e0aa4, Func Offset: 0x184
 }
 
-// 
-// Start address: 0x1e0ab0
+// 100% matching!
 void bhEne14_CheckWall(BH_PWORK* epw)
 {
-	// Line 1941, Address: 0x1e0ab0, Func Offset: 0
-	// Line 1946, Address: 0x1e0abc, Func Offset: 0xc
-	// Line 1948, Address: 0x1e0ac4, Func Offset: 0x14
-	// Line 1953, Address: 0x1e0ad0, Func Offset: 0x20
-	// Line 1948, Address: 0x1e0ad4, Func Offset: 0x24
-	// Line 1953, Address: 0x1e0ad8, Func Offset: 0x28
-	// Line 1954, Address: 0x1e0ae0, Func Offset: 0x30
-	// Line 1961, Address: 0x1e0aec, Func Offset: 0x3c
-	// Line 1954, Address: 0x1e0af0, Func Offset: 0x40
-	// Line 1956, Address: 0x1e0af8, Func Offset: 0x48
-	// Line 1961, Address: 0x1e0afc, Func Offset: 0x4c
-	// Line 1962, Address: 0x1e0b04, Func Offset: 0x54
-	// Line 1965, Address: 0x1e0b1c, Func Offset: 0x6c
-	// Func End, Address: 0x1e0b2c, Func Offset: 0x7c
+    bhEne03_Collision(epw);
+    epw->py -= 8.0f;
+    bhEne03_Collision(epw);
+    epw->py += 8.0f;
+    epw->py += 8.0f;
+    bhEne03_Collision(epw);
+    epw->py -= 8.0f;
 }
 
 // 100% matching!
