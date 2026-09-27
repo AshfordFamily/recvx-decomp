@@ -9,6 +9,7 @@
 #include "../../../ps2/veronica/prog/MdlPut.h"
 #include "../../../ps2/veronica/prog/eneset.h"
 #include "../../../ps2/veronica/prog/effect.h"
+#include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
 
 // ENEMY: Third Form Alexia 
 
@@ -893,127 +894,137 @@ void bhEne14_InitDamage(BH_PWORK* epw)
 	bhEne14_HitMark(epw);
 }
 
-// 
-// Start address: 0x1df520
+// 100% matching!
 void bhEne14_LookPlayaer(BH_PWORK* epw)
 {
-	NJS_CNK_OBJECT* objP;
-	NJS_MKEY_A_MOD* mkaP;
-	int ang;
-	float out;
-	NJS_VECTOR ov;
+    float* mat;
+    float* mat2; 
+    int rx;
+    int ry;
+    int rz;
+    int rz1;
+    int rz2;
+	NJS_POINT3 view; 
 	NJS_VECTOR vec;
-	NJS_POINT3 view;
-	int rz2;
-	int rz1;
-	int rz;
-	int ry;
-	int rx;
-	float* mat2;
-	float* mat;
-	// Line 1391, Address: 0x1df520, Func Offset: 0
-	// Line 1392, Address: 0x1df544, Func Offset: 0x24
-	// Line 1391, Address: 0x1df548, Func Offset: 0x28
-	// Line 1392, Address: 0x1df54c, Func Offset: 0x2c
-	// Line 1401, Address: 0x1df550, Func Offset: 0x30
-	// Line 1393, Address: 0x1df55c, Func Offset: 0x3c
-	// Line 1401, Address: 0x1df560, Func Offset: 0x40
-	// Line 1402, Address: 0x1df568, Func Offset: 0x48
-	// Line 1403, Address: 0x1df574, Func Offset: 0x54
-	// Line 1402, Address: 0x1df578, Func Offset: 0x58
-	// Line 1403, Address: 0x1df580, Func Offset: 0x60
-	// Line 1404, Address: 0x1df590, Func Offset: 0x70
-	// Line 1406, Address: 0x1df598, Func Offset: 0x78
-	// Line 1408, Address: 0x1df59c, Func Offset: 0x7c
-	// Line 1406, Address: 0x1df5a0, Func Offset: 0x80
-	// Line 1408, Address: 0x1df5b0, Func Offset: 0x90
-	// Line 1411, Address: 0x1df5c0, Func Offset: 0xa0
-	// Line 1415, Address: 0x1df5c4, Func Offset: 0xa4
-	// Line 1411, Address: 0x1df5c8, Func Offset: 0xa8
-	// Line 1412, Address: 0x1df5cc, Func Offset: 0xac
-	// Line 1411, Address: 0x1df5d0, Func Offset: 0xb0
-	// Line 1415, Address: 0x1df5e4, Func Offset: 0xc4
-	// Line 1411, Address: 0x1df5e8, Func Offset: 0xc8
-	// Line 1412, Address: 0x1df5ec, Func Offset: 0xcc
-	// Line 1415, Address: 0x1df5fc, Func Offset: 0xdc
-	// Line 1416, Address: 0x1df604, Func Offset: 0xe4
-	// Line 1417, Address: 0x1df610, Func Offset: 0xf0
-	// Line 1418, Address: 0x1df630, Func Offset: 0x110
-	// Line 1419, Address: 0x1df638, Func Offset: 0x118
-	// Line 1420, Address: 0x1df644, Func Offset: 0x124
-	// Line 1422, Address: 0x1df65c, Func Offset: 0x13c
-	// Line 1424, Address: 0x1df664, Func Offset: 0x144
-	// Line 1425, Address: 0x1df670, Func Offset: 0x150
-	// Line 1426, Address: 0x1df674, Func Offset: 0x154
-	// Line 1424, Address: 0x1df678, Func Offset: 0x158
-	// Line 1427, Address: 0x1df680, Func Offset: 0x160
-	// Line 1424, Address: 0x1df684, Func Offset: 0x164
-	// Line 1425, Address: 0x1df698, Func Offset: 0x178
-	// Line 1426, Address: 0x1df6b8, Func Offset: 0x198
-	// Line 1427, Address: 0x1df6d4, Func Offset: 0x1b4
-	// Line 1430, Address: 0x1df6dc, Func Offset: 0x1bc
-	// Line 1431, Address: 0x1df6f0, Func Offset: 0x1d0
-	// Line 1432, Address: 0x1df6f8, Func Offset: 0x1d8
-	// Line 1435, Address: 0x1df708, Func Offset: 0x1e8
-	// Line 1436, Address: 0x1df724, Func Offset: 0x204
-	// Line 1435, Address: 0x1df72c, Func Offset: 0x20c
-	// Line 1436, Address: 0x1df730, Func Offset: 0x210
-	// Line 1437, Address: 0x1df740, Func Offset: 0x220
-	// Line 1438, Address: 0x1df750, Func Offset: 0x230
-	// Line 1439, Address: 0x1df760, Func Offset: 0x240
-	// Line 1440, Address: 0x1df770, Func Offset: 0x250
-	// Line 1441, Address: 0x1df780, Func Offset: 0x260
-	// Line 1442, Address: 0x1df784, Func Offset: 0x264
-	// Line 1443, Address: 0x1df788, Func Offset: 0x268
-	// Line 1444, Address: 0x1df790, Func Offset: 0x270
-	// Line 1445, Address: 0x1df798, Func Offset: 0x278
-	// Line 1446, Address: 0x1df7ac, Func Offset: 0x28c
-	// Line 1449, Address: 0x1df7bc, Func Offset: 0x29c
-	// Line 1450, Address: 0x1df7c0, Func Offset: 0x2a0
-	// Line 1451, Address: 0x1df7c4, Func Offset: 0x2a4
-	// Line 1452, Address: 0x1df7c8, Func Offset: 0x2a8
-	// Line 1453, Address: 0x1df7dc, Func Offset: 0x2bc
-	// Line 1454, Address: 0x1df7e8, Func Offset: 0x2c8
-	// Line 1456, Address: 0x1df808, Func Offset: 0x2e8
-	// Line 1457, Address: 0x1df814, Func Offset: 0x2f4
-	// Line 1460, Address: 0x1df828, Func Offset: 0x308
-	// Line 1461, Address: 0x1df844, Func Offset: 0x324
-	// Line 1464, Address: 0x1df854, Func Offset: 0x334
-	// Line 1466, Address: 0x1df864, Func Offset: 0x344
-	// Line 1468, Address: 0x1df87c, Func Offset: 0x35c
-	// Line 1469, Address: 0x1df890, Func Offset: 0x370
-	// Line 1470, Address: 0x1df898, Func Offset: 0x378
-	// Line 1471, Address: 0x1df8a8, Func Offset: 0x388
-	// Line 1474, Address: 0x1df8b4, Func Offset: 0x394
-	// Line 1475, Address: 0x1df8d0, Func Offset: 0x3b0
-	// Line 1478, Address: 0x1df8f0, Func Offset: 0x3d0
-	// Line 1479, Address: 0x1df904, Func Offset: 0x3e4
-	// Line 1480, Address: 0x1df910, Func Offset: 0x3f0
-	// Line 1482, Address: 0x1df944, Func Offset: 0x424
-	// Line 1483, Address: 0x1df94c, Func Offset: 0x42c
-	// Line 1484, Address: 0x1df95c, Func Offset: 0x43c
-	// Line 1485, Address: 0x1df96c, Func Offset: 0x44c
-	// Line 1488, Address: 0x1df978, Func Offset: 0x458
-	// Line 1489, Address: 0x1df998, Func Offset: 0x478
-	// Line 1488, Address: 0x1df99c, Func Offset: 0x47c
-	// Line 1489, Address: 0x1df9a0, Func Offset: 0x480
-	// Line 1491, Address: 0x1df9a8, Func Offset: 0x488
-	// Line 1495, Address: 0x1df9b8, Func Offset: 0x498
-	// Line 1496, Address: 0x1df9c4, Func Offset: 0x4a4
-	// Line 1495, Address: 0x1df9cc, Func Offset: 0x4ac
-	// Line 1496, Address: 0x1df9d0, Func Offset: 0x4b0
-	// Line 1497, Address: 0x1df9d8, Func Offset: 0x4b8
-	// Line 1501, Address: 0x1df9fc, Func Offset: 0x4dc
-	// Line 1509, Address: 0x1dfa00, Func Offset: 0x4e0
-	// Line 1501, Address: 0x1dfa04, Func Offset: 0x4e4
-	// Line 1504, Address: 0x1dfa08, Func Offset: 0x4e8
-	// Line 1505, Address: 0x1dfa0c, Func Offset: 0x4ec
-	// Line 1506, Address: 0x1dfa10, Func Offset: 0x4f0
-	// Line 1509, Address: 0x1dfa14, Func Offset: 0x4f4
-	// Line 1510, Address: 0x1dfa24, Func Offset: 0x504
-	// Line 1511, Address: 0x1dfa38, Func Offset: 0x518
-	// Line 1513, Address: 0x1dfa48, Func Offset: 0x528
-	// Func End, Address: 0x1dfa74, Func Offset: 0x554
+ 	NJS_VECTOR ov;
+	float out;
+	int ang; 
+	NJS_MKEY_A_MOD* mkaP; 
+	NJS_CNK_OBJECT* objP;
+
+    mat = (float*)&lcmat;
+    mat2 = (float*)&lcmat[1];
+    
+    if (epw->mnwP != epw->mnwPb) 
+    {
+        epw->flg &= ~0x100000;
+        epw->mlwP->owP[6].flg &= ~0x2;
+        return;
+    }
+    
+    epw->mlwP->owP[6].flg |= 0x2;
+
+    
+    if (!(epw->flg & 0x100000))
+    {
+        
+        mkaP = epw->mnwP[epw->mtn_no].md2P[6].p[1];
+        mkaP += (epw->frm_no / 65536);
+        if (epw->mtn_md & 2)
+        {
+            njUnitMatrix(lcmat);
+            njRotateXYZ(lcmat, mkaP->key[0], -mkaP->key[1], -mkaP->key[2]);
+        } 
+        else
+        {
+            njUnitMatrix(lcmat);
+            njRotateXYZ(lcmat, mkaP->key[0], mkaP->key[1], mkaP->key[2]);
+        }
+        
+    } 
+    else
+    {
+        view.x = plp->mlwP->owP[5].mtx[12] - epw->mlwP->owP[6].mtx[12];
+        view.y = plp->mlwP->owP[5].mtx[13] - epw->mlwP->owP[6].mtx[13];
+        view.z = plp->mlwP->owP[5].mtx[14] - epw->mlwP->owP[6].mtx[14];
+        njUnitVector(&view);
+        njSetMatrix(NULL, &epw->mlwP->owP[5].mtx);
+        njInvertMatrix(NULL);
+        njCalcVector(NULL, &view, &view);
+        
+        rx = (int)(10430.381f * asinf(view.y));
+        ry = bhArcTan2(-view.x, -view.z);
+        if (ry > NJM_DEG_ANG(60.0f))
+        {
+            ry = NJM_DEG_ANG(60.0f);
+        } 
+        
+        if (ry < NJM_DEG_ANG(-60.0f)) 
+        {
+            ry = NJM_DEG_ANG(-60.0f);
+        }
+
+        if (rx > NJM_DEG_ANG(60.0f))
+        {
+            rx = NJM_DEG_ANG(60.0f);
+        } 
+        
+        if (rx < NJM_DEG_ANG(-30.0f)) 
+        {
+            rx = NJM_DEG_ANG(-30.0f);
+        }
+        
+        view.x = 0.0f;
+        view.y = 0.0f;
+        view.z = -1.0f;
+        njUnitMatrix(NULL);
+        njRotateXYZ(NULL, rx, ry, 0);
+        njCalcVector(NULL, &view, &view);
+        vec.x = 0.0f;
+        vec.y = 0.0f;
+        vec.z = -1.0f;
+        {
+            float inner = njOuterProduct(&vec, &view, &ov);
+            njUnitVector(&ov);
+            ang = (int)(10430.381f * asinf(inner));
+            njUnitMatrix(lcmat);
+            njRotate(lcmat, &ov, ang);
+        }
+        njRotateZ(lcmat, -(int)(10430.381f * asinf(mat[1])));
+    }
+    
+    if (EXP0_I(0x240) != 0)
+    {
+        (void*)epw->mlwP;  // Hack
+        njSetMatrix((NJS_MATRIX*)&(lcmat[1]), (NJS_MATRIX*)&epw->mlwP->owP[6].mtx[0]);
+        njSetMatrix(NULL, &epw->mlwP->owP[5].mtx);
+        njInvertMatrix(NULL);
+        njMultiMatrix(NULL, (NJS_MATRIX*)&(lcmat[1]));
+        njGetMatrix((NJS_MATRIX*)&(lcmat[1]));
+        rz2 = (int)(10430.381f * asinf(mat[1]));
+        rz1 = (int)(10430.381f * asinf(mat2[1]));
+        out = njOuterProduct((NJS_VECTOR*) &mat2[8], (NJS_VECTOR*) &mat[8], &ov);
+        njUnitVector(&ov);
+        ang = (int)(10430.381f * asinf(out)) / EXP0_I(0x240);
+        njUnitMatrix(NULL);
+        njRotate(NULL, &ov, ang);
+        njMultiMatrix(NULL, (NJS_MATRIX*)&(lcmat[1]));
+        njGetMatrix(lcmat);
+
+        njRotateZ(lcmat, ((short)(rz2 - rz1)) / EXP0_I(0x240));
+        EXP0_I(0x240)--;
+    }
+
+    rx = bhArcTan2(mat[6], mat[5]);
+    ry = bhArcTan2(-mat[2], mat[0]);
+    rz = (int)(10430.381f * asinf(mat[1]));
+    objP = &epw->mlwP->objP[6];
+    objP->ang[0] = rx;
+    objP->ang[1] = ry;
+    objP->ang[2] = rz;
+    njSetMatrix(NULL, &epw->mlwP->owP[5].mtx);
+    njRotateXYZ(NULL, rx, ry, rz);
+    njGetMatrix(&epw->mlwP->owP[6].mtx);
 }
 
 // 100% matching!
