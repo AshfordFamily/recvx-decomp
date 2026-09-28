@@ -2,6 +2,7 @@
 #define _EN14_H_
 
 #include "types.h"
+#include "macros.h"
 
 void bhEne14(BH_PWORK* epw);
 void bhEne14_Init(BH_PWORK* epw);
