@@ -2451,33 +2451,28 @@ static void HoldPlayer(BH_PWORK* epw)
 	scePrintf("HoldPlayer - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e8b80
+// 100% matching!
 static void FlyingPlayer(BH_PWORK* epw)
 {
-	NJS_POINT3 _p = { 0, 8.0f, 0 };
-	O_WORK* owk;
-	NJS_POINT3 pos3;
-	NJS_POINT3 pos2;
 	NJS_POINT3 pos1;
-	// Line 3714, Address: 0x1e8b80, Func Offset: 0
-	// Line 3718, Address: 0x1e8b84, Func Offset: 0x4
-	// Line 3714, Address: 0x1e8b8c, Func Offset: 0xc
-	// Line 3718, Address: 0x1e8b90, Func Offset: 0x10
-	// Line 3719, Address: 0x1e8bb8, Func Offset: 0x38
-	// Line 3723, Address: 0x1e8bc0, Func Offset: 0x40
-	// Line 3724, Address: 0x1e8bc4, Func Offset: 0x44
-	// Line 3719, Address: 0x1e8bc8, Func Offset: 0x48
-	// Line 3720, Address: 0x1e8bd0, Func Offset: 0x50
-	// Line 3721, Address: 0x1e8bd8, Func Offset: 0x58
-	// Line 3722, Address: 0x1e8be0, Func Offset: 0x60
-	// Line 3723, Address: 0x1e8be8, Func Offset: 0x68
-	// Line 3724, Address: 0x1e8bfc, Func Offset: 0x7c
-	// Line 3725, Address: 0x1e8c04, Func Offset: 0x84
-	// Line 3726, Address: 0x1e8c10, Func Offset: 0x90
-	// Line 3727, Address: 0x1e8c34, Func Offset: 0xb4
-	// Func End, Address: 0x1e8c40, Func Offset: 0xc0
-	scePrintf("FlyingPlayer - UNIMPLEMENTED!\n");
+    NJS_POINT3 pos2;
+	NJS_POINT3 pos3;    	    
+	O_WORK* owk;
+    NJS_POINT3 _p = { 0.0f, 8.0f, 0.0f };
+
+    njCalcPoint(&epw->mlwP->owP[10].mtx, &_p, &pos1);
+    
+    owk = plp->mlwP->owP;
+    pos2.x = owk[1].mtx[12];
+    pos2.y = owk[1].mtx[13];
+    pos2.z = owk[1].mtx[14];
+    
+    pos3 = *(NJS_POINT3*)&plp->px;
+    
+    njSubVector(&pos3, &pos2);
+    njAddVector(&pos1, &pos3);
+    
+    *(NJS_POINT3*)&plp->px = pos1;
 }
 
 // 100% matching!
