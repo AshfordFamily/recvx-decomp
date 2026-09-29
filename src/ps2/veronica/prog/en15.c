@@ -1370,27 +1370,27 @@ static void SetPlyMtn(unsigned int mtn_no)
     }
 }
 
-// 
-// Start address: 0x1e55a0
-static int VacumeToPoint(BH_PWORK* pw, NJS_POINT3* pos)
+// 100% matching!
+static int VacumeToPoint(BH_PWORK* pw, NJS_VECTOR* pos)
 {
-	NJS_VECTOR v;
-	// Line 2652, Address: 0x1e55a0, Func Offset: 0
-	// Line 2654, Address: 0x1e55b0, Func Offset: 0x10
-	// Line 2655, Address: 0x1e55d0, Func Offset: 0x30
-	// Line 2656, Address: 0x1e55dc, Func Offset: 0x3c
-	// Line 2657, Address: 0x1e55f8, Func Offset: 0x58
-	// Line 2658, Address: 0x1e5600, Func Offset: 0x60
-	// Line 2659, Address: 0x1e5608, Func Offset: 0x68
-	// Line 2658, Address: 0x1e5610, Func Offset: 0x70
-	// Line 2659, Address: 0x1e5634, Func Offset: 0x94
-	// Line 2660, Address: 0x1e563c, Func Offset: 0x9c
-	// Line 2662, Address: 0x1e5644, Func Offset: 0xa4
-	// Line 2663, Address: 0x1e5650, Func Offset: 0xb0
-	// Line 2662, Address: 0x1e5654, Func Offset: 0xb4
-	// Line 2665, Address: 0x1e5660, Func Offset: 0xc0
-	// Func End, Address: 0x1e5674, Func Offset: 0xd4
-	scePrintf("VacumeToPoint - UNIMPLEMENTED!\n");
+    NJS_VECTOR v;
+    
+    v = *pos;
+    
+    njSubVector(&v, (NJS_VECTOR*)&pw->px);
+    if (njScalor(&v) > pw->spd)
+    {
+        njUnitVector(&v);
+        v.x *= pw->spd;
+        v.y *= pw->spd;
+        v.z *= pw->spd;
+        njAddVector((NJS_VECTOR*)&pw->px, &v);
+        return 0;
+    }
+    
+    *(NJS_POINT3*)&pw->px = *pos;
+
+    return 1;
 }
 
 // 
