@@ -466,18 +466,25 @@ static void Init(BH_PWORK* epw)
 	scePrintf("Init - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e1600
+// 100% matching!
 static void Move(BH_PWORK* epw)
 {
-	// Line 1579, Address: 0x1e1600, Func Offset: 0
-	// Line 1580, Address: 0x1e1610, Func Offset: 0x10
-	// Line 1581, Address: 0x1e1630, Func Offset: 0x30
-	// Line 1582, Address: 0x1e1644, Func Offset: 0x44
-	// Line 1583, Address: 0x1e1658, Func Offset: 0x58
-	// Line 1584, Address: 0x1e166c, Func Offset: 0x6c
-	// Func End, Address: 0x1e167c, Func Offset: 0x7c
-	scePrintf("Move - UNIMPLEMENTED!\n");
+    Move_func[epw->mode1](epw);
+
+    if (epw->ct2 != 0)
+    {
+        epw->ct2--;
+    }
+
+    if (epw->ct0 != 0)
+    {
+        epw->ct0--;
+    }
+    
+    if (epw->ct1 != 0)
+    {
+        epw->ct1--;
+    }
 }
 
 // 
