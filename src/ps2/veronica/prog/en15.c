@@ -487,23 +487,59 @@ static void Move(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1e1680
+// 100% matching!
 static void Stand(BH_PWORK* epw)
 {
-	// Line 1587, Address: 0x1e1680, Func Offset: 0
-	// Line 1588, Address: 0x1e168c, Func Offset: 0xc
-	// Line 1589, Address: 0x1e16a4, Func Offset: 0x24
-	// Line 1590, Address: 0x1e16c8, Func Offset: 0x48
-	// Line 1591, Address: 0x1e16e8, Func Offset: 0x68
-	// Line 1592, Address: 0x1e1718, Func Offset: 0x98
-	// Line 1593, Address: 0x1e1738, Func Offset: 0xb8
-	// Line 1594, Address: 0x1e1790, Func Offset: 0x110
-	// Line 1595, Address: 0x1e17f8, Func Offset: 0x178
-	// Line 1596, Address: 0x1e1800, Func Offset: 0x180
-	// Line 1598, Address: 0x1e1824, Func Offset: 0x1a4
-	// Func End, Address: 0x1e1834, Func Offset: 0x1b4
-	scePrintf("Stand - UNIMPLEMENTED!\n");
+    ikou(epw, (NJS_POINT3*)&plp->px, epw->way);
+    
+    if (35.0f <  target_distance(epw))
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 3;
+        epw->way = 145;
+        ReqMtn(epw, 1);
+        return;
+    }
+    
+    if (25.0f < target_distance(epw))
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 2;
+        epw->way = 327;
+        ReqMtn(epw, 1);
+        return;
+    }
+    
+    if (target_direction(epw) >= -NJM_DEG_ANG(10.0f))
+    {
+        if ((target_direction(epw) < NJM_DEG_ANG(10.0f)) && (7.0f > target_distance(epw))) 
+        {
+            if (plp->flg & 2) 
+            {
+                epw->ct2 = 30;
+                epw->mode0 = 1;
+                epw->mode1 = 0;
+                epw->way = 0;
+                ReqMtn(epw, 0);
+                return;
+            }
+            else 
+            {
+                epw->mode2 = 0;
+                epw->mode0 = 2;
+                epw->mode1 = 0;
+                epw->way = 1456;
+                ReqMtn(epw, 5);
+                return;
+            }            
+        }
+    }
+
+    epw->ct2 = 30;
+    epw->mode0 = 1;
+    epw->mode1 = 1;
+    epw->way = 1456;
+    ReqMtn(epw, 1);
 }
 
 // 
