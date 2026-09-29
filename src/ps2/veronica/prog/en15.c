@@ -2582,38 +2582,34 @@ static void ChangeAmbient(short* plist, unsigned char add)
     }
 }
 
-// 
-// Start address: 0x1e8fd0
+// 99.93% matching
 static void SetMince(BH_PWORK* epw, int type, int num)
 {
+    int i;
 	int eno;
-	int i;
-	// Line 3875, Address: 0x1e8fd0, Func Offset: 0
-	// Line 3878, Address: 0x1e8fe8, Func Offset: 0x18
-	// Line 3879, Address: 0x1e8ff8, Func Offset: 0x28
-	// Line 3878, Address: 0x1e8ffc, Func Offset: 0x2c
-	// Line 3879, Address: 0x1e9008, Func Offset: 0x38
-	// Line 3880, Address: 0x1e9020, Func Offset: 0x50
-	// Line 3881, Address: 0x1e9034, Func Offset: 0x64
-	// Line 3882, Address: 0x1e905c, Func Offset: 0x8c
-	// Line 3883, Address: 0x1e90e0, Func Offset: 0x110
-	// Line 3885, Address: 0x1e90f4, Func Offset: 0x124
-	// Line 3888, Address: 0x1e9100, Func Offset: 0x130
-	// Line 3890, Address: 0x1e9164, Func Offset: 0x194
-	// Line 3888, Address: 0x1e9170, Func Offset: 0x1a0
-	// Line 3890, Address: 0x1e917c, Func Offset: 0x1ac
-	// Line 3891, Address: 0x1e9194, Func Offset: 0x1c4
-	// Line 3892, Address: 0x1e91a0, Func Offset: 0x1d0
-	// Line 3894, Address: 0x1e91c4, Func Offset: 0x1f4
-	// Line 3892, Address: 0x1e91c8, Func Offset: 0x1f8
-	// Line 3893, Address: 0x1e91d0, Func Offset: 0x200
-	// Line 3894, Address: 0x1e91d8, Func Offset: 0x208
-	// Line 3895, Address: 0x1e91dc, Func Offset: 0x20c
-	// Line 3896, Address: 0x1e91f4, Func Offset: 0x224
-	// Line 3897, Address: 0x1e91f8, Func Offset: 0x228
-	// Line 3898, Address: 0x1e9208, Func Offset: 0x238
-	// Func End, Address: 0x1e9224, Func Offset: 0x254
-	scePrintf("SetMince - UNIMPLEMENTED!\n");
+
+    sys->ef.id = 250;
+    sys->ef.flg = 1;
+    sys->ef.type = type;
+    
+    *(NJS_POINT3*)&sys->ef.px = *(NJS_POINT3*)&epw->dpx;
+    
+    sys->ef.sx = sys->ef.sy = 0.1f + (0.3f * njRandom());
+    sys->ef.sz = 0.0f;
+    sys->ef.mdlver = 0;
+    
+    for (i = 0; i < num; i++)
+    {
+        sys->ef.ay = ((bhArcTan2(epw->dvx, epw->dvz) + (21845.0f * njRandom())) - 10922.0f);
+        eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        if (eno != -1)
+        {
+            eff[eno].stflg |= 0x20;
+            eff[eno].txp[0] = epw->txp[0];
+            eff[eno].tex_id = 1;
+            *(NJS_POINT3*)&eff[eno].xn = *(NJS_POINT3*)&epw->dvx;
+        }
+    }
 }
 
 // 
