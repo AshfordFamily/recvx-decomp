@@ -2652,45 +2652,71 @@ static void CoreInit(BH_PWORK* epw)
 	scePrintf("CoreInit - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e9340
+// 100% matching!
 static void CoreMove(BH_PWORK* epw)
 {
-	// Line 3952, Address: 0x1e9340, Func Offset: 0
-	// Line 3953, Address: 0x1e935c, Func Offset: 0x1c
-	// Line 3955, Address: 0x1e93a0, Func Offset: 0x60
-	// Line 3956, Address: 0x1e93c0, Func Offset: 0x80
-	// Line 3957, Address: 0x1e93c4, Func Offset: 0x84
-	// Line 3958, Address: 0x1e93cc, Func Offset: 0x8c
-	// Line 3960, Address: 0x1e93d4, Func Offset: 0x94
-	// Line 3961, Address: 0x1e93dc, Func Offset: 0x9c
-	// Line 3963, Address: 0x1e93ec, Func Offset: 0xac
-	// Line 3966, Address: 0x1e93f4, Func Offset: 0xb4
-	// Line 3967, Address: 0x1e9414, Func Offset: 0xd4
-	// Line 3969, Address: 0x1e9418, Func Offset: 0xd8
-	// Line 3970, Address: 0x1e9420, Func Offset: 0xe0
-	// Line 3972, Address: 0x1e9434, Func Offset: 0xf4
-	// Line 3975, Address: 0x1e943c, Func Offset: 0xfc
-	// Line 3976, Address: 0x1e944c, Func Offset: 0x10c
-	// Line 3977, Address: 0x1e9450, Func Offset: 0x110
-	// Line 3978, Address: 0x1e9458, Func Offset: 0x118
-	// Line 3981, Address: 0x1e9460, Func Offset: 0x120
-	// Line 3984, Address: 0x1e9468, Func Offset: 0x128
-	// Line 3985, Address: 0x1e9488, Func Offset: 0x148
-	// Line 3986, Address: 0x1e948c, Func Offset: 0x14c
-	// Line 3987, Address: 0x1e9494, Func Offset: 0x154
-	// Line 3989, Address: 0x1e949c, Func Offset: 0x15c
-	// Line 3990, Address: 0x1e94a4, Func Offset: 0x164
-	// Line 3992, Address: 0x1e94b8, Func Offset: 0x178
-	// Line 3995, Address: 0x1e94c0, Func Offset: 0x180
-	// Line 3996, Address: 0x1e94e0, Func Offset: 0x1a0
-	// Line 3997, Address: 0x1e94e4, Func Offset: 0x1a4
-	// Line 3998, Address: 0x1e94ec, Func Offset: 0x1ac
-	// Line 4000, Address: 0x1e94f4, Func Offset: 0x1b4
-	// Line 4001, Address: 0x1e94fc, Func Offset: 0x1bc
-	// Line 4006, Address: 0x1e9510, Func Offset: 0x1d0
-	// Func End, Address: 0x1e9518, Func Offset: 0x1d8
-	scePrintf("CoreMove - UNIMPLEMENTED!\n");
+    if (!(epw->mdflg & 1) && (epw->mdflg & 2))
+    {
+        switch (epw->mode1)
+        {
+        case 0:
+            if (1000.0f < epw->shp_ct)
+            {
+                epw->mode1 = 1;
+                epw->obj_a = epw->mbp[1];
+                epw->obj_b = epw->mbp[2];
+                epw->ct0 = 0;
+                break;
+            }
+            epw->shp_ct += 400.0f;
+            break;
+            
+        case 1:
+            if (1000.0f < epw->shp_ct)
+            {
+                epw->mode1 = 2;
+                epw->ct0 = 0;
+                break;
+            }
+            epw->shp_ct += 166.67f;
+            break;
+            
+        case 2:
+            if (epw->ct0++ == 3) {
+                epw->mode1 = 3;
+                epw->obj_a = epw->mbp[2];
+                epw->obj_b = epw->mbp[1];
+                epw->shp_ct = 0.0f;
+                break;
+            }
+            break;
+            
+        case 3:
+            if (1000.0f < epw->shp_ct)
+            {
+                epw->mode1 = 4;
+                epw->obj_a = epw->mbp[1];
+                epw->obj_b = epw->mbp[0];
+                epw->shp_ct = 0.0f;
+                break;
+            }
+            epw->shp_ct += 166.67f;
+            break;
+            
+        case 4:
+            if (1000.0f < epw->shp_ct) 
+            {
+                epw->mode1 = 0;
+                epw->obj_a = epw->mbp[0];
+                epw->obj_b = epw->mbp[1];
+                epw->shp_ct = 0.0f;
+                break;
+            }
+            epw->shp_ct += 150.0f;
+            break;
+            
+        }
+    }
 }
 
 // 
