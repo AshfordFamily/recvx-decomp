@@ -613,19 +613,22 @@ static void CloseTurn(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1e2060
+// 100% matching!
 static void Chase(BH_PWORK* epw)
 {
-	// Line 1730, Address: 0x1e2060, Func Offset: 0
-	// Line 1731, Address: 0x1e206c, Func Offset: 0xc
-	// Line 1732, Address: 0x1e2084, Func Offset: 0x24
-	// Line 1733, Address: 0x1e20a8, Func Offset: 0x48
-	// Line 1734, Address: 0x1e20c8, Func Offset: 0x68
-	// Line 1736, Address: 0x1e20d0, Func Offset: 0x70
-	// Line 1737, Address: 0x1e20dc, Func Offset: 0x7c
-	// Func End, Address: 0x1e20ec, Func Offset: 0x8c
-	scePrintf("Chase - UNIMPLEMENTED!\n");
+    ikou(epw, (NJS_POINT3*)&plp->px, epw->way);
+    
+    if (25.0f > target_distance(epw)) 
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 2;
+        epw->way = 507;
+        ReqMtn(epw, 1);
+    }
+    else
+    {
+        __attack(epw);       
+    }
 }
 
 // 
