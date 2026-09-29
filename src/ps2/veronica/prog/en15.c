@@ -2,6 +2,7 @@
 #include "../../../ps2/veronica/prog/main.h"
 #include "../../../ps2/veronica/prog/ps2_dummy.h"
 #include "../../../ps2/veronica/prog/ps2_NaMatrix.h"
+#include "../../../ps2/veronica/prog/ps2_NaColi.h"
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/zonzon.h"
 #include "../../../ps2/veronica/prog/zonzon1.h"
@@ -1535,43 +1536,31 @@ int bhEne15_AttackPlayerBC(NJS_BOX* box, NJS_VECTOR* attack_v, int damage)
 	scePrintf("bhEne15_AttackPlayerBC - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e5d20
+// 100% matching!
 int bhEne15_AttackPlayerSS(NJS_SPHERE* spr, NJS_VECTOR* attack_v, int damage)
 {
-	NJS_SPHERE plcol;
-	// Line 2807, Address: 0x1e5d20, Func Offset: 0
-	// Line 2810, Address: 0x1e5d38, Func Offset: 0x18
-	// Line 2813, Address: 0x1e5d48, Func Offset: 0x28
-	// Line 2814, Address: 0x1e5d4c, Func Offset: 0x2c
-	// Line 2810, Address: 0x1e5d50, Func Offset: 0x30
-	// Line 2814, Address: 0x1e5d54, Func Offset: 0x34
-	// Line 2810, Address: 0x1e5d58, Func Offset: 0x38
-	// Line 2811, Address: 0x1e5d64, Func Offset: 0x44
-	// Line 2812, Address: 0x1e5d74, Func Offset: 0x54
-	// Line 2814, Address: 0x1e5d84, Func Offset: 0x64
-	// Line 2816, Address: 0x1e5d94, Func Offset: 0x74
-	// Line 2817, Address: 0x1e5dc0, Func Offset: 0xa0
-	// Line 2819, Address: 0x1e5de8, Func Offset: 0xc8
-	// Line 2817, Address: 0x1e5dec, Func Offset: 0xcc
-	// Line 2818, Address: 0x1e5df0, Func Offset: 0xd0
-	// Line 2827, Address: 0x1e5e04, Func Offset: 0xe4
-	// Line 2819, Address: 0x1e5e08, Func Offset: 0xe8
-	// Line 2818, Address: 0x1e5e0c, Func Offset: 0xec
-	// Line 2819, Address: 0x1e5e18, Func Offset: 0xf8
-	// Line 2820, Address: 0x1e5e20, Func Offset: 0x100
-	// Line 2821, Address: 0x1e5e34, Func Offset: 0x114
-	// Line 2820, Address: 0x1e5e38, Func Offset: 0x118
-	// Line 2821, Address: 0x1e5e44, Func Offset: 0x124
-	// Line 2823, Address: 0x1e5e4c, Func Offset: 0x12c
-	// Line 2825, Address: 0x1e5e58, Func Offset: 0x138
-	// Line 2823, Address: 0x1e5e5c, Func Offset: 0x13c
-	// Line 2825, Address: 0x1e5e64, Func Offset: 0x144
-	// Line 2827, Address: 0x1e5e70, Func Offset: 0x150
-	// Line 2829, Address: 0x1e5e78, Func Offset: 0x158
-	// Line 2830, Address: 0x1e5e7c, Func Offset: 0x15c
-	// Func End, Address: 0x1e5e94, Func Offset: 0x174
-	scePrintf("bhEne15_AttackPlayerSS - UNIMPLEMENTED!\n");
+    NJS_SPHERE plcol;
+    
+    plcol.c.x = plp->mlwP->owP[5].mtx[12];
+    plcol.c.y = plp->mlwP->owP[5].mtx[13];
+    plcol.c.z = plp->mlwP->owP[5].mtx[14];
+    plcol.r = 2.0f;
+
+    if (njCollisionCheckSS(&plcol, spr) != 0)
+    {
+        plp->dax = NJM_RAD_ANG(atan2f(attack_v->y, attack_v->z));
+        plp->day = NJM_RAD_ANG(atan2f(attack_v->x, attack_v->z));
+        *(NJS_POINT3*)&plp->dvx = *attack_v;
+        plp->djnt_no = 5;
+        *(NJS_POINT3*)&plp->dpx = spr->c;
+        
+        plp->dam[5] = damage;
+        plp->hp -= damage;
+        plp->flg |= 4;
+        return 1;
+    }
+    
+    return 0;
 }
 
 // 100% matching!
@@ -2016,33 +2005,23 @@ static void PoisonAttack(O_WRK* op)
 	scePrintf("PoisonAttack - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e6e50
+// 100% matching!
 static void AddWindForce(O_WRK* op, float reg)
 {
+    NJS_VECTOR vec1;
 	NJS_VECTOR vec2;
-	NJS_VECTOR vec1;
-	// Line 3242, Address: 0x1e6e50, Func Offset: 0
-	// Line 3245, Address: 0x1e6e60, Func Offset: 0x10
-	// Line 3247, Address: 0x1e6e9c, Func Offset: 0x4c
-	// Line 3245, Address: 0x1e6ea4, Func Offset: 0x54
-	// Line 3246, Address: 0x1e6eac, Func Offset: 0x5c
-	// Line 3247, Address: 0x1e6eb0, Func Offset: 0x60
-	// Line 3249, Address: 0x1e6ed4, Func Offset: 0x84
-	// Line 3247, Address: 0x1e6edc, Func Offset: 0x8c
-	// Line 3249, Address: 0x1e6ee4, Func Offset: 0x94
-	// Line 3251, Address: 0x1e6f08, Func Offset: 0xb8
-	// Line 3249, Address: 0x1e6f10, Func Offset: 0xc0
-	// Line 3250, Address: 0x1e6f18, Func Offset: 0xc8
-	// Line 3251, Address: 0x1e6f1c, Func Offset: 0xcc
-	// Line 3253, Address: 0x1e6f30, Func Offset: 0xe0
-	// Line 3251, Address: 0x1e6f38, Func Offset: 0xe8
-	// Line 3253, Address: 0x1e6f4c, Func Offset: 0xfc
-	// Line 3254, Address: 0x1e6f54, Func Offset: 0x104
-	// Line 3255, Address: 0x1e6f60, Func Offset: 0x110
-	// Line 3256, Address: 0x1e6f6c, Func Offset: 0x11c
-	// Func End, Address: 0x1e6f80, Func Offset: 0x130
-	scePrintf("AddWindForce - UNIMPLEMENTED!\n");
+
+    vec1.x = reg * sys->winds * -njSin(sys->windr);
+    vec1.y = 0.0f;
+    vec1.z = reg * sys->winds * -njCos(sys->windr);
+    
+    vec2.x = reg * sys->windsb * -njSin(sys->windrb);
+    vec2.y = 0.0f;
+    vec2.z = reg * sys->windsb * -njCos(sys->windrb);
+    
+    njSubVector(&vec1, &vec2);
+    njAddVector((NJS_VECTOR*)&op->xn, &vec1);
+    njAddVector((NJS_VECTOR*)&op->px, (NJS_VECTOR*)&op->xn);
 }
 
 // 
