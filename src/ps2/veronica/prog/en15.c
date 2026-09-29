@@ -622,7 +622,7 @@ static void Chase(BH_PWORK* epw)
     {
         epw->mode0 = 1;
         epw->mode1 = 2;
-        epw->way = 507;
+        epw->way = 327;
         ReqMtn(epw, 1);
     }
     else
@@ -631,21 +631,15 @@ static void Chase(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1e20f0
-static void __goalAng(BH_PWORK* epw, NJS_VECTOR* vec, NJS_POINT3* ans)
+// 100% matching!
+static void __goalAng(BH_PWORK* epw, NJS_VECTOR* vec, NJS_VECTOR* ans)
 {
-	NJS_VECTOR v = { 0, 1.0f, 0 };
-	// Line 1740, Address: 0x1e20f0, Func Offset: 0
-	// Line 1741, Address: 0x1e2104, Func Offset: 0x14
-	// Line 1742, Address: 0x1e2118, Func Offset: 0x28
-	// Line 1741, Address: 0x1e2120, Func Offset: 0x30
-	// Line 1742, Address: 0x1e2128, Func Offset: 0x38
-	// Line 1743, Address: 0x1e2144, Func Offset: 0x54
-	// Line 1744, Address: 0x1e2150, Func Offset: 0x60
-	// Line 1745, Address: 0x1e2160, Func Offset: 0x70
-	// Func End, Address: 0x1e2174, Func Offset: 0x84
-	scePrintf("__goalAng - UNIMPLEMENTED!\n");
+    NJS_VECTOR v = { 0.0f, 1.0f, 0.0f };
+
+    *vec = *(NJS_POINT3*)&plp->px;
+
+    njSubVector(vec, (NJS_VECTOR*)&epw->px);
+    njOuterProduct(vec, &v, ans);
 }
 
 // 100% matching!
