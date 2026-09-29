@@ -569,22 +569,48 @@ static void __attack(BH_PWORK* epw)
 	scePrintf("__attack - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e1ef0
+// 100% matching!
 static void CloseTurn(BH_PWORK* epw)
 {
-	// Line 1717, Address: 0x1e1ef0, Func Offset: 0
-	// Line 1718, Address: 0x1e1efc, Func Offset: 0xc
-	// Line 1719, Address: 0x1e1f14, Func Offset: 0x24
-	// Line 1720, Address: 0x1e1f38, Func Offset: 0x48
-	// Line 1721, Address: 0x1e1f58, Func Offset: 0x68
-	// Line 1722, Address: 0x1e1f60, Func Offset: 0x70
-	// Line 1723, Address: 0x1e1fb0, Func Offset: 0xc0
-	// Line 1724, Address: 0x1e2018, Func Offset: 0x128
-	// Line 1726, Address: 0x1e2020, Func Offset: 0x130
-	// Line 1727, Address: 0x1e2050, Func Offset: 0x160
-	// Func End, Address: 0x1e2060, Func Offset: 0x170
-	scePrintf("CloseTurn - UNIMPLEMENTED!\n");
+    ikou(epw, (NJS_POINT3*)&plp->px,  epw->way);
+    
+    if (16.0f < target_distance(epw))
+    {
+        epw->mode0 = 1;
+        epw->mode1 = 2;
+        epw->way = 327;
+        ReqMtn(epw, 1);
+        return;
+    }
+    
+    if (target_direction(epw) >= -NJM_DEG_ANG(10.0f))
+    {
+        if ((target_direction(epw) < NJM_DEG_ANG(10.0f)) && (7.0f > target_distance(epw)))
+        {
+            if (plp->flg & 2)
+            {
+                epw->ct2 = 30;
+                epw->mode0 = 1;
+                epw->mode1 = 0;
+                epw->way = 0;
+                ReqMtn(epw, 0);
+            } 
+            else
+            {
+                epw->mode2 = 0;
+                epw->mode0 = 2;
+                epw->mode1 = 0;
+                epw->way = 1456;
+                ReqMtn(epw, 5);
+            }
+            return;
+        }
+    }
+
+    if (9.0f < target_distance(epw))
+    {
+        __attack(epw);
+    }
 }
 
 // 
