@@ -2612,40 +2612,37 @@ static void SetMince(BH_PWORK* epw, int type, int num)
     }
 }
 
-// 
-// Start address: 0x1e9230
-static void CoreInit(BH_PWORK* epw)
+// 100% matching!
+static void CoreInit(BH_PWORK* epw) 
 {
-	// Line 3907, Address: 0x1e9230, Func Offset: 0
-	// Line 3910, Address: 0x1e923c, Func Offset: 0xc
-	// Line 3912, Address: 0x1e9244, Func Offset: 0x14
-	// Line 3910, Address: 0x1e924c, Func Offset: 0x1c
-	// Line 3912, Address: 0x1e9254, Func Offset: 0x24
-	// Line 3914, Address: 0x1e9260, Func Offset: 0x30
-	// Line 3919, Address: 0x1e926c, Func Offset: 0x3c
-	// Line 3920, Address: 0x1e9278, Func Offset: 0x48
-	// Line 3922, Address: 0x1e9284, Func Offset: 0x54
-	// Line 3924, Address: 0x1e9290, Func Offset: 0x60
-	// Line 3927, Address: 0x1e9294, Func Offset: 0x64
-	// Line 3928, Address: 0x1e9298, Func Offset: 0x68
-	// Line 3929, Address: 0x1e929c, Func Offset: 0x6c
-	// Line 3930, Address: 0x1e92a0, Func Offset: 0x70
-	// Line 3931, Address: 0x1e92a4, Func Offset: 0x74
-	// Line 3932, Address: 0x1e92a8, Func Offset: 0x78
-	// Line 3933, Address: 0x1e92ac, Func Offset: 0x7c
-	// Line 3934, Address: 0x1e92b0, Func Offset: 0x80
-	// Line 3936, Address: 0x1e92b4, Func Offset: 0x84
-	// Line 3937, Address: 0x1e92cc, Func Offset: 0x9c
-	// Line 3938, Address: 0x1e92e0, Func Offset: 0xb0
-	// Line 3940, Address: 0x1e92f4, Func Offset: 0xc4
-	// Line 3941, Address: 0x1e9300, Func Offset: 0xd0
-	// Line 3942, Address: 0x1e9308, Func Offset: 0xd8
-	// Line 3943, Address: 0x1e9310, Func Offset: 0xe0
-	// Line 3946, Address: 0x1e9314, Func Offset: 0xe4
-	// Line 3947, Address: 0x1e9320, Func Offset: 0xf0
-	// Line 3948, Address: 0x1e9324, Func Offset: 0xf4
-	// Func End, Address: 0x1e9334, Func Offset: 0x104
-	scePrintf("CoreInit - UNIMPLEMENTED!\n");
+    epw->flg &= ~0x178;
+    epw->flg &= ~6;
+    epw->mdflg |= 4;
+    epw->aoz = 0.0f;
+    epw->aoy = 0.0f;
+    epw->aox = 0.0f;
+    epw->loz = 0.0f;
+    epw->loy = 0.0f;
+    epw->lox = 0.0f;
+    epw->mdflg |= 2;
+    epw->shp_ct = 0.0f;
+    epw->mtn_md = 0;
+    epw->mtn_no = 0;
+    epw->mtn_tp = NULL;
+    epw->mtn_add = 0;
+    epw->hokan_rate = 0;
+    epw->hokan_count = 0;
+    epw->frm_no = 0;
+    epw->mtn_add = 0;
+    ChangeAmbient(epw->mbp[0]->child->model->plist, 178);
+    ChangeAmbient(epw->mbp[1]->child->model->plist, 178);
+    ChangeAmbient(epw->mbp[2]->child->model->plist, 178);
+    epw->mlwP->objP = epw->mbp[0];
+    epw->obj_a = epw->mbp[0];
+    epw->obj_b = epw->mbp[1];
+    epw->shp_ct = 0.0f;
+    epw->mode0++;
+    epw->mode1 = 0;
 }
 
 // 100% matching!
