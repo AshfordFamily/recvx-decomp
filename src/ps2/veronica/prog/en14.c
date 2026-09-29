@@ -369,7 +369,9 @@ void bhEne14_MV00(BH_PWORK* epw)
         epw->hokan_count = 18;
         epw->hokan_rate = 45875;
         epw->mode3++;
+        break;
     }
+
 }
 
 // 100% matching!
@@ -400,6 +402,7 @@ void bhEne14_MV01(BH_PWORK* epw)
             epw->flg |= 0x100000;
             EXP0_I(0x240) = 16;
         }
+        break;
 
     }
 }
@@ -443,6 +446,7 @@ void bhEne14_MV02(BH_PWORK* epw)
         case 2:
             epw->mtn_no = 3;
             epw->mtn_md |= 2;
+            break;
         }
         
         epw->frm_no = 0;
@@ -465,6 +469,7 @@ void bhEne14_MV02(BH_PWORK* epw)
                 break;
             default:
                 epw->shp_ct = bhEne_GetShapeCnt(ShapeTbl_Acid_S, fno);
+                break;
         }
         
         if (fno >= 7 && fno < 13)
@@ -892,6 +897,8 @@ void bhEne14_DG00(BH_PWORK* epw)
             epw->flg |= 0x100000;
             EXP0_I(0x240) = 8;
         }
+        break;
+
     }
 }
 
@@ -922,6 +929,8 @@ void bhEne14_DG01(BH_PWORK* epw)
             epw->flg |= 0x100000;
             EXP0_I(0x240) = 8;
         }
+        break;
+
     }
 }
 
@@ -1040,8 +1049,7 @@ void bhEne14_LookPlayaer(BH_PWORK* epw)
     
     if (EXP0_I(0x240) != 0)
     {
-        (void*)epw->mlwP;  // Hack
-        njSetMatrix((NJS_MATRIX*)&(lcmat[1]), (NJS_MATRIX*)&epw->mlwP->owP[6].mtx[0]);
+        njSetMatrix(&(lcmat[1]), &epw->mlwP->owP[6].mtx);
         njSetMatrix(NULL, &epw->mlwP->owP[5].mtx);
         njInvertMatrix(NULL);
         njMultiMatrix(NULL, (NJS_MATRIX*)&(lcmat[1]));
@@ -1097,8 +1105,8 @@ void bhEne14_TailInit(BH_PWORK* epw)
 // 99.92% matching
 void bhEne14_TailSwing(BH_PWORK* epw)
 {
-    static float n[11] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     static float g[11] = { 0.5f, 0.5f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f };
+    static float n[11] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };   
     NJS_VECTOR v;
     int i;
     O_WORK* owp;
@@ -1185,7 +1193,6 @@ void bhEne14_TailSwing(BH_PWORK* epw)
         njRotateEx(objp->ang, 0);
     }
 }
-
 
 // 100% matching!
 int bhEne14_HitMark(BH_PWORK* epw)
@@ -1495,6 +1502,8 @@ void bhEne14_PlayerControl(BH_PWORK* epw)
                     plp->stflg &= ~0x10000;
                     *(int*)&plp->mode0 = 1;    
                 } 
+                break;
+
             }
         } 
     } 
