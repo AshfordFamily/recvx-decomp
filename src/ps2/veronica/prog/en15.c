@@ -2499,37 +2499,47 @@ static void StandupPlayer(BH_PWORK* epw)
     }
 }
 
-// Start address: 0x1e8a50
+// 100% matching!
 static void HoldPlayer(BH_PWORK* epw)
-{
-	O_WORK* owk;
-	NJS_POINT3 pos;
-	//NJS_VECTOR _v;
-	NJS_VECTOR _v;
-	// Line 3682, Address: 0x1e8a50, Func Offset: 0
-	// Line 3683, Address: 0x1e8a64, Func Offset: 0x14
-	// Line 3684, Address: 0x1e8a7c, Func Offset: 0x2c
-	// Line 3685, Address: 0x1e8a88, Func Offset: 0x38
-	// Line 3687, Address: 0x1e8a90, Func Offset: 0x40
-	// Line 3688, Address: 0x1e8aa0, Func Offset: 0x50
-	// Line 3687, Address: 0x1e8aa4, Func Offset: 0x54
-	// Line 3688, Address: 0x1e8ab0, Func Offset: 0x60
-	// Line 3689, Address: 0x1e8ab8, Func Offset: 0x68
-	// Line 3690, Address: 0x1e8acc, Func Offset: 0x7c
-	// Line 3695, Address: 0x1e8ae0, Func Offset: 0x90
-	// Line 3696, Address: 0x1e8b08, Func Offset: 0xb8
-	// Line 3697, Address: 0x1e8b14, Func Offset: 0xc4
-	// Line 3702, Address: 0x1e8b20, Func Offset: 0xd0
-	// Line 3697, Address: 0x1e8b28, Func Offset: 0xd8
-	// Line 3698, Address: 0x1e8b3c, Func Offset: 0xec
-	// Line 3699, Address: 0x1e8b44, Func Offset: 0xf4
-	// Line 3700, Address: 0x1e8b4c, Func Offset: 0xfc
-	// Line 3701, Address: 0x1e8b50, Func Offset: 0x100
-	// Line 3702, Address: 0x1e8b54, Func Offset: 0x104
-	// Line 3703, Address: 0x1e8b5c, Func Offset: 0x10c
-	// Line 3705, Address: 0x1e8b6c, Func Offset: 0x11c
-	// Func End, Address: 0x1e8b80, Func Offset: 0x130
-	scePrintf("HoldPlayer - UNIMPLEMENTED!\n");
+{	
+    NJS_VECTOR _v;
+
+    if (plp->mtn_no == 19)
+    {
+        ikou(plp, (NJS_POINT3*)&epw->px, 8192);
+    } 
+    else
+    {        
+        _v = *(NJS_VECTOR*)&plp->px;
+
+        njSubVector(&_v, (NJS_VECTOR*)&epw->px);
+        njAddVector(&_v, (NJS_VECTOR*)&plp->px);
+        
+        ikou(plp, &_v, 8192);
+    }
+    
+    {
+        NJS_VECTOR _v;
+        NJS_POINT3 pos; 
+	    O_WORK* owk;
+        
+        _v.x = -njSin(epw->ay);
+        _v.y = 0;
+        _v.z = -njCos(epw->ay);
+        
+        njUnitVector(&_v);
+        
+        _v.x *= 2.0f;
+        _v.z *= 2.0f;
+        
+        owk = epw->mlwP->owP;
+        pos.x = owk[1].mtx[12];
+        pos.y = 0.0f;
+        pos.z = owk[1].mtx[14];
+        
+        njAddVector(&_v, &pos);
+        VacumeToPoint(plp, &_v);
+    }
 }
 
 // 100% matching!
