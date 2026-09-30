@@ -9,6 +9,7 @@
 #include "../../../ps2/veronica/prog/subpl.h"
 #include "../../../ps2/veronica/prog/Motion.h"
 #include "../../../ps2/veronica/prog/effect.h"
+#include "../../../ps2/veronica/prog/pwksub.h"
 
 //#include <string.h>
 
@@ -384,86 +385,100 @@ void bhEne15(BH_PWORK* epw)
 	scePrintf("bhEne15 - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e1330
-static void Init(BH_PWORK* epw)
-{
-	int i;
-	// Line 1461, Address: 0x1e1330, Func Offset: 0
-	// Line 1471, Address: 0x1e133c, Func Offset: 0xc
-	// Line 1472, Address: 0x1e1348, Func Offset: 0x18
-	// Line 1473, Address: 0x1e1358, Func Offset: 0x28
-	// Line 1476, Address: 0x1e138c, Func Offset: 0x5c
-	// Line 1483, Address: 0x1e1398, Func Offset: 0x68
-	// Line 1484, Address: 0x1e13a0, Func Offset: 0x70
-	// Line 1488, Address: 0x1e13a8, Func Offset: 0x78
-	// Line 1490, Address: 0x1e13ac, Func Offset: 0x7c
-	// Line 1494, Address: 0x1e13b0, Func Offset: 0x80
-	// Line 1498, Address: 0x1e13b4, Func Offset: 0x84
-	// Line 1488, Address: 0x1e13b8, Func Offset: 0x88
-	// Line 1490, Address: 0x1e13c0, Func Offset: 0x90
-	// Line 1498, Address: 0x1e13c4, Func Offset: 0x94
-	// Line 1490, Address: 0x1e13c8, Func Offset: 0x98
-	// Line 1494, Address: 0x1e13d0, Func Offset: 0xa0
-	// Line 1496, Address: 0x1e13dc, Func Offset: 0xac
-	// Line 1498, Address: 0x1e13e4, Func Offset: 0xb4
-	// Line 1501, Address: 0x1e13f0, Func Offset: 0xc0
-	// Line 1504, Address: 0x1e13f8, Func Offset: 0xc8
-	// Line 1501, Address: 0x1e13fc, Func Offset: 0xcc
-	// Line 1504, Address: 0x1e1400, Func Offset: 0xd0
-	// Line 1505, Address: 0x1e1408, Func Offset: 0xd8
-	// Line 1506, Address: 0x1e1410, Func Offset: 0xe0
-	// Line 1507, Address: 0x1e1414, Func Offset: 0xe4
-	// Line 1508, Address: 0x1e1418, Func Offset: 0xe8
-	// Line 1510, Address: 0x1e1420, Func Offset: 0xf0
-	// Line 1509, Address: 0x1e1424, Func Offset: 0xf4
-	// Line 1510, Address: 0x1e1428, Func Offset: 0xf8
-	// Line 1511, Address: 0x1e1430, Func Offset: 0x100
-	// Line 1514, Address: 0x1e1454, Func Offset: 0x124
-	// Line 1515, Address: 0x1e1478, Func Offset: 0x148
-	// Line 1517, Address: 0x1e1480, Func Offset: 0x150
-	// Line 1518, Address: 0x1e1488, Func Offset: 0x158
-	// Line 1521, Address: 0x1e1494, Func Offset: 0x164
-	// Line 1525, Address: 0x1e149c, Func Offset: 0x16c
-	// Line 1521, Address: 0x1e14a0, Func Offset: 0x170
-	// Line 1522, Address: 0x1e14a4, Func Offset: 0x174
-	// Line 1523, Address: 0x1e14ac, Func Offset: 0x17c
-	// Line 1525, Address: 0x1e14b4, Func Offset: 0x184
-	// Line 1526, Address: 0x1e14c0, Func Offset: 0x190
-	// Line 1529, Address: 0x1e14c4, Func Offset: 0x194
-	// Line 1530, Address: 0x1e14d4, Func Offset: 0x1a4
-	// Line 1531, Address: 0x1e14fc, Func Offset: 0x1cc
-	// Line 1535, Address: 0x1e1508, Func Offset: 0x1d8
-	// Line 1536, Address: 0x1e150c, Func Offset: 0x1dc
-	// Line 1535, Address: 0x1e1510, Func Offset: 0x1e0
-	// Line 1536, Address: 0x1e1514, Func Offset: 0x1e4
-	// Line 1537, Address: 0x1e1518, Func Offset: 0x1e8
-	// Line 1538, Address: 0x1e1520, Func Offset: 0x1f0
-	// Line 1539, Address: 0x1e1528, Func Offset: 0x1f8
-	// Line 1546, Address: 0x1e152c, Func Offset: 0x1fc
-	// Line 1547, Address: 0x1e1534, Func Offset: 0x204
-	// Line 1550, Address: 0x1e1538, Func Offset: 0x208
-	// Line 1539, Address: 0x1e153c, Func Offset: 0x20c
-	// Line 1541, Address: 0x1e1544, Func Offset: 0x214
-	// Line 1544, Address: 0x1e1548, Func Offset: 0x218
-	// Line 1545, Address: 0x1e154c, Func Offset: 0x21c
-	// Line 1546, Address: 0x1e1550, Func Offset: 0x220
-	// Line 1547, Address: 0x1e1554, Func Offset: 0x224
-	// Line 1550, Address: 0x1e1558, Func Offset: 0x228
-	// Line 1552, Address: 0x1e1574, Func Offset: 0x244
-	// Line 1553, Address: 0x1e1578, Func Offset: 0x248
-	// Line 1554, Address: 0x1e157c, Func Offset: 0x24c
-	// Line 1555, Address: 0x1e1580, Func Offset: 0x250
-	// Line 1556, Address: 0x1e1588, Func Offset: 0x258
-	// Line 1558, Address: 0x1e158c, Func Offset: 0x25c
-	// Line 1556, Address: 0x1e1590, Func Offset: 0x260
-	// Line 1558, Address: 0x1e1598, Func Offset: 0x268
-	// Line 1559, Address: 0x1e15b0, Func Offset: 0x280
-	// Line 1561, Address: 0x1e15c4, Func Offset: 0x294
-	// Line 1562, Address: 0x1e15d8, Func Offset: 0x2a8
-	// Line 1563, Address: 0x1e15e4, Func Offset: 0x2b4
-	// Func End, Address: 0x1e15f4, Func Offset: 0x2c4
-	scePrintf("Init - UNIMPLEMENTED!\n");
+// 99.86% matching
+static void Init(BH_PWORK* epw) 
+{   
+    int i;
+    
+    if (epw->exp0 == NULL)
+    {
+        epw->exp0 = bhGetFreeMemory(100, 32);
+        if (epw->exp0 == NULL)
+        {
+            sprintf(dbgout_buf, "Can't Get WorkMemory!\n");
+            write(1, dbgout_buf, sizeof(dbgout_buf));
+        }
+    }
+    
+    if (epw->exp0 != NULL)
+    {
+        EXP0_S(0x58) = -1;
+        EXP0_S(0x5C) = 0;
+    }
+    
+    epw->flg |= 0x178;
+    epw->flg &= ~6;
+    epw->mdflg &= ~4;
+    EXP0_S(0x5A) = 0;
+    bhCrFlg(sys->ev_flg, 57);
+    epw->aox = epw->aoy = epw->aoz = 0.0f;
+    
+    epw->ar = 3.8f;
+    epw->ah = 20.0f;
+    epw->aw = 0.0f;
+    epw->ad = 0.0f;
+    epw->car = 2.5f;
+    epw->cah = 20.0f;
+    epw->cpcl = CapColTab;
+    for (i = 0; i < 64; i++)
+    {
+        epw->dam[i] = 0;
+    }
+    
+    if (sys->gm_mode == 2)
+    {
+        epw->hp = 360;
+    } 
+    else
+    {
+        epw->hp = 600;
+    }
+    
+    bhEne_InitDamage(epw);
+    epw->ct1 = 0;
+    epw->ct2 = 0;
+    epw->ct0 = 0;
+    epw->mlwP->objP = epw->mbp[0];
+    epw->obj_a = epw->mbp[0];
+    epw->obj_b = epw->mbp[0];
+    epw->mdflg &= ~2;
+    epw->shp_ct = 0.0f;
+    if (!(epw->flg & 0x800))
+    {
+        float sxz = 5.0f; // Not from DWARF
+        bhSetShadow(SdwTab, (unsigned char*)epw, 1, 6.0f, sxz, (float)sxz);
+        epw->flg |= 0x800;
+    }
+    
+    epw->clp_jno[0] = 4;
+    epw->clp_jno[1] = 20;
+    epw->clp_jno[2] = 23;
+    epw->clp_jno[3] = -1;
+    epw->mdflg |= 0x20;
+    epw->lok_jno = 4;
+    epw->mtn_md = 0;
+    epw->mtn_no = -1;
+    epw->mtn_tp = flip_tree;
+    epw->mtn_add = 65536;
+    epw->ct2 = 0;
+    epw->mode0 = 1;
+    epw->mode1 = 0;
+    epw->way = 0;
+    ReqMtn(epw, 0);
+    epw->hokan_rate = 0;
+    epw->hokan_count = 0;
+    epw->frm_no = 0;
+    epw->mtn_add = 65536;
+    epw->mtn_no = EXP0_S(0x58);
+    
+    if (bhSetMotion(epw, 0, epw->mtn_md, epw->mtn_tp) != 0)
+    {
+        epw->flg |= 0x2000000;
+    } else {
+        epw->flg &= ~0x2000000;
+    }
+
+    EXP0_S(0x58) = -1;
 }
 
 // 100% matching!
