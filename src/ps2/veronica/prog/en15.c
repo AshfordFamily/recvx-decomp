@@ -1777,58 +1777,35 @@ static EFF_INFO eff_info[5] =
     { 6, uvinfo1_1 }
 };
 
-// 
-// Start address: 0x1e5f80
+// 100% matching!
 static void SpecialAttack(BH_PWORK* epw, NJS_VECTOR* splash_v)
 {
-	NJS_POINT3 _p = { 0, 8.0f, 0 };
 	int eno;
-	// Line 2992, Address: 0x1e5f80, Func Offset: 0
-	// Line 2995, Address: 0x1e5f90, Func Offset: 0x10
-	// Line 2996, Address: 0x1e5fa0, Func Offset: 0x20
-	// Line 2997, Address: 0x1e5fa8, Func Offset: 0x28
-	// Line 2996, Address: 0x1e5fac, Func Offset: 0x2c
-	// Line 2997, Address: 0x1e5fb0, Func Offset: 0x30
-	// Line 2996, Address: 0x1e5fb4, Func Offset: 0x34
-	// Line 2997, Address: 0x1e5fc0, Func Offset: 0x40
-	// Line 2998, Address: 0x1e5ff8, Func Offset: 0x78
-	// Line 3001, Address: 0x1e6000, Func Offset: 0x80
-	// Line 3002, Address: 0x1e6004, Func Offset: 0x84
-	// Line 3005, Address: 0x1e6008, Func Offset: 0x88
-	// Line 2998, Address: 0x1e600c, Func Offset: 0x8c
-	// Line 2999, Address: 0x1e6018, Func Offset: 0x98
-	// Line 3005, Address: 0x1e6020, Func Offset: 0xa0
-	// Line 2999, Address: 0x1e6028, Func Offset: 0xa8
-	// Line 3001, Address: 0x1e6034, Func Offset: 0xb4
-	// Line 3002, Address: 0x1e6048, Func Offset: 0xc8
-	// Line 3005, Address: 0x1e605c, Func Offset: 0xdc
-	// Line 3009, Address: 0x1e6074, Func Offset: 0xf4
-	// Line 3010, Address: 0x1e6080, Func Offset: 0x100
-	// Line 3011, Address: 0x1e60a0, Func Offset: 0x120
-	// Line 3010, Address: 0x1e60a8, Func Offset: 0x128
-	// Line 3011, Address: 0x1e60ac, Func Offset: 0x12c
-	// Line 3012, Address: 0x1e60b0, Func Offset: 0x130
-	// Line 3010, Address: 0x1e60b4, Func Offset: 0x134
-	// Line 3011, Address: 0x1e60bc, Func Offset: 0x13c
-	// Line 3012, Address: 0x1e60c0, Func Offset: 0x140
-	// Line 3011, Address: 0x1e60d0, Func Offset: 0x150
-	// Line 3012, Address: 0x1e60d4, Func Offset: 0x154
-	// Line 3013, Address: 0x1e60d8, Func Offset: 0x158
-	// Line 3011, Address: 0x1e60e0, Func Offset: 0x160
-	// Line 3012, Address: 0x1e60e4, Func Offset: 0x164
-	// Line 3013, Address: 0x1e60e8, Func Offset: 0x168
-	// Line 3014, Address: 0x1e60ec, Func Offset: 0x16c
-	// Line 3012, Address: 0x1e60f4, Func Offset: 0x174
-	// Line 3014, Address: 0x1e60fc, Func Offset: 0x17c
-	// Line 3012, Address: 0x1e6100, Func Offset: 0x180
-	// Line 3015, Address: 0x1e6104, Func Offset: 0x184
-	// Line 3012, Address: 0x1e6110, Func Offset: 0x190
-	// Line 3013, Address: 0x1e6120, Func Offset: 0x1a0
-	// Line 3014, Address: 0x1e6124, Func Offset: 0x1a4
-	// Line 3015, Address: 0x1e6128, Func Offset: 0x1a8
-	// Line 3018, Address: 0x1e6140, Func Offset: 0x1c0
-	// Func End, Address: 0x1e6154, Func Offset: 0x1d4
-	scePrintf("SpecialAttack - UNIMPLEMENTED!\n");
+
+    if (epw->ct3 == 0)
+    {
+        sys->ef.flg = 1;
+        {
+            NJS_POINT3 _p = { 0.0f, 8.0f, 0.0f };
+            njCalcPoint(&epw->mlwP->owP[10].mtx, &_p, (NJS_POINT3*)&sys->ef.px);
+        }
+
+        sys->ef.ay = 0;
+        sys->ef.mdlver = 0;
+        sys->ef.id = 397;
+        sys->ef.type = 4;
+        
+        eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+        if (eno != -1)
+        {
+            eff[eno].stflg |= 0x20;
+            eff[eno].txp[0] = epw->mlwP->texP;
+            eff[eno].tex_id = eff_info[sys->ef.type].texid;
+            eff[eno].mode3 = 0;
+            eff[eno].exp0 = (unsigned char*)epw;            
+            *(NJS_POINT3*)&eff[eno].xn = *splash_v;        
+        }
+    }
 }
 
 // 100% matching!
