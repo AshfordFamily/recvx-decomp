@@ -2001,44 +2001,71 @@ void bhEne_SetPoison(BH_PWORK* epw, BT_WORK* bt)
     }
 }
 
-// 
-// Start address: 0x1e6c50
+// 100% matching!
 static void PoisonAttack(O_WRK* op)
 {
-	NJS_VECTOR attack_v;
-	NJS_SPHERE col;
-	// Line 3192, Address: 0x1e6c50, Func Offset: 0
-	// Line 3203, Address: 0x1e6c5c, Func Offset: 0xc
-	// Line 3204, Address: 0x1e6c6c, Func Offset: 0x1c
-	// Line 3205, Address: 0x1e6c84, Func Offset: 0x34
-	// Line 3206, Address: 0x1e6c8c, Func Offset: 0x3c
-	// Line 3207, Address: 0x1e6c9c, Func Offset: 0x4c
-	// Line 3208, Address: 0x1e6ca0, Func Offset: 0x50
-	// Line 3206, Address: 0x1e6ca8, Func Offset: 0x58
-	// Line 3207, Address: 0x1e6cb4, Func Offset: 0x64
-	// Line 3208, Address: 0x1e6cb8, Func Offset: 0x68
-	// Line 3209, Address: 0x1e6cd0, Func Offset: 0x80
-	// Line 3211, Address: 0x1e6cd8, Func Offset: 0x88
-	// Line 3212, Address: 0x1e6cf0, Func Offset: 0xa0
-	// Line 3214, Address: 0x1e6d04, Func Offset: 0xb4
-	// Line 3215, Address: 0x1e6d20, Func Offset: 0xd0
-	// Line 3216, Address: 0x1e6d28, Func Offset: 0xd8
-	// Line 3217, Address: 0x1e6d30, Func Offset: 0xe0
-	// Line 3218, Address: 0x1e6d4c, Func Offset: 0xfc
-	// Line 3219, Address: 0x1e6dc0, Func Offset: 0x170
-	// Line 3220, Address: 0x1e6dc8, Func Offset: 0x178
-	// Line 3222, Address: 0x1e6dd4, Func Offset: 0x184
-	// Line 3223, Address: 0x1e6de0, Func Offset: 0x190
-	// Line 3222, Address: 0x1e6de4, Func Offset: 0x194
-	// Line 3223, Address: 0x1e6dec, Func Offset: 0x19c
-	// Line 3224, Address: 0x1e6e04, Func Offset: 0x1b4
-	// Line 3225, Address: 0x1e6e10, Func Offset: 0x1c0
-	// Line 3226, Address: 0x1e6e1c, Func Offset: 0x1cc
-	// Line 3227, Address: 0x1e6e28, Func Offset: 0x1d8
-	// Line 3229, Address: 0x1e6e34, Func Offset: 0x1e4
-	// Line 3232, Address: 0x1e6e40, Func Offset: 0x1f0
-	// Func End, Address: 0x1e6e50, Func Offset: 0x200
-	scePrintf("PoisonAttack - UNIMPLEMENTED!\n");
+    NJS_SPHERE col;
+    NJS_VECTOR attack_v;
+
+    if (poison_attack_wait != 0)
+    {
+        return;
+    }
+        
+    if ((op->type == 1) || (op->type == 2))
+    {
+        return;
+    }
+        
+    col.c = *(NJS_POINT3*)&op->px; 
+    col.r = 3.0f;
+
+    attack_v = *(NJS_POINT3*)&plp->px; 
+
+    njSubVector(&attack_v, &col.c);
+
+    if (*(short*)(*(unsigned char**)(op->exp0 + 0x2F0) + 0x5A) & 1)
+    {
+        return;
+    }
+
+    if (bhEne15_AttackPlayerSS(&col, &attack_v, 3) == 0)
+    {
+        return;
+    }
+        
+    if ((plp->mode0 != 1) && (plp->mode0 != 0))
+    {
+        plp->hp += 3;
+    } 
+    else
+    {
+        if (*(short *)(*(int *)(op->exp0 + 0x2F0) + 0x5C) > 5)
+        {
+            if (njRandom() < 0.6)
+            {
+                plp->stflg |= 0x200000;
+            }  
+        }
+        else
+        {
+            (*(short *)(*(int *)(op->exp0 + 0x2F0) + 0x5C))++;
+        }
+
+        plp->flg |= 4;
+
+        if (plp->hp < 0)
+        {
+            plp->hp = 0;
+        }
+            
+        plp->mode0 = 2;
+        plp->mode1 = 0;
+        plp->mode2 = 0;
+        plp->mode3 = 0;
+    }
+
+    poison_attack_wait = 20;
 }
 
 // 100% matching!
