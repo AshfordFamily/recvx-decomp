@@ -1950,43 +1950,55 @@ static void _bhEne_SetPoison2(O_WRK* op, int type, NJS_VECTOR* ofp)
     }
 }
 
-// 
-// Start address: 0x1e6a70
-void bhEne_SetPoison(BH_PWORK* epw, BT_WORK* bt)
+// 100% matching!
+void bhEne_SetPoison(BH_PWORK* epw, BT_WORK* bt) 
 {
-	int fhit;
+	O_WORK* owk; 
+	NJS_POINT3 ofp; 
 	NJS_POINT3 ps;
-	NJS_POINT3 ofp;
-	O_WORK* owk;
-	// Line 3153, Address: 0x1e6a70, Func Offset: 0
-	// Line 3158, Address: 0x1e6a88, Func Offset: 0x18
-	// Line 3159, Address: 0x1e6aa0, Func Offset: 0x30
-	// Line 3161, Address: 0x1e6aac, Func Offset: 0x3c
-	// Line 3164, Address: 0x1e6ac4, Func Offset: 0x54
-	// Line 3168, Address: 0x1e6ae8, Func Offset: 0x78
-	// Line 3171, Address: 0x1e6af0, Func Offset: 0x80
-	// Line 3168, Address: 0x1e6af8, Func Offset: 0x88
-	// Line 3169, Address: 0x1e6b00, Func Offset: 0x90
-	// Line 3170, Address: 0x1e6b10, Func Offset: 0xa0
-	// Line 3171, Address: 0x1e6b18, Func Offset: 0xa8
-	// Line 3170, Address: 0x1e6b1c, Func Offset: 0xac
-	// Line 3171, Address: 0x1e6b20, Func Offset: 0xb0
-	// Line 3172, Address: 0x1e6b28, Func Offset: 0xb8
-	// Line 3173, Address: 0x1e6b34, Func Offset: 0xc4
-	// Line 3174, Address: 0x1e6b48, Func Offset: 0xd8
-	// Line 3175, Address: 0x1e6b50, Func Offset: 0xe0
-	// Line 3176, Address: 0x1e6b64, Func Offset: 0xf4
-	// Line 3179, Address: 0x1e6b68, Func Offset: 0xf8
-	// Line 3180, Address: 0x1e6b74, Func Offset: 0x104
-	// Line 3181, Address: 0x1e6bb4, Func Offset: 0x144
-	// Line 3182, Address: 0x1e6bf0, Func Offset: 0x180
-	// Line 3183, Address: 0x1e6bf8, Func Offset: 0x188
-	// Line 3185, Address: 0x1e6c08, Func Offset: 0x198
-	// Line 3186, Address: 0x1e6c10, Func Offset: 0x1a0
-	// Line 3188, Address: 0x1e6c18, Func Offset: 0x1a8
-	// Line 3189, Address: 0x1e6c30, Func Offset: 0x1c0
-	// Func End, Address: 0x1e6c4c, Func Offset: 0x1dc
-	scePrintf("bhEne_SetPoison - UNIMPLEMENTED!\n");
+	int fhit;
+
+    // not present in DWARF
+    BT_WORK* btp;
+    
+    fhit = 0;
+    if (poison_eff_wait == 0)
+    {
+        poison_eff_wait = 15;
+        owk = &epw->mlwP->owP[epw->djnt_no];
+        if ((bt == NULL) || (epw->wpnr_no == 13) || (epw->wpnr_no == 10))
+        {
+            ps.x = epw->dpx - owk->mtx[12];
+            ps.y = epw->dpy - owk->mtx[13];
+            ps.z = epw->dpz - owk->mtx[14];
+            njSetMatrix(lcmat, &owk->mtx);
+            njInvertMatrix(lcmat);
+            njCalcVector(lcmat, &ps, &ofp);
+        } 
+        else 
+        {
+            if (bhDGCdirCheck2((NJS_VECTOR*)&epw->dvx, owk) == 0)
+            {
+                fhit = 1;
+            }
+            
+            btp = &bt[epw->djnt_no];
+
+            ofp.x = btp->x + (btp->xlen - (2.0f * btp->xlen * njRandom()));
+            ofp.y = btp->y + (btp->ylen - (2.0f * btp->ylen * njRandom()));
+            
+            if (fhit != 0)
+            {
+                ofp.z = -btp->z;
+            }
+            else
+            {
+                ofp.z = btp->z;
+            }
+            epw->djnt_no = btp->lnk_obj;
+        }
+        _bhEne_SetPoison(epw, (NJS_VECTOR*)&ofp, plp->way);
+    }
 }
 
 // 
