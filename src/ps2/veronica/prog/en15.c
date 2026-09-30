@@ -1096,43 +1096,49 @@ static void Damage(BH_PWORK* epw)
 	scePrintf("Damage - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e4390
+// 100% matching!
 static void Die(BH_PWORK* epw)
 {
-	NJS_VECTOR vec;
-	// Line 2104, Address: 0x1e4390, Func Offset: 0
-	// Line 2105, Address: 0x1e43a0, Func Offset: 0x10
-	// Line 2108, Address: 0x1e43b0, Func Offset: 0x20
-	// Line 2109, Address: 0x1e43cc, Func Offset: 0x3c
-	// Line 2111, Address: 0x1e43dc, Func Offset: 0x4c
-	// Line 2112, Address: 0x1e4418, Func Offset: 0x88
-	// Line 2114, Address: 0x1e441c, Func Offset: 0x8c
-	// Line 2116, Address: 0x1e444c, Func Offset: 0xbc
-	// Line 2117, Address: 0x1e445c, Func Offset: 0xcc
-	// Line 2118, Address: 0x1e4468, Func Offset: 0xd8
-	// Line 2119, Address: 0x1e446c, Func Offset: 0xdc
-	// Line 2121, Address: 0x1e4478, Func Offset: 0xe8
-	// Line 2122, Address: 0x1e4494, Func Offset: 0x104
-	// Line 2123, Address: 0x1e4498, Func Offset: 0x108
-	// Line 2122, Address: 0x1e44a0, Func Offset: 0x110
-	// Line 2123, Address: 0x1e44a8, Func Offset: 0x118
-	// Line 2124, Address: 0x1e44d0, Func Offset: 0x140
-	// Line 2125, Address: 0x1e44d8, Func Offset: 0x148
-	// Line 2124, Address: 0x1e44dc, Func Offset: 0x14c
-	// Line 2125, Address: 0x1e44e0, Func Offset: 0x150
-	// Line 2124, Address: 0x1e44e4, Func Offset: 0x154
-	// Line 2125, Address: 0x1e44ec, Func Offset: 0x15c
-	// Line 2126, Address: 0x1e4504, Func Offset: 0x174
-	// Line 2127, Address: 0x1e4510, Func Offset: 0x180
-	// Line 2126, Address: 0x1e451c, Func Offset: 0x18c
-	// Line 2127, Address: 0x1e4524, Func Offset: 0x194
-	// Line 2128, Address: 0x1e452c, Func Offset: 0x19c
-	// Line 2127, Address: 0x1e4530, Func Offset: 0x1a0
-	// Line 2128, Address: 0x1e4538, Func Offset: 0x1a8
-	// Line 2134, Address: 0x1e4548, Func Offset: 0x1b8
-	// Func End, Address: 0x1e4558, Func Offset: 0x1c8
-	scePrintf("Die - UNIMPLEMENTED!\n");
+    NJS_VECTOR vec;
+
+    if (epw->mtn_no == 11)
+    {
+        vec = *(NJS_VECTOR*)&epw->px;
+        njSubVector(&vec, (NJS_VECTOR*)&epw->mlwP->owP[4].mtx[12]);
+        vec.y = 0.0f;
+        if (njScalor(&vec) > 3.8f)
+        {
+            epw->ar = njScalor(&vec);
+        } 
+        else 
+        {
+            epw->ar = 3.8f;
+        }
+        
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->flg &= ~0x40;
+            epw->flg |= 2;
+            epw->mtn_add = 0;
+            if ((epw->mode1 == 0) && (sys->gm_flg & 0x40))
+            {
+                sys->gm_flg &= ~0x40;
+                if (!(sys->gm_flg & 0x1000000))
+                {
+                    sys->gm_flg &= ~0x80;
+                }
+                
+                sys->gm_flg |= 0x800;
+                
+                if (sys->st_flg & 0x800000) 
+                {
+                    sys->st_flg &= ~0x800000;
+                    sys->gm_flg &= ~0x80000;
+                    sys->pt_flg |= 1;
+                }
+            }
+        }
+    }
 }
 
 // 
