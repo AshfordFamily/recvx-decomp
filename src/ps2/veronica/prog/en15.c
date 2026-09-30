@@ -2793,117 +2793,191 @@ static void CoreMove(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1e9520
+// 100% matching!
 static void CoreDie(BH_PWORK* epw)
 {
-	int i;
-	// Line 4009, Address: 0x1e9520, Func Offset: 0
-	// Line 4010, Address: 0x1e9534, Func Offset: 0x14
-	// Line 4012, Address: 0x1e9558, Func Offset: 0x38
-	// Line 4013, Address: 0x1e9564, Func Offset: 0x44
-	// Line 4014, Address: 0x1e9568, Func Offset: 0x48
-	// Line 4016, Address: 0x1e9574, Func Offset: 0x54
-	// Line 4018, Address: 0x1e95b8, Func Offset: 0x98
-	// Line 4019, Address: 0x1e95d8, Func Offset: 0xb8
-	// Line 4020, Address: 0x1e95dc, Func Offset: 0xbc
-	// Line 4021, Address: 0x1e95e4, Func Offset: 0xc4
-	// Line 4022, Address: 0x1e95e8, Func Offset: 0xc8
-	// Line 4023, Address: 0x1e95f0, Func Offset: 0xd0
-	// Line 4025, Address: 0x1e9618, Func Offset: 0xf8
-	// Line 4028, Address: 0x1e9620, Func Offset: 0x100
-	// Line 4029, Address: 0x1e9640, Func Offset: 0x120
-	// Line 4030, Address: 0x1e9644, Func Offset: 0x124
-	// Line 4031, Address: 0x1e9650, Func Offset: 0x130
-	// Line 4032, Address: 0x1e9668, Func Offset: 0x148
-	// Line 4033, Address: 0x1e966c, Func Offset: 0x14c
-	// Line 4034, Address: 0x1e9674, Func Offset: 0x154
-	// Line 4036, Address: 0x1e96a0, Func Offset: 0x180
-	// Line 4039, Address: 0x1e96a8, Func Offset: 0x188
-	// Line 4040, Address: 0x1e96b8, Func Offset: 0x198
-	// Line 4041, Address: 0x1e96bc, Func Offset: 0x19c
-	// Line 4042, Address: 0x1e96c4, Func Offset: 0x1a4
-	// Line 4045, Address: 0x1e96cc, Func Offset: 0x1ac
-	// Line 4048, Address: 0x1e96d4, Func Offset: 0x1b4
-	// Line 4049, Address: 0x1e96f4, Func Offset: 0x1d4
-	// Line 4050, Address: 0x1e96f8, Func Offset: 0x1d8
-	// Line 4051, Address: 0x1e9700, Func Offset: 0x1e0
-	// Line 4053, Address: 0x1e9708, Func Offset: 0x1e8
-	// Line 4054, Address: 0x1e9710, Func Offset: 0x1f0
-	// Line 4056, Address: 0x1e973c, Func Offset: 0x21c
-	// Line 4059, Address: 0x1e9744, Func Offset: 0x224
-	// Line 4060, Address: 0x1e9764, Func Offset: 0x244
-	// Line 4061, Address: 0x1e976c, Func Offset: 0x24c
-	// Line 4062, Address: 0x1e9774, Func Offset: 0x254
-	// Line 4064, Address: 0x1e9778, Func Offset: 0x258
-	// Line 4065, Address: 0x1e9780, Func Offset: 0x260
-	// Line 4069, Address: 0x1e97a8, Func Offset: 0x288
-	// Line 4072, Address: 0x1e97b0, Func Offset: 0x290
-	// Line 4073, Address: 0x1e97c0, Func Offset: 0x2a0
-	// Line 4074, Address: 0x1e97cc, Func Offset: 0x2ac
-	// Line 4075, Address: 0x1e97d4, Func Offset: 0x2b4
-	// Line 4076, Address: 0x1e97e8, Func Offset: 0x2c8
-	// Line 4078, Address: 0x1e97f4, Func Offset: 0x2d4
-	// Line 4079, Address: 0x1e980c, Func Offset: 0x2ec
-	// Line 4080, Address: 0x1e9824, Func Offset: 0x304
-	// Line 4081, Address: 0x1e9840, Func Offset: 0x320
-	// Line 4082, Address: 0x1e9844, Func Offset: 0x324
-	// Line 4084, Address: 0x1e9870, Func Offset: 0x350
-	// Line 4085, Address: 0x1e9890, Func Offset: 0x370
-	// Line 4086, Address: 0x1e9898, Func Offset: 0x378
-	// Line 4087, Address: 0x1e98a0, Func Offset: 0x380
-	// Line 4089, Address: 0x1e98a8, Func Offset: 0x388
-	// Line 4090, Address: 0x1e98b0, Func Offset: 0x390
-	// Line 4092, Address: 0x1e98c0, Func Offset: 0x3a0
-	// Line 4095, Address: 0x1e98c8, Func Offset: 0x3a8
-	// Line 4096, Address: 0x1e98e8, Func Offset: 0x3c8
-	// Line 4098, Address: 0x1e98f0, Func Offset: 0x3d0
-	// Line 4099, Address: 0x1e98f8, Func Offset: 0x3d8
-	// Line 4101, Address: 0x1e990c, Func Offset: 0x3ec
-	// Line 4104, Address: 0x1e9914, Func Offset: 0x3f4
-	// Line 4105, Address: 0x1e9924, Func Offset: 0x404
-	// Line 4108, Address: 0x1e992c, Func Offset: 0x40c
-	// Line 4109, Address: 0x1e994c, Func Offset: 0x42c
-	// Line 4110, Address: 0x1e9954, Func Offset: 0x434
-	// Line 4111, Address: 0x1e995c, Func Offset: 0x43c
-	// Line 4113, Address: 0x1e9964, Func Offset: 0x444
-	// Line 4114, Address: 0x1e996c, Func Offset: 0x44c
-	// Line 4116, Address: 0x1e9980, Func Offset: 0x460
-	// Line 4119, Address: 0x1e9988, Func Offset: 0x468
-	// Line 4120, Address: 0x1e99a8, Func Offset: 0x488
-	// Line 4121, Address: 0x1e99ac, Func Offset: 0x48c
-	// Line 4122, Address: 0x1e99b4, Func Offset: 0x494
-	// Line 4124, Address: 0x1e99bc, Func Offset: 0x49c
-	// Line 4125, Address: 0x1e99c4, Func Offset: 0x4a4
-	// Line 4127, Address: 0x1e99d4, Func Offset: 0x4b4
-	// Line 4130, Address: 0x1e99dc, Func Offset: 0x4bc
-	// Line 4131, Address: 0x1e99e0, Func Offset: 0x4c0
-	// Line 4132, Address: 0x1e99e4, Func Offset: 0x4c4
-	// Line 4130, Address: 0x1e99e8, Func Offset: 0x4c8
-	// Line 4131, Address: 0x1e99f0, Func Offset: 0x4d0
-	// Line 4132, Address: 0x1e99f4, Func Offset: 0x4d4
-	// Line 4133, Address: 0x1e99f8, Func Offset: 0x4d8
-	// Line 4135, Address: 0x1e9a2c, Func Offset: 0x50c
-	// Line 4152, Address: 0x1e9a58, Func Offset: 0x538
-	// Line 4135, Address: 0x1e9a5c, Func Offset: 0x53c
-	// Line 4152, Address: 0x1e9a60, Func Offset: 0x540
-	// Line 4135, Address: 0x1e9a68, Func Offset: 0x548
-	// Line 4152, Address: 0x1e9a6c, Func Offset: 0x54c
-	// Line 4153, Address: 0x1e9a74, Func Offset: 0x554
-	// Line 4156, Address: 0x1e9a84, Func Offset: 0x564
-	// Line 4157, Address: 0x1e9a88, Func Offset: 0x568
-	// Line 4158, Address: 0x1e9af0, Func Offset: 0x5d0
-	// Line 4159, Address: 0x1e9b58, Func Offset: 0x638
-	// Line 4160, Address: 0x1e9bbc, Func Offset: 0x69c
-	// Line 4159, Address: 0x1e9bc8, Func Offset: 0x6a8
-	// Line 4160, Address: 0x1e9bcc, Func Offset: 0x6ac
-	// Line 4161, Address: 0x1e9bd4, Func Offset: 0x6b4
-	// Line 4164, Address: 0x1e9be4, Func Offset: 0x6c4
-	// Line 4165, Address: 0x1e9bec, Func Offset: 0x6cc
-	// Line 4166, Address: 0x1e9c08, Func Offset: 0x6e8
-	// Line 4172, Address: 0x1e9c10, Func Offset: 0x6f0
-	// Func End, Address: 0x1e9c24, Func Offset: 0x704
-	scePrintf("CoreDie - UNIMPLEMENTED!\n");
+    int i;
+
+    switch (epw->mode2)
+    {
+    case 1:
+        if (epw->mode3 == 0) 
+        {
+            epw->ct1 = 0;
+            epw->mode3++;
+        }
+
+        switch (epw->mode1)
+        { 
+        case 0:
+            if (1000.0f < epw->shp_ct)
+            {
+                epw->mode1 = 1;
+                epw->obj_a = epw->mbp[1];
+                epw->obj_b = epw->mbp[2];
+                break;
+            }
+            epw->shp_ct += (400.0f / (epw->ct1 + 2));
+            break;
+            
+        case 1:
+            if (1000.0f < epw->shp_ct)
+            {
+                epw->ct0 = 0;
+                epw->ct1++;
+
+                if (epw->ct1 < 5)
+                {
+                    epw->mode1 = 2;
+                    break;
+                }
+                
+                epw->mode1 = 5;
+
+                break;
+            }
+            epw->shp_ct += (166.67f / (epw->ct1 + 2));
+            break;
+            
+        case 2:
+            if (epw->ct0++ == 3)
+            {
+                epw->mode1 = 3;
+                epw->obj_a = epw->mbp[2];
+                epw->obj_b = epw->mbp[1];
+                epw->shp_ct = 0.0f;
+            }
+            break;
+            
+        case 3:
+            if (1000.f < epw->shp_ct)
+            {
+                epw->mode1 = 4;
+                epw->obj_a = epw->mbp[1];
+                epw->obj_b = epw->mbp[0];
+                epw->shp_ct = 0.0f;
+                break;
+            }
+            epw->shp_ct += (166.67f / (epw->ct1 + 2));
+            break;
+            
+        case 4:
+            if (1000.f < epw->shp_ct)
+            {
+                epw->obj_a = epw->mbp[0];
+                epw->obj_b = epw->mbp[1];
+                epw->shp_ct = 0.0f;
+                epw->mode1 = 0;
+                break;
+            }
+            epw->shp_ct += (150.0f / (epw->ct1 + 2));
+            break;
+        }
+        break;
+    case 2:
+        if (!(epw->mdflg & 1))
+        {
+            if (epw->mode3 == 0)
+            {
+                epw->ct2 = 178;
+                if (epw->mode1 < 5)
+                {
+                    epw->mode1 = 0;
+                }
+                epw->mode3++;
+            }
+            ChangeAmbient(epw->obj_a->child->model->plist, epw->ct2);
+            ChangeAmbient(epw->obj_b->child->model->plist, epw->ct2);
+
+            if (0 < epw->ct2 - 4)
+            {
+                epw->ct2 -= 4;
+            }
+            else
+            {
+                epw->ct2 = 0;
+            }
+
+            switch (epw->mode1)
+            {
+            case 0:
+                if (1000.f < epw->shp_ct)
+                {
+                    epw->mode1 = 1;
+                    epw->obj_a = epw->mbp[1];
+                    epw->obj_b = epw->mbp[2];
+                    epw->ct0 = 0;
+                    break;
+                }
+                epw->shp_ct += 400.0f;
+                break;
+                
+            case 1:
+                if (1000.f < epw->shp_ct)
+                {
+                    epw->mode1 = 2;
+                    epw->ct0 = 0;
+                    break;
+                }
+                epw->shp_ct += 166.67f;
+                break;
+                
+            case 2:
+                if (epw->ct2 == 0)
+                {
+                    epw->mode1 = 5;
+                }
+                break;
+                
+            case 3:
+                if (1000.f < epw->shp_ct)
+                {
+                    epw->mode1 = 4;
+                    epw->obj_a = epw->mbp[1];
+                    epw->obj_b = epw->mbp[0];
+                    epw->shp_ct = 0.0f;
+                    break;
+                }
+                epw->shp_ct += 166.67f;
+                break;
+                
+            case 4:
+                if (1000.f < epw->shp_ct)
+                {
+                    epw->mode1 = 0;
+                    epw->obj_a = epw->mbp[0];
+                    epw->obj_b = epw->mbp[1];
+                    epw->shp_ct = 0.0f;
+                    break;
+                }
+                epw->shp_ct += 150.0f;
+                break;
+                
+            case 5:
+                epw->mdflg |= 1;
+                epw->id = 15;
+                epw->djnt_no = 1;
+                *(NJS_POINT3*)&epw->dpx = *(NJS_POINT3*)&epw->mlwP->owP[epw->djnt_no].mtx[12];
+                epw->dvx = 2.0f * njSin(epw->ay);
+                epw->dvz = 2.0f * njCos(epw->ay);
+                epw->dvy = 0.0f;
+                SetMince(epw, 2, 32);
+                bhEne_SetBloodEffect5(epw, 2, 2);
+                for (i = 0; i < 5; i++)
+                {
+                    epw->dpx += (njRandom() - 0.5) * 5.0f;
+                    epw->dpy += (njRandom() - 0.5) * 5.0f;
+                    epw->dpz += (njRandom() - 0.5) * 5.0f;
+                    bhEne_SetBloodEffect5(epw, 0, 2);
+                }
+                epw->id = 53;
+                RequestEnemySe(GetLocalEneNo(epw), (NJS_POINT3*)&epw->px, 2147484170);
+                epw->mode1 = 6;
+                break;
+            }
+        }
+        break;
+    }
 }
 
 // 100% matching!
