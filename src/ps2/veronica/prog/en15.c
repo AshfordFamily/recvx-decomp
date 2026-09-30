@@ -1909,44 +1909,45 @@ static void _bhEne_SetPoison(BH_PWORK* epw, NJS_VECTOR* ofp, short ry)
     }
 }
 
-// 
-// Start address: 0x1e6830
-static void _bhEne_SetPoison2(O_WRK* op, int type, NJS_POINT3* ofp)
+// 100% matching!
+static void _bhEne_SetPoison2(O_WRK* op, int type, NJS_VECTOR* ofp)
 {
 	int eno;
-	// Line 3105, Address: 0x1e6830, Func Offset: 0
-	// Line 3110, Address: 0x1e6840, Func Offset: 0x10
-	// Line 3113, Address: 0x1e684c, Func Offset: 0x1c
-	// Line 3110, Address: 0x1e6854, Func Offset: 0x24
-	// Line 3111, Address: 0x1e6860, Func Offset: 0x30
-	// Line 3113, Address: 0x1e6878, Func Offset: 0x48
-	// Line 3115, Address: 0x1e6880, Func Offset: 0x50
-	// Line 3113, Address: 0x1e6884, Func Offset: 0x54
-	// Line 3114, Address: 0x1e6890, Func Offset: 0x60
-	// Line 3115, Address: 0x1e68bc, Func Offset: 0x8c
-	// Line 3116, Address: 0x1e68d4, Func Offset: 0xa4
-	// Line 3117, Address: 0x1e68e0, Func Offset: 0xb0
-	// Line 3116, Address: 0x1e68e4, Func Offset: 0xb4
-	// Line 3117, Address: 0x1e6914, Func Offset: 0xe4
-	// Line 3118, Address: 0x1e691c, Func Offset: 0xec
-	// Line 3119, Address: 0x1e6944, Func Offset: 0x114
-	// Line 3120, Address: 0x1e6974, Func Offset: 0x144
-	// Line 3123, Address: 0x1e697c, Func Offset: 0x14c
-	// Line 3120, Address: 0x1e6988, Func Offset: 0x158
-	// Line 3123, Address: 0x1e6994, Func Offset: 0x164
-	// Line 3127, Address: 0x1e69ac, Func Offset: 0x17c
-	// Line 3128, Address: 0x1e69b8, Func Offset: 0x188
-	// Line 3129, Address: 0x1e69dc, Func Offset: 0x1ac
-	// Line 3128, Address: 0x1e69e8, Func Offset: 0x1b8
-	// Line 3129, Address: 0x1e69f0, Func Offset: 0x1c0
-	// Line 3130, Address: 0x1e69f4, Func Offset: 0x1c4
-	// Line 3129, Address: 0x1e6a04, Func Offset: 0x1d4
-	// Line 3130, Address: 0x1e6a08, Func Offset: 0x1d8
-	// Line 3131, Address: 0x1e6a1c, Func Offset: 0x1ec
-	// Line 3132, Address: 0x1e6a30, Func Offset: 0x200
-	// Line 3134, Address: 0x1e6a54, Func Offset: 0x224
-	// Func End, Address: 0x1e6a68, Func Offset: 0x238
-	scePrintf("_bhEne_SetPoison2 - UNIMPLEMENTED!\n");
+
+    sys->ef.id = 397;
+    sys->ef.type = type;
+    sys->ef.flg = 1;
+
+    *(NJS_VECTOR*)&sys->ef.px = *(NJS_VECTOR*)&op->px;
+
+    njAddVector((NJS_VECTOR*)&sys->ef.px, ofp);
+       
+    sys->ef.sx = sys->ef.sy = 2.0f;
+    
+    sys->ef.sz = 0.0f;
+
+    if (type == 2)
+    {
+        sys->ef.ax = NJM_DEG_ANG(90.0f);
+        sys->ef.ay = 0;
+    }
+    else
+    {
+        sys->ef.ay = 0;
+        sys->ef.ax = 0;
+    }
+
+    sys->ef.mdlver = 0;
+
+    eno = bhSetEffectTb(&sys->ef, NULL, NULL, 0);
+    if (eno != -1)
+    {
+        eff[eno].stflg |= 0x20;
+        eff[eno].txp[0] = op->txp[0];
+        eff[eno].tex_id = eff_info[type].texid;
+        eff[eno].exp0 = op->exp0;
+        *(NJS_VECTOR*)&eff[eno].xn = *(NJS_VECTOR*)&op->xn;
+    }
 }
 
 // 
