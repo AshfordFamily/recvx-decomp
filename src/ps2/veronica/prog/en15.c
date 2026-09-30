@@ -2244,21 +2244,18 @@ void bhEne15_RotChar(BH_PWORK* pw, int goal, int add_ang)
     }
 }
 
-// 
-// Start address: 0x1e7b30
+// 100% matching!
 static int AbleToFall(BH_PWORK* pp)
 {
-	O_WORK* owk;
-	// Line 3507, Address: 0x1e7b30, Func Offset: 0
-	// Line 3506, Address: 0x1e7b34, Func Offset: 0x4
-	// Line 3507, Address: 0x1e7b38, Func Offset: 0x8
-	// Line 3506, Address: 0x1e7b3c, Func Offset: 0xc
-	// Line 3507, Address: 0x1e7b40, Func Offset: 0x10
-	// Line 3508, Address: 0x1e7b9c, Func Offset: 0x6c
-	// Line 3509, Address: 0x1e7ba8, Func Offset: 0x78
-	// Line 3510, Address: 0x1e7bac, Func Offset: 0x7c
-	// Func End, Address: 0x1e7bb4, Func Offset: 0x84
-	scePrintf("AbleToFall - UNIMPLEMENTED!\n");
+    O_WORK* owk;
+
+    owk = &pp->mlwP->owP[1];
+
+    if (((owk->mtx[12] <= rom->posp[1].px) || (owk->mtx[12] >= rom->posp[4].px))
+      || (owk->mtx[14] <= rom->posp[2].pz) || (owk->mtx[14] >= rom->posp[3].pz))
+        return 1;
+
+    return 0;
 }
 
 // 
