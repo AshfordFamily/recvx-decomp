@@ -1141,78 +1141,69 @@ static void Die(BH_PWORK* epw)
     }
 }
 
-// 
-// Start address: 0x1e4560
-static int NearestCapsule(BH_PWORK* epw, NJS_POINT3* pos, NJS_CAPSULE* dest, short* jnt)
+// 100% matching!
+static int NearestCapsule(BH_PWORK* epw, NJS_VECTOR* pos, NJS_CAPSULE* dest, short* jnt)
 {
-	NJS_POINT3 p;
-	short _jnt;
-	float dis;
-	NJS_CAPSULE cap;
-	CPCL* ctab;
-	int notop;
-	float topdis;
-	short topjnt;
 	NJS_CAPSULE top;
-	// Line 2140, Address: 0x1e4560, Func Offset: 0
-	// Line 2145, Address: 0x1e4590, Func Offset: 0x30
-	// Line 2144, Address: 0x1e4594, Func Offset: 0x34
-	// Line 2145, Address: 0x1e4598, Func Offset: 0x38
-	// Line 2146, Address: 0x1e45a8, Func Offset: 0x48
-	// Line 2150, Address: 0x1e45b0, Func Offset: 0x50
-	// Line 2152, Address: 0x1e45b8, Func Offset: 0x58
-	// Line 2151, Address: 0x1e45c0, Func Offset: 0x60
-	// Line 2152, Address: 0x1e45c4, Func Offset: 0x64
-	// Line 2154, Address: 0x1e45d0, Func Offset: 0x70
-	// Line 2152, Address: 0x1e45dc, Func Offset: 0x7c
-	// Line 2151, Address: 0x1e45f0, Func Offset: 0x90
-	// Line 2152, Address: 0x1e45f4, Func Offset: 0x94
-	// Line 2153, Address: 0x1e4600, Func Offset: 0xa0
-	// Line 2154, Address: 0x1e4634, Func Offset: 0xd4
-	// Line 2155, Address: 0x1e4640, Func Offset: 0xe0
-	// Line 2157, Address: 0x1e4648, Func Offset: 0xe8
-	// Line 2156, Address: 0x1e4654, Func Offset: 0xf4
-	// Line 2157, Address: 0x1e4658, Func Offset: 0xf8
-	// Line 2158, Address: 0x1e4660, Func Offset: 0x100
-	// Line 2157, Address: 0x1e466c, Func Offset: 0x10c
-	// Line 2163, Address: 0x1e4680, Func Offset: 0x120
-	// Line 2156, Address: 0x1e4684, Func Offset: 0x124
-	// Line 2157, Address: 0x1e4688, Func Offset: 0x128
-	// Line 2158, Address: 0x1e4694, Func Offset: 0x134
-	// Line 2159, Address: 0x1e469c, Func Offset: 0x13c
-	// Line 2158, Address: 0x1e46a0, Func Offset: 0x140
-	// Line 2160, Address: 0x1e46a8, Func Offset: 0x148
-	// Line 2161, Address: 0x1e46c0, Func Offset: 0x160
-	// Line 2162, Address: 0x1e46d8, Func Offset: 0x178
-	// Line 2163, Address: 0x1e46e4, Func Offset: 0x184
-	// Line 2164, Address: 0x1e46ec, Func Offset: 0x18c
-	// Line 2168, Address: 0x1e4708, Func Offset: 0x1a8
-	// Line 2170, Address: 0x1e4714, Func Offset: 0x1b4
-	// Line 2168, Address: 0x1e4718, Func Offset: 0x1b8
-	// Line 2169, Address: 0x1e471c, Func Offset: 0x1bc
-	// Line 2168, Address: 0x1e4724, Func Offset: 0x1c4
-	// Line 2171, Address: 0x1e4728, Func Offset: 0x1c8
-	// Line 2170, Address: 0x1e4730, Func Offset: 0x1d0
-	// Line 2169, Address: 0x1e4734, Func Offset: 0x1d4
-	// Line 2170, Address: 0x1e4738, Func Offset: 0x1d8
-	// Line 2168, Address: 0x1e473c, Func Offset: 0x1dc
-	// Line 2169, Address: 0x1e4744, Func Offset: 0x1e4
-	// Line 2170, Address: 0x1e4748, Func Offset: 0x1e8
-	// Line 2169, Address: 0x1e474c, Func Offset: 0x1ec
-	// Line 2170, Address: 0x1e4750, Func Offset: 0x1f0
-	// Line 2171, Address: 0x1e4758, Func Offset: 0x1f8
-	// Line 2173, Address: 0x1e4760, Func Offset: 0x200
-	// Line 2174, Address: 0x1e4768, Func Offset: 0x208
-	// Line 2175, Address: 0x1e4794, Func Offset: 0x234
-	// Line 2176, Address: 0x1e47ac, Func Offset: 0x24c
-	// Line 2178, Address: 0x1e47d8, Func Offset: 0x278
-	// Line 2179, Address: 0x1e47dc, Func Offset: 0x27c
-	// Line 2180, Address: 0x1e4808, Func Offset: 0x2a8
-	// Line 2181, Address: 0x1e481c, Func Offset: 0x2bc
-	// Line 2180, Address: 0x1e4824, Func Offset: 0x2c4
-	// Line 2182, Address: 0x1e4850, Func Offset: 0x2f0
-	// Func End, Address: 0x1e4884, Func Offset: 0x324
-	scePrintf("NearestCapsule - UNIMPLEMENTED!\n");
+	short topjnt;
+	float topdis;
+	int notop;
+	CPCL* ctab;
+	NJS_CAPSULE cap;
+	float dis;  
+	short _jnt;
+	NJS_POINT3 p;
+   
+    ctab = epw->cpcl;
+    notop = 1;
+
+    while ((ctab->jnt_a != 0) && (ctab->jnt_b != 0) && (ctab->cap_r != 0))
+    {
+        if (ctab->jnt_a != ctab->jnt_b)
+        {
+            _jnt = ctab->jnt_a;
+            cap.c1 = *(NJS_POINT3*)&epw->mlwP->owP[ctab->jnt_a].mtx[12];
+            cap.c2 = *(NJS_POINT3*)&epw->mlwP->owP[ctab->jnt_b].mtx[12];
+            cap.r = 0.1f * ctab->cap_r;
+        } 
+        else
+        {
+            _jnt = ctab->jnt_a;
+            cap.c1 = *(NJS_POINT3*)&epw->mlwP->owP[ctab->jnt_a].mtx[12];
+            cap.r = 0.1f * ctab->cap_r;
+            ctab++;
+            cap.c2.x = 0.1f * ctab->jnt_a;
+            cap.c2.y = 0.1f * ctab->jnt_b;
+            cap.c2.z = 0.1f * ctab->cap_r;
+            njAddVector((NJS_VECTOR*)&cap.c1, (NJS_VECTOR*)&cap.c2);
+            cap.c2 = cap.c1;
+        }
+
+        p.x = (cap.c1.x + cap.c2.x) / 2.0f;
+        p.y = (cap.c1.y + cap.c2.y) / 2.0f;
+        p.z = (cap.c1.z + cap.c2.z) / 2.0f;
+        dis = njDistanceP2P(pos, &p);
+
+        if (notop != 0)
+        {
+            topdis = dis;
+            top = cap;
+            topjnt = _jnt;
+            notop = 0;
+        } 
+        else if (dis < topdis) 
+        {
+            topdis = dis;
+            top = cap;
+            topjnt = _jnt;
+        }
+        ctab++;
+    }
+
+    *dest = top;
+    *jnt = topjnt;
+    
+    return !notop;
 }
 
 // 
