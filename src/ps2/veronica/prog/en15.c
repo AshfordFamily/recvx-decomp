@@ -1516,60 +1516,59 @@ static void LockLeg(BH_PWORK* epw)
 	scePrintf("LockLeg - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e57d0
+// 100% decompiled
 int bhEne15_AttackPlayerCC(NJS_CAPSULE* cap, NJS_VECTOR* attack_v, int damage)
 {
-	NJS_POINT3 tar_p;
-	float distance;
-	NJS_POINT3 hit_p;
-	float latest;
-	int kno;
-	int j;
-	// Line 2718, Address: 0x1e57d0, Func Offset: 0
-	// Line 2720, Address: 0x1e57fc, Func Offset: 0x2c
-	// Line 2724, Address: 0x1e5820, Func Offset: 0x50
-	// Line 2725, Address: 0x1e5830, Func Offset: 0x60
-	// Line 2726, Address: 0x1e5834, Func Offset: 0x64
-	// Line 2724, Address: 0x1e5838, Func Offset: 0x68
-	// Line 2727, Address: 0x1e583c, Func Offset: 0x6c
-	// Line 2724, Address: 0x1e5844, Func Offset: 0x74
-	// Line 2725, Address: 0x1e584c, Func Offset: 0x7c
-	// Line 2726, Address: 0x1e5860, Func Offset: 0x90
-	// Line 2727, Address: 0x1e5878, Func Offset: 0xa8
-	// Line 2730, Address: 0x1e5880, Func Offset: 0xb0
-	// Line 2731, Address: 0x1e5890, Func Offset: 0xc0
-	// Line 2732, Address: 0x1e58a4, Func Offset: 0xd4
-	// Line 2733, Address: 0x1e58b4, Func Offset: 0xe4
-	// Line 2734, Address: 0x1e58bc, Func Offset: 0xec
-	// Line 2736, Address: 0x1e58cc, Func Offset: 0xfc
-	// Line 2738, Address: 0x1e58f0, Func Offset: 0x120
-	// Line 2737, Address: 0x1e58f4, Func Offset: 0x124
-	// Line 2738, Address: 0x1e58f8, Func Offset: 0x128
-	// Line 2740, Address: 0x1e58fc, Func Offset: 0x12c
-	// Line 2742, Address: 0x1e5920, Func Offset: 0x150
-	// Line 2743, Address: 0x1e594c, Func Offset: 0x17c
-	// Line 2747, Address: 0x1e5974, Func Offset: 0x1a4
-	// Line 2743, Address: 0x1e5978, Func Offset: 0x1a8
-	// Line 2744, Address: 0x1e597c, Func Offset: 0x1ac
-	// Line 2752, Address: 0x1e5988, Func Offset: 0x1b8
-	// Line 2744, Address: 0x1e598c, Func Offset: 0x1bc
-	// Line 2745, Address: 0x1e59ac, Func Offset: 0x1dc
-	// Line 2744, Address: 0x1e59b0, Func Offset: 0x1e0
-	// Line 2745, Address: 0x1e59b4, Func Offset: 0x1e4
-	// Line 2746, Address: 0x1e59bc, Func Offset: 0x1ec
-	// Line 2747, Address: 0x1e59e8, Func Offset: 0x218
-	// Line 2746, Address: 0x1e59ec, Func Offset: 0x21c
-	// Line 2747, Address: 0x1e59f0, Func Offset: 0x220
-	// Line 2749, Address: 0x1e59fc, Func Offset: 0x22c
-	// Line 2751, Address: 0x1e5a08, Func Offset: 0x238
-	// Line 2749, Address: 0x1e5a0c, Func Offset: 0x23c
-	// Line 2751, Address: 0x1e5a14, Func Offset: 0x244
-	// Line 2752, Address: 0x1e5a20, Func Offset: 0x250
-	// Line 2754, Address: 0x1e5a28, Func Offset: 0x258
-	// Line 2755, Address: 0x1e5a2c, Func Offset: 0x25c
-	// Func End, Address: 0x1e5a5c, Func Offset: 0x28c
-	scePrintf("bhEne15_AttackPlayerCC - UNIMPLEMENTED!\n");
+    int j;
+    int kno;
+    float latest;
+    NJS_POINT3 hit_p;
+    float distance;
+    NJS_POINT3 tar_p;
+
+    if (njCollisionCheckCC(cap, &plp->watr) != 0)
+    {
+        hit_p.x = (cap->c1.x + cap->c2.x) / 2.0f;
+        hit_p.y = (cap->c1.y + cap->c2.y) / 2.0f;
+        hit_p.z = (cap->c1.z + cap->c2.z) / 2.0f;
+
+        for (j = 0; j < plp->mlwP->obj_num; j++)
+        {
+            tar_p.x = plp->mlwP->owP[j].mtx[12];
+            tar_p.y = plp->mlwP->owP[j].mtx[13];
+            tar_p.z = plp->mlwP->owP[j].mtx[14];
+            if (j == 0) 
+            {
+                latest = njDistanceP2P(&hit_p, &tar_p);
+                kno = 0;
+            } 
+            else
+            {
+                distance = njDistanceP2P(&hit_p, &tar_p);
+                if (latest > distance) 
+                {
+                    latest = distance;
+                    kno = j;
+                }
+            }
+        }
+
+        plp->dax = njArcTan2(attack_v->y, attack_v->z);
+        plp->day = njArcTan2(attack_v->x, attack_v->z);
+        plp->dvx = attack_v->x;
+        plp->dvy = attack_v->y;
+        plp->dvz = attack_v->z;
+        plp->djnt_no = kno;
+        plp->dpx = hit_p.x;
+        plp->dpy = hit_p.y;
+        plp->dpz = hit_p.z;
+        plp->dam[kno] = damage;
+        plp->hp -= damage;
+        plp->flg |= 4;
+        return 1;
+    }
+    
+    return 0;
 }
 
 // 
@@ -2260,7 +2259,7 @@ static int AbleToFall(BH_PWORK* pp)
     return 0;
 }
 
-// 100% matching!
+// 100% matching! (on decomp.me)
 static int _DrivePlayer(BH_PWORK* epw) // signature different from DWARF
 {
     int ans;
