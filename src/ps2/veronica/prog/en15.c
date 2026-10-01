@@ -340,52 +340,65 @@ static void SetMtnSE(BH_PWORK* epw)
 	scePrintf("SetMtnSE - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e10f0
+// 100% matching!
 void bhEne15(BH_PWORK* epw)
 {
 	O_WORK* owk;
-	// Line 1351, Address: 0x1e10f0, Func Offset: 0
-	// Line 1352, Address: 0x1e10fc, Func Offset: 0xc
-	// Line 1353, Address: 0x1e1118, Func Offset: 0x28
-	// Line 1355, Address: 0x1e1134, Func Offset: 0x44
-	// Line 1356, Address: 0x1e1140, Func Offset: 0x50
-	// Line 1361, Address: 0x1e1160, Func Offset: 0x70
-	// Line 1362, Address: 0x1e116c, Func Offset: 0x7c
-	// Line 1363, Address: 0x1e117c, Func Offset: 0x8c
-	// Line 1364, Address: 0x1e119c, Func Offset: 0xac
-	// Line 1365, Address: 0x1e11b0, Func Offset: 0xc0
-	// Line 1371, Address: 0x1e11b8, Func Offset: 0xc8
-	// Line 1372, Address: 0x1e11c8, Func Offset: 0xd8
-	// Line 1376, Address: 0x1e11d8, Func Offset: 0xe8
-	// Line 1378, Address: 0x1e11e0, Func Offset: 0xf0
-	// Line 1379, Address: 0x1e11e8, Func Offset: 0xf8
-	// Line 1380, Address: 0x1e11f0, Func Offset: 0x100
-	// Line 1381, Address: 0x1e11f8, Func Offset: 0x108
-	// Line 1383, Address: 0x1e1200, Func Offset: 0x110
-	// Line 1384, Address: 0x1e120c, Func Offset: 0x11c
-	// Line 1388, Address: 0x1e122c, Func Offset: 0x13c
-	// Line 1390, Address: 0x1e1230, Func Offset: 0x140
-	// Line 1394, Address: 0x1e1238, Func Offset: 0x148
-	// Line 1388, Address: 0x1e123c, Func Offset: 0x14c
-	// Line 1389, Address: 0x1e1240, Func Offset: 0x150
-	// Line 1390, Address: 0x1e1258, Func Offset: 0x168
-	// Line 1392, Address: 0x1e1264, Func Offset: 0x174
-	// Line 1394, Address: 0x1e1284, Func Offset: 0x194
-	// Line 1395, Address: 0x1e1294, Func Offset: 0x1a4
-	// Line 1396, Address: 0x1e12a0, Func Offset: 0x1b0
-	// Line 1395, Address: 0x1e12a4, Func Offset: 0x1b4
-	// Line 1396, Address: 0x1e12c4, Func Offset: 0x1d4
-	// Line 1399, Address: 0x1e12c8, Func Offset: 0x1d8
-	// Line 1400, Address: 0x1e12dc, Func Offset: 0x1ec
-	// Line 1401, Address: 0x1e12e4, Func Offset: 0x1f4
-	// Line 1400, Address: 0x1e12e8, Func Offset: 0x1f8
-	// Line 1401, Address: 0x1e12ec, Func Offset: 0x1fc
-	// Line 1400, Address: 0x1e12f0, Func Offset: 0x200
-	// Line 1401, Address: 0x1e12fc, Func Offset: 0x20c
-	// Line 1404, Address: 0x1e1314, Func Offset: 0x224
-	// Func End, Address: 0x1e1324, Func Offset: 0x234
-	scePrintf("bhEne15 - UNIMPLEMENTED!\n");
+
+    if (poison_attack_wait != 0)
+    {
+        poison_attack_wait -= 1;
+    }
+    
+    if (poison_eff_wait != 0)
+    {
+        poison_eff_wait -= 1;
+    }
+
+    if (epw->mode0 == 0)
+    {
+        Mode_func[epw->mode0](epw);
+    }
+    
+    bhCalcModel(epw);
+    if (epw->mode0 == 5)
+    {
+        Mode_func[epw->mode0](epw);
+        bhSetMotion(epw, epw->mtn_add, epw->mtn_md, epw->mtn_tp);
+        return;
+    }
+    
+    if (!(epw->flg & 2) && !(epw->mdflg & 1))
+    {
+        CheckDamage(epw);
+        SetMtn(epw);
+        LockLeg(epw);
+        bhCheckWall(epw);
+        SetMtnSE(epw);
+        if (epw->mode0 != 0)
+        {
+            Mode_func[epw->mode0](epw);
+        }
+        
+        owk = epw->mlwP->owP;
+        epw->watr.c1 = *(NJS_POINT3*)&owk[4].mtx[12];
+        epw->watr.c1.y -= 1.0f;
+        
+        owk = epw->mlwP->owP;
+        epw->watr.c2 = *(NJS_POINT3*)&owk[20].mtx[12];
+        
+        njAddVector(&epw->watr.c2, (NJS_VECTOR*)&(epw->mlwP->owP[23].mtx[12]));
+        epw->watr.c2.x /= 2.0f;
+        epw->watr.c2.y /= 2.0f;
+        epw->watr.c2.z /= 2.0f;
+        epw->watr.r = 2.5f;
+    }
+    
+    if (EXP0_S(0x5A) & 1)
+    {
+        plp->flg |= 0x200000;
+        Ply_func[epw->mode3](epw);
+    }
 }
 
 // 99.86% matching
