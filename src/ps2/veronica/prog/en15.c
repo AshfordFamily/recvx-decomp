@@ -1571,60 +1571,59 @@ int bhEne15_AttackPlayerCC(NJS_CAPSULE* cap, NJS_VECTOR* attack_v, int damage)
     return 0;
 }
 
-// 
-// Start address: 0x1e5a60
+// 100% matching!
 int bhEne15_AttackPlayerBC(NJS_BOX* box, NJS_VECTOR* attack_v, int damage)
 {
-	NJS_POINT3 tar_p;
-	float distance;
-	NJS_POINT3 hit_p;
-	float latest;
-	int kno;
 	int j;
-	// Line 2757, Address: 0x1e5a60, Func Offset: 0
-	// Line 2759, Address: 0x1e5a8c, Func Offset: 0x2c
-	// Line 2764, Address: 0x1e5ab0, Func Offset: 0x50
-	// Line 2765, Address: 0x1e5ac8, Func Offset: 0x68
-	// Line 2764, Address: 0x1e5acc, Func Offset: 0x6c
-	// Line 2766, Address: 0x1e5ad0, Func Offset: 0x70
-	// Line 2767, Address: 0x1e5ad4, Func Offset: 0x74
-	// Line 2764, Address: 0x1e5ad8, Func Offset: 0x78
-	// Line 2765, Address: 0x1e5aec, Func Offset: 0x8c
-	// Line 2766, Address: 0x1e5b10, Func Offset: 0xb0
-	// Line 2767, Address: 0x1e5b38, Func Offset: 0xd8
-	// Line 2770, Address: 0x1e5b40, Func Offset: 0xe0
-	// Line 2771, Address: 0x1e5b50, Func Offset: 0xf0
-	// Line 2772, Address: 0x1e5b64, Func Offset: 0x104
-	// Line 2773, Address: 0x1e5b74, Func Offset: 0x114
-	// Line 2774, Address: 0x1e5b7c, Func Offset: 0x11c
-	// Line 2776, Address: 0x1e5b8c, Func Offset: 0x12c
-	// Line 2778, Address: 0x1e5bb0, Func Offset: 0x150
-	// Line 2777, Address: 0x1e5bb4, Func Offset: 0x154
-	// Line 2778, Address: 0x1e5bb8, Func Offset: 0x158
-	// Line 2780, Address: 0x1e5bbc, Func Offset: 0x15c
-	// Line 2782, Address: 0x1e5be0, Func Offset: 0x180
-	// Line 2783, Address: 0x1e5c0c, Func Offset: 0x1ac
-	// Line 2787, Address: 0x1e5c34, Func Offset: 0x1d4
-	// Line 2783, Address: 0x1e5c38, Func Offset: 0x1d8
-	// Line 2784, Address: 0x1e5c3c, Func Offset: 0x1dc
-	// Line 2792, Address: 0x1e5c48, Func Offset: 0x1e8
-	// Line 2784, Address: 0x1e5c4c, Func Offset: 0x1ec
-	// Line 2785, Address: 0x1e5c6c, Func Offset: 0x20c
-	// Line 2784, Address: 0x1e5c70, Func Offset: 0x210
-	// Line 2785, Address: 0x1e5c74, Func Offset: 0x214
-	// Line 2786, Address: 0x1e5c7c, Func Offset: 0x21c
-	// Line 2787, Address: 0x1e5ca8, Func Offset: 0x248
-	// Line 2786, Address: 0x1e5cac, Func Offset: 0x24c
-	// Line 2787, Address: 0x1e5cb0, Func Offset: 0x250
-	// Line 2789, Address: 0x1e5cbc, Func Offset: 0x25c
-	// Line 2791, Address: 0x1e5cc8, Func Offset: 0x268
-	// Line 2789, Address: 0x1e5ccc, Func Offset: 0x26c
-	// Line 2791, Address: 0x1e5cd4, Func Offset: 0x274
-	// Line 2792, Address: 0x1e5ce0, Func Offset: 0x280
-	// Line 2794, Address: 0x1e5ce8, Func Offset: 0x288
-	// Line 2795, Address: 0x1e5cec, Func Offset: 0x28c
-	// Func End, Address: 0x1e5d1c, Func Offset: 0x2bc
-	scePrintf("bhEne15_AttackPlayerBC - UNIMPLEMENTED!\n");
+	int kno;
+	float latest;
+	NJS_POINT3 hit_p;
+	float distance;
+	NJS_POINT3 tar_p;
+
+    if (njCollisionCheckBC2(box, &plp->watr) != 0)
+    {
+        hit_p.x = (box->v[6].x + (box->v[5].x + (box->v[1].x + box->v[2].x))) / 4.0f;
+        hit_p.y = (box->v[6].y + (box->v[5].y + (box->v[1].y + box->v[2].y))) / 4.0f;
+        hit_p.z = (box->v[6].z + (box->v[5].z + (box->v[1].z + box->v[2].z))) / 4.0f;
+
+        for (j = 0; j < plp->mlwP->obj_num; j++)
+        {
+            tar_p.x = plp->mlwP->owP[j].mtx[12];
+            tar_p.y = plp->mlwP->owP[j].mtx[13];
+            tar_p.z = plp->mlwP->owP[j].mtx[14];
+            if (j == 0) 
+            {
+                latest = njDistanceP2P(&hit_p, &tar_p);
+                kno = 0;
+            } 
+            else
+            {
+                distance = njDistanceP2P(&hit_p, &tar_p);
+                if (latest > distance) 
+                {
+                    latest = distance;
+                    kno = j;
+                }
+            }
+        }
+
+        plp->dax = njArcTan2(attack_v->y, attack_v->z);
+        plp->day = njArcTan2(attack_v->x, attack_v->z);
+        plp->dvx = attack_v->x;
+        plp->dvy = attack_v->y;
+        plp->dvz = attack_v->z;
+        plp->djnt_no = kno;
+        plp->dpx = hit_p.x;
+        plp->dpy = hit_p.y;
+        plp->dpz = hit_p.z;
+        plp->dam[kno] = damage;
+        plp->hp -= damage;
+        plp->flg |= 4;
+        return 1;
+    }
+    
+    return 0;
 }
 
 // 100% matching!
