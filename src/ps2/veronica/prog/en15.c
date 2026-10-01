@@ -291,12 +291,10 @@ static int GetLocalEneNo(BH_PWORK* epw)
     return -1;
 }
 
-// 
-// Start address: 0x1e1040
+// 100% matching!
 static void SetMtnSE(BH_PWORK* epw)
 {
-	int i;
-	static MTN_SE_TBL mtn_se_tbl[30] = 
+    static MTN_SE_TBL mtn_se_tbl[30] = 
 	{
 		{   1,  38,    74496 },
 		{   1,  74,    74496 },
@@ -329,17 +327,17 @@ static void SetMtnSE(BH_PWORK* epw)
 		{  12,  21,    74496 },
 		{  -1,   0,        0 }
 	};
-	// Line 1246, Address: 0x1e1040, Func Offset: 0
-	// Line 1282, Address: 0x1e1058, Func Offset: 0x18
-	// Line 1283, Address: 0x1e1068, Func Offset: 0x28
-	// Line 1285, Address: 0x1e1088, Func Offset: 0x48
-	// Line 1286, Address: 0x1e10b8, Func Offset: 0x78
-	// Line 1288, Address: 0x1e10c4, Func Offset: 0x84
-	// Line 1289, Address: 0x1e10d4, Func Offset: 0x94
-	// Func End, Address: 0x1e10e8, Func Offset: 0xa8
-	scePrintf("SetMtnSE - UNIMPLEMENTED!\n");
+	int i;
+  
+    for (i = 0; mtn_se_tbl[i].mtn_no != -1; i++)
+    {
+        if ((epw->mtn_no == mtn_se_tbl[i].mtn_no) && ((epw->frm_no / 65536) == mtn_se_tbl[i].frm))
+        {
+            RequestEnemySe(GetLocalEneNo(epw), (NJS_POINT3*)&epw->px, mtn_se_tbl[i].seno);
+            return;        
+        }
+    }
 }
-
 // 100% matching!
 void bhEne15(BH_PWORK* epw)
 {
