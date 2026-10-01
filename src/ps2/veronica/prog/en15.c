@@ -2260,70 +2260,61 @@ static int AbleToFall(BH_PWORK* pp)
     return 0;
 }
 
-// 
-// Start address: 0x1e7bc0
-static int _DrivePlayer()
+// 100% matching!
+static int _DrivePlayer(BH_PWORK* epw) // signature different from DWARF
 {
-	float FP;
-	float FP1;
-	float FP0;
-	float ofs;
-	int ans;
-	// Line 3518, Address: 0x1e7bc0, Func Offset: 0
-	// Line 3521, Address: 0x1e7bd8, Func Offset: 0x18
-	// Line 3519, Address: 0x1e7be0, Func Offset: 0x20
-	// Line 3521, Address: 0x1e7be4, Func Offset: 0x24
-	// Line 3522, Address: 0x1e7bec, Func Offset: 0x2c
-	// Line 3521, Address: 0x1e7bf4, Func Offset: 0x34
-	// Line 3522, Address: 0x1e7bfc, Func Offset: 0x3c
-	// Line 3523, Address: 0x1e7c04, Func Offset: 0x44
-	// Line 3525, Address: 0x1e7c28, Func Offset: 0x68
-	// Line 3527, Address: 0x1e7c38, Func Offset: 0x78
-	// Line 3529, Address: 0x1e7c40, Func Offset: 0x80
-	// Line 3530, Address: 0x1e7c7c, Func Offset: 0xbc
-	// Line 3531, Address: 0x1e7cbc, Func Offset: 0xfc
-	// Line 3532, Address: 0x1e7cc0, Func Offset: 0x100
-	// Line 3533, Address: 0x1e7ccc, Func Offset: 0x10c
-	// Line 3532, Address: 0x1e7cd4, Func Offset: 0x114
-	// Line 3533, Address: 0x1e7cd8, Func Offset: 0x118
-	// Line 3532, Address: 0x1e7cdc, Func Offset: 0x11c
-	// Line 3533, Address: 0x1e7ce4, Func Offset: 0x124
-	// Line 3534, Address: 0x1e7ce8, Func Offset: 0x128
-	// Line 3532, Address: 0x1e7cf0, Func Offset: 0x130
-	// Line 3533, Address: 0x1e7cfc, Func Offset: 0x13c
-	// Line 3534, Address: 0x1e7d00, Func Offset: 0x140
-	// Line 3535, Address: 0x1e7d04, Func Offset: 0x144
-	// Line 3533, Address: 0x1e7d08, Func Offset: 0x148
-	// Line 3534, Address: 0x1e7d0c, Func Offset: 0x14c
-	// Line 3533, Address: 0x1e7d10, Func Offset: 0x150
-	// Line 3535, Address: 0x1e7d14, Func Offset: 0x154
-	// Line 3533, Address: 0x1e7d18, Func Offset: 0x158
-	// Line 3534, Address: 0x1e7d24, Func Offset: 0x164
-	// Line 3535, Address: 0x1e7d2c, Func Offset: 0x16c
-	// Line 3534, Address: 0x1e7d30, Func Offset: 0x170
-	// Line 3535, Address: 0x1e7d38, Func Offset: 0x178
-	// Line 3537, Address: 0x1e7d48, Func Offset: 0x188
-	// Line 3538, Address: 0x1e7d78, Func Offset: 0x1b8
-	// Line 3539, Address: 0x1e7d90, Func Offset: 0x1d0
-	// Line 3540, Address: 0x1e7da8, Func Offset: 0x1e8
-	// Line 3539, Address: 0x1e7dac, Func Offset: 0x1ec
-	// Line 3540, Address: 0x1e7db0, Func Offset: 0x1f0
-	// Line 3543, Address: 0x1e7dd4, Func Offset: 0x214
-	// Line 3545, Address: 0x1e7dec, Func Offset: 0x22c
-	// Line 3547, Address: 0x1e7df0, Func Offset: 0x230
-	// Line 3548, Address: 0x1e7df8, Func Offset: 0x238
-	// Line 3550, Address: 0x1e7e14, Func Offset: 0x254
-	// Line 3554, Address: 0x1e7e28, Func Offset: 0x268
-	// Line 3550, Address: 0x1e7e2c, Func Offset: 0x26c
-	// Line 3551, Address: 0x1e7e30, Func Offset: 0x270
-	// Line 3550, Address: 0x1e7e34, Func Offset: 0x274
-	// Line 3551, Address: 0x1e7e3c, Func Offset: 0x27c
-	// Line 3552, Address: 0x1e7e44, Func Offset: 0x284
-	// Line 3551, Address: 0x1e7e48, Func Offset: 0x288
-	// Line 3552, Address: 0x1e7e50, Func Offset: 0x290
-	// Line 3555, Address: 0x1e7e60, Func Offset: 0x2a0
-	// Func End, Address: 0x1e7e7c, Func Offset: 0x2bc
-	scePrintf("_DrivePlayer - UNIMPLEMENTED!\n");
+    int ans;
+    float ofs;
+    float FP0;
+    float FP1;
+    float FP;
+
+    ans = 0;
+
+    ofs = plp->mlwP->owP[1].mtx[13] - plp->py;
+    njAddVector((NJS_VECTOR*)&plp->px, (NJS_VECTOR*)&plp->dvx);
+
+    if (plp->py + ofs < 0.0f)
+    {
+        ans = 3;
+        if (AbleToFall(plp) != 0)
+        {
+            ans = 2;
+        } 
+        else 
+        {
+            FP0 = njSqrt(powf(plp->pxb, 2.0f) + powf(plp->pzb, 2.0f));
+            FP1 = njSqrt(powf(plp->px, 2.0f) + powf(plp->pz, 2.0f));
+            FP = FP0 + FP1;
+
+            plp->py = -1.0f * (plp->py + ofs) - ofs;
+            plp->dvy -= 1.3f * (FP0 / FP);
+            plp->dvy *= -0.15f;
+            plp->dvy -= 1.3f * (FP1 / FP);
+        }
+
+        if (fabsf(plp->dvy) < 0.3f)
+        {
+            plp->py = 0.0f;
+            plp->dvy = 0.0f;
+            plp->spd = njScalor((NJS_VECTOR*)&plp->dvx);
+            if ((plp->mtn_no == 15) || (plp->mtn_no == 19) || (plp->mtn_no == 20) || (plp->mtn_no == 21) || (plp->mtn_no == 22))
+            {
+                plp->spd *= -1.0f;
+            }
+            ans = 1;
+        }
+    } 
+    else
+    {
+        plp->dvy -= 1.3f;
+    }
+
+    plp->dvx *= 0.9f;
+    plp->dvy *= 0.9f;
+    plp->dvz *= 0.9f;
+    
+    return ans;
 }
 
 // 100% matching!
