@@ -1078,22 +1078,33 @@ static void Throw(BH_PWORK* epw)
 	scePrintf("Throw - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e4270
+// 100% matching!
 static void Damage(BH_PWORK* epw)
 {
-	// Line 2071, Address: 0x1e4270, Func Offset: 0
-	// Line 2072, Address: 0x1e4280, Func Offset: 0x10
-	// Line 2073, Address: 0x1e429c, Func Offset: 0x2c
-	// Line 2074, Address: 0x1e42bc, Func Offset: 0x4c
-	// Line 2076, Address: 0x1e42cc, Func Offset: 0x5c
-	// Line 2079, Address: 0x1e4314, Func Offset: 0xa4
-	// Line 2082, Address: 0x1e4328, Func Offset: 0xb8
-	// Line 2083, Address: 0x1e4358, Func Offset: 0xe8
-	// Line 2084, Address: 0x1e4378, Func Offset: 0x108
-	// Line 2087, Address: 0x1e4380, Func Offset: 0x110
-	// Func End, Address: 0x1e4390, Func Offset: 0x120
-	scePrintf("Damage - UNIMPLEMENTED!\n");
+    if ((epw->mtn_no >= 6) && (epw->mtn_no < 11))
+    {
+        if ((epw->mtn_no == 10) && ((epw->frm_no / 65536) == 1))
+        {
+            EXP0_I(0x54) = (epw->ay + NJM_DEG_ANG(90.0f));
+        }
+
+        if (epw->mtn_no == 10)
+        {
+            if (((epw->frm_no / 65536) >= 29) && ((epw->frm_no / 65536) < epw->mnwP[epw->mtn_no].frm_num))
+            {
+                bhEne15_RotChar(epw, EXP0_I(0x54), 910);
+            }
+        }
+        
+        if ((epw->frm_no / 65536) == (epw->mnwP[epw->mtn_no].frm_num - 1))
+        {
+            epw->mode0 = 1;
+            epw->mode1 = 3;
+            epw->way = 145;
+            ReqMtn(epw, 1);
+            epw->ct1 = 60;
+        }
+    }
 }
 
 // 100% matching!
