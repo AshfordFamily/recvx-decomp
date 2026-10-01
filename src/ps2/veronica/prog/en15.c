@@ -1656,7 +1656,7 @@ int bhEne15_AttackPlayerSS(NJS_SPHERE* spr, NJS_VECTOR* attack_v, int damage)
 }
 
 // 100% matching!
-static void SetSmoke(NJS_POINT3* pos)
+static void SetSmoke(NJS_POINT3* pos, float arg1) // second arg not present in DWARF
 {
     sys->ef.id = 257;
     sys->ef.flg = 1;
@@ -2326,39 +2326,94 @@ static int _DrivePlayer()
 	scePrintf("_DrivePlayer - UNIMPLEMENTED!\n");
 }
 
-// 
-// Start address: 0x1e7e80
+// 100% matching!
 static void DrivePlayer(BH_PWORK* epw)
 {
-	int _mtnno;
-	// Line 3558, Address: 0x1e7e80, Func Offset: 0
-	// Line 3560, Address: 0x1e7e94, Func Offset: 0x14
-	// Line 3561, Address: 0x1e7ea8, Func Offset: 0x28
-	// Line 3563, Address: 0x1e7edc, Func Offset: 0x5c
-	// Line 3564, Address: 0x1e7f00, Func Offset: 0x80
-	// Line 3565, Address: 0x1e7f20, Func Offset: 0xa0
-	// Line 3566, Address: 0x1e8040, Func Offset: 0x1c0
-	// Line 3569, Address: 0x1e8048, Func Offset: 0x1c8
-	// Line 3570, Address: 0x1e806c, Func Offset: 0x1ec
-	// Line 3572, Address: 0x1e808c, Func Offset: 0x20c
-	// Line 3573, Address: 0x1e80a4, Func Offset: 0x224
-	// Line 3574, Address: 0x1e80b8, Func Offset: 0x238
-	// Line 3575, Address: 0x1e80c0, Func Offset: 0x240
-	// Line 3576, Address: 0x1e80cc, Func Offset: 0x24c
-	// Line 3578, Address: 0x1e80dc, Func Offset: 0x25c
-	// Line 3581, Address: 0x1e80e4, Func Offset: 0x264
-	// Line 3582, Address: 0x1e8108, Func Offset: 0x288
-	// Line 3584, Address: 0x1e8128, Func Offset: 0x2a8
-	// Line 3587, Address: 0x1e813c, Func Offset: 0x2bc
-	// Line 3588, Address: 0x1e8150, Func Offset: 0x2d0
-	// Line 3589, Address: 0x1e8158, Func Offset: 0x2d8
-	// Line 3590, Address: 0x1e8164, Func Offset: 0x2e4
-	// Line 3592, Address: 0x1e8178, Func Offset: 0x2f8
-	// Line 3595, Address: 0x1e81a0, Func Offset: 0x320
-	// Line 3596, Address: 0x1e81e0, Func Offset: 0x360
-	// Line 3598, Address: 0x1e81e4, Func Offset: 0x364
-	// Func End, Address: 0x1e81f8, Func Offset: 0x378
-	scePrintf("DrivePlayer - UNIMPLEMENTED!\n");
+    int _mtnno;
+
+    bhEne15_RotChar(plp, plp->day, NJM_DEG_ANG(90.0f));
+
+    switch (_DrivePlayer(epw))
+    {
+    case 2:
+        if ((plp->mtn_no == 19) || (plp->mtn_no == 21))
+        {
+            EXP0_S(0x5A) |= 1;
+            epw->mode3 = 3;
+            plp->spd = 0.0f;
+            break;
+        }
+        
+        switch (plp->mtn_no)
+        {
+        case 15:
+            _mtnno = 26;
+            break;
+        case 14:
+            _mtnno = 25;
+            break;
+        case 22:
+            _mtnno = 26;
+            break;
+        case 20:
+            _mtnno = 25;
+            break;
+        }
+        
+        plp->mnwP = epw->mnwP;
+        EXP0_S(0x5A) |= 1;
+        epw->mode3 = 3;
+        plp->spd = plp->spd;
+        SetPlyMtn(_mtnno);
+        plp->mode0 = 5;
+        plp->mode1 = 0;
+        plp->mode2 = 0;
+        plp->mode3 = 0;
+        plp->flg |= 0x10004;
+        plp->flg &= ~0x40000;
+        plp->stflg |= 0x50000;
+        break;
+        
+    case 3:
+        if ((plp->mtn_no == 19) || (plp->mtn_no == 21))
+        {
+            SetPlyMtn(plp->mtn_no == 19 ? 22 : 20);
+        }
+        
+        SetSmoke((NJS_VECTOR*)&plp->px, 2.0f);
+        
+        if (plp->mode3 == 0)
+        {
+            CallPlayerVoice(519);
+            StartVibrationEx(1, 11);
+            plp->mode3++;
+        }
+        break;
+        
+    case 1:
+        if ((plp->mtn_no == 19) || (plp->mtn_no == 21))
+        {
+            SetPlyMtn(plp->mtn_no == 19 ? 22 : 20);
+            plp->hp -= 80;
+        }
+        
+        if (plp->mode3 == 0)
+        {
+            CallPlayerVoice(519);
+            StartVibrationEx(1, 11);
+            plp->mode3++;
+        }
+        
+        EXP0_S(0x5A) |= 1;
+        epw->mode3 = 1;
+        plp->spd = plp->spd;
+        break;
+    }
+
+    if ((plp->frm_no >> 16) == plp->mnwP[plp->mtn_no].frm_num - 1) 
+    {
+        plp->mtn_add = 0;
+    }
 }
 
 // 100% matching!
