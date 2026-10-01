@@ -2410,7 +2410,7 @@ static void DrivePlayer(BH_PWORK* epw)
         break;
     }
 
-    if ((plp->frm_no >> 16) == plp->mnwP[plp->mtn_no].frm_num - 1) 
+    if ((plp->frm_no / 65536) == plp->mnwP[plp->mtn_no].frm_num - 1) 
     {
         plp->mtn_add = 0;
     }
