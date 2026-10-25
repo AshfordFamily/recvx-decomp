@@ -1,6 +1,6 @@
 {
   "measures": {
-    "fuzzy_match_percent": 99.826744,
+    "fuzzy_match_percent": 99.826775,
     "total_code": "1904472",
     "matched_code": "1636088",
     "matched_code_percent": 85.9077,
@@ -22027,7 +22027,7 @@
     {
       "name": "ps2/veronica/prog/light",
       "measures": {
-        "fuzzy_match_percent": 99.31427,
+        "fuzzy_match_percent": 99.318924,
         "total_code": "8604",
         "matched_code": "684",
         "matched_code_percent": 7.949791,
@@ -22063,7 +22063,7 @@
         {
           "name": ".text",
           "size": "8624",
-          "fuzzy_match_percent": 99.31427,
+          "fuzzy_match_percent": 99.318924,
           "metadata": {}
         },
         {
@@ -22103,14 +22103,14 @@
         {
           "name": "bhSetLight",
           "size": "852",
-          "fuzzy_match_percent": 99.62441,
+          "fuzzy_match_percent": 99.57746,
           "metadata": {},
           "address": "6752"
         },
         {
           "name": "bhSetHalfLight",
           "size": "848",
-          "fuzzy_match_percent": 99.33962,
+          "fuzzy_match_percent": 99.43396,
           "metadata": {},
           "address": "7616"
         },
@@ -42251,7 +42251,7 @@
       "id": "game",
       "name": "Main Game",
       "measures": {
-        "fuzzy_match_percent": 99.81875,
+        "fuzzy_match_percent": 99.81878,
         "total_code": "1820460",
         "matched_code": "1552076",
         "matched_code_percent": 85.257355,

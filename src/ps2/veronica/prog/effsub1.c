@@ -2675,20 +2675,12 @@ void bhEff009(O_WRK* op)
         op->mode0 = 1;
     }
     
-    if (op->type == 3) 
+    if ((op->type == 3) && (!(sys->st_flg & 0x20000000)))
     {
-        if ((sys->st_flg & 0x20000000)) 
-        {
-            goto label;
-        } 
-        else 
-        {
-            op->flg = 0;
-        }
+        op->flg = 0;
     } 
     else
     {
-    label:
         if (op->type == 2) 
         {
             if (!(plp->flg & 0x1000000)) 
