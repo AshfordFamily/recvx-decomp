@@ -2726,19 +2726,19 @@ int DisplayOptionPlateLevel0(int PortId, int Flag)
                     if (ap->OptIndex == 0) 
                     {
                         ap->OptIndex = 6;
-                        goto label;
                     }
-                    
-                    ap->OptIndex--;
-                    
-                    if ((ap->OptIndex == 4) && (PuruFindFlag == 0)) 
+                    else
                     {
                         ap->OptIndex--;
+                        
+                        if ((ap->OptIndex == 4) && (PuruFindFlag == 0)) 
+                        {
+                            ap->OptIndex--;
+                        }
                     }
                     
-                label:
                     CallSystemSe(0, 2);
-                } 
+                }
                 else if ((Pad[PortId].Rept & 0x4000)) 
                 {
                     if (ap->OptIndex == 6) 
