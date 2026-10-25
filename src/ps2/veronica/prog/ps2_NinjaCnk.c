@@ -1221,17 +1221,23 @@ CHUNK_HEAD* njCnkCvVn(CHUNK_HEAD* pCnk)
         
         for (lLightCnt = pNaCnkCrntLighting->lLightMax; lLightCnt != 0; lLightCnt--, pLightPtr++) 
         {
-            if (pLightPtr->ulState != 0)
+            do 
             {
+                if (pLightPtr->ulState == 0) 
+                {
+                    break;
+                }
+                
                 if (pLightPtr->ulMode == 0) 
                 {
                     f3 = (f26 * pLightPtr->fCx) + (f27 * pLightPtr->fCy) + (f28 * pLightPtr->fCz);
                     
-                    if (f3 > 0) 
+                    if (f3 <= 0) 
                     {
-                        f3 *= pLightPtr->fI;
-                        goto label;
+                        break;
                     }
+                    
+                    f3 *= pLightPtr->fI;
                 }
                 else 
                 {
@@ -1241,31 +1247,34 @@ CHUNK_HEAD* njCnkCvVn(CHUNK_HEAD* pCnk)
                     
                     f25 = (f29 * f29) + (f30 * f30) + (f31 * f31);
                     
-                    if (pLightPtr->fFarRR > f25) 
+                    if (pLightPtr->fFarRR <= f25) 
                     {
-                        fL = njInvertSqrt(f25);
-                        
-                        f29 *= fL;
-                        f30 *= fL;
-                        f31 *= fL; 
-                        
-                        f3 = (f26 * f29) + (f27 * f30) + (f28 * f31);
-                        
-                        if (f3 > 0) 
-                        {
-                            if (pLightPtr->fNearRR < f25) 
-                            {
-                                f3 *= pLightPtr->fNearRR / f25;
-                            }
-
-                            label:
-                            fR += f3 * pLightPtr->fR;
-                            fG += f3 * pLightPtr->fG;
-                            fB += f3 * pLightPtr->fB;
-                        }
+                        break;
+                    }
+                    
+                    fL = njInvertSqrt(f25);
+                    
+                    f29 *= fL;
+                    f30 *= fL;
+                    f31 *= fL; 
+                    
+                    f3 = (f26 * f29) + (f27 * f30) + (f28 * f31);
+                    
+                    if (f3 <= 0) 
+                    {
+                        break;
+                    }
+                    
+                    if (pLightPtr->fNearRR < f25) 
+                    {
+                        f3 *= pLightPtr->fNearRR / f25;
                     }
                 }
-            }
+
+                fR += f3 * pLightPtr->fR;
+                fG += f3 * pLightPtr->fG;
+                fB += f3 * pLightPtr->fB;
+            } while (FALSE);
         }
         
         pBuffer->fIr = fR;
