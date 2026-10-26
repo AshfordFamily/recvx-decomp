@@ -876,40 +876,46 @@ void bhEne02_BR00(BH_PWORK* epw)
             vec.y = 0;
             vec.z = -10.0f * njCos(epw->ay);
 
-            for (i = 0; i < 4; i++)
+            for (i = 0; ; )
             {
                 if (bhCheckWallType(&pos, 0, 10.0f, 5.0f) != NULL) 
                 {
-                    goto label;
+                    break;
                 }
                 
                 njAddVector(&pos, &vec);
-            }
-
-            pos.x = (epw->px - (20.0f * njSin(epw->ay))) - plp->px;
-            pos.z = (epw->pz - (20.0f * njCos(epw->ay))) - plp->pz;
-            pos.y = 0;
-            
-            if (njScalor(&pos) < 20.0f) 
-            {
-                epw->mode1 = 0;
-                epw->mode2 = 2;
-                epw->mode3 = 0;
-
-                if (plp->hp > 40) 
-                {
-                    EXP0_I(112) = (int)(2.0f * (-rand() / -2147483648.0f)) + 1;
-                } 
-                else 
-                {
-                    EXP0_I(112) = 3.0f * (-rand() / -2147483648.0f);
-                }
                 
-                return;
+                if (++i < 4)
+                {
+                    continue;
+                }
+ 
+                pos.x = (epw->px - (20.0f * njSin(epw->ay))) - plp->px;
+                pos.z = (epw->pz - (20.0f * njCos(epw->ay))) - plp->pz;
+                pos.y = 0;
+                
+                if (njScalor(&pos) < 20.0f) 
+                {
+                    epw->mode1 = 0;
+                    epw->mode2 = 2;
+                    epw->mode3 = 0;
+ 
+                    if (plp->hp > 40) 
+                    {
+                        EXP0_I(112) = (int)(2.0f * (-rand() / -2147483648.0f)) + 1;
+                    } 
+                    else 
+                    {
+                        EXP0_I(112) = 3.0f * (-rand() / -2147483648.0f);
+                    }
+                    
+                    return;
+                }
+ 
+                break;
             }
         }
 
-    label:
         pos.x = epw->px;
         pos.y = epw->py;
         pos.z = epw->pz;
@@ -1809,50 +1815,52 @@ void bhEne02_Nage()
 // 100% matching!
 void bhEne02_Damage(BH_PWORK* epw)
 {
-	if ((epw->flg & 0x4))
-	{
-		epw->flg &= ~0x4;
+    do 
+    {
+        if ((epw->flg & 0x4))
+        {
+            epw->flg &= ~0x4;
 
-		bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
+            bhEne_CalcDamage(epw, CombWepTbl, CombJointTbl);
 
-		if ((epw->wpnr_no == 16) && (!(epw->flg2 & 0x4)) && (epw->comb_pnt != 1))
-		{
-			goto label;
-		}
+            if ((epw->wpnr_no == 16) && (!(epw->flg2 & 0x4)) && (epw->comb_pnt != 1))
+            {
+                break;
+            }
 
-		epw->hp -= epw->total_dam;
+            epw->hp -= epw->total_dam;
 
-		if ((epw->wpnr_no == 17) && (!(epw->flg2 & 0x4)))
-		{
-			goto label;
-		}
+            if ((epw->wpnr_no == 17) && (!(epw->flg2 & 0x4)))
+            {
+                break;
+            }
 
-		bhEne02_HitMark(epw);
-	}
+            bhEne02_HitMark(epw);
+        }
 
-	if (((epw->flg & 0x400000)) && (epw->hp < 0))
-	{
-		epw->flg |=  0x2;
-		epw->flg &= ~0x20;
+        if (((epw->flg & 0x400000)) && (epw->hp < 0))
+        {
+            epw->flg |=  0x2;
+            epw->flg &= ~0x20;
 
-		epw->mode0 = 4;
-		epw->mode1 = 0;
-		epw->mode3 = 0;
+            epw->mode0 = 4;
+            epw->mode1 = 0;
+            epw->mode3 = 0;
 
-		if (epw->type == 0)
-		{
-			epw->mode2 = 0;
-		}
-		else
-		{
-			epw->mode2 = 1;
-		}
+            if (epw->type == 0)
+            {
+                epw->mode2 = 0;
+            }
+            else
+            {
+                epw->mode2 = 1;
+            }
 
-		bhEne02_Die(epw);
-		return;
-	}
+            bhEne02_Die(epw);
+            return;
+        }
+    } while (FALSE);
 
-label:
 	bhEne02_DamageMode2[epw->mode2](epw);
 }
 
