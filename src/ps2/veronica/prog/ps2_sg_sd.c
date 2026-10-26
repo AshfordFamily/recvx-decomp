@@ -5,6 +5,8 @@
 #include "../../../ps2/veronica/prog/sdfunc.h"
 #include "../../../ps2/veronica/prog/main.h"
 
+#pragma optimization_level 4
+
 //#include <string.h>
 
 short MIDI_HD_CHECK[4];
@@ -1300,8 +1302,6 @@ SDE_ERR	sdSndSetPanMode( const SDE_PAN_MODE pan_mode)
             ADXT_SetOutputMono(0);
             
             sound_flag = 0;
-            
-            goto label;
         }
         else if (pan_mode == 0) 
         {
@@ -1312,15 +1312,12 @@ SDE_ERR	sdSndSetPanMode( const SDE_PAN_MODE pan_mode)
             ADXT_SetOutputMono(1);
             
             sound_flag = 1;
-            
-            goto label;
         }
         else 
         {
             return SDE_ERR_PRM_OVER_RANGE;
         }
 
-    label:
         if (ret == 0) 
         {
             return SDE_ERR_NOTHING;
