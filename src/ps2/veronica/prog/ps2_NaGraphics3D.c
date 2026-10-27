@@ -315,45 +315,39 @@ void njDrawLine3DEx(NJS_POINT3COL* p, int n, unsigned int attr)
             *(unsigned int*)&bp[1][2] = ((unsigned char*)&p->col[i])[0];
             *(unsigned int*)&bp[1][3] = ((unsigned char*)&p->col[i])[3];
             
-            if (Across_Plane(&sc_plane, pos[0], pos[1]) < 0)
+            do 
             {
-                if ((i & 0x1)) 
+                if (Across_Plane(&sc_plane, pos[0], pos[1]) < 0)
                 {
-                    if (Head_or_Tail(&sc_plane, pos[1]) < 0) 
+                    if ((i & 0x1)) 
                     {
-                        CalcIntersectionCone(ans, pos[0], pos[1]);
+                        if (Head_or_Tail(&sc_plane, pos[1]) < 0) 
+                        {
+                            CalcIntersectionCone(ans, pos[0], pos[1]);
+                            
+                            scr.x = ans[0];
+                            scr.y = ans[1];
+                            scr.z = ans[2];
+                            
+                            njPers(&scr);
+                            break;
+                        }
+                    } 
+                    else if (Head_or_Tail(&sc_plane, pos[0]) < 0) 
+                    {
+                        CalcIntersectionCone(ans, pos[1], pos[0]);
                         
                         scr.x = ans[0];
                         scr.y = ans[1];
                         scr.z = ans[2];
                         
                         njPers(&scr);
-                    }
-                    else 
-                    {
-                        goto label;
-                    }
+                        break;
+                    } 
                 } 
-                else if (Head_or_Tail(&sc_plane, pos[0]) < 0) 
-                {
-                    CalcIntersectionCone(ans, pos[1], pos[0]);
-                    
-                    scr.x = ans[0];
-                    scr.y = ans[1];
-                    scr.z = ans[2];
-                    
-                    njPers(&scr);
-                } 
-                else 
-                {
-                    goto label;
-                }
-            } 
-            else 
-            {
-label:
+
                 njRotTransPers(&p->p[i], &scr); 
-            }
+            } while (FALSE);
             
             bp[2][0] = scr.x;
             bp[2][1] = scr.y;
