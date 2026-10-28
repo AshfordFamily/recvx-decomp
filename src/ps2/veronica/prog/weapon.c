@@ -639,147 +639,148 @@ int bhCheckGunAtari(GA_WORK* gap)
             
             gatr.r = gap->r + ll; 
             
-            if (!(wp_flg & 0x20000000)) 
+            do
             {
-                vec0.x = gap->vx;
-                vec0.y = 0;
-                vec0.z = gap->vz;
-                
-                vec1.x = ps.x - (gap->px - (gvec.x * gap->r));
-                vec1.y = 0;
-                vec1.z = ps.z - (gap->pz - (gvec.z * gap->r));
-                
-                njUnitVector(&vec0);
-                njUnitVector(&vec1);
-                
-                if (njInnerProduct(&vec0, &vec1) >= 0) 
+                if (!(wp_flg & 0x20000000)) 
                 {
-                    goto label_1;
+                    vec0.x = gap->vx;
+                    vec0.y = 0;
+                    vec0.z = gap->vz;
+                    
+                    vec1.x = ps.x - (gap->px - (gvec.x * gap->r));
+                    vec1.y = 0;
+                    vec1.z = ps.z - (gap->pz - (gvec.z * gap->r));
+                    
+                    njUnitVector(&vec0);
+                    njUnitVector(&vec1);
+                    
+                    if (njInnerProduct(&vec0, &vec1) < 0) 
+                    {
+                        break;
+                    } 
                 } 
-            } 
-            else 
-            {
-label_1:
+                
                 if (!(wp_flg & 0x8)) 
                 { 
-                    if (npCollisionCheckCCEx(&gatr, &pp->watr, &ap) != 0)
+                    if (npCollisionCheckCCEx(&gatr, &pp->watr, &ap) == 0)
                     {
-                        npDistanceP2C(&ap, &pp->watr, &ps);
-                        
-                        if (((pp->flg & 0x100)) && (pp->py > ps.y))
-                        {
-                            ps.y = 1.0f + pp->py;
-                        }
-                        
-                        goto label_2;
+                        break;
+                    }
+                    
+                    npDistanceP2C(&ap, &pp->watr, &ps);
+                    
+                    if (((pp->flg & 0x100)) && (pp->py > ps.y))
+                    {
+                        ps.y = 1.0f + pp->py;
                     }
                 } 
                 else 
                 { 
-                    if ((kno = bhCheckCapCol2Capsule(pp, &gatr, &ps)) >= 0) 
+                    if ((kno = bhCheckCapCol2Capsule(pp, &gatr, &ps)) < 0) 
                     {
-label_2:
-                        wal.c1.x = ps.x;
-                        wal.c1.y = ps.y;
-                        wal.c1.z = ps.z;
-                        
-                        wal.c2.x = gap->gx;
-                        wal.c2.y = gap->gy;
-                        wal.c2.z = gap->gz;
-                        
-                        wal.r = 0.1f;
-                        
-                        if (bhCheckC2WallN(&wal, 0x400) == 0) 
+                        break;
+                    }
+                }
+            
+                wal.c1.x = ps.x;
+                wal.c1.y = ps.y;
+                wal.c1.z = ps.z;
+                
+                wal.c2.x = gap->gx;
+                wal.c2.y = gap->gy;
+                wal.c2.z = gap->gz;
+                
+                wal.r = 0.1f;
+                
+                if (bhCheckC2WallN(&wal, 0x400) == 0) 
+                {
+                    sca.x = gap->gx - ps.x;
+                    sca.y = gap->gy - ps.y;
+                    sca.z = gap->gz - ps.z;
+                    
+                    ll = njScalor(&sca);
+                    
+                    if (ll < (len + gatr.r)) 
+                    { 
+                        if ((ll < nr) || (nr == 0))
                         {
-                            sca.x = gap->gx - ps.x;
-                            sca.y = gap->gy - ps.y;
-                            sca.z = gap->gz - ps.z;
+                            nr = ll;
                             
-                            ll = njScalor(&sca);
+                            id = i;
                             
-                            if (ll < (len + gatr.r)) 
-                            { 
-                                if ((ll < nr) || (nr == 0))
-                                {
-                                    nr = ll;
-                                    
-                                    id = i;
-                                    
-                                    px = ps.x;
-                                    py = ps.y;
-                                    pz = ps.z;
-                                    
-                                    jno = kno;
-                                }
+                            px = ps.x;
+                            py = ps.y;
+                            pz = ps.z;
+                            
+                            jno = kno;
+                        }
+                        
+                        if ((wp_flg & 0x80000000))
+                        {
+                            pp->flg |= 0x4;
+                            
+                            pp->dpx = px;
+                            pp->dpy = py;
+                            pp->dpz = pz;
+                            
+                            pp->dvx = gap->vx;
+                            pp->dvy = gap->vy;
+                            pp->dvz = gap->vz;
+                            
+                            pp->dax = gap->ax;
+                            pp->day = gap->ay;
+                            
+                            pp->wpnr_no = gap->wpn_no;
+                            
+                            if (!(wp_flg & 0x8)) 
+                            {
+                                kno = 0;
+                                knr = 0;
                                 
-                                if ((wp_flg & 0x80000000))
+                                for (j = 1; j < (int)pp->mlwP->obj_num; j++) 
                                 {
-                                    pp->flg |= 0x4;
+                                    sca.x = px - pp->mlwP->owP[j].mtx[12];
+                                    sca.y = py - pp->mlwP->owP[j].mtx[13];
+                                    sca.z = pz - pp->mlwP->owP[j].mtx[14];
                                     
-                                    pp->dpx = px;
-                                    pp->dpy = py;
-                                    pp->dpz = pz;
+                                    ll = njScalor(&sca); 
                                     
-                                    pp->dvx = gap->vx;
-                                    pp->dvy = gap->vy;
-                                    pp->dvz = gap->vz;
-                                    
-                                    pp->dax = gap->ax;
-                                    pp->day = gap->ay;
-                                    
-                                    pp->wpnr_no = gap->wpn_no;
-                                    
-                                    if (!(wp_flg & 0x8)) 
+                                    if ((knr == 0) || (knr > ll)) 
                                     {
-                                        kno = 0;
-                                        knr = 0;
-                                        
-                                        for (j = 1; j < (int)pp->mlwP->obj_num; j++) 
-                                        {
-                                            sca.x = px - pp->mlwP->owP[j].mtx[12];
-                                            sca.y = py - pp->mlwP->owP[j].mtx[13];
-                                            sca.z = pz - pp->mlwP->owP[j].mtx[14];
-                                            
-                                            ll = njScalor(&sca); 
-                                            
-                                            if ((knr == 0) || (knr > ll)) 
-                                            {
-                                                kno = j;
-                                                knr = ll;
-                                            }
-                                        }
-                                    } 
-                                    else
-                                    {
-                                        kno = jno;
-                                    }
-                                    
-                                    pp->djnt_no = kno;
-                                    
-                                    if (nr < 15.0f) 
-                                    {
-                                        pp->dam[kno] += EneDamNear[pp->id][wno];
-                                        
-                                        pp->comb_flg |= 0x10;
-                                    } 
-                                    else if (nr < 40.0f)
-                                    {
-                                        pp->dam[kno] += EneDamMid[pp->id][wno];
-                                        
-                                        pp->comb_flg |= 0x20;
-                                    }
-                                    else 
-                                    {
-                                        pp->dam[kno] += EneDamFar[pp->id][wno];
-                                        
-                                        pp->comb_flg |= 0x40;
+                                        kno = j;
+                                        knr = ll;
                                     }
                                 }
+                            } 
+                            else
+                            {
+                                kno = jno;
+                            }
+                            
+                            pp->djnt_no = kno;
+                            
+                            if (nr < 15.0f) 
+                            {
+                                pp->dam[kno] += EneDamNear[pp->id][wno];
+                                
+                                pp->comb_flg |= 0x10;
+                            } 
+                            else if (nr < 40.0f)
+                            {
+                                pp->dam[kno] += EneDamMid[pp->id][wno];
+                                
+                                pp->comb_flg |= 0x20;
+                            }
+                            else 
+                            {
+                                pp->dam[kno] += EneDamFar[pp->id][wno];
+                                
+                                pp->comb_flg |= 0x40;
                             }
                         }
                     }
                 }
-            }
+            } while (FALSE);
         }
     }
     
