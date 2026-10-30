@@ -15,6 +15,7 @@
 
 // ENEMY: Moth 
 
+#pragma optimization_level 4
 #pragma divbyzerocheck on
 
 static int ENE06_HITPOINT[16] = 
@@ -316,8 +317,8 @@ void bhEne06_Init(BH_PWORK* epw)
 
 	if (epw->exp0 == NULL)
     {
-		epw->exp0 = (unsigned char*)bhEne_CallocWork(176, 8);
-		ep = (BH_PWORK*)ene;
+		epw->exp0 = bhEne_CallocWork(176, 8);
+		ep = ene;
 		for (i = 0; i < sys->ewk_n; i++, ep++)
         {
 			if ((ep->flg & 1) && ep->id == 6)
@@ -328,7 +329,7 @@ void bhEne06_Init(BH_PWORK* epw)
 				} 
                 else
                 {
-					epw->exp1 = (unsigned char*)bhEne_CallocWork(12, 8);
+					epw->exp1 = bhEne_CallocWork(12, 8);
 				}
 
 				if (ep->exp2 != NULL)
@@ -338,7 +339,7 @@ void bhEne06_Init(BH_PWORK* epw)
                 else
                 {
 					ene_n = rom->ene_n;
-					ep_leader = bhSetEnemy((ETTY_WORK*)&ene06_leader, ene_n);
+					ep_leader = bhSetEnemy(&ene06_leader, ene_n);
 					epw->exp2 = (unsigned char*)ep_leader;
 					ep_leader->mdflg |= 0x21;
 					ep_leader->exp1 = epw->exp1;
@@ -352,7 +353,7 @@ void bhEne06_Init(BH_PWORK* epw)
 		for (i = 0; i < 14; i++, epw2++)
         {
 			ene_n = rom->ene_n;
-			*epw2 = bhSetEnemy((ETTY_WORK*)&ene06_child, ene_n);
+			*epw2 = bhSetEnemy(&ene06_child, ene_n);
 			(*epw2)->lkwkp = (unsigned char*)epw;
 			(*epw2)->lkono = i;
 			(*epw2)->lox = 0.0f;
@@ -361,7 +362,7 @@ void bhEne06_Init(BH_PWORK* epw)
 			(*epw2)->mdflg |= 1;
 			(*epw2)->mtx = &epw->mlwP->owP[BrokenParts[i]].mtx;
         }
-		bhEne_SetCallFunc((void (*)(BH_PWORK*))&bhEne06s, 31);
+		bhEne_SetCallFunc(&bhEne06s, 31);
 	}
 
 	EXP0_F(0x6c) = epw->ar;
