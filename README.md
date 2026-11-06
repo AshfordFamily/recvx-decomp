@@ -77,6 +77,7 @@ Related decomp projects:
 - [Fahrenheit](https://github.com/fmil95/santamonica)
 - [Fatal Frame](https://github.com/Mikompilation/Himuro)
 - [Legacy of Kain: Soul Reaver](https://github.com/fmil95/soul-re)
+- [Legacy of Kain: Soul Reaver 2](https://github.com/fmil95/soul-re2)
 
 Also be sure to check out these [neat patches for PCSX2](https://github.com/fmil95/cvxpacchi). AshfordFamily's org avatar fan art was designed by [fishiiarts_](https://www.instagram.com/fishiiarts_/).
 
